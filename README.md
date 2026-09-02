@@ -1,73 +1,46 @@
-# React + TypeScript + Vite
+# AuditOS — Interactive GRC Audit Workstation
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A cinematic, fully interactive web app for running professional GRC audits end-to-end — from engagement scoping through question-by-question fieldwork to exported executive reports.
 
-Currently, two official plugins are available:
+**532 real audit questions · 9 frameworks · 121-term hover glossary · interview scripts per stakeholder role · PDF/CSV/JSON report export**
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Frameworks Covered
 
-## React Compiler
+| Framework | Questions | Coverage |
+|---|---|---|
+| ISO/IEC 27001:2022 | 85 | All 93 Annex A controls + Clauses 4–10 |
+| ISO/IEC 42001:2023 | 55 | AIMS clauses + Annex A.2–A.10 AI lifecycle |
+| NIST CSF 2.0 | 74 | All 6 functions, 22 categories |
+| NIST SP 800-53 Rev. 5 | 71 | All 20 control families |
+| COSO 2013 + ERM 2017 | 47 | All 17 Principles + ERM alignment |
+| COBIT 2019 | 52 | EDM/APO/BAI/DSS/MEA + capability levels |
+| MITRE ATT&CK Enterprise | 55 | 80 technique IDs, defensive-coverage framing |
+| SOC 2 (Trust Services Criteria) | 49 | CC1–CC9 + A/PI/C/P criteria |
+| PCI DSS v4.0 | 44 | All 12 requirements |
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Features
 
-## Expanding the ESLint configuration
+- **Guided Audit Workflow** — question-by-question walkthrough per framework with control references, "who to ask" role chips, evidence checklists, expert guidance ("what good looks like"), follow-up probes, and keyboard-first answer capture (Compliant / Partial / Non-Compliant / N-A)
+- **Interview Mode** — all questions auto-routed to 14 stakeholder roles (CISO, IT Ops, HR, DPO, CFO…) with generated per-role scripts and a live session mode (timer, large-type stage, quick capture)
+- **Findings & Scoring** — weighted compliance scores, domain radar, severity-tiered findings register auto-generated from answers, remediation tracking
+- **Reports** — 4 templates (Executive Summary, Full Audit Report, Findings Register, Evidence Log) with live A4 print-ready preview; export to PDF (print), CSV, JSON
+- **TermTip** — hover any abbreviation anywhere in the app for a detailed popover (full name, auditor-grade definition, related frameworks); 121 terms, plus a searchable glossary page
+- **AEGIS-style command-centre UI** — dark navy-teal palette, luminous lime accents, cinematic dashboard with posture gauge and activity charts
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Tech Stack
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+React 19 · TypeScript · Vite 7 · Tailwind CSS 3.4 · shadcn/ui · Zustand (persisted to localStorage) · Framer Motion · GSAP · Recharts · Lenis
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## Getting Started
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
+npm run dev      # local dev server
+npm run build    # production build → dist/
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Data Model
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+Framework question banks live in `src/data/frameworks/*.json` (schema: phases → questions with `controlRef`, `interviewees`, `evidence`, `guidance`, `probes`, `weight`). Glossary terms in `src/data/glossary.json`. Audit state (answers, evidence checks, flags) persists in the browser via Zustand + localStorage — no backend required.
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+> Note: audit data is stored per-browser (localStorage). Clearing browser data resets engagements.
