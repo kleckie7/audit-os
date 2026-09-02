@@ -48,6 +48,8 @@ export interface Answer {
 
 export interface Engagement {
   id: string
+  /** Numeric backend (database) id when this engagement is synced to the cloud; null when local-only. */
+  backendId?: number | null
   client: string
   name: string
   startedAt: string

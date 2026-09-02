@@ -74,6 +74,7 @@ export const useAuditStore = create<AuditState>()(
         set({
           engagement: {
             ...input,
+            backendId: null,
             startedAt: new Date().toISOString(),
             answers: {},
           },
