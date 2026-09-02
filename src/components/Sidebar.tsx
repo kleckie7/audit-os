@@ -3,6 +3,7 @@ import { motion } from 'framer-motion'
 import {
   BookOpenText,
   ClipboardCheck,
+  Compass,
   FileBarChart,
   Layers,
   LayoutDashboard,
@@ -34,6 +35,7 @@ const WORKSPACE: NavItem[] = [
 
 const REFERENCE: NavItem[] = [
   { label: 'Framework Library', to: '/frameworks', icon: Layers },
+  { label: 'Field Guide', to: '/field-guide', icon: Compass },
   { label: 'Glossary', to: '/glossary', icon: BookOpenText },
 ]
 
