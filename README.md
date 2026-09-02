@@ -24,23 +24,30 @@ A cinematic, fully interactive web app for running professional GRC audits end-t
 - **Interview Mode** — all questions auto-routed to 14 stakeholder roles (CISO, IT Ops, HR, DPO, CFO…) with generated per-role scripts and a live session mode (timer, large-type stage, quick capture)
 - **Findings & Scoring** — weighted compliance scores, domain radar, severity-tiered findings register auto-generated from answers, remediation tracking
 - **Reports** — 4 templates (Executive Summary, Full Audit Report, Findings Register, Evidence Log) with live A4 print-ready preview; export to PDF (print), CSV, JSON
+- **Field Guide** (`/field-guide`) — interactive 7-chapter engagement playbook: scoping, interview craft, framework entry points, findings & closing
+- **Accounts & cloud sync** — Kimi sign-in, multi-engagement workspaces, audit data synced across devices (guest mode works fully offline)
 - **TermTip** — hover any abbreviation anywhere in the app for a detailed popover (full name, auditor-grade definition, related frameworks); 121 terms, plus a searchable glossary page
 - **AEGIS-style command-centre UI** — dark navy-teal palette, luminous lime accents, cinematic dashboard with posture gauge and activity charts
 
 ## Tech Stack
 
-React 19 · TypeScript · Vite 7 · Tailwind CSS 3.4 · shadcn/ui · Zustand (persisted to localStorage) · Framer Motion · GSAP · Recharts · Lenis
+React 19 · TypeScript · Vite 7 · Tailwind CSS 3.4 · shadcn/ui · Zustand · Framer Motion · GSAP · Recharts · Lenis
+**Backend:** Hono + tRPC 11 · Drizzle ORM + MySQL · Kimi OAuth 2.0 (JWT sessions)
 
 ## Getting Started
 
 ```bash
 npm install
-npm run dev      # local dev server
-npm run build    # production build → dist/
+npm run dev       # local dev server with HMR (http://localhost:3000)
+npm run build     # production build → dist/ (client + server boot bundle)
+npm start         # production server
+npm run db:push   # sync Drizzle schema to MySQL (requires DATABASE_URL in .env)
 ```
+
+> **Note:** the app was built on the Kimi platform — Kimi OAuth and the managed MySQL database are platform-provided (`.env` is not committed). A self-hosted copy needs its own database + auth provider; the frontend also works standalone in guest mode (localStorage persistence, no backend required).
 
 ## Data Model
 
-Framework question banks live in `src/data/frameworks/*.json` (schema: phases → questions with `controlRef`, `interviewees`, `evidence`, `guidance`, `probes`, `weight`). Glossary terms in `src/data/glossary.json`. Audit state (answers, evidence checks, flags) persists in the browser via Zustand + localStorage — no backend required.
+Framework question banks live in `src/data/frameworks/*.json` (schema: phases → questions with `controlRef`, `interviewees`, `evidence`, `guidance`, `probes`, `weight`). Glossary terms in `src/data/glossary.json`.
 
-> Note: audit data is stored per-browser (localStorage). Clearing browser data resets engagements.
+Audit state is synced to MySQL for signed-in users (tables: `engagements`, `answers`, `finding_overrides`) via tRPC (`api/audit-router.ts`); guests run local-only via Zustand + localStorage (`src/lib/store.ts`, sync layer in `src/lib/sync.ts`).
