@@ -143,7 +143,11 @@ function useSignalSeries() {
 
 function Ticker() {
   const items = useMemo(() => {
-    const codes = FRAMEWORKS.map((f) => `${f.shortName} ${f.version}`.toUpperCase())
+    const codes = FRAMEWORKS.map((f) => {
+      // avoid "NIST CSF 2.0 2.0" when shortName already carries the version
+      const label = f.version && f.shortName.includes(f.version) ? f.shortName : `${f.shortName} ${f.version}`
+      return label.toUpperCase().replace(/\s+/g, ' ').trim()
+    })
     const total = FRAMEWORKS.reduce((n, f) => n + questionCount(f.id), 0)
     return [
       'AUDITOS / GRC COMMAND CENTRE',

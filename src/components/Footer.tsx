@@ -12,7 +12,7 @@ export default function Footer() {
     : '14:32:07'
 
   const versions = FRAMEWORKS.slice(0, 4)
-    .map((f) => `${f.shortName} ${f.version}`)
+    .map((f) => (f.version && f.shortName.includes(f.version) ? f.shortName : `${f.shortName} ${f.version}`))
     .join(' · ')
 
   return (
