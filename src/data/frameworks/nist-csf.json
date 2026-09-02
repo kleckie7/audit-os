@@ -1,0 +1,34 @@
+{
+  "id": "nist-csf",
+  "name": "NIST CSF 2.0",
+  "shortName": "NIST CSF",
+  "version": "2.0",
+  "category": "security",
+  "description": "NIST Cybersecurity Framework \u2014 six functions from Govern to Recover.",
+  "phases": [
+    {
+      "id": "nist-csf-p1",
+      "name": "GOVERN",
+      "questions": [
+        {
+          "id": "nist-csf-q001",
+          "controlRef": "GV.OC-01",
+          "question": "Is the organizational mission and cybersecurity risk appetite understood and communicated?",
+          "whyItMatters": "This control establishes a foundational requirement; auditors verify both design and operating effectiveness.",
+          "interviewees": [
+            "CISO"
+          ],
+          "evidence": [
+            "EV-001 Policy document"
+          ],
+          "guidance": "Request the current approved policy, confirm management sign-off and review date, and test that it has been communicated to relevant staff.",
+          "probes": [
+            "When was this last reviewed and by whom?",
+            "How are exceptions handled?"
+          ],
+          "weight": 2
+        }
+      ]
+    }
+  ]
+}

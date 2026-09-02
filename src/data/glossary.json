@@ -1,0 +1,37 @@
+[
+  {
+    "term": "GRC",
+    "fullName": "Governance, Risk & Compliance",
+    "definition": "The integrated discipline of aligning IT and business objectives (governance), identifying and treating uncertainty (risk), and meeting legal, regulatory, and contractual obligations (compliance). In an audit context, GRC frameworks structure how controls are selected, tested, and reported.",
+    "category": "DISCIPLINE",
+    "frameworks": ["ISO 27001", "SOC 2", "COBIT 2019"]
+  },
+  {
+    "term": "ISO 27001",
+    "fullName": "ISO/IEC 27001 — Information Security Management",
+    "definition": "The international standard for establishing, operating, and certifying an Information Security Management System (ISMS). The 2022 revision organizes 93 Annex A controls into four themes: Organizational, People, Physical, and Technological.",
+    "category": "STANDARD",
+    "frameworks": ["ISO 27001"]
+  },
+  {
+    "term": "NIST CSF",
+    "fullName": "NIST Cybersecurity Framework 2.0",
+    "definition": "A voluntary framework from the US National Institute of Standards and Technology organized into six functions: Govern, Identify, Protect, Detect, Respond, Recover. Auditors use its categories and subcategories to benchmark an organization's cybersecurity posture.",
+    "category": "FRAMEWORK",
+    "frameworks": ["NIST CSF 2.0"]
+  },
+  {
+    "term": "MFA",
+    "fullName": "Multi-Factor Authentication",
+    "definition": "Authentication requiring two or more independent factors: knowledge (password), possession (token, device), or inherence (biometric). Auditors test MFA coverage on remote access, privileged accounts, and cloud consoles — gaps here are consistently high-severity findings.",
+    "category": "TECHNOLOGY",
+    "frameworks": ["ISO 27001", "NIST 800-53", "PCI DSS", "SOC 2"]
+  },
+  {
+    "term": "SoA",
+    "fullName": "Statement of Applicability",
+    "definition": "The ISO 27001 document that lists every Annex A control, states whether it applies to the organization, and justifies inclusions and exclusions. It is the anchor artifact of any ISO 27001 audit — certification bodies review it first.",
+    "category": "STANDARD",
+    "frameworks": ["ISO 27001"]
+  }
+]

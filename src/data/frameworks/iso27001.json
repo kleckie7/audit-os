@@ -1,0 +1,34 @@
+{
+  "id": "iso27001",
+  "name": "ISO 27001:2022",
+  "shortName": "ISO 27001",
+  "version": "2022",
+  "category": "security",
+  "description": "International standard for information security management systems (ISMS).",
+  "phases": [
+    {
+      "id": "iso27001-p1",
+      "name": "Organizational controls",
+      "questions": [
+        {
+          "id": "iso27001-q001",
+          "controlRef": "A.5.1",
+          "question": "Are policies for information security defined, approved by management, published, and communicated?",
+          "whyItMatters": "This control establishes a foundational requirement; auditors verify both design and operating effectiveness.",
+          "interviewees": [
+            "CISO"
+          ],
+          "evidence": [
+            "EV-001 Policy document"
+          ],
+          "guidance": "Request the current approved policy, confirm management sign-off and review date, and test that it has been communicated to relevant staff.",
+          "probes": [
+            "When was this last reviewed and by whom?",
+            "How are exceptions handled?"
+          ],
+          "weight": 2
+        }
+      ]
+    }
+  ]
+}

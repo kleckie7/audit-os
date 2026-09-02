@@ -1,0 +1,34 @@
+{
+  "id": "mitre-attack",
+  "name": "MITRE ATT&CK",
+  "shortName": "ATT&CK",
+  "version": "v16",
+  "category": "threat",
+  "description": "Knowledge base of adversary tactics, techniques, and procedures used for detection coverage assessments.",
+  "phases": [
+    {
+      "id": "mitre-attack-p1",
+      "name": "Initial Access",
+      "questions": [
+        {
+          "id": "mitre-attack-q001",
+          "controlRef": "TA0001",
+          "question": "Are detections in place for initial-access techniques such as phishing (T1566)?",
+          "whyItMatters": "This control establishes a foundational requirement; auditors verify both design and operating effectiveness.",
+          "interviewees": [
+            "CISO"
+          ],
+          "evidence": [
+            "EV-001 Policy document"
+          ],
+          "guidance": "Request the current approved policy, confirm management sign-off and review date, and test that it has been communicated to relevant staff.",
+          "probes": [
+            "When was this last reviewed and by whom?",
+            "How are exceptions handled?"
+          ],
+          "weight": 2
+        }
+      ]
+    }
+  ]
+}
