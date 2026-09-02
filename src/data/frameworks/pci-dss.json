@@ -1,34 +1,1064 @@
 {
-  "id": "pci-dss",
-  "name": "PCI DSS 4.0",
-  "shortName": "PCI DSS",
-  "version": "4.0",
-  "category": "security",
-  "description": "Payment Card Industry Data Security Standard for cardholder data environments.",
-  "phases": [
+ "id": "pci-dss",
+ "name": "PCI DSS v4.0",
+ "shortName": "PCI DSS",
+ "version": "4.0",
+ "category": "security",
+ "description": "PCI DSS v4.0 defines twelve requirements for protecting account data, published by the PCI Security Standards Council and enforced through acquiring banks and card brands. Depending on transaction volume, an organization validates compliance through an annual Report on Compliance (ROC) by a Qualified Security Assessor (QSA) or a Self-Assessment Questionnaire (SAQ). Version 4.0 strengthened authentication, e-commerce skimming defenses and risk-based flexibility through targeted risk analyses and the Customized Approach, with a number of future-dated requirements becoming mandatory on 31 March 2025.",
+ "tagline": "The global security standard any organization that stores, processes or transmits cardholder data must meet, enforced by the payment card brands.",
+ "auditFocus": [
+  "Accuracy of cardholder data environment (CDE) scoping and network segmentation validation",
+  "Complete, current cardholder data flows and an inventory of where account data is stored, processed or transmitted",
+  "Minimization of stored account data and prohibition of sensitive authentication data after authorization",
+  "Correct application of v4.0 authentication requirements, especially MFA under Req 8.4",
+  "E-commerce payment page protections: script management (Req 6.4.3) and change/tamper detection (Req 11.6.1)",
+  "Assessment mechanics: QSA fieldwork, ASV scans, penetration testing, and ROC vs SAQ reporting obligations"
+ ],
+ "phases": [
+  {
+   "id": "phase-1",
+   "name": "Phase 1 \u2014 Scoping, Data Flows & Assessment Preparation",
+   "objective": "Establish an accurate CDE scope and segmentation strategy, document cardholder data flows, determine the correct validation instrument (ROC vs SAQ), and prepare the organization for QSA fieldwork including ASV scan and penetration test scheduling.",
+   "questions": [
     {
-      "id": "pci-dss-p1",
-      "name": "Build and Maintain a Secure Network",
-      "questions": [
-        {
-          "id": "pci-dss-q001",
-          "controlRef": "Req 1.1",
-          "question": "Are network security controls defined, implemented, and maintained?",
-          "whyItMatters": "This control establishes a foundational requirement; auditors verify both design and operating effectiveness.",
-          "interviewees": [
-            "CISO"
-          ],
-          "evidence": [
-            "EV-001 Policy document"
-          ],
-          "guidance": "Request the current approved policy, confirm management sign-off and review date, and test that it has been communicated to relevant staff.",
-          "probes": [
-            "When was this last reviewed and by whom?",
-            "How are exceptions handled?"
-          ],
-          "weight": 2
-        }
-      ]
+     "id": "pci-dss-p1-q01",
+     "controlRef": "Req 12.5.2 \u2014 PCI DSS scope documentation",
+     "question": "Walk me through how you determined and documented your PCI DSS scope: which systems, networks, people and processes store, process, transmit or can impact the security of cardholder data?",
+     "whyItMatters": "Everything in a PCI assessment hangs on scope accuracy. Under-scoping is the single most common and most dangerous failure \u2014 unassessed systems handling cardholder data create both breach risk and compliance invalidity.",
+     "interviewees": [
+      "QSA (if engaged)",
+      "CISO",
+      "IT Manager",
+      "Compliance Officer"
+     ],
+     "evidence": [
+      "Scope documentation (Req 12.5.2)",
+      "Network diagrams with CDE boundary",
+      "Asset inventory of in-scope components",
+      "Data discovery/scan results used to validate scope"
+     ],
+     "guidance": "A GOOD answer shows scope documented and confirmed at least annually, an inventory of all in-scope system components, and active validation (data discovery scans, traffic analysis) proving cardholder data has not crept outside the defined CDE.",
+     "probes": [
+      "When did you last run a data discovery scan for PAN outside the CDE, and what did it find?",
+      "Which systems were newly brought into scope this year, and how did you detect them?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "pci-dss-p1-q02",
+     "controlRef": "PCI DSS Scope Guidance / Req 11.4.5 \u2014 Segmentation",
+     "question": "Do you use network segmentation to reduce scope, and if so how is the segmentation implemented and how is its effectiveness validated?",
+     "whyItMatters": "Segmentation can dramatically shrink the assessment footprint, but only if it genuinely isolates the CDE. v4.0 requires penetration testing of segmentation controls (Req 11.4.5) at least annually and after changes \u2014 paper segmentation does not count.",
+     "interviewees": [
+      "Network Engineer",
+      "CISO",
+      "QSA (if engaged)"
+     ],
+     "evidence": [
+      "Firewall/VLAN/ACL configurations isolating the CDE",
+      "Segmentation penetration test report",
+      "Ruleset documentation showing deny-all between CDE and out-of-scope networks",
+      "Change records for segmentation controls"
+     ],
+     "guidance": "A GOOD answer shows enforced technical isolation (not just VLAN labels), annual segmentation penetration testing proving out-of-scope systems cannot reach the CDE, and re-testing after significant changes.",
+     "probes": [
+      "Show me the last segmentation test \u2014 did any out-of-scope path into the CDE exist?",
+      "What happens to scope if segmentation testing fails?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "pci-dss-p1-q03",
+     "controlRef": "PCI DSS Scope \u2014 Account data flows / Req 3.2.1",
+     "question": "Show me your current cardholder data flow diagrams: where does account data enter, where is it stored, processed and transmitted, which systems and third parties touch it, and how are the diagrams kept accurate?",
+     "whyItMatters": "Data flow diagrams are the scoping evidence a QSA tests first. Undocumented flows (support tooling, analytics exports, log aggregation, backups) are where cardholder data escapes the CDE unnoticed.",
+     "interviewees": [
+      "CISO",
+      "Software Dev Lead",
+      "IT Manager",
+      "Payments/Product Manager"
+     ],
+     "evidence": [
+      "Data flow diagrams with dates",
+      "PAN location inventory",
+      "Third-party/processor data sharing map",
+      "Change process that triggers diagram updates"
+     ],
+     "guidance": "A GOOD answer presents current, dated diagrams covering all acceptance channels (web, POS, phone, mobile) and every storage/processing point, including support and logging systems, with a documented trigger to update them when systems change.",
+     "probes": [
+      "Could card numbers appear in application logs or customer support tickets?",
+      "Which flows changed since these diagrams were last dated?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "pci-dss-p1-q04",
+     "controlRef": "PCI DSS Validation \u2014 ROC vs SAQ determination",
+     "question": "Are you required to validate via a QSA-led Report on Compliance or a Self-Assessment Questionnaire, which SAQ type applies if self-assessing, and who confirmed this with your acquirer or the card brands?",
+     "whyItMatters": "Validation level depends on merchant/service-provider level and acceptance channels. Choosing the wrong SAQ (e.g. SAQ A while your site hosts the payment page) is a common and serious misrepresentation discovered only after a breach.",
+     "interviewees": [
+      "Compliance Officer",
+      "CFO",
+      "Legal Counsel",
+      "Acquirer relationship manager"
+     ],
+     "evidence": [
+      "Merchant level determination from acquirer",
+      "Selected SAQ type with eligibility rationale",
+      "Prior AOC/ROC",
+      "Acquirer correspondence"
+     ],
+     "guidance": "A GOOD answer shows a documented level determination confirmed with the acquirer, the correct SAQ variant matched to actual acceptance channels (e.g. SAQ A-EP for e-commerce redirect/iframe with site scripts, not SAQ A), and an executive attestation owner.",
+     "probes": [
+      "Does your website host any script that affects the payment page? If yes, why are you on SAQ A?",
+      "Has your transaction volume crossed a level threshold this year?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "pci-dss-p1-q05",
+     "controlRef": "PCI SSC QSA Program / AT-C style engagement scoping",
+     "question": "If you engage a QSA: how was the QSA firm selected, how is the assessment scope agreed in writing, and how do you manage evidence requests, interviews and the fieldwork calendar?",
+     "whyItMatters": "The QSA relationship determines assessment quality and cost. Disagreements mid-fieldwork about scope or evidence cause delays, gaps, and unplanned findings.",
+     "interviewees": [
+      "Compliance Officer",
+      "CISO",
+      "Procurement/Vendor Manager"
+     ],
+     "evidence": [
+      "QSA engagement letter with agreed scope",
+      "Evidence request list and tracking",
+      "Assessment project plan",
+      "Prior QSA findings and remediation records"
+     ],
+     "guidance": "A GOOD answer shows a written scope agreed before fieldwork, a single point of contact managing evidence with deadlines, and evidence of internal pre-assessment (mock/gap review) so fieldwork validates rather than discovers.",
+     "probes": [
+      "What did your last assessment's findings list look like, and is everything remediated?",
+      "How do you ensure evidence given to the QSA covers the full assessment period, not just recent weeks?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "pci-dss-p1-q06",
+     "controlRef": "Req 11.3.2 \u2014 External vulnerability scans by an ASV",
+     "question": "How are quarterly external vulnerability scans by an Approved Scanning Vendor arranged, and what is your process when a scan fails?",
+     "whyItMatters": "Passing quarterly ASV scans are a mandatory, externally-visible validation artifact. Failed scans with unresolved high-severity findings block attestation and signal internet-facing hygiene problems.",
+     "interviewees": [
+      "IT Manager",
+      "Security Engineer",
+      "Compliance Officer"
+     ],
+     "evidence": [
+      "ASV scan reports for the last four quarters",
+      "Remediation evidence for failed scans",
+      "ASV contract/scope of scanned IPs",
+      "Attestation of scan compliance"
+     ],
+     "guidance": "A GOOD answer shows four consecutive quarters of passing scans covering all internet-facing CDE components, a documented fix-and-rescan cycle for failures, and processes ensuring new external IPs get added to scan scope.",
+     "probes": [
+      "Have any quarters been missed or failed in the last year? Why?",
+      "How are newly provisioned internet-facing assets added to ASV scope?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "pci-dss-p1-q07",
+     "controlRef": "Req 11.4.1 / 11.4.2 \u2014 Penetration testing program",
+     "question": "What is your penetration testing methodology and schedule \u2014 internal and external testing of the CDE perimeter and critical systems at least annually and after significant changes?",
+     "whyItMatters": "Req 11.4 mandates documented methodology, defined coverage, annual testing and retesting of exploitable findings. A checkbox pentest with no remediation retest does not meet the requirement.",
+     "interviewees": [
+      "CISO",
+      "Security Engineer",
+      "QSA (if engaged)"
+     ],
+     "evidence": [
+      "Penetration testing methodology document",
+      "Latest internal and external pentest reports",
+      "Remediation and retest evidence",
+      "Definition of significant changes triggering retests"
+     ],
+     "guidance": "A GOOD answer shows industry-accepted methodology (e.g. NIST SP 800-115), coverage of the CDE perimeter and critical internal systems, testing after significant changes, and verified remediation of exploitable vulnerabilities found.",
+     "probes": [
+      "What significant changes occurred since the last pentest, and did they trigger one?",
+      "Show me retest evidence for the critical findings from the last report."
+     ],
+     "weight": 3
+    },
+    {
+     "id": "pci-dss-p1-q08",
+     "controlRef": "PCI DSS v4.0 transition / Future-dated requirements",
+     "question": "How are you tracking the v4.0 requirements that were best practices until 31 March 2025 (e.g. MFA expansion, payment page protections, targeted risk analyses) \u2014 are they all now implemented and evidenced?",
+     "whyItMatters": "Organizations assessed against v3.2.1 habits routinely miss future-dated v4.0 items now in force. Assessors must test them as full requirements; absence is a compliance failure, not a roadmap item.",
+     "interviewees": [
+      "Compliance Officer",
+      "CISO",
+      "IT Manager"
+     ],
+     "evidence": [
+      "v4.0 gap assessment against future-dated requirements",
+      "Implementation evidence for each former future-dated item",
+      "Transition project plan with closure status"
+     ],
+     "guidance": "A GOOD answer includes a completed gap analysis for every previously future-dated requirement (8.3.6, 8.4.x, 6.4.3, 11.6.1, targeted risk analyses, 3.3.1.1 hashing of PAN where used, etc.) with implementation and operating evidence.",
+     "probes": [
+      "Which former future-dated requirement was hardest to implement, and what evidence proves it operates?",
+      "Are any still in progress? What is the compliance impact?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "pci-dss-p1-q09",
+     "controlRef": "Req 12.8.1 / 12.8.2 / 12.8.5 \u2014 Third-party service providers",
+     "question": "Which third-party service providers (processors, gateways, hosting, tokenization providers) can impact cardholder data security, how is their PCI compliance verified, and is responsibility for each requirement documented?",
+     "whyItMatters": "Req 12.8 requires maintaining TPSP inventories, written agreements acknowledging PCI responsibility, due diligence, and an annual compliance status review. Outsourcing processing does not outsource accountability.",
+     "interviewees": [
+      "Procurement/Vendor Manager",
+      "Compliance Officer",
+      "Legal Counsel"
+     ],
+     "evidence": [
+      "TPSP inventory",
+      "TPSP AOCs (Attestations of Compliance)",
+      "Contracts with PCI acknowledgment clauses",
+      "TPSP/entity responsibility matrix (Req 12.8.5)"
+     ],
+     "guidance": "A GOOD answer shows current AOCs collected annually from every TPSP touching account data, contracts with PCI responsibility language, and a requirement-by-requirement responsibility matrix the QSA can test against.",
+     "probes": [
+      "Which TPSP's AOC is expired right now?",
+      "If your processor is breached, which requirements remain your responsibility?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "pci-dss-p1-q10",
+     "controlRef": "PCI DSS v4.0 Customized Approach \u2014 decision and documentation",
+     "question": "Have you implemented any requirement via the Customized Approach rather than the defined approach, and if so how is the customized control documented, risk-assessed and validated?",
+     "whyItMatters": "v4.0's Customized Approach allows alternative controls meeting the requirement's objective, but demands a documented targeted risk analysis, controls matrix, and testing evidence in the ROC (Appendix D/E). Casual 'equivalent controls' without documentation fail.",
+     "interviewees": [
+      "CISO",
+      "QSA (if engaged)",
+      "Compliance Officer"
+     ],
+     "evidence": [
+      "Customized Approach implementation documentation",
+      "Targeted risk analysis for the customized control",
+      "ROC Appendix D/E entries",
+      "Testing evidence for the customized control"
+     ],
+     "guidance": "A GOOD answer shows the Customized Approach used deliberately and sparingly, with a controls matrix proving the objective is met, a targeted risk analysis, and QSA validation documented in the ROC \u2014 not informal compensating-control habits from v3.2.1.",
+     "probes": [
+      "Which requirements are customized, and how does the QSA test them?",
+      "What is the migration plan if the customized control cannot be validated?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "pci-dss-p1-q11",
+     "controlRef": "PCI DSS v4.0 Targeted Risk Analysis (e.g. Req 5.2.3.1, 10.4.1.1, 11.3.1.1)",
+     "question": "Where v4.0 lets you define control frequencies via a targeted risk analysis (TRA), what TRAs have you performed, how are they documented, and when are they reviewed?",
+     "whyItMatters": "TRAs replaced some fixed frequencies with entity-defined ones \u2014 but only with a documented analysis using the PCI SSC template, reviewed at least annually. Choosing a frequency without a TRA is non-compliance.",
+     "interviewees": [
+      "Risk Manager",
+      "CISO",
+      "Compliance Officer"
+     ],
+     "evidence": [
+      "Completed targeted risk analyses",
+      "TRA review dates",
+      "Link from each TRA to the requirement frequency it governs"
+     ],
+     "guidance": "A GOOD answer lists every requirement where the entity set its own frequency, each backed by a documented TRA using the PCI SSC template, approved by management, and reviewed at least annually or after relevant changes.",
+     "probes": [
+      "Show me the TRA governing your log review frequency.",
+      "Have any TRA conclusions changed on annual review?"
+     ],
+     "weight": 2
     }
-  ]
+   ]
+  },
+  {
+   "id": "phase-2",
+   "name": "Phase 2 \u2014 Build & Protect: Network Security, Secure Configuration, Stored Data, Transmission, Malware & Secure Software (Req 1\u20136)",
+   "objective": "Test the technical safeguards that build and maintain a secure CDE: network security controls, hardened configurations, protection of stored account data, encryption of transmission, anti-malware defenses, and secure software development including e-commerce payment page script controls.",
+   "questions": [
+    {
+     "id": "pci-dss-p2-q01",
+     "controlRef": "Req 1.2 / 1.3 \u2014 Network security controls and CDE access restriction",
+     "question": "How are network security controls (firewalls, cloud security groups) configured to restrict inbound and outbound traffic to and from the CDE to only what is necessary, and how are rules reviewed?",
+     "whyItMatters": "Req 1.2-1.3 require traffic to the CDE be restricted to necessary communications. Overly permissive rules and unrestricted outbound traffic are leading causes of CDE compromise and assessment findings.",
+     "interviewees": [
+      "Network Engineer",
+      "Security Engineer",
+      "IT Manager"
+     ],
+     "evidence": [
+      "Firewall/security group ruleset exports",
+      "Documented business justification per rule",
+      "Semi-annual ruleset review records",
+      "Network diagram of CDE boundaries"
+     ],
+     "guidance": "A GOOD answer shows deny-by-default posture, every permit rule carrying a business justification, documented ruleset reviews at least every six months with removals, and outbound traffic from the CDE restricted to what is needed.",
+     "probes": [
+      "Show me rules with 'any' in source or destination and justify each.",
+      "What was removed in the last ruleset review?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "pci-dss-p2-q02",
+     "controlRef": "Req 1.4 / 1.5 \u2014 Network connections between trusted and untrusted, and computing device risks",
+     "question": "How are connections between untrusted networks (including the internet and third parties) and the CDE controlled, and what protections apply to mobile/remote computing devices used to access the CDE?",
+     "whyItMatters": "Untrusted-to-CDE connections are the primary attack path. v4.0 explicitly addresses risks from computing devices (laptops, phones) used to connect to the CDE, which historically sat outside PCI thinking.",
+     "interviewees": [
+      "Network Engineer",
+      "IT Manager",
+      "Security Engineer"
+     ],
+     "evidence": [
+      "DMZ/architecture documentation",
+      "Remote access architecture (VPN/jump hosts)",
+      "Endpoint controls for devices accessing the CDE",
+      "Third-party connection inventory"
+     ],
+     "guidance": "A GOOD answer shows a proper DMZ, no direct internet-to-CDE-internal paths, all third-party connections inventoried and justified, and hardened, monitored endpoints for any device used to administer or access the CDE.",
+     "probes": [
+      "Which third parties have persistent connectivity into the CDE?",
+      "Can an admin access the CDE from an unmanaged personal device?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "pci-dss-p2-q03",
+     "controlRef": "Req 2.2 \u2014 System configuration standards and hardening",
+     "question": "What configuration standards harden in-scope systems, how are vendor defaults removed, and how do you verify systems remain hardened over time?",
+     "whyItMatters": "Req 2.2 requires configuration standards consistent with industry hardening (CIS, NIST, ISO). Default credentials and unnecessary services remain among the most exploited weaknesses in cardholder breaches.",
+     "interviewees": [
+      "IT Manager",
+      "Security Engineer",
+      "DevOps Lead"
+     ],
+     "evidence": [
+      "Hardening standards documentation",
+      "Configuration scan/benchmark results (e.g. CIS)",
+      "Gold images/IaC baselines",
+      "Default credential removal verification"
+     ],
+     "guidance": "A GOOD answer shows documented standards per platform, enforced via images or configuration management, verified by periodic configuration scanning, and evidence no vendor defaults (accounts, passwords, community strings) remain.",
+     "probes": [
+      "Show me configuration compliance rates for in-scope systems.",
+      "How do you detect drift from the hardened baseline?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "pci-dss-p2-q04",
+     "controlRef": "Req 2.2.5 / 2.2.7 \u2014 Insecure services and non-console admin access encryption",
+     "question": "How are insecure services, protocols and daemons controlled, and is all non-console administrative access to in-scope systems encrypted with strong cryptography?",
+     "whyItMatters": "Telnet, FTP, HTTP admin panels and unencrypted management protocols expose credentials and session data crossing the network. QSAs verify configurations directly, not just policy statements.",
+     "interviewees": [
+      "IT Manager",
+      "Network Engineer",
+      "Security Engineer"
+     ],
+     "evidence": [
+      "Service inventories per system",
+      "Port/service scan results",
+      "Admin access method configuration (SSH, TLS, VPN)",
+      "Documentation of any approved insecure protocol with mitigation"
+     ],
+     "guidance": "A GOOD answer shows only secure protocols in use, documented justification and compensating protection for any legacy insecure service, and non-console admin access exclusively over SSH/TLS/VPN with strong cryptography.",
+     "probes": [
+      "Are there any Telnet/FTP/HTTP listeners on in-scope systems? Why?",
+      "How is admin access to network devices performed and encrypted?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "pci-dss-p2-q05",
+     "controlRef": "Req 3.2 / 3.3.1 \u2014 Account data storage minimization and SAD prohibition",
+     "question": "What account data do you store, how is retention minimized and securely deleted, and can you demonstrate sensitive authentication data (full track, CVV/CVC, PIN) is never stored after authorization \u2014 even temporarily?",
+     "whyItMatters": "Req 3.3.1's prohibition on post-authorization SAD storage is absolute and is the first thing forensic investigators and QSAs hunt for. SAD found in logs, databases or files is an immediate compliance failure and breach amplifier.",
+     "interviewees": [
+      "Software Dev Lead",
+      "Database Administrator",
+      "Payments/Product Manager",
+      "Compliance Officer"
+     ],
+     "evidence": [
+      "Data retention policy and disposal records",
+      "Data discovery scan results for PAN/SAD",
+      "Application code/config showing SAD handling",
+      "Quarterly SAD discovery evidence"
+     ],
+     "guidance": "A GOOD answer shows retention limited to defined business need with executed disposal, recurring discovery scans across databases, logs, file shares and backups proving no SAD persists, and remediation history for anything found.",
+     "probes": [
+      "Run a discovery pattern against your logs now \u2014 could CVV values appear?",
+      "Where has cardholder data been found unexpectedly in the past, and what changed?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "pci-dss-p2-q06",
+     "controlRef": "Req 3.4.1 / 3.5.1 \u2014 PAN rendering unreadable",
+     "question": "Wherever PAN is stored, how is it rendered unreadable \u2014 truncation, tokenization, one-way hashes with keyed HMAC, or strong cryptography \u2014 and how do you prove it everywhere PAN exists?",
+     "whyItMatters": "Req 3.4-3.5 define acceptable PAN protection. Weak hashing (unsalted MD5/SHA), homemade tokenization, or a single overlooked storage location (analytics replica, old backup) invalidates the control.",
+     "interviewees": [
+      "Software Dev Lead",
+      "Database Administrator",
+      "Security Engineer"
+     ],
+     "evidence": [
+      "PAN protection method documentation per data store",
+      "Tokenization architecture (and its PCI scope)",
+      "Encryption implementation details (algorithms, key lengths)",
+      "Masking configuration for displays"
+     ],
+     "guidance": "A GOOD answer documents the protection method for every storage location, uses approved approaches (strong cryptography with sound key management, PCI-listed tokenization, or compliant hashing with HMAC), and evidences PAN displayed only masked except for documented need.",
+     "probes": [
+      "List every place PAN is stored and the protection on each \u2014 any gaps?",
+      "Is your tokenization provider's environment in your assessment scope?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "pci-dss-p2-q07",
+     "controlRef": "Req 3.6 / 3.7 \u2014 Cryptographic key management",
+     "question": "Walk me through cryptographic key management for keys protecting cardholder data: generation, distribution, storage, rotation, retirement, and split knowledge/dual control for key components.",
+     "whyItMatters": "Encryption is only as strong as key management. Keys in code repositories, alongside encrypted data, or never rotated give a false sense of compliance and are prime QSA inspection targets.",
+     "interviewees": [
+      "Security Engineer",
+      "IT Manager",
+      "Database Administrator"
+     ],
+     "evidence": [
+      "Key management procedures",
+      "HSM/KMS configuration",
+      "Key rotation records",
+      "Key custodian acknowledgments (split knowledge/dual control)"
+     ],
+     "guidance": "A GOOD answer shows keys generated securely, stored separately from encrypted data (ideally HSM/KMS), rotated on documented schedules, retired/destroyed at end of life, with split knowledge and dual control for manual key operations.",
+     "probes": [
+      "Where exactly do encryption keys live, and who can access them?",
+      "When were data-encrypting keys last rotated, and how was re-encryption handled?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "pci-dss-p2-q08",
+     "controlRef": "Req 4.2.1 / 4.2.2 \u2014 Protection of account data in transmission",
+     "question": "How is account data protected when transmitted over open or public networks \u2014 strong cryptography protocols and trusted certificates \u2014 and what prevents PAN from being sent via end-user messaging (email, chat, SMS)?",
+     "whyItMatters": "Req 4.2 mandates strong transmission encryption and explicitly prohibits unprotected PAN over end-user messaging technologies. Legacy TLS and card numbers in support emails are classic findings.",
+     "interviewees": [
+      "Security Engineer",
+      "Network Engineer",
+      "Customer Support Manager"
+     ],
+     "evidence": [
+      "TLS configuration scans (protocols/ciphers)",
+      "Certificate inventory and trust validation",
+      "DLP/email filtering rules for PAN patterns",
+      "Staff guidance and training on messaging prohibitions"
+     ],
+     "guidance": "A GOOD answer shows TLS 1.2+ with trusted certificates and no fallback to weak protocols, plus enforced technical and procedural controls preventing PAN transmission via email/chat/SMS \u2014 with DLP evidence rather than just policy.",
+     "probes": [
+      "What TLS versions does your payment endpoint negotiate?",
+      "Show me a DLP detection event for card data in email \u2014 what happened?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "pci-dss-p2-q09",
+     "controlRef": "Req 5.2 / 5.3 \u2014 Anti-malware deployment and operation",
+     "question": "How are in-scope systems protected from malicious software \u2014 deployed anti-malware on all applicable systems, kept current, actively running, generating logs, and not disabled without authorization?",
+     "whyItMatters": "Req 5 requires anti-malware that is current, running, and auditable. Solutions users can disable, or systems exempted informally, leave the CDE exposed and fail testing.",
+     "interviewees": [
+      "Security Engineer",
+      "IT Manager"
+     ],
+     "evidence": [
+      "Anti-malware deployment coverage report",
+      "Update/signature currency dashboards",
+      "Alert and remediation logs",
+      "Approval records for any temporary disabling"
+     ],
+     "guidance": "A GOOD answer shows verified coverage of all in-scope systems (with documented risk-based justification for exemptions, e.g. mainframes), automatic updates, centralized alerting, and management authorization plus monitoring for any disabling.",
+     "probes": [
+      "Which in-scope systems have no anti-malware, and where is the documented justification?",
+      "Show me the last malware detection and its handling."
+     ],
+     "weight": 2
+    },
+    {
+     "id": "pci-dss-p2-q10",
+     "controlRef": "Req 5.4.1 \u2014 Anti-phishing protections",
+     "question": "What technical and procedural controls protect personnel against phishing \u2014 since phishing is the leading initial access path into environments that ultimately reach the CDE?",
+     "whyItMatters": "Req 5.4.1 (new in v4.0) explicitly requires processes and mechanisms to detect and protect personnel against phishing attacks. Assessors now test this as a formal requirement, not a best practice.",
+     "interviewees": [
+      "Security Engineer",
+      "IT Manager",
+      "End Users"
+     ],
+     "evidence": [
+      "Email security gateway configuration",
+      "Phishing simulation results and trends",
+      "Reported phishing handling records",
+      "Awareness training content covering phishing"
+     ],
+     "guidance": "A GOOD answer combines technical filtering (SPF/DKIM/DMARC, link/attachment protection), a reporting button/process with tracked response, simulations with remedial training, and escalation paths into incident response.",
+     "probes": [
+      "What is your phishing simulation click rate trend?",
+      "Walk me through handling of the last reported phishing email that got clicked."
+     ],
+     "weight": 2
+    },
+    {
+     "id": "pci-dss-p2-q11",
+     "controlRef": "Req 6.2 / 6.3 / 6.5 \u2014 Secure development, vulnerability handling and change control",
+     "question": "How is software developed securely and changes controlled \u2014 SDLC practices, code review, vulnerability identification and patching by risk ranking, and separation of development/test from production with no live PAN in test?",
+     "whyItMatters": "Req 6 spans the secure software lifecycle. Common failures: unpatched critical components, developers with uncontrolled production push rights, and real cardholder data in test environments (explicitly prohibited by Req 6.4.1).",
+     "interviewees": [
+      "Software Dev Lead",
+      "DevOps Lead",
+      "QA Lead",
+      "Security Engineer"
+     ],
+     "evidence": [
+      "SDLC documentation",
+      "Code review records for sampled changes",
+      "Vulnerability/patch tracking with risk ranking",
+      "Environment separation evidence",
+      "Test data management records"
+     ],
+     "guidance": "A GOOD answer shows security embedded in the SDLC, mandatory peer review, critical security patches within one month (Req 6.3.3), strict environment separation, and proof no live PAN exists in test/development.",
+     "probes": [
+      "Show me patch timelines for the last critical vulnerability in an in-scope component.",
+      "Scan your test environment for PAN patterns \u2014 what would you find?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "pci-dss-p2-q12",
+     "controlRef": "Req 6.4.3 \u2014 Payment page script management (e-commerce)",
+     "question": "For e-commerce: how are all scripts on payment pages managed \u2014 an authorized inventory, documented justification per script, integrity assurance, and a method to detect and respond to unauthorized script changes?",
+     "whyItMatters": "Req 6.4.3 targets Magecart-style skimming, the dominant e-commerce card theft vector. Most merchants cannot enumerate the scripts running on their payment pages \u2014 exactly what attackers exploit via third-party tag compromise.",
+     "interviewees": [
+      "Software Dev Lead",
+      "E-commerce Manager",
+      "Security Engineer"
+     ],
+     "evidence": [
+      "Script inventory with authorization and business justification",
+      "Script integrity mechanisms (SRI, CSP) configuration",
+      "Third-party script/tag governance records",
+      "Change authorization workflow for payment page scripts"
+     ],
+     "guidance": "A GOOD answer shows a maintained inventory of every script on payment pages with written justification and authorization, integrity controls (SRI hashes, CSP allow-lists), and governance over marketing/tag tools that inject scripts \u2014 paired with Req 11.6.1 detection.",
+     "probes": [
+      "List every third-party script executing on your payment page right now.",
+      "What happens if a tag manager pushes a new script without security review?"
+     ],
+     "weight": 3
+    }
+   ]
+  },
+  {
+   "id": "phase-3",
+   "name": "Phase 3 \u2014 Access Control, Authentication, Physical Security, Logging & Security Testing (Req 7\u201311)",
+   "objective": "Test restriction of access by business need-to-know, identification and authentication including v4.0 MFA requirements, physical access controls, comprehensive logging and monitoring, and the ongoing security testing program.",
+   "questions": [
+    {
+     "id": "pci-dss-p3-q01",
+     "controlRef": "Req 7.2 \u2014 Access control model and need-to-know",
+     "question": "How is access to the CDE and account data restricted to need-to-know \u2014 an access control model with least privilege and deny-all default, role definitions, and periodic review of privileges?",
+     "whyItMatters": "Req 7 requires access be granted strictly by job need with deny-all as default. Over-privileged accounts and unreviewed access are consistently implicated in cardholder data breaches.",
+     "interviewees": [
+      "IT Manager",
+      "Security Engineer",
+      "Control Owners"
+     ],
+     "evidence": [
+      "Access control policy and role definitions",
+      "Access grants tied to documented approvals",
+      "Periodic access review records",
+      "Privileged access inventory"
+     ],
+     "guidance": "A GOOD answer shows a documented access control system (RBAC or equivalent) set to deny-all by default, access assignments traceable to approved job needs, and periodic reviews with evidenced revocations.",
+     "probes": [
+      "Show me a role definition and three users in it \u2014 do their duties match?",
+      "When did a review last result in access being removed?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "pci-dss-p3-q02",
+     "controlRef": "Req 8.2 \u2014 User identification and account lifecycle management",
+     "question": "How are users uniquely identified and accounts managed through their lifecycle \u2014 no shared/generic accounts, controlled service/application accounts, and timely deactivation of terminated or inactive users?",
+     "whyItMatters": "Req 8.2 requires unique IDs and full account lifecycle control so actions are attributable. Shared accounts and stale service accounts defeat accountability and are standard QSA test items.",
+     "interviewees": [
+      "IT Manager",
+      "HR Manager",
+      "Security Engineer"
+     ],
+     "evidence": [
+      "User ID listings sampled against HR records",
+      "Service/application account inventory with owners",
+      "Joiner-mover-leaver process records",
+      "Inactive account review and removal evidence"
+     ],
+     "guidance": "A GOOD answer shows unique IDs enforced, termination-driven deprovisioning within policy timelines, inactive accounts (e.g. 90 days) disabled, and every service account owned, inventoried and reviewed with restricted interactive use.",
+     "probes": [
+      "Show me all accounts not linked to an active employee.",
+      "How are service account credentials rotated and vaulted?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "pci-dss-p3-q03",
+     "controlRef": "Req 8.3.6 \u2014 Password/passphrase complexity (v4.0)",
+     "question": "What authentication factor policies apply to user accounts \u2014 password length and complexity per v4.0 minimums, lockout, reuse restrictions \u2014 and where do systems that cannot meet them sit?",
+     "whyItMatters": "Req 8.3.6 (future-dated until March 2025) raises minimums: passwords at least 12 characters (letters and numbers) where the system supports it. Legacy applications that cannot comply need documented analysis and alternative protection.",
+     "interviewees": [
+      "IT Manager",
+      "Security Engineer",
+      "Software Dev Lead"
+     ],
+     "evidence": [
+      "Password policy configuration screenshots per system",
+      "IdP/AD policy exports",
+      "List of systems unable to meet 8.3.6 with risk analysis",
+      "Lockout/reuse settings"
+     ],
+     "guidance": "A GOOD answer shows centralized enforcement of 12+ character passwords with complexity, 90-day-or-risk-based change policy, lockout after repeated failures, and a documented, risk-assessed register of systems that technically cannot comply.",
+     "probes": [
+      "Which in-scope systems cannot enforce 12-character passwords, and what compensates?",
+      "How do you prevent password reuse across your last four passwords?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "pci-dss-p3-q04",
+     "controlRef": "Req 8.4.1 / 8.4.2 / 8.4.3 \u2014 Multi-factor authentication (v4.0)",
+     "question": "Where is MFA enforced under v4.0: all non-console administrative access into the CDE, all access into the CDE, and all remote access that could impact the CDE \u2014 and how do you prove coverage?",
+     "whyItMatters": "v4.0 expanded MFA from remote access to ALL access into the CDE (8.4.2). Organizations relying on the old v3.2.1 posture are non-compliant; QSA testing samples consoles, jump hosts, and applications for bypass paths.",
+     "interviewees": [
+      "Security Engineer",
+      "IT Manager",
+      "Network Engineer"
+     ],
+     "evidence": [
+      "MFA policy and enforcement configuration (IdP/SSO)",
+      "Coverage matrix: admin, user, remote, console/non-console",
+      "Bypass/exception list with approvals",
+      "MFA logs for sampled access events"
+     ],
+     "guidance": "A GOOD answer shows MFA enforced through centralized SSO across all CDE access paths, network-level enforcement for admin interfaces, a minimal documented exception list, and sampled log evidence that MFA challenges actually fire.",
+     "probes": [
+      "Can any administrator reach a CDE system without MFA through any path (jump host, console, API)?",
+      "Are MFA factors independent, and can a single factor reset both?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "pci-dss-p3-q05",
+     "controlRef": "Req 9.2 / 9.3 \u2014 Physical access controls and authorization",
+     "question": "How is physical access to facilities housing the CDE and cardholder data controlled and monitored \u2014 authorization, badges/keys, visitor management, and review of physical access logs?",
+     "whyItMatters": "Req 9.2-9.3 require physical access be authorized, monitored and reviewed. Data centers with shared tenancy, paper visitor logs never reviewed, or stale badge lists are routine physical findings.",
+     "interviewees": [
+      "Facilities Manager",
+      "IT Manager",
+      "Security Engineer"
+     ],
+     "evidence": [
+      "Physical access authorization list and reviews",
+      "Badge system logs and visitor records",
+      "CCTV retention configuration",
+      "Deactivation records for terminated staff badges"
+     ],
+     "guidance": "A GOOD answer shows role-based physical authorization with periodic review, visitors identified/escorted/logged, CCTV retained at least 90 days (unless law restricts), and badges deactivated immediately at termination.",
+     "probes": [
+      "Show me physical access review evidence and removals from the period.",
+      "Who reviews visitor and badge logs, and how often?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "pci-dss-p3-q06",
+     "controlRef": "Req 9.4 / 9.5 \u2014 Media and POI device protection",
+     "question": "How is media containing cardholder data secured, tracked and destroyed, and how are POI/payment capture devices protected against tampering and substitution?",
+     "whyItMatters": "Req 9.4-9.5 cover physical media and point-of-interaction devices. Device skimming via substitution and uncontrolled backup media are persistent, low-tech card theft vectors.",
+     "interviewees": [
+      "Facilities Manager",
+      "Retail/Store Operations",
+      "IT Manager"
+     ],
+     "evidence": [
+      "Media inventory and destruction certificates",
+      "POI device inventory with serial numbers",
+      "Device inspection logs (tamper checks)",
+      "Courier/transport controls for media"
+     ],
+     "guidance": "A GOOD answer shows media inventoried, access-controlled and destroyed with certificates, and POI devices inventoried with documented periodic inspection for tampering plus staff training to spot substitution.",
+     "probes": [
+      "Show me inspection records for three sampled payment terminals.",
+      "When were backup tapes or drives last destroyed, and where is the certificate?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "pci-dss-p3-q07",
+     "controlRef": "Req 10.2 / 10.3 \u2014 Audit log capture and protection",
+     "question": "Are audit logs capturing the required events (user access, actions, invalid access attempts, admin actions, log changes) across all in-scope components, time-synchronized, and protected from alteration with one-year retention?",
+     "whyItMatters": "Req 10.2-10.3 make logging the forensic backbone of PCI. Missing log sources, clock drift, or logs an attacker could edit make incident reconstruction impossible and are direct test items.",
+     "interviewees": [
+      "Security Engineer",
+      "IT Manager",
+      "IT Ops"
+     ],
+     "evidence": [
+      "Log source inventory mapped to Req 10.2 events",
+      "SIEM/log platform configuration",
+      "NTP configuration evidence",
+      "Log retention and access restriction settings"
+     ],
+     "guidance": "A GOOD answer shows every in-scope component logging the specified events to a centralized, access-restricted platform, reliable time synchronization across all systems, and retention of 12 months with 3 months immediately available.",
+     "probes": [
+      "Which in-scope systems do not forward logs centrally?",
+      "Can a system administrator delete their own activity from the log store?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "pci-dss-p3-q08",
+     "controlRef": "Req 10.4 / 10.5 \u2014 Log review and failure response",
+     "question": "How are logs actually reviewed \u2014 automated mechanisms, daily review of critical logs or a targeted risk analysis for other logs \u2014 and how are exceptions and logging failures responded to?",
+     "whyItMatters": "Req 10.4 is where most organizations fail: logs exist but nobody reviews them. v4.0 permits entity-defined frequency for some reviews only via a documented targeted risk analysis.",
+     "interviewees": [
+      "Security Engineer",
+      "IT Ops",
+      "SOC Analyst"
+     ],
+     "evidence": [
+      "Daily review records/tickets for required logs",
+      "Automated alerting configuration",
+      "Targeted risk analysis supporting any non-daily review frequency",
+      "Log failure/incident response records"
+     ],
+     "guidance": "A GOOD answer shows automated review mechanisms with human triage, evidenced daily handling of security-event alerts, a TRA for any reduced frequency, and documented response when logging itself fails on an in-scope system.",
+     "probes": [
+      "Show me review evidence for a specific past date.",
+      "What happened the last time an in-scope system stopped sending logs?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "pci-dss-p3-q09",
+     "controlRef": "Req 11.3.1 \u2014 Internal vulnerability scans",
+     "question": "How are internal vulnerability scans performed on in-scope systems \u2014 frequency, authenticated scanning, coverage of all components, and remediation of high-risk and critical findings with rescans?",
+     "whyItMatters": "Req 11.3.1 requires internal scans at least quarterly (or per TRA under 11.3.1.1), with high-risk vulnerabilities resolved and passing rescans. Credentialed scanning is essential \u2014 unauthenticated scans miss most patch-level findings.",
+     "interviewees": [
+      "Security Engineer",
+      "IT Manager"
+     ],
+     "evidence": [
+      "Internal scan reports for the period",
+      "Coverage report vs asset inventory",
+      "Remediation tickets and passing rescan evidence",
+      "TRA if scan frequency differs from quarterly"
+     ],
+     "guidance": "A GOOD answer shows authenticated scans covering all in-scope systems, remediation tracked to closure with passing rescans for high-risk findings, and cadence justified by policy or a documented targeted risk analysis.",
+     "probes": [
+      "Show me a vulnerability found internally that took longest to fix \u2014 why?",
+      "Is scan coverage reconciled to the in-scope asset inventory?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "pci-dss-p3-q10",
+     "controlRef": "Req 11.5.1 / 11.5.2 \u2014 Intrusion detection and file integrity monitoring",
+     "question": "What intrusion-detection/prevention techniques monitor the CDE perimeter and critical points, and how are unauthorized changes to critical files detected and alerted?",
+     "whyItMatters": "Req 11.5 requires both network intrusion detection/prevention and change-detection on critical files. Deployed IDS with unreviewed alerts, or FIM that alerts nobody, fail the operating test.",
+     "interviewees": [
+      "Security Engineer",
+      "Network Engineer",
+      "IT Ops"
+     ],
+     "evidence": [
+      "IDS/IPS deployment architecture and rule currency",
+      "FIM/change-detection configuration and alert records",
+      "Alert triage evidence",
+      "Critical file list definition"
+     ],
+     "guidance": "A GOOD answer shows IDS/IPS at CDE boundaries with current signatures, FIM or equivalent change-detection on defined critical files, and alert response records demonstrating the controls operate, not merely exist.",
+     "probes": [
+      "Show me a FIM alert from the period and its resolution.",
+      "When were IDS signatures/rules last updated, and who reviews alerts?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "pci-dss-p3-q11",
+     "controlRef": "Req 11.6.1 \u2014 Payment page change and tamper detection",
+     "question": "For e-commerce: what mechanism detects and alerts on unauthorized modification of payment pages \u2014 HTTP headers, scripts, and page content \u2014 and who responds when it fires?",
+     "whyItMatters": "Req 11.6.1 (future-dated until March 2025) directly counters web skimming. Without tamper detection, a compromised third-party script can skim cards for months undetected \u2014 this requirement exists because that happened at scale.",
+     "interviewees": [
+      "Software Dev Lead",
+      "Security Engineer",
+      "E-commerce Manager"
+     ],
+     "evidence": [
+      "Tamper-detection tool configuration and coverage of payment pages",
+      "Alert records and response tickets",
+      "Test evidence that modifications trigger alerts",
+      "Integration with incident response"
+     ],
+     "guidance": "A GOOD answer shows a deployed mechanism (e.g. integrity monitoring of HTTP headers/scripts/content) covering every payment page, alerting into a monitored queue with defined response ownership, and evidence it actually detects test modifications.",
+     "probes": [
+      "If a script on your payment page changed tonight, who would know by morning?",
+      "Show me the last detection event or test alert and what was done."
+     ],
+     "weight": 3
+    }
+   ]
+  },
+  {
+   "id": "phase-4",
+   "name": "Phase 4 \u2014 Security Program Governance, Incident Response & Assessment Wrap-Up (Req 12 and Reporting)",
+   "objective": "Test the organizational security program that sustains compliance (Req 12), the incident response capability, and wrap up the assessment: consolidating findings, remediation, and completing the ROC/SAQ and Attestation of Compliance.",
+   "questions": [
+    {
+     "id": "pci-dss-p4-q01",
+     "controlRef": "Req 12.1 / 12.2 \u2014 Information security policy and acceptable use",
+     "question": "Is there a comprehensive, current information security policy establishing security duties for all personnel, reviewed annually, with acceptable use rules for end-user technologies \u2014 and is it actually acknowledged and enforced?",
+     "whyItMatters": "Req 12.1-12.2 anchor the entire program. Policies unreviewed for years, unacknowledged by staff, or disconnected from actual practice signal a paper program that assessors see through quickly.",
+     "interviewees": [
+      "CISO",
+      "HR Manager",
+      "End Users",
+      "Compliance Officer"
+     ],
+     "evidence": [
+      "Information security policy with review dates",
+      "Acceptable use policy",
+      "Acknowledgment logs",
+      "Enforcement/discipline examples"
+     ],
+     "guidance": "A GOOD answer shows policies reviewed and approved at least annually, published to all personnel with tracked acknowledgements, acceptable use rules covering remote access and removable media, and visible enforcement.",
+     "probes": [
+      "When was the security policy last updated, and what changed?",
+      "How would an employee know what they may do with cardholder data on a laptop?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "pci-dss-p4-q02",
+     "controlRef": "Req 12.3.1 \u2014 Annual risk assessment",
+     "question": "How is the formal risk assessment for the cardholder data environment performed \u2014 threats, vulnerabilities, likelihood and impact \u2014 and how do results drive control priorities?",
+     "whyItMatters": "Req 12.3 requires a documented risk assessment process exercised at least annually and upon significant changes. It is also the foundation for any targeted risk analyses used elsewhere in v4.0.",
+     "interviewees": [
+      "Risk Manager",
+      "CISO",
+      "Compliance Officer"
+     ],
+     "evidence": [
+      "Risk assessment methodology and latest results",
+      "Risk register covering the CDE",
+      "Treatment plans and accepted risks with sign-off",
+      "Trigger criteria for reassessment"
+     ],
+     "guidance": "A GOOD answer shows a repeatable methodology producing a CDE-focused risk register, treatment decisions with owners and dates, explicit acceptance sign-off, and demonstrable influence on security investment and control selection.",
+     "probes": [
+      "Show me the top three CDE risks and what is being done about each.",
+      "What significant change last triggered a reassessment?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "pci-dss-p4-q03",
+     "controlRef": "Req 12.4 \u2014 Executive accountability for PCI DSS",
+     "question": "How has executive management established and communicated responsibility for PCI DSS compliance \u2014 a named executive owner, a program charter, and defined responsibilities across teams?",
+     "whyItMatters": "Req 12.4 (expanded in v4.0) requires executive management to establish responsibility for protecting cardholder data and a PCI DSS compliance program. Assessments without executive ownership stall at remediation time.",
+     "interviewees": [
+      "CEO/CFO",
+      "CISO",
+      "Compliance Officer"
+     ],
+     "evidence": [
+      "Executive sponsorship/charter documentation",
+      "Compliance program roles and RACI",
+      "Management reporting on PCI status",
+      "Budget/resource approvals for the program"
+     ],
+     "guidance": "A GOOD answer names an accountable executive, shows a defined compliance program with assigned roles, regular reporting to leadership, and evidence executives act on compliance status (funding, prioritization, decisions).",
+     "probes": [
+      "Who signs the AOC, and what do they review before signing?",
+      "What did leadership do with the last compliance status report?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "pci-dss-p4-q04",
+     "controlRef": "Req 12.6 \u2014 Security awareness program",
+     "question": "How does the security awareness program ensure all personnel understand cardholder data security and their role \u2014 onboarding, annual refreshers, role-specific content, and measured effectiveness?",
+     "whyItMatters": "Req 12.6 requires awareness upon hire and at least annually. Untrained staff are the primary vector into cardholder environments; completion rates and content currency are directly testable.",
+     "interviewees": [
+      "HR Manager",
+      "CISO",
+      "End Users"
+     ],
+     "evidence": [
+      "Training content and version history",
+      "Completion records for sampled personnel",
+      "Role-specific modules (developers, support, retail)",
+      "Awareness metrics (phishing results, quizzes)"
+     ],
+     "guidance": "A GOOD answer shows near-100% completion with onboarding and annual cycles, content covering cardholder handling and current threats (phishing, skimming), role-specific material for high-risk roles, and consequences for non-completion.",
+     "probes": [
+      "Show me training completion for three sampled employees hired mid-year.",
+      "How is awareness content updated when threats change?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "pci-dss-p4-q05",
+     "controlRef": "Req 12.7 \u2014 Personnel screening",
+     "question": "How are personnel with access to the CDE screened before hire \u2014 background checks within legal constraints \u2014 and how is this evidenced for sampled employees?",
+     "whyItMatters": "Req 12.7 requires screening prior to hire to reduce insider risk. Missing checks for administrators or developers with CDE access is a direct test failure.",
+     "interviewees": [
+      "HR Manager",
+      "Compliance Officer"
+     ],
+     "evidence": [
+      "Screening policy",
+      "Background check completion records (sanitized) for sampled hires",
+      "Contractor screening arrangements",
+      "Legal constraints documentation"
+     ],
+     "guidance": "A GOOD answer shows screening completed before access for all in-scope personnel including contractors, consistent criteria, and records retrievable for any sample the assessor selects.",
+     "probes": [
+      "Show me screening evidence for a sampled administrator.",
+      "How are contractor screening standards verified when outsourcing?"
+     ],
+     "weight": 1
+    },
+    {
+     "id": "pci-dss-p4-q06",
+     "controlRef": "Req 12.10.1 / 12.10.2 \u2014 Incident response plan and testing",
+     "question": "Walk me through your incident response plan for a suspected cardholder data compromise: roles, escalation, evidence preservation, payment brand/acquirer notification steps, and the plan's last test.",
+     "whyItMatters": "Req 12.10 requires an IR plan tested at least annually, with specific procedures for responding to account data compromise including notification obligations to acquirers and card brands. In a real breach, an untested plan fails publicly.",
+     "interviewees": [
+      "CISO",
+      "Security Engineer",
+      "Legal Counsel",
+      "PR/Communications"
+     ],
+     "evidence": [
+      "Incident response plan",
+      "Annual test/tabletop records",
+      "Incident register for the period",
+      "Contact lists for acquirer/brands/forensics (PFI)"
+     ],
+     "guidance": "A GOOD answer shows a plan specific to cardholder data compromise, annual testing with documented lessons, 24/7 response capability, defined evidence-preservation steps, and ready notification paths to acquirer, brands and a PCI Forensic Investigator if required.",
+     "probes": [
+      "Walk me through the last tabletop \u2014 what scenario, and what did it expose?",
+      "Who calls the acquirer at hour 24 of a confirmed compromise?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "pci-dss-p4-q07",
+     "controlRef": "Req 12.10.4 / 12.10.5 \u2014 IR training and security alert response",
+     "question": "How are personnel with incident response responsibilities trained, and how do monitoring alerts (from IDS, FIM, tamper detection) flow into actual incident response action?",
+     "whyItMatters": "Req 12.10.4-12.10.5 tie detection to response with trained responders. Alerts queuing unread or responders learning their role during a real event are the failure modes this targets.",
+     "interviewees": [
+      "Security Engineer",
+      "SOC Analyst",
+      "IT Ops"
+     ],
+     "evidence": [
+      "IR training records for response team",
+      "Alert-to-incident workflow records",
+      "Response time metrics",
+      "Escalation matrix"
+     ],
+     "guidance": "A GOOD answer shows designated responders trained at least annually, alerts from Req 11 controls feeding a monitored queue with triage SLAs, and sampled alert histories showing timely, documented response.",
+     "probes": [
+      "Show me an alert that became a declared incident \u2014 how long did it take?",
+      "Who is the on-call responder this weekend?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "pci-dss-p4-q08",
+     "controlRef": "PCI DSS Assessment \u2014 Findings, remediation and evidence quality",
+     "question": "How are assessment findings and failed test items handled \u2014 remediation tracking, evidence of fixes, and retesting \u2014 so the final ROC or SAQ reflects a genuinely compliant environment?",
+     "whyItMatters": "The value of the assessment is in remediated findings, not the document. Findings closed on paper without evidence, or recurring across years, indicate the compliance program is cosmetic.",
+     "interviewees": [
+      "Compliance Officer",
+      "CISO",
+      "IT Manager",
+      "QSA (if engaged)"
+     ],
+     "evidence": [
+      "Findings register with owners and due dates",
+      "Remediation evidence per finding",
+      "QSA retest confirmations",
+      "Year-over-year findings comparison"
+     ],
+     "guidance": "A GOOD answer shows every finding tracked to evidenced closure before report finalization, QSA retesting where applicable, and analysis of recurring findings to fix root causes rather than symptoms.",
+     "probes": [
+      "Which findings recurred from last year's assessment?",
+      "Show me remediation evidence for a finding closed this cycle."
+     ],
+     "weight": 3
+    },
+    {
+     "id": "pci-dss-p4-q09",
+     "controlRef": "PCI DSS v4.0 \u2014 Compensating controls and unmet requirements",
+     "question": "If any requirement cannot be met as written, how is it handled \u2014 documented compensating controls worksheet with the four constraints, or the Customized Approach \u2014 and who approves the residual risk?",
+     "whyItMatters": "v4.0 tightly constrains alternatives to defined requirements: compensating controls must meet the intent, be above-and-beyond other requirements, and be documented on the official worksheet; otherwise the Customized Approach applies. Informal workarounds invalidate the ROC.",
+     "interviewees": [
+      "CISO",
+      "QSA (if engaged)",
+      "Risk Manager"
+     ],
+     "evidence": [
+      "Compensating Controls Worksheets (Appendix C)",
+      "Customized Approach documentation (Appendix D/E)",
+      "Risk acceptance sign-offs",
+      "Revalidation schedule for compensating controls"
+     ],
+     "guidance": "A GOOD answer shows any unmet requirement formally documented with a complete compensating controls worksheet (or Customized Approach), demonstrating the four compensating control constraints, executive acceptance, and annual revalidation.",
+     "probes": [
+      "Which requirements currently rely on compensating controls, and when were they last revalidated?",
+      "What is the plan to eventually meet the requirement directly?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "pci-dss-p4-q10",
+     "controlRef": "PCI DSS \u2014 Attestation, AOC submission and maintaining compliance year-round",
+     "question": "Once the ROC or SAQ is complete, how is the Attestation of Compliance signed and submitted, and what keeps the environment compliant between annual assessments rather than in a yearly scramble?",
+     "whyItMatters": "Compliance is continuous; assessors and acquirers increasingly test whether controls operated all year. AOCs signed without an underlying compliance program create liability and set up next year's failure.",
+     "interviewees": [
+      "CFO",
+      "Compliance Officer",
+      "CISO",
+      "Legal Counsel"
+     ],
+     "evidence": [
+      "Signed AOC and submission confirmation",
+      "Year-round compliance calendar (scans, reviews, tests)",
+      "Control operation metrics between assessments",
+      "Lessons-learned actions from this assessment"
+     ],
+     "guidance": "A GOOD answer shows the AOC signed by an informed officer and submitted to the acquirer/brands on time, plus an operating calendar where quarterly scans, semi-annual reviews and annual tests run continuously with tracked completion.",
+     "probes": [
+      "Which PCI controls demonstrably operated in every month since the last assessment?",
+      "What from this assessment changes the program next year?"
+     ],
+     "weight": 2
+    }
+   ]
+  }
+ ]
 }

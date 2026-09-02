@@ -1,34 +1,1299 @@
 {
-  "id": "mitre-attack",
-  "name": "MITRE ATT&CK",
-  "shortName": "ATT&CK",
-  "version": "v16",
-  "category": "threat",
-  "description": "Knowledge base of adversary tactics, techniques, and procedures used for detection coverage assessments.",
-  "phases": [
+ "id": "mitre-attack",
+ "name": "MITRE ATT&CK (Enterprise)",
+ "shortName": "MITRE ATT&CK",
+ "version": "v16 (2024)",
+ "category": "threat",
+ "description": "MITRE ATT&CK (Enterprise) is a globally accessible knowledge base of adversary tactics (TA0001\u2013TA0011, TA0040) and techniques observed in real-world attacks, maintained by MITRE. Auditors use it to assess defensive readiness: instead of asking 'do you have a firewall?', the assessment asks 'how would you detect T1566 Phishing or T1003 OS Credential Dumping in your environment?' The audit walks the attack lifecycle phase by phase, maps SIEM/EDR coverage to technique IDs, tests detection engineering and purple-team processes, and produces a prioritized detection gap report using the ATT&CK Navigator.",
+ "tagline": "A threat-informed defensive-coverage audit: can you actually detect, prevent, and respond to the real adversary techniques in MITRE ATT&CK Enterprise \u2014 not just buy tools that claim to?",
+ "auditFocus": [
+  "Threat-intelligence grounding: crown-jewel analysis and identification of threat actor groups whose TTPs the defenses must actually cover",
+  "Phase-by-phase detection and prevention coverage across ATT&CK tactics TA0001 through TA0040, referencing real technique IDs (e.g., T1566, T1059, T1078, T1003, T1021, T1041, T1486, T1055)",
+  "Quality of the detection engineering lifecycle: use-case creation, ATT&CK mapping, testing, and continuous validation of SIEM/EDR rules",
+  "Logging prerequisites and telemetry completeness (process, command-line, PowerShell, authentication, network, cloud) required before any detection can work",
+  "Alert triage and incident-response capability, including ATT&CK-mapped playbooks and purple-team/adversary-emulation validation",
+  "Detection gap analysis reporting via the ATT&CK Navigator, with prioritized, risk-based remediation"
+ ],
+ "phases": [
+  {
+   "id": "phase-1",
+   "name": "Phase 1 \u2014 Planning & Threat Landscape Scoping",
+   "objective": "Scope the assessment: identify crown-jewel assets, the threat actor groups most likely to target the organization, the telemetry available to detect them, and the maturity of the detection engineering and validation processes that will be tested in later phases.",
+   "questions": [
     {
-      "id": "mitre-attack-p1",
-      "name": "Initial Access",
-      "questions": [
-        {
-          "id": "mitre-attack-q001",
-          "controlRef": "TA0001",
-          "question": "Are detections in place for initial-access techniques such as phishing (T1566)?",
-          "whyItMatters": "This control establishes a foundational requirement; auditors verify both design and operating effectiveness.",
-          "interviewees": [
-            "CISO"
-          ],
-          "evidence": [
-            "EV-001 Policy document"
-          ],
-          "guidance": "Request the current approved policy, confirm management sign-off and review date, and test that it has been communicated to relevant staff.",
-          "probes": [
-            "When was this last reviewed and by whom?",
-            "How are exceptions handled?"
-          ],
-          "weight": 2
-        }
-      ]
+     "id": "mitre-attack-p1-q01",
+     "controlRef": "Threat-Informed Defense \u2014 Crown-Jewel Analysis",
+     "question": "What are your crown-jewel assets and services \u2014 the data, systems, and identities an adversary would most want \u2014 and how does that analysis determine where you prioritize detection coverage across the ATT&CK matrix?",
+     "whyItMatters": "Defensive coverage cannot be uniform; it must be deepest around what matters most. If crown jewels are not identified, detection engineering effort is spread evenly and thinly, and the gap analysis in Phase 5 has no business-risk anchor.",
+     "interviewees": [
+      "CISO",
+      "SOC Manager",
+      "IT Ops"
+     ],
+     "evidence": [
+      "Crown-jewel / critical asset register",
+      "Business impact analysis (BIA)",
+      "Data classification inventory",
+      "Risk register linking critical assets to threat scenarios"
+     ],
+     "guidance": "A GOOD answer names specific critical assets (e.g., customer PII database, AD domain controllers, payment processing, source-code repos), shows they were agreed with the business, and demonstrates that detection coverage is deliberately concentrated around them (e.g., extra telemetry and rules on systems hosting crown jewels).",
+     "probes": [
+      "Which three systems would you defend first if you could only protect three?",
+      "When was the crown-jewel list last reviewed with the business?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "mitre-attack-p1-q02",
+     "controlRef": "ATT&CK \u2014 Groups & Campaigns (threat actor profiling)",
+     "question": "Which threat actor groups and campaigns are most relevant to your sector, geography, and technology stack \u2014 and can you show a documented list mapping those groups to the ATT&CK techniques they use?",
+     "whyItMatters": "ATT&CK contains 600+ techniques; you cannot cover them all. Profiling relevant groups (e.g., FIN7, APT29, LockBit affiliates for your industry) focuses detection investment on the techniques actually used against organizations like yours.",
+     "interviewees": [
+      "Threat Intel Analyst",
+      "CISO"
+     ],
+     "evidence": [
+      "Threat actor profile documents with ATT&CK technique mappings",
+      "Sector threat assessment (ISAC, government CERT reports)",
+      "Documented prioritization of techniques by relevant actor TTPs"
+     ],
+     "guidance": "A GOOD answer lists specific named groups targeting the sector, cites sources (vendor reports, ISAC, CISA advisories), and shows each group mapped to techniques in the Navigator. A weak answer is 'we watch the news' with no documented actor-to-technique mapping.",
+     "probes": [
+      "Name the top two threat actors for your industry and three techniques each uses.",
+      "How recently was this profile refreshed?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "mitre-attack-p1-q03",
+     "controlRef": "Threat-Informed Defense \u2014 Intel-to-Detection Pipeline",
+     "question": "When a threat intelligence report arrives describing an adversary using, say, T1059.001 PowerShell or T1486 Data Encrypted for Impact, what is the concrete process that turns that intelligence into a deployed and tested detection rule?",
+     "whyItMatters": "Threat intel that stays in a PDF is worth nothing. The value of ATT&CK is as a translation layer between intel reports and SIEM/EDR content \u2014 a missing pipeline is a common and serious gap.",
+     "interviewees": [
+      "Threat Intel Analyst",
+      "Detection Engineer",
+      "SOC Manager"
+     ],
+     "evidence": [
+      "Example of an intel report and the resulting detection rule",
+      "Intake-to-detection workflow or runbook",
+      "Ticket history showing intel-driven rule creation",
+      "Mean time from intel receipt to deployed detection"
+     ],
+     "guidance": "A GOOD answer shows a repeatable workflow: intel ingestion \u2192 TTP extraction using ATT&CK IDs \u2192 mapping against existing coverage \u2192 rule creation or tuning \u2192 testing \u2192 deployment, with a real worked example and measurable cycle time.",
+     "probes": [
+      "Show me the last detection you built directly from an intel report.",
+      "What happens if the technique is already covered \u2014 do you verify the existing rule actually fires?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "mitre-attack-p1-q04",
+     "controlRef": "ATT&CK Navigator \u2014 Coverage Mapping",
+     "question": "Do you maintain a map of your current detection coverage across the ATT&CK matrix \u2014 for example an ATT&CK Navigator layer \u2014 and who is responsible for keeping it accurate?",
+     "whyItMatters": "Without a current coverage map, no one knows which techniques are undetectable today, and 'gap analysis' becomes guesswork. The Navigator layer is also the primary deliverable format for the final report.",
+     "interviewees": [
+      "SOC Manager",
+      "Detection Engineer"
+     ],
+     "evidence": [
+      "ATT&CK Navigator layer JSON or screenshot",
+      "Rule-to-technique mapping export from SIEM",
+      "Process record showing the map's last update"
+     ],
+     "guidance": "A GOOD answer produces a maintained Navigator layer (or equivalent) with detections, data sources, and confidence levels per technique, updated on a defined cadence. Red flags: a map made once for a previous audit and never updated, or mapping done by tool marketing claims rather than actual rules.",
+     "probes": [
+      "How do you verify a rule marked as covering T1003 actually detects LSASS dumping today?",
+      "Is coverage mapped per data source or just per technique?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "mitre-attack-p1-q05",
+     "controlRef": "Detection Engineering Lifecycle",
+     "question": "Describe your detection engineering process end-to-end: how are new use cases proposed, written, tested against real attack behavior, deployed, tuned for false positives, and retired?",
+     "whyItMatters": "ATT&CK coverage is only as good as the process that builds and maintains it. Untested rules that silently break (log schema changes, parser failures) create phantom coverage \u2014 the auditor's map says 'covered' but nothing would actually fire.",
+     "interviewees": [
+      "Detection Engineer",
+      "SOC Manager"
+     ],
+     "evidence": [
+      "Detection engineering runbook or SDLC document",
+      "Rule repository with version history",
+      "Test records (Atomic Red Team, CALDERA, or manual reproduction)",
+      "False-positive tuning tickets"
+     ],
+     "guidance": "A GOOD answer describes a lifecycle with peer review, testing against emulated technique behavior (not just unit tests of the query), documented tuning decisions, and periodic re-validation. Ask for one rule's complete history as evidence.",
+     "probes": [
+      "How do you know a rule deployed two years ago still works?",
+      "What percentage of your rules have been tested against emulated attack behavior?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "mitre-attack-p1-q06",
+     "controlRef": "ATT&CK Data Sources \u2014 Logging Prerequisites",
+     "question": "For the techniques you claim to detect, which underlying log sources must exist \u2014 process creation with command line (Sysmon Event ID 1 / Windows 4688), PowerShell Script Block Logging (4104), authentication logs, DNS, proxy, cloud audit logs \u2014 and how do you verify those sources are actually flowing?",
+     "whyItMatters": "Every ATT&CK detection presumes data sources. Techniques like T1059.001 PowerShell are invisible without Script Block Logging; T1078 Valid Accounts is invisible without authentication logs. Missing telemetry means the detection is theoretical.",
+     "interviewees": [
+      "IT Ops",
+      "Detection Engineer",
+      "Network Engineer"
+     ],
+     "evidence": [
+      "Log source inventory mapped to ATT&CK data sources",
+      "Sysmon/GPO configuration export",
+      "SIEM data-source health dashboard",
+      "Gap list of hosts not forwarding logs"
+     ],
+     "guidance": "A GOOD answer shows a data-source inventory mapped to ATT&CK Data Source components, config evidence (Sysmon config, audit policy GPOs), and active health monitoring that alerts when a source stops flowing. Bonus: coverage percentages of the estate forwarding each source.",
+     "probes": [
+      "What percentage of Windows endpoints currently forward process command-line logs?",
+      "When a log source goes silent, who finds out and how fast?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "mitre-attack-p1-q07",
+     "controlRef": "Adversary Emulation & Purple Teaming",
+     "question": "Do you validate your detections through purple teaming or adversary emulation \u2014 reproducing real ATT&CK techniques (e.g., with Atomic Red Team, CALDERA, or a red team) \u2014 and how often?",
+     "whyItMatters": "Paper coverage and actual detection differ enormously. Emulating T1003.001 LSASS Memory dumping or T1059.001 PowerShell is the only reliable way to prove controls fire. Organizations without validation routinely discover at incident time that 'covered' techniques were never detected.",
+     "interviewees": [
+      "CISO",
+      "SOC Manager",
+      "Incident Responder",
+      "Detection Engineer"
+     ],
+     "evidence": [
+      "Purple team exercise reports with technique IDs and detection outcomes",
+      "Adversary emulation plans based on relevant threat actors",
+      "Remediation tickets from failed detections",
+      "Exercise schedule"
+     ],
+     "guidance": "A GOOD answer describes regular (at least annual, ideally continuous) emulation scoped to the relevant threat actors from q02, with per-technique pass/fail results tracked and gaps fed into detection engineering. A tabletop or pentest alone is not equivalent.",
+     "probes": [
+      "In your last exercise, how many emulated techniques were detected, alerted, and missed?",
+      "Who owns fixing a technique that was emulated but not detected?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "mitre-attack-p1-q08",
+     "controlRef": "EDR/SIEM Deployment Coverage",
+     "question": "What percentage of your endpoints, servers, and cloud workloads are actually covered by EDR, and what does the SIEM ingest \u2014 can you quantify the visibility gaps (unmanaged devices, legacy systems, shadow IT) in the estate?",
+     "whyItMatters": "Detection coverage against ATT&CK techniques only exists where sensors exist. An unmanaged laptop or unmonitored legacy server is a blind spot an adversary using T1078 Valid Accounts will find first.",
+     "interviewees": [
+      "SOC Manager",
+      "IT Ops"
+     ],
+     "evidence": [
+      "EDR deployment report (agents deployed vs. asset inventory)",
+      "Asset inventory (CMDB)",
+      "SIEM source list vs. asset list reconciliation",
+      "Known blind-spot register"
+     ],
+     "guidance": "A GOOD answer quantifies coverage (e.g., 94% of endpoints, all domain controllers, cloud audit logging on all accounts), reconciles against the CMDB, and honestly names blind spots with compensating controls or remediation plans.",
+     "probes": [
+      "How would you detect lateral movement to a server with no EDR agent?",
+      "Are OT/IoT and contractor devices in scope, and if not, how is that risk handled?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "mitre-attack-p1-q09",
+     "controlRef": "Program Governance \u2014 Roles & Ownership",
+     "question": "Who owns each part of the defensive capability being assessed \u2014 threat intelligence, detection engineering, alert triage, incident response \u2014 and how are responsibilities handed off when an alert escalates from triage to incident?",
+     "whyItMatters": "Technique coverage fails organizationally as often as technically: detections exist but no one triages them, or triage cannot reach a responder at 2 a.m. Clear ownership is what makes coverage operational.",
+     "interviewees": [
+      "CISO",
+      "SOC Manager",
+      "Incident Responder"
+     ],
+     "evidence": [
+      "SOC RACI or org chart",
+      "Escalation and on-call documentation",
+      "MTTD/MTTR metrics",
+      "Handoff runbook"
+     ],
+     "guidance": "A GOOD answer names accountable owners per function, shows 24/7 or defined-hours coverage with escalation paths, and provides metrics on triage and escalation performance. Watch for single-person dependencies on detection engineering or threat intel.",
+     "probes": [
+      "If your lead detection engineer left, what happens to rule maintenance?",
+      "Show me the escalation path for a confirmed T1003 alert on a domain controller at 3 a.m."
+     ],
+     "weight": 2
+    },
+    {
+     "id": "mitre-attack-p1-q10",
+     "controlRef": "Prior Assessments & Baseline",
+     "question": "Have you previously assessed your ATT&CK coverage \u2014 through an internal gap analysis, purple team, or third-party assessment \u2014 and what happened to the findings?",
+     "whyItMatters": "A prior baseline lets the auditor measure trajectory: are gaps closing or accumulating? Unremediated prior findings, especially on high-impact techniques, are strong evidence of a broken remediation loop.",
+     "interviewees": [
+      "CISO",
+      "SOC Manager"
+     ],
+     "evidence": [
+      "Previous gap analysis or Navigator layers (dated)",
+      "Prior assessment reports",
+      "Remediation tracker with status per finding"
+     ],
+     "guidance": "A GOOD answer produces dated prior coverage maps or reports and a tracker showing findings closed or consciously risk-accepted. A red flag is a previous assessment whose findings were never revisited.",
+     "probes": [
+      "Which finding from your last assessment is still open, and why?",
+      "Has overall coverage improved since the last assessment \u2014 how do you know?"
+     ],
+     "weight": 2
     }
-  ]
+   ]
+  },
+  {
+   "id": "phase-2",
+   "name": "Phase 2 \u2014 Initial Access, Execution & Persistence (TA0001, TA0002, TA0003)",
+   "objective": "Assess defensive coverage against how adversaries get in, run code, and stay in: phishing and exploitation of exposed services, malicious command/script execution, and persistence mechanisms such as scheduled tasks, run keys, and new accounts.",
+   "questions": [
+    {
+     "id": "mitre-attack-p2-q01",
+     "controlRef": "TA0001 Initial Access / T1566 Phishing",
+     "question": "How would you prevent and detect T1566 Phishing \u2014 specifically T1566.001 Spearphishing Attachment and T1566.002 Spearphishing Link \u2014 from email gateway through to endpoint execution, and how do you measure how much gets through?",
+     "whyItMatters": "Phishing remains the most common initial access vector in real intrusions. Defense requires layered controls (gateway filtering, attachment sandboxing, link rewriting, user reporting, endpoint detection); a single-layer answer means a determined phish will succeed.",
+     "interviewees": [
+      "SOC Analyst",
+      "Incident Responder",
+      "IT Ops"
+     ],
+     "evidence": [
+      "Email security gateway configuration and block statistics",
+      "Attachment sandbox detonation logs",
+      "User phish-report rate and simulation results",
+      "Examples of phishing alerts investigated end-to-end"
+     ],
+     "guidance": "A GOOD answer covers the full chain: gateway filtering with detonation, URL rewriting/click-time protection, a one-click user report button feeding the SOC, and endpoint detections for post-click execution. Metrics exist for click rates and time-to-triage of reported phish.",
+     "probes": [
+      "Walk me through the last real phishing email that reached a user's inbox \u2014 what happened?",
+      "What percentage of users report simulated phish, and what happens to repeat clickers?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "mitre-attack-p2-q02",
+     "controlRef": "TA0001 Initial Access / T1190 Exploit Public-Facing Application",
+     "question": "How do you defend against T1190 Exploit Public-Facing Application: how do you know what is exposed to the internet, how fast are internet-facing vulnerabilities patched, and what detects exploitation attempts (WAF, EDR on web servers, anomalous child processes of web services)?",
+     "whyItMatters": "Exploitation of public-facing applications (Citrix, Exchange, VPN appliances, Confluence) is the other dominant initial access vector. An unknown exposed service or a weeks-old critical CVE is an open door regardless of how good the SOC is.",
+     "interviewees": [
+      "Network Engineer",
+      "SOC Analyst",
+      "IT Ops"
+     ],
+     "evidence": [
+      "External attack surface / perimeter scan results",
+      "Vulnerability scan reports for internet-facing assets",
+      "Patch SLA compliance for critical external CVEs",
+      "WAF logs and rules",
+      "EDR coverage list for web/DMZ servers"
+     ],
+     "guidance": "A GOOD answer shows continuous external attack-surface discovery, a measured patch SLA for critical internet-facing CVEs (days, not months), WAF or equivalent virtual patching, and detections for web shells and suspicious child processes (e.g., w3wp.exe spawning cmd.exe).",
+     "probes": [
+      "When the last major edge-device CVE dropped, how long until you were patched or mitigated?",
+      "How would you detect a web shell dropped on your DMZ today?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "mitre-attack-p2-q03",
+     "controlRef": "TA0001 Initial Access / T1078 Valid Accounts + T1133 External Remote Services",
+     "question": "How do you prevent and detect T1078 Valid Accounts used via T1133 External Remote Services (VPN, RDP, OWA, cloud SSO) \u2014 is MFA enforced everywhere, and would you detect a legitimate credential logging in from an unusual location or at an unusual time?",
+     "whyItMatters": "Stolen valid accounts bypass most preventive controls; industry reporting consistently shows them among the top initial access vectors. Without MFA and logon anomaly detection, a single phished password equals full initial access.",
+     "interviewees": [
+      "IT Ops",
+      "SOC Analyst",
+      "Network Engineer"
+     ],
+     "evidence": [
+      "MFA enrollment coverage report (including service and legacy accounts)",
+      "VPN/SSO/RDP authentication logs in SIEM",
+      "Impossible-travel / anomalous-logon detection rules",
+      "Account lockout and conditional access policy exports"
+     ],
+     "guidance": "A GOOD answer shows MFA on 100% of remote access with named exceptions risk-accepted, conditional access policies, and tuned detections for impossible travel, first-time country, and logon source anomalies \u2014 with authentication logs actually reaching the SIEM.",
+     "probes": [
+      "Which accounts can still authenticate without MFA, and why?",
+      "Show me an alert from an anomalous logon in the last quarter and how it was resolved."
+     ],
+     "weight": 3
+    },
+    {
+     "id": "mitre-attack-p2-q04",
+     "controlRef": "TA0001 Initial Access / T1189 Drive-by Compromise",
+     "question": "How do you reduce and detect T1189 Drive-by Compromise \u2014 browser and plug-in exploitation from malicious or compromised websites \u2014 given that users browse the web daily?",
+     "whyItMatters": "Drive-by and malvertising exploit unpatched browsers and permissive web access. Organizations that cannot answer this often have no visibility into what executes in the browser context at all.",
+     "interviewees": [
+      "SOC Analyst",
+      "IT Ops"
+     ],
+     "evidence": [
+      "Browser patch compliance report",
+      "Web proxy / secure web gateway category filtering policy",
+      "EDR detections for browser child processes",
+      "Browser isolation or hardening policy if present"
+     ],
+     "guidance": "A GOOD answer includes enforced browser auto-update, web filtering blocking newly-registered and uncategorized domains, and EDR logic alerting on browsers spawning script interpreters or Office executables. Acceptable honest answer: 'EDR is our primary control here' with a demonstrated detection.",
+     "probes": [
+      "Would you see it if Chrome spawned powershell.exe right now?",
+      "Are newly registered domains blocked or just logged?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "mitre-attack-p2-q05",
+     "controlRef": "TA0002 Execution / T1059 Command and Scripting Interpreter",
+     "question": "How do you detect malicious use of T1059 Command and Scripting Interpreter \u2014 especially T1059.001 PowerShell and T1059.003 Windows Command Shell \u2014 while administrators legitimately use the same tools every day?",
+     "whyItMatters": "Script interpreters are the workhorse of nearly every intrusion: encoded PowerShell, LOLBins, and one-liner downloaders. Detection requires deep telemetry (Script Block Logging 4104, AMSI, command-line capture) and behavioral rules, not blanket blocking.",
+     "interviewees": [
+      "Detection Engineer",
+      "SOC Analyst"
+     ],
+     "evidence": [
+      "PowerShell Script Block Logging (4104) and Module Logging GPO evidence",
+      "AMSI integration with EDR",
+      "Detection rules for encoded commands, suspicious download cradles, and parent-child anomalies",
+      "Example fired alerts with triage outcomes"
+     ],
+     "guidance": "A GOOD answer shows 4104 logging flowing from endpoints, AMSI content scanning, behavioral rules (e.g., powershell with -enc, Invoke-Expression patterns, Office\u2192PowerShell parentage), and constrained language mode or AppLocker for high-risk user populations. Noise management is acknowledged with real tuning examples.",
+     "probes": [
+      "Run an encoded PowerShell command on a test machine \u2014 what fires?",
+      "How do you keep admin PowerShell use from drowning these rules in false positives?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "mitre-attack-p2-q06",
+     "controlRef": "TA0002 Execution / T1204 User Execution",
+     "question": "When a user is tricked into executing a malicious file or link (T1204.002 Malicious File), what stops it at the endpoint \u2014 and if nothing stops it, what detects the execution chain (Office macro spawning scripts, ISO/LNK attachment execution)?",
+     "whyItMatters": "User execution is where phishing converts to compromise. Macro and attachment execution chains (maldoc \u2192 mshta/rundll32 \u2192 payload) are high-volume real-world patterns that must be blocked or detected within minutes.",
+     "interviewees": [
+      "SOC Analyst",
+      "Incident Responder",
+      "IT Ops"
+     ],
+     "evidence": [
+      "Office macro policy (GPO blocking internet-sourced macros)",
+      "Attack Surface Reduction (ASR) rules configuration and audit/block mode evidence",
+      "Application control policy (AppLocker/WDAC) if present",
+      "EDR alert examples for maldoc execution chains"
+     ],
+     "guidance": "A GOOD answer shows internet-macro blocking enabled, ASR rules (Office child processes, script obstruction) in block mode on most of the estate, and EDR coverage of the remaining execution paths, with evidence of real detections or successful blocks.",
+     "probes": [
+      "Is 'Block Office applications from creating child processes' in block or audit mode \u2014 and on how many machines?",
+      "What happens when a user opens an ISO attachment today?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "mitre-attack-p2-q07",
+     "controlRef": "TA0002 Execution / T1047 Windows Management Instrumentation",
+     "question": "How would you detect T1047 Windows Management Instrumentation being used for remote execution \u2014 wmic process call create, suspicious WMI event subscriptions \u2014 and is WMI logging enabled and forwarded?",
+     "whyItMatters": "WMI is a favored living-off-the-land execution and lateral movement method precisely because many environments do not log it. Absent WMI telemetry, an entire class of fileless execution is invisible.",
+     "interviewees": [
+      "Detection Engineer",
+      "SOC Analyst",
+      "IT Ops"
+     ],
+     "evidence": [
+      "WMI-Activity operational log forwarding configuration",
+      "Sysmon WMI event capture (Event IDs 19-21) configuration",
+      "Detection rules for wmic remote process creation and permanent event subscriptions",
+      "Test evidence that a wmiexec-style action alerts"
+     ],
+     "guidance": "A GOOD answer shows WMI activity logging enabled and collected, Sysmon capturing WMI event consumers, and rules distinguishing admin tooling (SCCM etc.) from anomalous WMI execution. A weak answer is 'our EDR probably catches that' with no proof.",
+     "probes": [
+      "Is Microsoft-Windows-WMI-Activity/Operational forwarded to the SIEM?",
+      "How do you tell SCCM's legitimate WMI use from an attacker's?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "mitre-attack-p2-q08",
+     "controlRef": "TA0003 Persistence / T1053 Scheduled Task/Job",
+     "question": "How do you detect adversaries establishing persistence via T1053 Scheduled Task/Job \u2014 T1053.005 Scheduled Task on Windows and cron on Linux \u2014 including remotely created tasks used for lateral movement?",
+     "whyItMatters": "Scheduled tasks are among the most common persistence mechanisms across ransomware and APT intrusions. Without task-creation auditing and remote-task detection, adversaries return freely after remediation.",
+     "interviewees": [
+      "Detection Engineer",
+      "SOC Analyst"
+     ],
+     "evidence": [
+      "Windows Security Event 4698/4702 collection evidence",
+      "Sysmon Event ID 1 coverage of schtasks.exe",
+      "Detection rules for task creation by non-admin tools, tasks running as SYSTEM from user-writable paths, remote task creation (Event 106/200 on target)",
+      "Baseline of legitimate scheduled tasks on servers"
+     ],
+     "guidance": "A GOOD answer shows task creation/modification events collected estate-wide, rules keyed on anomalous task names, actions, and creators, and specific coverage of remote schtasks/at usage. Baselines for server task creation (rare and change-controlled) are a strong maturity signal.",
+     "probes": [
+      "If an attacker ran 'schtasks /create /s SERVER01' from a workstation, which alerts fire?",
+      "How are new scheduled tasks on production servers approved?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "mitre-attack-p2-q09",
+     "controlRef": "TA0003 Persistence / T1547 Boot or Logon Autostart Execution",
+     "question": "How is T1547 Boot or Logon Autostart Execution detected \u2014 particularly T1547.001 Registry Run Keys / Startup Folder \u2014 one of the most frequently observed persistence techniques in commodity malware?",
+     "whyItMatters": "Run-key persistence is a hallmark of commodity malware and loaders. It is cheap to detect (registry telemetry, autoruns baselining, EDR) so failing to detect it indicates a fundamental telemetry gap.",
+     "interviewees": [
+      "Detection Engineer",
+      "SOC Analyst"
+     ],
+     "evidence": [
+      "Sysmon registry event capture (Event ID 13) or equivalent EDR registry telemetry",
+      "Detection rules for writes to Run/RunOnce keys and Startup folder by unusual processes",
+      "Autoruns baseline for servers and critical systems",
+      "Alert examples"
+     ],
+     "guidance": "A GOOD answer shows registry-value-set telemetry collected, rules alerting on non-standard processes writing to autostart locations, and baselining for servers (where new autostart entries should be near-zero). Detection of the technique in a purple-team test is strong evidence.",
+     "probes": [
+      "Write a value to HKCU\\...\\Run on a test endpoint \u2014 what do you see and where?",
+      "When did you last baseline autoruns on your domain controllers?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "mitre-attack-p2-q10",
+     "controlRef": "TA0003 Persistence / T1543 Create or Modify System Process",
+     "question": "How do you detect T1543 Create or Modify System Process \u2014 specifically T1543.003 Windows Service creation \u2014 given that new services on servers and workstations are a standard persistence and execution method?",
+     "whyItMatters": "Service creation (Event ID 7045) catches a wide range of attacker tooling, from PsExec-style lateral movement to ransomware staging. Environments not collecting 7045 are blind to a trivially detectable, high-signal event.",
+     "interviewees": [
+      "SOC Analyst",
+      "IT Ops",
+      "Detection Engineer"
+     ],
+     "evidence": [
+      "System log Event 7045 forwarding configuration",
+      "Rules alerting on services with random names, user-writable binaries, or suspicious command lines",
+      "Change management records for legitimate service installs",
+      "Alert triage examples"
+     ],
+     "guidance": "A GOOD answer shows 7045 collected estate-wide with rules distinguishing software deployments (known paths, signed binaries, change windows) from anomalous service creation, plus tighter alerting on servers and domain controllers.",
+     "probes": [
+      "Show me the last 7045 alert and how you determined it was benign.",
+      "Are service installs on servers tied to change tickets?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "mitre-attack-p2-q11",
+     "controlRef": "TA0003 Persistence / T1136 Create Account + T1098 Account Manipulation",
+     "question": "How would you detect T1136 Create Account \u2014 a rogue local or domain account created for persistence \u2014 and subsequent manipulation such as adding it to privileged groups?",
+     "whyItMatters": "Rogue accounts survive password resets and are a standard ransomware-affiliate persistence method. Account creation is low-volume and highly auditable, so failure to detect it reveals a basic identity-monitoring gap.",
+     "interviewees": [
+      "SOC Analyst",
+      "IT Ops"
+     ],
+     "evidence": [
+      "Collection of Events 4720 (account created), 4728/4732/4756 (added to privileged groups)",
+      "Rules alerting on local account creation outside imaging/MDM processes",
+      "Regular review of local admin and privileged group membership",
+      "Example investigation of an account-creation alert"
+     ],
+     "guidance": "A GOOD answer shows account-creation and group-change events collected and alerted, correlation with provisioning/ITSM records to separate legitimate admin work from rogue creation, and periodic membership recertification of privileged groups.",
+     "probes": [
+      "If helpdesk creates a local admin at 2 a.m. with no ticket, who notices?",
+      "When were local admin groups on servers last recertified?"
+     ],
+     "weight": 3
+    }
+   ]
+  },
+  {
+   "id": "phase-3",
+   "name": "Phase 3 \u2014 Privilege Escalation, Defense Evasion & Credential Access (TA0004, TA0005, TA0006)",
+   "objective": "Assess coverage of the techniques adversaries use to gain higher privileges, blind or bypass defenses, and steal credentials \u2014 the phase of an intrusion where detection windows are shortest and stakes are highest.",
+   "questions": [
+    {
+     "id": "mitre-attack-p3-q01",
+     "controlRef": "TA0004 Privilege Escalation / T1068 Exploitation for Privilege Escalation",
+     "question": "How do you mitigate T1068 Exploitation for Privilege Escalation \u2014 local privilege-escalation vulnerabilities (e.g., PrintNightmare-class, kernel EoPs) \u2014 and would endpoint telemetry catch an exploit elevating a process from user to SYSTEM?",
+     "whyItMatters": "Privilege-escalation exploits turn a single phished workstation into domain compromise. Patch velocity for EoP CVEs plus behavioral detection of token elevation is the two-part answer; neither alone is sufficient.",
+     "interviewees": [
+      "IT Ops",
+      "SOC Analyst",
+      "Detection Engineer"
+     ],
+     "evidence": [
+      "Patch compliance report for privilege-escalation CVEs",
+      "Vulnerability scan data on endpoint/server estate",
+      "EDR behavioral rules for unexpected SYSTEM-level process creation from user contexts",
+      "Examples of blocked or detected EoP attempts"
+     ],
+     "guidance": "A GOOD answer shows risk-based patching that prioritizes exploited-in-the-wild EoPs (KEV-driven), and EDR rules alerting on anomalous privilege transitions (e.g., Office/browser process spawning SYSTEM children). Ask for KEV remediation SLA.",
+     "probes": [
+      "How quickly are CISA KEV privilege-escalation vulnerabilities patched?",
+      "Would you see a user-context process suddenly spawning children as SYSTEM?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "mitre-attack-p3-q02",
+     "controlRef": "TA0004 Privilege Escalation / T1134 Access Token Manipulation",
+     "question": "How would you detect T1134 Access Token Manipulation \u2014 token impersonation/theft (e.g., via incognito-style tooling or make-token functions in C2 frameworks) being used to act as another user or elevate privileges?",
+     "whyItMatters": "Token manipulation is built into every major C2 framework and enables lateral movement under legitimate user contexts. It is detectable via specific telemetry (use of sensitive privileges, account-context switches) but only if those events are collected and rules exist.",
+     "interviewees": [
+      "Detection Engineer",
+      "SOC Analyst"
+     ],
+     "evidence": [
+      "Collection of Windows Events 4672 (special privileges assigned) and 4703 (token rights adjusted) or EDR equivalents",
+      "Rules for processes unexpectedly using SeDebugPrivilege or impersonating other logon sessions",
+      "EDR behavioral analytics documentation",
+      "Test evidence from emulation"
+     ],
+     "guidance": "A GOOD answer acknowledges this is an advanced detection area and shows specific telemetry and at least one validated rule or EDR behavior covering token theft patterns, with purple-team confirmation. A blank stare or pure reliance on vendor defaults is a gap.",
+     "probes": [
+      "Has token impersonation been emulated in your environment \u2014 what fired?",
+      "Which processes legitimately hold SeDebugPrivilege here?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "mitre-attack-p3-q03",
+     "controlRef": "TA0005 Defense Evasion / T1055 Process Injection",
+     "question": "How would your EDR detect T1055 Process Injection \u2014 including T1055.001 DLL Injection and T1055.012 Process Hollowing \u2014 where malware hides inside legitimate processes to evade detection?",
+     "whyItMatters": "Process injection is the defining evasion behavior of modern malware (migrating into explorer.exe, hollowing svchost). If EDR memory and cross-process telemetry cannot catch injection, most commodity malware and C2 beacons run undetected.",
+     "interviewees": [
+      "Detection Engineer",
+      "SOC Analyst"
+     ],
+     "evidence": [
+      "EDR capability documentation for memory/injection detection",
+      "Sysmon Event ID 8 (CreateRemoteThread) configuration if used",
+      "Vendor or internal test results (e.g., MITRE Engenuity evaluations)",
+      "Purple-team evidence of injection being detected"
+     ],
+     "guidance": "A GOOD answer names the EDR's specific injection detections (remote thread creation, unbacked memory execution, hollowing heuristics), cites evaluation or emulation results, and shows injection alerts that have been triaged. The answer should not be purely theoretical.",
+     "probes": [
+      "Inject shellcode into notepad on a test box \u2014 what does the SOC see?",
+      "Which MITRE Engenuity evaluation covered your EDR, and what did you do with the results?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "mitre-attack-p3-q04",
+     "controlRef": "TA0004/TA0005 / T1078 Valid Accounts (abuse of legitimate credentials)",
+     "question": "Beyond initial access, how do you detect ongoing abuse of T1078 Valid Accounts \u2014 a compromised legitimate account behaving abnormally (impossible travel, first-time resource access, unusual hours, privilege use inconsistent with role)?",
+     "whyItMatters": "Valid-account abuse is invisible to signature-based detection; only behavioral baselining (UEBA or well-tuned rules) catches it. This is frequently the only detection opportunity between initial access and impact.",
+     "interviewees": [
+      "SOC Analyst",
+      "Detection Engineer",
+      "SOC Manager"
+     ],
+     "evidence": [
+      "UEBA or identity analytics tooling configuration and alert samples",
+      "Rules for impossible travel, dormant account use, admin account misuse",
+      "Alert-to-true-positive tuning history",
+      "Case study of an identity-based detection"
+     ],
+     "guidance": "A GOOD answer shows identity-focused detections with tuned baselines (per-user or per-peer-group), evidence the alerts are actually triaged rather than disabled for noise, and at least one real catch. Ask about service-account behavior monitoring specifically.",
+     "probes": [
+      "If a service account suddenly logs into a workstation interactively, what fires?",
+      "What is your false-positive rate on identity analytics, and who tunes it?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "mitre-attack-p3-q05",
+     "controlRef": "TA0005 Defense Evasion / T1562 Impair Defenses",
+     "question": "How would you detect T1562 Impair Defenses \u2014 T1562.001 Disable or Modify Tools \u2014 where an attacker kills EDR services, deletes sensors, disables logging, or tampers with security tooling as a first act after landing?",
+     "whyItMatters": "Ransomware operators routinely disable defenses before encryption (BYOVD drivers, EDR killers). Tamper events are among the highest-fidelity alerts available \u2014 but only if the SOC is actually watching for its own tools being attacked.",
+     "interviewees": [
+      "SOC Manager",
+      "SOC Analyst",
+      "IT Ops"
+     ],
+     "evidence": [
+      "EDR tamper-protection configuration (agent self-defense, uninstall passwords)",
+      "Alerts for EDR/AV service stop, sensor deletion, or policy change",
+      "Heartbeat/health monitoring alerting when endpoints go silent",
+      "Examples of tamper alerts investigated"
+     ],
+     "guidance": "A GOOD answer shows tamper protection enforced (uninstall requires credential/token), immediate high-severity alerting on sensor stop/delete/health-loss, and a defined response: a silenced endpoint is treated as potentially compromised, not a ticket for later.",
+     "probes": [
+      "If 50 endpoints' EDR agents stop reporting tonight, what alerts and who responds?",
+      "Can a local admin uninstall the EDR?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "mitre-attack-p3-q06",
+     "controlRef": "TA0005 Defense Evasion / T1070 Indicator Removal",
+     "question": "How do you detect T1070 Indicator Removal \u2014 especially T1070.001 Clear Windows Event Logs \u2014 and is your logging architecture resilient to a compromised host deleting its own evidence?",
+     "whyItMatters": "Log clearing both signals attacker presence and destroys forensic evidence. Centralized forwarding means the damage is limited; without it, one wevtutil command erases your ability to investigate.",
+     "interviewees": [
+      "Detection Engineer",
+      "IT Ops",
+      "Incident Responder"
+     ],
+     "evidence": [
+      "Collection and alerting on Event 1102 (Security log cleared) and System 104",
+      "Windows Event Forwarding / syslog architecture showing real-time off-host forwarding",
+      "Retention configuration for forwarded logs",
+      "Purple-team or test evidence that clearing logs alerts"
+     ],
+     "guidance": "A GOOD answer shows high-severity alerting on log-clear events, near-real-time forwarding so cleared logs still exist centrally, and incident response treating a 1102 on a server as a serious lead. Local-only logging is a clear finding.",
+     "probes": [
+      "Clear the security log on a test server \u2014 what happens in the SOC?",
+      "After a host is compromised, how much of its history survives centrally?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "mitre-attack-p3-q07",
+     "controlRef": "TA0005 Defense Evasion / T1027 Obfuscated Files or Information + T1140 Deobfuscate/Decode Files or Information",
+     "question": "How do your controls handle T1027 Obfuscated Files or Information and T1140 Deobfuscate/Decode \u2014 packed malware, base64-encoded commands, and layered scripts designed to defeat static scanning?",
+     "whyItMatters": "Obfuscation defeats hash and signature-based controls; only behavioral and memory-level detection works. An organization relying primarily on file signatures has a structural blind spot for the majority of modern malware delivery.",
+     "interviewees": [
+      "Detection Engineer",
+      "SOC Analyst"
+     ],
+     "evidence": [
+      "Sandbox detonation capability and verdict feeds",
+      "AMSI/script content inspection evidence",
+      "Rules for encoded command lines, certutil/mshta/rundll32 decoding abuse",
+      "EDR behavioral detection examples"
+     ],
+     "guidance": "A GOOD answer relies on behavior and content inspection: AMSI scanning of deobfuscated script content at runtime, sandbox detonation for files, and command-line analytics \u2014 and can demonstrate a detection that fired on obfuscated content that signatures missed.",
+     "probes": [
+      "Would a base64-encoded PowerShell cradle alert even though it matches no signature?",
+      "What does your sandbox do with password-protected archives delivered by phish?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "mitre-attack-p3-q08",
+     "controlRef": "TA0005 Defense Evasion / T1036 Masquerading",
+     "question": "How would you detect T1036 Masquerading \u2014 malicious files renamed to look legitimate (e.g., 'svchost.exe' in the wrong directory, double extensions, right-to-left override names)?",
+     "whyItMatters": "Masquerading defeats analysts as well as tools: an alert on 'svchost.exe' is ignored unless path, signer, and parentage are checked. Detection quality here reflects how rigorously the SOC validates process legitimacy.",
+     "interviewees": [
+      "SOC Analyst",
+      "Detection Engineer"
+     ],
+     "evidence": [
+      "Rules checking process name against expected path and signer",
+      "EDR alerts for system-binary names executing from user-writable or temp paths",
+      "Analyst runbooks requiring path/signer verification",
+      "Example triage of a masquerading alert"
+     ],
+     "guidance": "A GOOD answer shows rules on name/path/signer mismatch (svchost outside System32, unsigned 'signed-looking' binaries), and triage runbooks that explicitly check full path, hash, and digital signature rather than trusting process names.",
+     "probes": [
+      "Show me how your analysts verify a suspicious svchost.exe alert.",
+      "Are double-extension and RTLO filenames blocked at the gateway or endpoint?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "mitre-attack-p3-q09",
+     "controlRef": "TA0005 Defense Evasion / T1112 Modify Registry",
+     "question": "How do you monitor T1112 Modify Registry beyond autostart keys \u2014 attacker edits that weaken the host (disabling AMSI, tampering with LSA protection, changing security policy) or store configuration?",
+     "whyItMatters": "Registry modification is a quiet, high-impact evasion primitive: one value can blind script scanning or expose LSASS to dumping. Security-relevant registry keys are a small, well-known set and cheap to watch \u2014 failure here is low-hanging fruit left unpicked.",
+     "interviewees": [
+      "Detection Engineer",
+      "IT Ops"
+     ],
+     "evidence": [
+      "Registry auditing or Sysmon Event 13 rules for security-relevant keys (AMSI providers, LSA RunAsPPL, Windows Defender exclusions)",
+      "GPO baselines with drift detection",
+      "Alert examples on Defender exclusion additions or tamper keys",
+      "EDR registry telemetry documentation"
+     ],
+     "guidance": "A GOOD answer names the specific keys monitored (Defender exclusions, AMSI, LSA protection, UAC settings), shows alerting on modification, and describes how baseline drift is detected. Alerting on new AV/EDR exclusions is a particularly high-value signal to ask about.",
+     "probes": [
+      "If an attacker adds C:\\Temp as a Defender exclusion tonight, who is alerted?",
+      "Is RunAsPPL enforced, and would a change to it alert?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "mitre-attack-p3-q10",
+     "controlRef": "TA0006 Credential Access / T1003 OS Credential Dumping",
+     "question": "How do you protect against and detect T1003 OS Credential Dumping \u2014 especially T1003.001 LSASS Memory dumping (mimikatz-style), SAM hive extraction, and NTDS.dit theft from domain controllers?",
+     "whyItMatters": "Credential dumping is the hinge point of nearly every major intrusion: one dump of LSASS or NTDS.dit hands the adversary the keys to the estate. This is one of the highest-weight technique questions in the entire assessment.",
+     "interviewees": [
+      "SOC Analyst",
+      "IT Ops",
+      "Detection Engineer"
+     ],
+     "evidence": [
+      "LSA Protection (RunAsPPL) and Credential Guard deployment status",
+      "EDR rules for LSASS access by non-system processes",
+      "Alert on NTDS.dit access/shadow-copy creation on DCs",
+      "Tiered admin model separating privileged credentials from workstations",
+      "Purple-team emulation evidence of dump detection"
+     ],
+     "guidance": "A GOOD answer combines prevention (Credential Guard/LSA protection deployed with measured coverage, no domain-admin logons to workstations, gMSA for services) with detection (LSASS handle-access alerting proven by emulation, NTDS.dit and SAM access alerts on DCs, comsvcs.dll MiniDump patterns). Treat the answer as failed if dumping has never been emulated.",
+     "probes": [
+      "Has anyone run mimikatz or nanodump against a test host to verify the alert?",
+      "Do domain admins ever log on to user workstations? How is that prevented technically?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "mitre-attack-p3-q11",
+     "controlRef": "TA0006 Credential Access / T1110 Brute Force",
+     "question": "How do you detect T1110 Brute Force \u2014 including T1110.003 Password Spraying and T1110.004 Credential Stuffing \u2014 against on-premises AD, VPN, and cloud identity providers?",
+     "whyItMatters": "Password spraying is a low-and-slow attack that evades simple lockout logic and remains a top cloud-breach vector. Detection requires aggregating failures across accounts and sources \u2014 per-account lockout policies alone will not see it.",
+     "interviewees": [
+      "SOC Analyst",
+      "Network Engineer",
+      "IT Ops"
+     ],
+     "evidence": [
+      "SIEM correlation rules for many-account/one-source and one-account/many-source failure patterns",
+      "Identity provider (Entra ID/Okta) sign-in logs in SIEM",
+      "Lockout and smart-lockout policy configuration",
+      "Example spray detection and response"
+     ],
+     "guidance": "A GOOD answer shows cross-account correlation rules (e.g., >N accounts failing from one source in M minutes), cloud sign-in logs ingested with spray/stuffing detections, smart lockout, and a playbook covering forced resets and MFA fatigue follow-up.",
+     "probes": [
+      "A spray of 200 accounts from one IP at 4 failures each \u2014 does anything alert?",
+      "Are legacy authentication protocols (which bypass MFA) disabled?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "mitre-attack-p3-q12",
+     "controlRef": "TA0006 Credential Access / T1552 Unsecured Credentials + T1555 Credentials from Password Stores",
+     "question": "How do you reduce exposure from T1552 Unsecured Credentials (passwords in scripts, config files, shares, wikis) and T1555 Credentials from Password Stores \u2014 the easy wins adversaries look for before ever bothering to dump LSASS?",
+     "whyItMatters": "Hard-coded and poorly stored credentials let attackers skip noisy techniques entirely. Proactive hygiene (scanning, vaulting, secret rotation) removes attack paths that detection can never fully compensate for.",
+     "interviewees": [
+      "IT Ops",
+      "SOC Analyst"
+     ],
+     "evidence": [
+      "Secrets-scanning results on file shares, repos, and config management",
+      "Enterprise password vault / PAM deployment and coverage",
+      "Service account inventory with rotation policy",
+      "Remediation records for exposed secrets found"
+     ],
+     "guidance": "A GOOD answer shows routine scanning for exposed secrets (SYSVOL, shares, code repos, CI/CD), a vault with check-out and rotation for privileged and service accounts, and evidence that found secrets were rotated \u2014 not just documented.",
+     "probes": [
+      "When did you last scan SYSVOL and file shares for passwords, and what did you find?",
+      "How old is the oldest unchanged service account password?"
+     ],
+     "weight": 2
+    }
+   ]
+  },
+  {
+   "id": "phase-4",
+   "name": "Phase 4 \u2014 Discovery, Lateral Movement & Collection (TA0007, TA0008, TA0009)",
+   "objective": "Assess whether the SOC can see an adversary mapping the environment, moving between systems, and staging data \u2014 the middle of the kill chain where defenders typically have days, not minutes, to act before exfiltration or impact.",
+   "questions": [
+    {
+     "id": "mitre-attack-p4-q01",
+     "controlRef": "TA0007 Discovery / T1087 Account Discovery + T1482 Domain Trust Discovery",
+     "question": "How would you detect T1087 Account Discovery and T1482 Domain Trust Discovery \u2014 an attacker enumerating admins, groups, and trusts with net commands, PowerView, or BloodHound \u2014 and can you distinguish that from admin work?",
+     "whyItMatters": "Discovery is the first observable behavior after initial access. SharpHound/BloodHound collection in particular is a high-confidence indicator that precedes privilege escalation; catching it early collapses the attacker's plan.",
+     "interviewees": [
+      "SOC Analyst",
+      "Detection Engineer"
+     ],
+     "evidence": [
+      "Command-line telemetry capturing net/nltest/AD enumeration patterns",
+      "LDAP query volume analytics or honeypot accounts",
+      "Detection rules for BloodHound/SharpHound collection signatures",
+      "Baseline of legitimate admin enumeration tools"
+     ],
+     "guidance": "A GOOD answer shows command-line rules for enumeration patterns executed by non-admin accounts or outside admin workstations, anomalous LDAP query detection, and ideally canary/honey accounts whose enumeration alerts at high severity. Tooling like BloodHound used by internal teams is acknowledged and scoped.",
+     "probes": [
+      "If a workstation suddenly queries every group membership in AD, what fires?",
+      "Do you run BloodHound yourselves \u2014 how do you tell your runs from an attacker's?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "mitre-attack-p4-q02",
+     "controlRef": "TA0007 Discovery / T1018 Remote System Discovery + T1016 System Network Configuration Discovery",
+     "question": "How do you detect T1018 Remote System Discovery and internal network reconnaissance \u2014 ping sweeps, port scans, and network mapping originating from a compromised internal host?",
+     "whyItMatters": "Internal scanning is a strong mid-kill-chain indicator that perimeter tools never see. East-west visibility is the single most common architectural blind spot in enterprise networks.",
+     "interviewees": [
+      "Network Engineer",
+      "SOC Analyst"
+     ],
+     "evidence": [
+      "Internal network monitoring (NDR, internal NetFlow, IDS) coverage map",
+      "Detections for scan patterns from endpoints/servers",
+      "Segmentation diagram showing monitored choke points",
+      "Alert examples for internal recon"
+     ],
+     "guidance": "A GOOD answer shows internal traffic visibility (NDR or NetFlow at core/aggregation), scan-detection logic tuned to internal sources, and correlation of scanning with the host's process telemetry. 'We only monitor north-south' is a documented finding.",
+     "probes": [
+      "A compromised server sweeps port 445 across a /24 \u2014 who sees it?",
+      "What percentage of east-west traffic do you inspect or at least log?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "mitre-attack-p4-q03",
+     "controlRef": "TA0007 Discovery / T1057 Process Discovery + T1083 File and Directory Discovery",
+     "question": "Would you detect low-level host discovery \u2014 T1057 Process Discovery (tasklist) and T1083 File and Directory Discovery \u2014 and do you treat these as actionable signals or accepted noise?",
+     "whyItMatters": "These techniques are individually noisy but valuable as correlation signals: discovery commands followed by credential access attempts on the same host is a strong attack-chain indicator. Organizations that suppress this telemetry lose early-warning correlation.",
+     "interviewees": [
+      "Detection Engineer",
+      "SOC Analyst"
+     ],
+     "evidence": [
+      "SIEM correlation rules chaining discovery + credential access + lateral movement on one host",
+      "Command-line logging coverage evidence",
+      "Risk-based alerting / risk accumulation configuration",
+      "Example of a multi-technique correlation that escalated correctly"
+     ],
+     "guidance": "A GOOD answer does not alert on every tasklist, but shows discovery events feeding risk-scoring or correlation chains (discovery \u2192 dump attempt \u2192 remote logon = high severity). Pure suppression of these events as 'noise' without correlation is a maturity gap.",
+     "probes": [
+      "Show me a rule where low-severity events combine into a high-severity incident.",
+      "Which analytics engine does your risk-based scoring?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "mitre-attack-p4-q04",
+     "controlRef": "TA0008 Lateral Movement / T1021 Remote Services",
+     "question": "How do you detect lateral movement via T1021 Remote Services \u2014 T1021.001 Remote Desktop Protocol, T1021.002 SMB/Windows Admin Shares, and T1021.004 SSH \u2014 including workstation-to-workstation connections that should almost never happen?",
+     "whyItMatters": "Remote services are the primary lateral movement vehicle in real intrusions. Workstation-to-workstation RDP/SMB is rare legitimately and high-fidelity as a detection \u2014 but only if internal connection telemetry is collected and baselined.",
+     "interviewees": [
+      "SOC Analyst",
+      "IT Ops",
+      "Network Engineer"
+     ],
+     "evidence": [
+      "Windows logon event collection (4624 type 3/10) correlated across hosts",
+      "Rules for workstation-to-workstation RDP/SMB",
+      "Admin share (ADMIN$/C$) access monitoring",
+      "Host firewall or segmentation policy restricting lateral protocols",
+      "Example lateral movement detection"
+     ],
+     "guidance": "A GOOD answer shows logon-type-aware correlation across hosts, explicit rules or UEBA for peer-to-peer RDP/SMB anomalies, admin share monitoring, and network/host controls that constrain lateral paths. Admin jump-box architecture with monitored transitions is a strong signal.",
+     "probes": [
+      "If a user workstation RDPs into three other workstations tonight, what alerts?",
+      "Can any workstation reach any server's ADMIN$ share? Should it be able to?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "mitre-attack-p4-q05",
+     "controlRef": "TA0008 Lateral Movement / T1550 Use Alternate Authentication Material",
+     "question": "How do you defend against T1550 Use Alternate Authentication Material \u2014 T1550.002 Pass the Hash and T1550.003 Pass the Ticket \u2014 where stolen hashes or Kerberos tickets move the attacker without ever touching a password?",
+     "whyItMatters": "PtH/PtT defeat password resets and most MFA: the attacker replays what your systems accept as proof of identity. Prevention (credential hygiene, Kerberos hardening) matters more than detection here, and both are frequently absent.",
+     "interviewees": [
+      "IT Ops",
+      "SOC Analyst",
+      "Detection Engineer"
+     ],
+     "evidence": [
+      "Local admin password management (LAPS) deployment evidence",
+      "Tiered administration and clean-source (PAW) policy",
+      "Detections for unusual NTLM usage, ticket anomalies (golden ticket indicators), and authentication from unexpected hosts",
+      "Kerberos policy configuration (ticket lifetimes, delegation restrictions)"
+     ],
+     "guidance": "A GOOD answer shows LAPS eliminating shared local admin hashes, tiered admin preventing privileged credential exposure on lower tiers, NTLM restrictions or monitoring, and detections for anomalous ticket lifetimes/encryption downgrades. Ask specifically how a reused local admin hash is prevented.",
+     "probes": [
+      "Is LAPS deployed to 100% of workstations and servers?",
+      "Would a golden ticket (abnormal TGT lifetime) be detected?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "mitre-attack-p4-q06",
+     "controlRef": "TA0008 Lateral Movement / T1570 Lateral Tool Transfer",
+     "question": "How would you detect T1570 Lateral Tool Transfer \u2014 attackers copying tooling between systems over SMB/admin shares \u2014 and do you monitor file transfers between internal hosts at all?",
+     "whyItMatters": "Tool transfer is a reliable precursor to hands-on-keyboard activity and ransomware deployment. Internal SMB write monitoring (e.g., suspicious binaries landing via admin shares) gives a concrete pre-impact detection opportunity.",
+     "interviewees": [
+      "SOC Analyst",
+      "Network Engineer",
+      "Detection Engineer"
+     ],
+     "evidence": [
+      "Sysmon Event 11 (file create) or equivalent on servers",
+      "Rules for executable drops via admin shares or by non-admin processes",
+      "NDR/SMB monitoring for unusual internal transfers",
+      "Alert examples"
+     ],
+     "guidance": "A GOOD answer monitors executable creation on servers (especially via network paths), flags binaries written by unusual processes or accounts, and correlates the transfer with the subsequent execution \u2014 catching the transfer-and-execute pattern as one chain.",
+     "probes": [
+      "An unknown exe lands in C$\\Windows\\Temp on a file server from another host \u2014 what fires?",
+      "Do you baseline which accounts legitimately push files to servers?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "mitre-attack-p4-q07",
+     "controlRef": "TA0008 Lateral Movement / T1210 Exploitation of Remote Services",
+     "question": "How do you reduce the risk of T1210 Exploitation of Remote Services \u2014 internal exploitation such as SMB/RDP vulnerabilities (EternalBlue-class) \u2014 through internal patching, SMB signing, and protocol hygiene?",
+     "whyItMatters": "Internal exploitation enables worm-like spread (WannaCry/NotPetya demonstrated the impact). Flat networks with unpatched internal services and legacy protocols turn one compromised host into total compromise within hours.",
+     "interviewees": [
+      "Network Engineer",
+      "IT Ops"
+     ],
+     "evidence": [
+      "Internal vulnerability scan results and remediation SLA",
+      "SMBv1 disablement evidence; SMB signing policy",
+      "Network segmentation design and firewall rules between segments",
+      "Protocol restriction policy (LLMNR/NBT-NS disabled)"
+     ],
+     "guidance": "A GOOD answer shows internal systems patched with the same rigor as external ones, legacy protocols (SMBv1, LLMNR, NBT-NS) disabled estate-wide, and segmentation limiting server-to-server and workstation-to-workstation reachability.",
+     "probes": [
+      "Is SMBv1 disabled everywhere \u2014 how do you verify continuously?",
+      "What segmentation exists between the user VLAN and the server segment?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "mitre-attack-p4-q08",
+     "controlRef": "TA0009 Collection / T1005 Data from Local System + T1213 Data from Information Repositories",
+     "question": "How do you detect T1005 Data from Local System and T1213 Data from Information Repositories \u2014 mass access to sensitive files, SharePoint/Confluence trawling, and bulk mailbox access inconsistent with a user's normal pattern?",
+     "whyItMatters": "Collection against file shares and collaboration platforms is where data theft actually happens in modern breaches (including cloud-only intrusions). DLP and access-baseline analytics are the main controls; their absence means exfiltration is discovered only when data appears online.",
+     "interviewees": [
+      "SOC Analyst",
+      "IT Ops"
+     ],
+     "evidence": [
+      "File access auditing on sensitive shares with analytics",
+      "Cloud app audit logs (M365/SharePoint unified audit log) in SIEM",
+      "DLP policy and alert samples",
+      "UEBA baselines for per-user data access volumes"
+     ],
+     "guidance": "A GOOD answer identifies where sensitive data lives, audits access to it, ingests cloud repository audit logs, and alerts on bulk access/download anomalies versus user baselines. At minimum, M365 unified audit logging must be on and monitored.",
+     "probes": [
+      "If an account downloads 2,000 SharePoint files tonight, what happens?",
+      "Is the M365 Unified Audit Log enabled and ingested?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "mitre-attack-p4-q09",
+     "controlRef": "TA0009 Collection / T1074 Data Staged + T1560 Archive Collected Data",
+     "question": "How would you detect T1074 Data Staged and T1560 Archive Collected Data \u2014 data aggregated into staging directories and compressed/encrypted (e.g., T1560.001 Archive via Utility: rar/7z with passwords) before exfiltration?",
+     "whyItMatters": "Staging and archiving are the last detectable steps before data leaves. Ransomware and data-theft crews consistently create large password-protected archives on servers; detecting this can interrupt exfiltration entirely.",
+     "interviewees": [
+      "SOC Analyst",
+      "Detection Engineer"
+     ],
+     "evidence": [
+      "Command-line rules for rar/7z/makecab with password or exclusion flags",
+      "Detections for large directory copies and new large archive files on servers",
+      "File-server resource monitoring for anomalous write volumes",
+      "Alert examples with response"
+     ],
+     "guidance": "A GOOD answer shows utility-abuse rules (compression tools with passwords, unusual working directories), monitoring for sudden large archive creation on file/database servers, and a response procedure that treats staging as imminent exfiltration.",
+     "probes": [
+      "Someone runs 'rar a -hpBackup payroll.zip D:\\HR' on a file server \u2014 do you see it?",
+      "How fast can you isolate that server once alerted?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "mitre-attack-p4-q10",
+     "controlRef": "TA0009 Collection / T1114 Email Collection + T1119 Automated Collection",
+     "question": "How do you detect T1114 Email Collection \u2014 malicious inbox forwarding rules, delegated mailbox access, and bulk export \u2014 and T1119 Automated Collection scripting against internal data?",
+     "whyItMatters": "BEC and espionage intrusions live in the mailbox: auto-forwarding rules exfiltrate quietly for months and are a regulatory reportable breach when they succeed. Mailbox audit analytics are cheap and high-yield.",
+     "interviewees": [
+      "SOC Analyst",
+      "IT Ops"
+     ],
+     "evidence": [
+      "Alerting on new inbox forwarding rules (especially external domains)",
+      "Mailbox audit logging enabled and ingested",
+      "Detections for bulk mailbox access / eDiscovery abuse",
+      "Periodic review of mailbox delegations and forwarding"
+     ],
+     "guidance": "A GOOD answer shows external-forwarding alerts or outright blocking by policy, mailbox audit logs ingested, detection of non-owner bulk access, and periodic delegation review. Ask whether forwarding to external domains is technically blocked \u2014 best practice \u2014 or only alerted.",
+     "probes": [
+      "A user creates a rule forwarding all mail to an external address \u2014 blocked, alerted, or invisible?",
+      "When were mailbox delegations last reviewed?"
+     ],
+     "weight": 2
+    }
+   ]
+  },
+  {
+   "id": "phase-5",
+   "name": "Phase 5 \u2014 Command & Control, Exfiltration, Impact (TA0011, TA0010, TA0040) + Findings & Detection Gap Report",
+   "objective": "Assess coverage of the final attack stages \u2014 C2 channels, data theft, ransomware and destructive impact \u2014 then evaluate alert triage, ATT&CK-mapped incident response, and consolidate everything into a Navigator-based detection gap report with prioritized remediation.",
+   "questions": [
+    {
+     "id": "mitre-attack-p5-q01",
+     "controlRef": "TA0011 Command and Control / T1071 Application Layer Protocol + T1573 Encrypted Channel",
+     "question": "How do you detect C2 over T1071 Application Layer Protocol (T1071.001 Web Protocols) wrapped in T1573 Encrypted Channel (T1573.002 Asymmetric Cryptography / TLS) \u2014 given you cannot inspect most TLS content?",
+     "whyItMatters": "Nearly all modern C2 rides HTTPS to look like normal web traffic. Detection therefore depends on metadata analytics (JA3/JA3S fingerprints, beaconing periodicity, rare-domain analysis) \u2014 organizations without these cannot see commodity C2 at all.",
+     "interviewees": [
+      "Network Engineer",
+      "SOC Analyst",
+      "Detection Engineer"
+     ],
+     "evidence": [
+      "Proxy/TLS metadata logging (SNI, JA3, byte counts, timing)",
+      "Beaconing/periodicity detection rules or NDR analytics",
+      "Newly-registered and rare-domain alerting",
+      "DNS log collection coverage",
+      "Example C2 detection that worked"
+     ],
+     "guidance": "A GOOD answer shows metadata-based detection: beacon interval analysis, JA3 fingerprinting, rare/newly-registered domain alerting, long-lived low-and-slow session detection, and DNS analytics. It acknowledges the TLS inspection boundary honestly and compensates with metadata.",
+     "probes": [
+      "A host beacons to a 3-day-old domain every 300 seconds over HTTPS \u2014 what fires?",
+      "Do you do TLS inspection anywhere, and how do you handle privacy constraints?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "mitre-attack-p5-q02",
+     "controlRef": "TA0011 Command and Control / T1105 Ingress Tool Transfer",
+     "question": "How do you control and detect T1105 Ingress Tool Transfer \u2014 malware and attacker tooling downloaded to hosts \u2014 via gateway filtering, download reputation, and endpoint monitoring of LOLBins (certutil, bitsadmin, mshta) fetching payloads?",
+     "whyItMatters": "Payload delivery over legitimate utilities is how initial access becomes execution. Blocking downloads entirely is impractical, so detection must focus on which process downloaded what from where.",
+     "interviewees": [
+      "SOC Analyst",
+      "Network Engineer"
+     ],
+     "evidence": [
+      "Secure web gateway download policies and file-reputation integration",
+      "Command-line rules for certutil/bitsadmin/curl/wget download patterns",
+      "EDR file-origin (mark-of-the-web) monitoring",
+      "Block/alert examples"
+     ],
+     "guidance": "A GOOD answer correlates download events with the requesting process and destination reputation, alerts on LOLBin download abuse, and blocks executable downloads from uncategorized domains. Endpoint and network views are joined, not siloed.",
+     "probes": [
+      "certutil downloads an exe from a pastebin-like site \u2014 do you see it?",
+      "Are downloads by non-browser processes treated differently from browser downloads?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "mitre-attack-p5-q03",
+     "controlRef": "TA0011 Command and Control / T1572 Protocol Tunneling + T1090 Proxy",
+     "question": "How would you detect T1572 Protocol Tunneling \u2014 DNS tunneling, SSH/VPN tunnels out of your network, and T1090 Proxy abuse \u2014 where C2 hides inside permitted protocols?",
+     "whyItMatters": "DNS tunneling and reverse SSH tunnels bypass egress rules that only filter by port/protocol. Because DNS is almost never blocked, DNS analytics are a must-have detection; unmonitored outbound SSH is a parallel blind spot.",
+     "interviewees": [
+      "Network Engineer",
+      "SOC Analyst"
+     ],
+     "evidence": [
+      "DNS query logging and analytics (entropy, length, volume, rare TLDs)",
+      "Egress firewall policy showing default-deny or restricted outbound ports",
+      "Detection of outbound SSH/VPN/tunneling tools from servers",
+      "Egress allowlist or proxy enforcement evidence"
+     ],
+     "guidance": "A GOOD answer forces DNS through internal resolvers (blocking direct outbound UDP/53), runs tunneling analytics on DNS logs, restricts outbound connectivity to a proxy, and alerts on unexpected outbound tunnels \u2014 especially from servers, which rarely need outbound SSH.",
+     "probes": [
+      "Can a server open an outbound SSH connection to the internet right now?",
+      "Are endpoint DNS queries forced through your resolvers, or can they use 8.8.8.8?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "mitre-attack-p5-q04",
+     "controlRef": "TA0011 Command and Control / T1102 Web Service",
+     "question": "How do you approach T1102 Web Service as C2 \u2014 adversaries using legitimate cloud services (GitHub, Slack, Google Drive, Microsoft Graph) as dead drops and command channels, which no blocklist will catch?",
+     "whyItMatters": "C2 via legitimate SaaS is indistinguishable from business traffic at the domain level. It requires CASB/UEBA-style behavioral analysis, and most SOCs have no answer for it \u2014 a common and reportable gap.",
+     "interviewees": [
+      "SOC Analyst",
+      "Detection Engineer",
+      "Network Engineer"
+     ],
+     "evidence": [
+      "CASB or SaaS traffic analytics if present",
+      "Rules for unusual processes communicating with SaaS APIs (e.g., curl to api.slack.com from a server)",
+      "Cloud app audit logs showing anomalous access patterns",
+      "Documented risk acceptance if this is unaddressed"
+     ],
+     "guidance": "A GOOD answer acknowledges the difficulty and shows at least partial coverage: process-to-destination correlation (non-browser processes hitting SaaS APIs), CASB analytics, or threat-intel-driven hunting. A documented risk acceptance with monitoring plans is an acceptable intermediate answer; no awareness at all is a finding.",
+     "probes": [
+      "If malware used your own corporate Slack tenant for C2, could you tell?",
+      "Which processes on servers are allowed to talk to cloud storage APIs?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "mitre-attack-p5-q05",
+     "controlRef": "TA0010 Exfiltration / T1041 Exfiltration Over C2 Channel + T1048 Exfiltration Over Alternative Protocol",
+     "question": "How do you detect large-scale data theft via T1041 Exfiltration Over C2 Channel or T1048 Exfiltration Over Alternative Protocol \u2014 can you baseline outbound data volumes per host and alert on anomalies before the data is gone?",
+     "whyItMatters": "Double-extortion makes exfiltration the moment a breach becomes reportable and ransom-worthy. Volume-baseline egress monitoring is the principal detective control, and many organizations discover theft only when data is published.",
+     "interviewees": [
+      "Network Engineer",
+      "SOC Manager",
+      "SOC Analyst"
+     ],
+     "evidence": [
+      "Egress volume baselines per host/segment (NetFlow/proxy metrics)",
+      "DLP policy coverage at network and endpoint",
+      "Alerting on anomalous upload volumes or destinations",
+      "Egress filtering policy (allowed ports/destinations)",
+      "Example of exfiltration detection or exercise"
+     ],
+     "guidance": "A GOOD answer shows quantified egress baselines, alerting on hosts uploading multiples of normal volume, DLP coverage of sensitive data classes, and default-deny egress for servers. An answer relying solely on DLP content inspection (which misses encrypted/compressed exfil) is incomplete.",
+     "probes": [
+      "A database server uploads 40GB to an unfamiliar cloud host overnight \u2014 who is alerted and when?",
+      "What is your normal egress per server, and how is the baseline computed?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "mitre-attack-p5-q06",
+     "controlRef": "TA0010 Exfiltration / T1537 Transfer Data to Cloud Account",
+     "question": "How would you detect T1537 Transfer Data to Cloud Account \u2014 data moved to attacker-controlled cloud storage (personal MEGA/Drive/Dropbox accounts, rclone to cloud endpoints) \u2014 distinct from your sanctioned corporate tenants?",
+     "whyItMatters": "Rclone-style exfiltration to attacker cloud accounts is now standard in ransomware intrusions. It evades DLP and blends with sanctioned SaaS use unless tenant restrictions and upload analytics are in place.",
+     "interviewees": [
+      "SOC Analyst",
+      "Network Engineer"
+     ],
+     "evidence": [
+      "Cloud tenant restrictions (e.g., tenant restriction headers, sanctioned-app enforcement)",
+      "Proxy/CASB rules distinguishing corporate vs. personal storage tenants",
+      "Detections for rclone and similar sync tools on servers",
+      "Example alert or block"
+     ],
+     "guidance": "A GOOD answer enforces tenant restrictions so only corporate cloud identities work from corporate devices, alerts on unsanctioned storage uploads and sync-tool execution on servers, and monitors bulk upload destinations. Honest partial coverage with compensating egress analytics is acceptable.",
+     "probes": [
+      "Can a user or attacker sync files to a personal OneDrive from a server today?",
+      "Is rclone blocked or at least alerted on servers?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "mitre-attack-p5-q07",
+     "controlRef": "TA0010 Exfiltration / T1020 Automated Exfiltration",
+     "question": "How do you detect T1020 Automated Exfiltration \u2014 scripted, scheduled drip-feed theft designed to stay under volume thresholds \u2014 rather than only looking for big one-time transfers?",
+     "whyItMatters": "Patient adversaries exfiltrate slowly to defeat volume thresholds. Detecting automated exfil requires persistence-aware analytics: repeated small transfers to the same rare destination, or scheduled tasks triggering uploads.",
+     "interviewees": [
+      "Detection Engineer",
+      "SOC Analyst"
+     ],
+     "evidence": [
+      "Long-window correlation rules (repeated transfers to rare destinations over days)",
+      "Correlation of scheduled tasks with network egress",
+      "NDR long-term flow analytics",
+      "Documented use case for slow exfiltration"
+     ],
+     "guidance": "A GOOD answer includes low-and-slow logic: cumulative transfer accounting over multi-day windows, first-seen-destination tracking, and chaining scheduled-task telemetry with egress. Acknowledging this as a known hard problem with a documented hunt use case is acceptable.",
+     "probes": [
+      "500MB per night to the same new domain for a month \u2014 do your rules catch it?",
+      "Which of your detections operate over windows longer than 24 hours?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "mitre-attack-p5-q08",
+     "controlRef": "TA0040 Impact / T1486 Data Encrypted for Impact",
+     "question": "How do you detect and contain T1486 Data Encrypted for Impact \u2014 mass file encryption (ransomware) \u2014 in the minutes between encryption starting and the estate being lost, and what has been proven to work in a drill?",
+     "whyItMatters": "Ransomware is the highest-probability catastrophic scenario for most organizations. Detection exists (canary files, entropy/rapid-rename analytics) but containment speed is everything \u2014 untested isolation procedures are worthless at 3 a.m.",
+     "interviewees": [
+      "Incident Responder",
+      "SOC Manager",
+      "SOC Analyst",
+      "IT Ops"
+     ],
+     "evidence": [
+      "EDR ransomware/behavioral protection configuration (e.g., controlled folder access, tamper protection)",
+      "Canary/honeyfile deployment and alerting",
+      "Mass file-modification detection rules",
+      "Isolation playbook (host/network) with tested execution times",
+      "Ransomware tabletop or drill records"
+     ],
+     "guidance": "A GOOD answer shows layered ransomware controls (EDR behavioral blocking, canary files on shares, mass-encryption detection), a one-action host isolation capability via EDR, switch-level network quarantine, and a drill proving isolation within minutes \u2014 not hours. Backup integrity and offline copies should be referenced for recovery.",
+     "probes": [
+      "How long from ransomware alert on one host to that host isolated \u2014 and when was that last timed?",
+      "Are backups offline/immutable and has a full restore been tested?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "mitre-attack-p5-q09",
+     "controlRef": "TA0040 Impact / T1490 Inhibit System Recovery + T1489 Service Stop",
+     "question": "How do you detect the precursor behaviors of destructive attacks \u2014 T1490 Inhibit System Recovery (vssadmin delete shadows, bcdedit recovery disablement) and T1489 Service Stop (mass killing of backup/database services) \u2014 which fire before encryption begins?",
+     "whyItMatters": "Shadow-copy deletion and service killing are near-perfect ransomware precursors with almost no legitimate use on servers. Alerting on them buys the one window where an in-progress attack can still be stopped.",
+     "interviewees": [
+      "SOC Analyst",
+      "IT Ops",
+      "Detection Engineer"
+     ],
+     "evidence": [
+      "High-severity rules for vssadmin/wmic shadowcopy deletion and bcdedit recovery changes",
+      "Alerting on mass service stops (especially backup agents, databases)",
+      "Immutable/offline backup architecture documentation",
+      "Alert examples with escalation path"
+     ],
+     "guidance": "A GOOD answer treats shadow deletion and backup-service tampering as critical-severity, page-the-responder events with an immediate containment playbook, and shows backup infrastructure protected by immutability so recovery inhibition fails even if undetected.",
+     "probes": [
+      "vssadmin delete shadows runs on your backup server \u2014 severity, paging, response?",
+      "Can attacker-controlled admin credentials delete your backups?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "mitre-attack-p5-q10",
+     "controlRef": "TA0040 Impact / T1498 Network Denial of Service + T1499 Endpoint Denial of Service",
+     "question": "What is your posture against T1498/T1499 Denial of Service \u2014 upstream DDoS protection, runbook for failover, and communication plans \u2014 particularly for revenue-critical external services?",
+     "whyItMatters": "DDoS remains a common extortion and smokescreen technique. The control is architectural (upstream scrubbing, CDN, rate limiting) plus rehearsed response; organizations without a runbook improvise under attack.",
+     "interviewees": [
+      "Network Engineer",
+      "Incident Responder",
+      "IT Ops"
+     ],
+     "evidence": [
+      "DDoS protection service contract and configuration (cloud scrubbing/CDN)",
+      "Rate limiting and anycast architecture evidence",
+      "DoS response runbook with provider escalation contacts",
+      "Test or real-incident records"
+     ],
+     "guidance": "A GOOD answer shows contracted upstream/scrubbing protection sized to assessed risk, application-layer rate limiting, and a runbook covering provider escalation, failover, and stakeholder communication. For most enterprises, DDoS risk acceptance with documented rationale is also defensible.",
+     "probes": [
+      "Who do you call at your upstream provider during an attack, and is that in the runbook?",
+      "Which services must stay up during a DDoS, and can they?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "mitre-attack-p5-q11",
+     "controlRef": "Detection Operations \u2014 Alert Triage & ATT&CK-Mapped IR Playbooks",
+     "question": "How does alert triage work in practice \u2014 are detections mapped to ATT&CK technique IDs in your queue, are IR playbooks keyed to tactics/techniques (e.g., a T1003 playbook, a T1486 playbook), and how fast does a critical technique alert reach a human?",
+     "whyItMatters": "Detections that no one triages, or that triage analysts cannot interpret, deliver zero defensive value. ATT&CK-mapped playbooks give analysts consistent, technique-specific response steps and dramatically cut MTTR on high-impact alerts.",
+     "interviewees": [
+      "SOC Analyst",
+      "SOC Manager",
+      "Incident Responder"
+     ],
+     "evidence": [
+      "SIEM/SOAR queue showing technique IDs attached to alerts",
+      "Playbook library mapped to ATT&CK (with dates)",
+      "MTTA/MTTR metrics per severity",
+      "A worked example: timeline of one high-severity technique alert from firing to closure"
+     ],
+     "guidance": "A GOOD answer shows every rule carrying an ATT&CK mapping, playbooks for the highest-impact techniques (credential dumping, ransomware, exfiltration, C2), measured time-to-triage for critical alerts, and a real case walked end-to-end. Playbooks unchanged for years are a red flag.",
+     "probes": [
+      "Show me the playbook an analyst follows for a T1003.001 alert at 2 a.m.",
+      "What is your time-to-triage for critical alerts, and what is the backlog today?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "mitre-attack-p5-q12",
+     "controlRef": "Findings & Detection Gap Report (ATT&CK Navigator)",
+     "question": "If we compile the findings of this assessment into an ATT&CK Navigator detection gap heatmap today, how would you prioritize which gaps to close first \u2014 and can you show that a previous gap report actually drove funded, tracked remediation?",
+     "whyItMatters": "The gap report is the deliverable that turns this audit into security improvement. Prioritization must combine technique prevalence (how often real adversaries use it), relevance to profiled threat actors, crown-jewel exposure, and existing compensating controls \u2014 otherwise the heatmap becomes shelf-ware.",
+     "interviewees": [
+      "CISO",
+      "SOC Manager",
+      "Detection Engineer"
+     ],
+     "evidence": [
+      "Navigator layer(s) showing covered vs. uncovered techniques with confidence scores",
+      "Prior gap report with prioritized findings",
+      "Remediation tracker linking gaps to tickets, owners, and deadlines",
+      "Budget/roadmap evidence showing gaps funded",
+      "Re-assessment cadence showing coverage improving over time"
+     ],
+     "guidance": "A GOOD answer shows a Navigator-based report with scoring rationale (threat-actor relevance x prevalence x crown-jewel impact), every gap assigned an owner and date, and evidence from a prior cycle that top gaps were actually closed and re-tested via emulation. A report without a remediation loop fails the purpose of threat-informed defense.",
+     "probes": [
+      "Which three uncovered techniques worry you most, and why those?",
+      "Show me a gap from the last report that is now closed \u2014 how was closure verified?",
+      "Who signs off on accepting a detection gap instead of closing it?"
+     ],
+     "weight": 3
+    }
+   ]
+  }
+ ]
 }

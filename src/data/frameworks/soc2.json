@@ -1,34 +1,1181 @@
 {
-  "id": "soc2",
-  "name": "SOC 2",
-  "shortName": "SOC 2",
-  "version": "TSC 2017",
-  "category": "security",
-  "description": "AICPA Trust Services Criteria attestation for service organizations.",
-  "phases": [
+ "id": "soc2",
+ "name": "SOC 2 \u2014 Trust Services Criteria",
+ "shortName": "SOC 2",
+ "version": "2017 TSC (with revised points of focus, 2022)",
+ "category": "security",
+ "description": "A SOC 2 engagement is an attestation performed by a licensed CPA firm under AICPA standards (AT-C 105/205) against the Trust Services Criteria. The report contains management's description of the system (Section III), management's assertion, and the service auditor's opinion on whether controls were suitably designed and (for Type II) operating effectively over a defined period. SOC 2 is not a certification or checklist \u2014 the auditor evaluates whether the organization's own controls meet the applicable criteria, and customers, CUECs and subservice organizations all affect how the report can be relied upon.",
+ "tagline": "An independent attestation report on the controls a service organization operates against the AICPA Trust Services Criteria for security, availability, processing integrity, confidentiality and privacy.",
+ "auditFocus": [
+  "Whether the correct report type (Type I vs Type II) and Trust Services Criteria are in scope for the services being attested",
+  "Accuracy and completeness of management's system description (Section III) and assertion",
+  "Design and operating effectiveness of controls mapped to the Common Criteria (CC1-CC9), which are mandatory for every SOC 2",
+  "Treatment of subservice organizations (carve-out vs inclusive method) and complementary user entity controls (CUECs)",
+  "Whether the evidence population covers the full audit period for Type II engagements",
+  "Exceptions found during testing, their root cause, and the credibility of management responses"
+ ],
+ "phases": [
+  {
+   "id": "phase-1",
+   "name": "Phase 1 \u2014 Engagement Planning, Report Scoping & System Description",
+   "objective": "Define the report type, period, in-scope services and Trust Services Criteria; establish the system boundaries including infrastructure, software, people, procedures and data; determine how subservice organizations and CUECs will be handled; and confirm management's assertion and description are complete before fieldwork begins.",
+   "questions": [
     {
-      "id": "soc2-p1",
-      "name": "Common Criteria",
-      "questions": [
-        {
-          "id": "soc2-q001",
-          "controlRef": "CC1.1",
-          "question": "Does the entity demonstrate commitment to integrity and ethical values?",
-          "whyItMatters": "This control establishes a foundational requirement; auditors verify both design and operating effectiveness.",
-          "interviewees": [
-            "CISO"
-          ],
-          "evidence": [
-            "EV-001 Policy document"
-          ],
-          "guidance": "Request the current approved policy, confirm management sign-off and review date, and test that it has been communicated to relevant staff.",
-          "probes": [
-            "When was this last reviewed and by whom?",
-            "How are exceptions handled?"
-          ],
-          "weight": 2
-        }
-      ]
+     "id": "soc2-p1-q01",
+     "controlRef": "AT-C 205 / Description Criteria DC 200",
+     "question": "Are you pursuing a Type I or a Type II report, and why? If Type II, what audit period have you selected and how did you decide on it?",
+     "whyItMatters": "A Type I reports on design at a point in time; a Type II reports on operating effectiveness over a period (typically 6-12 months). The choice drives evidence requirements, timelines and how much assurance customers can take from the report.",
+     "interviewees": [
+      "Compliance Officer",
+      "CISO",
+      "CFO"
+     ],
+     "evidence": [
+      "Engagement letter",
+      "Prior SOC 2 report (if any)",
+      "Audit period definition",
+      "Customer contract requirements for SOC 2"
+     ],
+     "guidance": "A GOOD answer shows the type was chosen deliberately: Type I as a first step or bridge, Type II with a defined period (commonly 12 months for renewals) driven by customer expectations, with controls already running before the period starts so the whole period is evidenced.",
+     "probes": [
+      "When did the controls being tested actually start operating \u2014 before or after the period began?",
+      "Do any customers contractually require a Type II report?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "soc2-p1-q02",
+     "controlRef": "Description Criteria DC 200 / Trust Services Criteria introduction",
+     "question": "Which Trust Services Criteria are in scope beyond Security \u2014 Availability, Processing Integrity, Confidentiality, or Privacy \u2014 and what commitments to customers justify each one?",
+     "whyItMatters": "Security (Common Criteria) is mandatory; the other categories are optional but must be included when the organization makes relevant commitments in SLAs or contracts. Scoping criteria incorrectly either inflates cost or produces a report customers cannot rely on.",
+     "interviewees": [
+      "Compliance Officer",
+      "CISO",
+      "Sales/Account Management",
+      "Legal Counsel"
+     ],
+     "evidence": [
+      "Scoping memo",
+      "Customer contracts and SLAs",
+      "Marketing/security commitments on website",
+      "TSC applicability assessment"
+     ],
+     "guidance": "A GOOD answer maps each included TSC category to explicit commitments (e.g. 99.9% uptime SLA justifies Availability; data processing accuracy claims justify Processing Integrity) and confirms no category is excluded while the company contractually promises it.",
+     "probes": [
+      "Have you ever had a customer reject the report because a category they needed was missing?",
+      "Do your SLAs promise availability figures, and is A1 in scope if so?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "soc2-p1-q03",
+     "controlRef": "Description Criteria DC 200.2 \u2014 System boundaries",
+     "question": "Walk me through how you defined the boundaries of the 'system' described in the report \u2014 which services, applications, infrastructure, data flows, people and locations are included?",
+     "whyItMatters": "The system description defines what the opinion covers. A boundary drawn too narrowly (excluding a key hosting region or a support function) misleads report users and is a common reason reports get qualified.",
+     "interviewees": [
+      "CISO",
+      "IT Manager",
+      "Compliance Officer"
+     ],
+     "evidence": [
+      "Draft Section III system description",
+      "System architecture diagrams",
+      "Data flow diagrams",
+      "Asset/application inventory"
+     ],
+     "guidance": "A GOOD answer describes infrastructure, software, people, procedures and data (the five description elements) for each in-scope service, with diagrams showing trust boundaries, and a documented rationale for anything excluded.",
+     "probes": [
+      "Which components did you consider but exclude, and why?",
+      "Does the description cover the environment where customer data actually flows, including backups and support tooling?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "soc2-p1-q04",
+     "controlRef": "Description Criteria DC 200.2 / AT-C 205.37",
+     "question": "Which subservice organizations support the in-scope system (cloud hosting, managed services, identity providers), and will you use the carve-out or the inclusive method for each?",
+     "whyItMatters": "Almost every modern SOC 2 depends on subservice organizations like AWS. The carve-out method excludes their controls from the report scope but requires disclosure; the inclusive method tests their controls directly. Getting this wrong distorts what the opinion covers.",
+     "interviewees": [
+      "CISO",
+      "Procurement/Vendor Manager",
+      "Compliance Officer"
+     ],
+     "evidence": [
+      "Subservice organization inventory",
+      "Vendor contracts",
+      "Subservice organizations' own SOC reports",
+      "Section III carve-out disclosures"
+     ],
+     "guidance": "A GOOD answer includes a complete inventory of subservice organizations, states the method used for each (carve-out is most common), describes how their SOC reports are reviewed and mapped, and shows complementary subservice organization controls (CSOCs) are identified and operated.",
+     "probes": [
+      "When did you last review your cloud provider's SOC 2, and which of their customer-responsibility controls do you operate?",
+      "Is any vendor's control failure able to break a criterion in your report?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "soc2-p1-q05",
+     "controlRef": "Description Criteria DC 200.2 \u2014 Complementary user entity controls",
+     "question": "Which controls must your customers operate for your system to meet the Trust Services Criteria (CUECs), and how are those responsibilities communicated to them?",
+     "whyItMatters": "CUECs (e.g. customers managing their own user access, enforcing MFA on their accounts, rotating API keys) are conditions the service auditor relies on. If they are not identified and disclosed, the report's suitability-of-design conclusion may be invalid.",
+     "interviewees": [
+      "Compliance Officer",
+      "Product/Software Dev Lead",
+      "Customer Success"
+     ],
+     "evidence": [
+      "CUEC list in Section III",
+      "Customer onboarding documentation",
+      "Shared responsibility matrix",
+      "Terms of service"
+     ],
+     "guidance": "A GOOD answer lists specific, realistic CUECs tied to criteria (e.g. CC6 \u2014 customers manage their own users' access and roles), shows they are disclosed in contracts and onboarding materials, and evidences customers are actually informed.",
+     "probes": [
+      "Are there CUECs your customers demonstrably cannot or do not perform? What does that mean for the criteria?",
+      "How do you verify a customer enforced MFA if that is a CUEC?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "soc2-p1-q06",
+     "controlRef": "AT-C 205 \u2014 Management's assertion",
+     "question": "Who signs management's assertion, and how does that person satisfy themselves that the description is fairly presented and the controls were suitably designed and operating effectively?",
+     "whyItMatters": "Management, not the auditor, owns the assertion. An executive signing without an evidence base creates liability and undermines the entire attestation.",
+     "interviewees": [
+      "CEO",
+      "CISO",
+      "Compliance Officer",
+      "Legal Counsel"
+     ],
+     "evidence": [
+      "Signed management assertion",
+      "Assertion support pack (control self-assessments, readiness results)",
+      "Sign-off workflow"
+     ],
+     "guidance": "A GOOD answer names an accountable executive, describes a formal assertion process (control owners attest, exceptions are consolidated and evaluated against the assertion wording), and shows the assertion matches the actual period and scope.",
+     "probes": [
+      "What exceptions existed during the period, and how did they affect the assertion wording?",
+      "Has the assertion ever been modified because testing revealed a control failure?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "soc2-p1-q07",
+     "controlRef": "AT-C 105/205 \u2014 Evidence population completeness",
+     "question": "For a Type II engagement, how will you demonstrate that the populations you give the auditor (tickets, changes, access reviews, hires/terminations) are complete and cover the entire audit period?",
+     "whyItMatters": "Auditors select samples from populations provided by the client. An incomplete or trimmed population invalidates sampling and is a serious integrity issue; auditors test completeness by reconciling to source systems.",
+     "interviewees": [
+      "Compliance Officer",
+      "IT Manager",
+      "DevOps Lead"
+     ],
+     "evidence": [
+      "Population export methodology",
+      "Ticketing system reports covering full period",
+      "Change management logs",
+      "HR hire/termination lists"
+     ],
+     "guidance": "A GOOD answer describes system-generated (not hand-curated) population exports with date filters covering the full period, reconciliation between systems (e.g. commits vs tickets), and awareness that the auditor will test completeness and accuracy.",
+     "probes": [
+      "Could any changes have been deployed outside the ticketing system during the period?",
+      "Who prepares populations, and can they edit them before submission?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "soc2-p1-q08",
+     "controlRef": "AT-C 205 \u2014 Evidence availability over the period",
+     "question": "Do you retain evidence (logs, review sign-offs, screenshots, meeting minutes) for the whole audit period, and is it retrievable on auditor request within the fieldwork window?",
+     "whyItMatters": "Type II testing reaches back across the entire period. If evidence from month two was overwritten or never captured, the control cannot be tested and an exception results.",
+     "interviewees": [
+      "Compliance Officer",
+      "IT Manager",
+      "Security Engineer"
+     ],
+     "evidence": [
+      "Evidence retention policy",
+      "GRC tool or evidence repository",
+      "Sample evidence from the start of the period",
+      "Log retention configuration"
+     ],
+     "guidance": "A GOOD answer shows a defined evidence repository or GRC tool, retention periods that exceed the audit period, and ability to pull month-one evidence today \u2014 not just recent artifacts.",
+     "probes": [
+      "Show me a completed access review from the first month of the period.",
+      "What evidence would be unavailable if the auditor asked for it tomorrow?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "soc2-p1-q09",
+     "controlRef": "AT-C 205 \u2014 Readiness assessment",
+     "question": "Did you perform a readiness or gap assessment before this engagement, and how did you remediate the gaps it identified before the audit period (or fieldwork) began?",
+     "whyItMatters": "Entering fieldwork with known design gaps guarantees exceptions or a qualified opinion. A documented readiness cycle shows maturity and reduces report surprises.",
+     "interviewees": [
+      "Compliance Officer",
+      "CISO"
+     ],
+     "evidence": [
+      "Readiness assessment report",
+      "Remediation tracker",
+      "Gap-to-control mapping against TSC points of focus"
+     ],
+     "guidance": "A GOOD answer shows a structured gap assessment against the TSC points of focus, remediations completed with owners and dates, and verification that fixes operated before the Type II period clock started.",
+     "probes": [
+      "Which gaps from the readiness assessment were still open when the period began?",
+      "Who performed the readiness assessment \u2014 internal, consultant, or the audit firm (independence considerations)?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "soc2-p1-q10",
+     "controlRef": "CC1.4 / Description Criteria \u2014 people component",
+     "question": "How does your system description cover the 'people' element \u2014 the teams whose actions are part of the service (support, operations, engineering, security), including any outsourced personnel?",
+     "whyItMatters": "Controls are operated by people; if key personnel (e.g. offshore support with production access) are outside the described boundary, the description is incomplete and access controls may be untested.",
+     "interviewees": [
+      "CISO",
+      "HR Manager",
+      "IT Manager"
+     ],
+     "evidence": [
+      "Org chart",
+      "Section III people description",
+      "Contractor/outsourcing agreements",
+      "Access lists by team"
+     ],
+     "guidance": "A GOOD answer names the functions included in the system, discloses use of contractors or offshore staff, and shows those people are subject to the same background checks, confidentiality agreements and access controls as employees.",
+     "probes": [
+      "Do any contractors hold production access? Are they covered by the same onboarding/offboarding controls?",
+      "Is support access to customer data described?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "soc2-p1-q11",
+     "controlRef": "Description Criteria DC 200.2 \u2014 incidents during the period",
+     "question": "What significant security incidents, outages or control failures occurred during the audit period, and how are they disclosed in the system description?",
+     "whyItMatters": "The Description Criteria require disclosure of significant incidents and failures during the period. Concealing them, or describing them inaccurately, is a misrepresentation that can result in a qualified or adverse opinion.",
+     "interviewees": [
+      "CISO",
+      "Compliance Officer",
+      "Legal Counsel"
+     ],
+     "evidence": [
+      "Incident register for the period",
+      "Post-incident reviews",
+      "Draft Section III incident disclosures",
+      "Breach notification records"
+     ],
+     "guidance": "A GOOD answer is candid: incidents are logged, assessed for significance, disclosed in the description where required, and tied to corrective actions \u2014 with no discrepancy between the incident register and what appears in Section III.",
+     "probes": [
+      "Were there any incidents you decided not to disclose? On what basis?",
+      "Did any incident result from a control that otherwise appears in your control matrix?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "soc2-p1-q12",
+     "controlRef": "CC2.3 / System changes during the period",
+     "question": "What significant changes to the system occurred or are planned (new services, migrations, major re-architecture), and how will the report describe and scope them?",
+     "whyItMatters": "Significant system changes mid-period can mean controls changed too, so design and operating effectiveness must be considered for each version of the control; undisclosed changes undermine the description's accuracy.",
+     "interviewees": [
+      "CTO/Software Dev Lead",
+      "IT Manager",
+      "Compliance Officer"
+     ],
+     "evidence": [
+      "Change/release calendar",
+      "Architecture change records",
+      "Migration project plans",
+      "Section III change disclosures"
+     ],
+     "guidance": "A GOOD answer inventories significant changes in the period, shows the description reflects the system as it operated (including changes), and explains how controls were maintained or transitioned during the change.",
+     "probes": [
+      "Did any control change design mid-period? How will the auditor test both versions?",
+      "Are planned changes within 12 months disclosed as required?"
+     ],
+     "weight": 2
     }
-  ]
+   ]
+  },
+  {
+   "id": "phase-2",
+   "name": "Phase 2 \u2014 Control Environment, Risk Assessment & Monitoring (CC1\u2013CC5)",
+   "objective": "Test the design and operation of the governance-layer Common Criteria: integrity and oversight (CC1), communication of responsibilities (CC2), risk assessment (CC3), monitoring of controls (CC4) and the selection/deployment of control activities (CC5).",
+   "questions": [
+    {
+     "id": "soc2-p2-q01",
+     "controlRef": "CC1.1 \u2014 COSO Principle 1: Integrity and ethical values",
+     "question": "How does leadership set expectations for integrity and ethical conduct, and how are deviations (e.g. policy violations by senior staff) actually handled?",
+     "whyItMatters": "CC1.1 underpins every other criterion \u2014 control bypass by management is the classic way control environments fail. The auditor looks for evidence tone at the top is real, not just a code of conduct PDF.",
+     "interviewees": [
+      "CEO",
+      "HR Manager",
+      "CISO",
+      "Internal Auditor"
+     ],
+     "evidence": [
+      "Code of conduct with annual attestations",
+      "Disciplinary process records (sanitized)",
+      "Whistleblower/ethics hotline reports",
+      "Board minutes referencing ethics"
+     ],
+     "guidance": "A GOOD answer shows signed acknowledgements, a functioning reporting channel, documented handling of violations regardless of seniority, and leadership messaging that connects ethics to security commitments.",
+     "probes": [
+      "Has anyone been disciplined for bypassing a security control? What happened?",
+      "How are ethics expectations enforced for contractors?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "soc2-p2-q02",
+     "controlRef": "CC1.2 \u2014 COSO Principle 2: Board independence and oversight",
+     "question": "What oversight does the board or audit committee exercise over security and internal control \u2014 what do they receive, how often, and what have they challenged?",
+     "whyItMatters": "CC1.2 requires the board to be independent and exercise oversight of internal control. A board that never sees security metrics or incidents cannot demonstrate this criterion.",
+     "interviewees": [
+      "Board/Audit Committee",
+      "CEO",
+      "CISO"
+     ],
+     "evidence": [
+      "Board/audit committee minutes",
+      "Security dashboards or reports presented",
+      "Charter of the audit committee",
+      "Risk appetite statements approved by the board"
+     ],
+     "guidance": "A GOOD answer shows a regular cadence of security reporting to the board, documented challenge and follow-up items, and evidence the board has members with (or access to) sufficient expertise to question security matters.",
+     "probes": [
+      "Give an example of the board pushing back on a security decision.",
+      "Does anyone on the board have security or technology risk expertise?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "soc2-p2-q03",
+     "controlRef": "CC1.3 \u2014 COSO Principle 3: Structures, reporting lines, authorities",
+     "question": "Show me how security responsibilities and reporting lines are structured \u2014 who is accountable for each area of the Trust Services Criteria, and how is segregation of duties maintained?",
+     "whyItMatters": "Undefined accountability means controls operate informally and fail when key staff leave. Segregation of duties failures (e.g. developers deploying to production alone) are a frequent SOC 2 exception source.",
+     "interviewees": [
+      "CISO",
+      "CTO/Software Dev Lead",
+      "HR Manager"
+     ],
+     "evidence": [
+      "Org chart with security roles",
+      "Role descriptions/RACI for key controls",
+      "SoD matrix",
+      "Control owner assignments"
+     ],
+     "guidance": "A GOOD answer names accountable owners per control family, shows defined reporting lines into leadership, and demonstrates SoD in critical flows (development vs approval vs deployment vs access administration).",
+     "probes": [
+      "Can the same person write code, approve it and deploy it to production?",
+      "Who is the named owner of access reviews, and who is their backup?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "soc2-p2-q04",
+     "controlRef": "CC1.4 \u2014 COSO Principle 4: Competence",
+     "question": "How do you ensure personnel in security-relevant roles are competent \u2014 hiring requirements, background checks, training, and performance evaluation?",
+     "whyItMatters": "CC1.4 ties control performance to competent people. Missing background checks or lapsed security training are among the most common SOC 2 exceptions.",
+     "interviewees": [
+      "HR Manager",
+      "CISO",
+      "IT Manager"
+     ],
+     "evidence": [
+      "Job descriptions with security requirements",
+      "Background check completion records (sanitized)",
+      "Security awareness training completion logs",
+      "Performance review process"
+     ],
+     "guidance": "A GOOD answer evidences background screening completed before access is granted for all in-scope personnel, annual security training with tracked completion near 100%, and role-specific training for privileged users.",
+     "probes": [
+      "Show me background check and training completion for three employees sampled by the auditor.",
+      "What happens to access when someone fails to complete training?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "soc2-p2-q05",
+     "controlRef": "CC1.5 \u2014 COSO Principle 5: Accountability",
+     "question": "How are individuals held accountable for their internal control responsibilities \u2014 are control duties in performance goals, and what happens when a control is not performed?",
+     "whyItMatters": "CC1.5 requires enforcement mechanisms. Controls that are 'someone's side task' silently stop operating mid-period, which is exactly what Type II testing catches.",
+     "interviewees": [
+      "CISO",
+      "HR Manager",
+      "Control Owners"
+     ],
+     "evidence": [
+      "Performance goals referencing control duties",
+      "Control operation calendars",
+      "Records of escalation when controls were missed",
+      "Control owner attestations"
+     ],
+     "guidance": "A GOOD answer shows control responsibilities embedded in role expectations, recurring control tasks tracked with reminders and escalation, and documented consequences or corrective action when controls lapse.",
+     "probes": [
+      "Tell me about a control that was missed during the period \u2014 how was it discovered and what changed?",
+      "Do control owners attest periodically that their controls operated?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "soc2-p2-q06",
+     "controlRef": "CC2.1 \u2014 COSO Principle 13: Quality information",
+     "question": "What information do control operators and management rely on to run controls (reports, system exports, dashboards), and how do you ensure that information is complete and accurate?",
+     "whyItMatters": "Controls built on bad data fail silently \u2014 an access review run against an incomplete user list provides no assurance. Auditors test the completeness and accuracy of information used in controls (IPE/EUE).",
+     "interviewees": [
+      "IT Manager",
+      "Security Engineer",
+      "Compliance Officer"
+     ],
+     "evidence": [
+      "Reports/exports used in key controls",
+      "Validation checks on report completeness",
+      "Documentation of how control inputs are generated",
+      "Reconciliation records"
+     ],
+     "guidance": "A GOOD answer identifies information produced by the entity (IPE) used in each key control and shows how its completeness and accuracy is verified \u2014 e.g. reconciling user lists to the HR system or IdP of record.",
+     "probes": [
+      "For your quarterly access review, how do you know the user export includes every account?",
+      "Are control inputs system-generated or manually assembled?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "soc2-p2-q07",
+     "controlRef": "CC2.2 \u2014 COSO Principle 14: Internal communication",
+     "question": "How are security policies, control responsibilities and changes communicated internally \u2014 and how do you know people actually received and understood them?",
+     "whyItMatters": "CC2.2 requires communication that enables personnel to carry out their responsibilities. Policies nobody has read are a design gap; untracked acknowledgements are an operating exception.",
+     "interviewees": [
+      "CISO",
+      "HR Manager",
+      "End Users"
+     ],
+     "evidence": [
+      "Policy portal and version history",
+      "Policy acknowledgement logs",
+      "Security awareness communications",
+      "Onboarding curriculum"
+     ],
+     "guidance": "A GOOD answer shows policies accessible in a known location, tracked acknowledgements with follow-up on non-responders, onboarding training covering security duties, and targeted communication when policies change materially.",
+     "probes": [
+      "What percentage of staff acknowledged the current acceptable use policy?",
+      "How were engineers informed when the change management policy last changed?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "soc2-p2-q08",
+     "controlRef": "CC2.3 \u2014 COSO Principle 15: Communication with external parties",
+     "question": "How do you communicate security commitments and responsibilities to customers and external parties, and how do external parties report security issues to you?",
+     "whyItMatters": "CC2.3 covers external communication: customers must know their responsibilities (CUECs), how you meet commitments, and how to report incidents or vulnerabilities. Silence here often correlates with unmanaged expectations.",
+     "interviewees": [
+      "Compliance Officer",
+      "Customer Success",
+      "Security Engineer",
+      "Legal Counsel"
+     ],
+     "evidence": [
+      "Trust center/security documentation published to customers",
+      "Responsible disclosure policy",
+      "Customer security communication templates",
+      "Inbound vulnerability report records"
+     ],
+     "guidance": "A GOOD answer shows published security commitments that match actual practice, a working channel for vulnerability reports and security inquiries with tracked responses, and customer notification procedures for incidents.",
+     "probes": [
+      "When did you last notify customers of a security-relevant event? Walk me through it.",
+      "Is anything on your public security page no longer accurate?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "soc2-p2-q09",
+     "controlRef": "CC3.1 \u2014 COSO Principle 6: Objectives and risk tolerances",
+     "question": "How were your security objectives specified, and what risk tolerances did leadership set so risks can be assessed against defined criteria?",
+     "whyItMatters": "Risk assessment (CC3) is only meaningful against specified objectives and tolerances. Without them, 'risk' is subjective, acceptance is arbitrary, and the control set cannot be tied to the criteria.",
+     "interviewees": [
+      "Risk Manager",
+      "CISO",
+      "CEO"
+     ],
+     "evidence": [
+      "Risk management policy",
+      "Documented risk appetite/tolerance",
+      "Risk register with scoring criteria",
+      "Objectives linked to service commitments"
+     ],
+     "guidance": "A GOOD answer shows objectives tied to customer commitments and system requirements, a documented methodology with likelihood/impact scales, explicit tolerance thresholds, and leadership approval of both.",
+     "probes": [
+      "What is the highest residual risk currently accepted, and who accepted it?",
+      "How do your objectives reflect the commitments in your SLAs?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "soc2-p2-q10",
+     "controlRef": "CC3.2 \u2014 COSO Principle 7: Risk identification and analysis / CC3.3 \u2014 COSO Principle 8: Fraud risk",
+     "question": "Walk me through your last formal risk assessment: how risks (including fraud risk) were identified, analyzed, and linked to controls \u2014 and when it is refreshed.",
+     "whyItMatters": "CC3.2 requires risk identification and analysis; CC3.3 explicitly requires considering fraud. Auditors trace from the risk register to the control matrix \u2014 risks with no mapped control, or controls nobody can tie to a risk, are findings.",
+     "interviewees": [
+      "Risk Manager",
+      "CISO",
+      "Internal Auditor"
+     ],
+     "evidence": [
+      "Risk register with dates and owners",
+      "Risk assessment methodology",
+      "Risk-to-control mapping",
+      "Fraud risk considerations"
+     ],
+     "guidance": "A GOOD answer demonstrates an annual (at minimum) documented assessment covering internal and external threats, explicit fraud consideration, named risk owners, treatment decisions, and a traceable link from risks to the controls tested in the SOC 2.",
+     "probes": [
+      "Show me a risk added since the last assessment and the control added or changed because of it.",
+      "Which risks have no mitigating control and were accepted?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "soc2-p2-q11",
+     "controlRef": "CC3.4 \u2014 COSO Principle 9: Identifying and assessing change",
+     "question": "How do you identify and assess changes that could significantly impact internal control \u2014 growth, acquisitions, new products, regulatory change, technology shifts?",
+     "whyItMatters": "CC3.4 requires a process to assess the impact of significant change. Fast-growing companies commonly fail this: the control environment lags the business, and the Type II period spans both worlds.",
+     "interviewees": [
+      "CEO",
+      "CISO",
+      "Risk Manager",
+      "CFO"
+     ],
+     "evidence": [
+      "Change assessment records",
+      "Board/leadership meeting minutes discussing significant changes",
+      "Post-acquisition integration plans",
+      "Regulatory change tracking"
+     ],
+     "guidance": "A GOOD answer names a trigger-based process (e.g. new product launch, M&A, entering a regulated market) that forces reassessment of risks and controls, with examples of the process actually firing during the period.",
+     "probes": [
+      "What changed most in the business during the audit period, and what control changes followed?",
+      "How would a new customer segment with stricter requirements trigger reassessment?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "soc2-p2-q12",
+     "controlRef": "CC4.1 / CC4.2 \u2014 COSO Principles 16-17: Monitoring activities and evaluating deficiencies",
+     "question": "What ongoing and periodic evaluations do you perform to confirm controls are operating (internal audit, self-assessments, continuous monitoring), and how are deficiencies evaluated and corrected?",
+     "whyItMatters": "CC4 is the criterion that catches control failures before the auditor does. Organizations with functioning internal monitoring produce cleaner SOC 2 reports and can show exceptions were self-identified and remediated.",
+     "interviewees": [
+      "Internal Auditor",
+      "CISO",
+      "Compliance Officer"
+     ],
+     "evidence": [
+      "Internal audit plan and reports",
+      "Control self-assessment results",
+      "Deficiency log with remediation status",
+      "Metrics/alerts on control operation"
+     ],
+     "guidance": "A GOOD answer shows a risk-based monitoring plan actually executed during the period, deficiencies logged with severity, root cause, owner and due date, and evidence of verified closure \u2014 including deficiencies found by monitoring rather than the external auditor.",
+     "probes": [
+      "What deficiencies did your own monitoring find this period, and what was fixed?",
+      "How do you distinguish a one-off deviation from a systemic control failure?"
+     ],
+     "weight": 3
+    }
+   ]
+  },
+  {
+   "id": "phase-3",
+   "name": "Phase 3 \u2014 Control Design & Operating Effectiveness: Logical Access, Operations, Change & Risk Mitigation (CC5\u2013CC9)",
+   "objective": "Perform detailed walkthroughs and sample testing of the operational security controls: control activity deployment (CC5), logical and physical access (CC6), system monitoring and incident response (CC7), change management (CC8) and vendor/business continuity risk mitigation (CC9).",
+   "questions": [
+    {
+     "id": "soc2-p3-q01",
+     "controlRef": "CC5.1 / CC5.2 / CC5.3 \u2014 COSO Principles 10-12: Control activities",
+     "question": "How did you select the control activities that address your risks, and how are those controls deployed through policies, procedures, and defined responsibility, timing and corrective action?",
+     "whyItMatters": "CC5 is the bridge between risk assessment and the controls the auditor tests. Controls must be selected in response to risks, supported by general technology controls, and deployed through established policies with clear ownership.",
+     "interviewees": [
+      "CISO",
+      "Risk Manager",
+      "Compliance Officer"
+     ],
+     "evidence": [
+      "Control matrix mapping risks to controls to TSC criteria",
+      "Policy/procedure library",
+      "Control descriptions with owner and frequency",
+      "Technology control inventory"
+     ],
+     "guidance": "A GOOD answer shows a deliberate control matrix where each control traces to a risk and a criterion, each control has a defined owner, frequency and evidence trail, and policies establish accountability including how deviations are handled.",
+     "probes": [
+      "Pick a control \u2014 why does it exist and which risk does it mitigate?",
+      "Are any controls dependent on technology controls (e.g. job scheduling, spreadsheets) that are themselves untested?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "soc2-p3-q02",
+     "controlRef": "CC6.1 \u2014 Logical access: software, infrastructure and architecture",
+     "question": "Walk me through how logical access security is implemented over in-scope systems \u2014 authentication mechanisms, encryption keys, and the protection of credentials and security configuration data.",
+     "whyItMatters": "CC6.1 is the foundation of logical access security. Weak authentication design, shared credentials or exposed keys undermine every access control layered on top.",
+     "interviewees": [
+      "Security Engineer",
+      "IT Manager",
+      "DevOps Lead"
+     ],
+     "evidence": [
+      "Authentication architecture (SSO/IdP documentation)",
+      "MFA enforcement configuration",
+      "Secrets/key management solution and rotation records",
+      "Password policy configuration"
+     ],
+     "guidance": "A GOOD answer shows centralized authentication (SSO) with MFA enforced for all production and corporate access, secrets stored in a managed vault with rotation, no hard-coded credentials, and strong password parameters where passwords remain.",
+     "probes": [
+      "Are there any systems outside SSO with local accounts?",
+      "Where do API keys and database credentials live, and when were they last rotated?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "soc2-p3-q03",
+     "controlRef": "CC6.2 \u2014 User registration, de-registration and credential issuance",
+     "question": "Demonstrate the joiner/mover/leaver process: how are new users authorized and provisioned, how are role changes handled, and how quickly is access revoked at termination \u2014 for employees and contractors?",
+     "whyItMatters": "CC6.2 failures (terminated users retaining access) are among the most frequently cited SOC 2 exceptions and the most dangerous in practice. Auditors sample new hires and terminations across the full period.",
+     "interviewees": [
+      "IT Manager",
+      "HR Manager",
+      "Security Engineer"
+     ],
+     "evidence": [
+      "Provisioning tickets for sampled hires",
+      "Termination checklist and deprovisioning timestamps",
+      "HR system-to-IdP integration",
+      "Contractor access records with expiry"
+     ],
+     "guidance": "A GOOD answer shows documented authorization before provisioning, automated or same-day deprovisioning triggered from HR, periodic reconciliation of HR roster to active accounts, and time-bound contractor access.",
+     "probes": [
+      "For this sampled termination, show me exactly when each system access was disabled.",
+      "What happens to a leaver's access in systems not connected to your IdP?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "soc2-p3-q04",
+     "controlRef": "CC6.3 \u2014 Authorization, least privilege and access reviews",
+     "question": "How is access authorized on a need-to-know basis, how are roles defined, and how often are user access reviews performed and evidenced \u2014 including privileged accounts?",
+     "whyItMatters": "CC6.3 requires access be authorized and removed when no longer needed. Rubber-stamped quarterly reviews, or reviews missing privileged and service accounts, are a standard auditor challenge.",
+     "interviewees": [
+      "IT Manager",
+      "Security Engineer",
+      "Control Owners"
+     ],
+     "evidence": [
+      "Role/permission definitions",
+      "Completed access review evidence for the period",
+      "Remediation records from reviews",
+      "Privileged access inventory"
+     ],
+     "guidance": "A GOOD answer shows documented role definitions tied to job function, reviews at least quarterly covering production, corporate and privileged access, evidence reviewers had complete information, and timely removal of flagged access.",
+     "probes": [
+      "Show me an access review where access was actually revoked \u2014 what triggered it?",
+      "Who reviews the access of the administrators who perform the reviews?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "soc2-p3-q05",
+     "controlRef": "CC6.4 / CC6.5 \u2014 Physical access and protection of assets outside entity control",
+     "question": "How is physical access to in-scope facilities controlled, and how do you protect data and assets that leave your physical control (laptops, backups, cloud-hosted data)?",
+     "whyItMatters": "CC6.4/CC6.5 address the physical layer and assets outside your perimeter. For cloud-first companies this shifts to disk encryption, MDM, and reliance on the cloud provider's physical controls (a carve-out item the auditor still expects to be managed).",
+     "interviewees": [
+      "Facilities Manager",
+      "IT Manager",
+      "Security Engineer"
+     ],
+     "evidence": [
+      "Badge access logs and visitor records",
+      "Physical access review records",
+      "Disk encryption/MDM compliance reports",
+      "Cloud provider SOC reports covering physical security"
+     ],
+     "guidance": "A GOOD answer shows physical access authorized, logged and periodically reviewed; all endpoints encrypted and managed via MDM with remote wipe; and clear reliance on (and review of) the subservice organization's physical controls for hosted infrastructure.",
+     "probes": [
+      "When was physical access last reviewed, and were any badges removed?",
+      "How do you know every laptop is encrypted today?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "soc2-p3-q06",
+     "controlRef": "CC6.6 \u2014 Boundary protection against external threats",
+     "question": "How are system boundaries protected from external threats \u2014 firewalls, network segmentation, hardening, and restriction of unauthorized traffic \u2014 and who reviews those configurations?",
+     "whyItMatters": "CC6.6 covers the controls that keep unauthorized users and malicious traffic outside the boundary. Unreviewed firewall rules and flat networks are recurring design weaknesses.",
+     "interviewees": [
+      "Security Engineer",
+      "IT Manager",
+      "Network Engineer"
+     ],
+     "evidence": [
+      "Firewall/security group rule exports",
+      "Network diagram showing segmentation",
+      "Rule review records",
+      "Hardening/baseline configurations"
+     ],
+     "guidance": "A GOOD answer shows deny-by-default inbound rules, segmentation between production and corporate/lower environments, documented periodic rule reviews with removals, and hardened baselines (e.g. CIS) verified by configuration scanning.",
+     "probes": [
+      "Show me the last firewall rule review \u2014 what was removed?",
+      "Can a compromised corporate laptop reach production databases directly?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "soc2-p3-q07",
+     "controlRef": "CC6.7 \u2014 Protection of data in transmission and movement",
+     "question": "How is confidential data protected during transmission and movement \u2014 encryption in transit standards, TLS configuration management, and controls over data leaving the system (exports, email, removable media)?",
+     "whyItMatters": "CC6.7 requires protection of data during transmission. Weak TLS, unencrypted internal hops, or unrestricted data export channels break confidentiality commitments made to customers.",
+     "interviewees": [
+      "Security Engineer",
+      "Software Dev Lead",
+      "IT Manager"
+     ],
+     "evidence": [
+      "TLS configuration standards and scan results",
+      "Certificate inventory and renewal process",
+      "Data egress controls (DLP, blocked USB, export logging)",
+      "Encryption architecture documentation"
+     ],
+     "guidance": "A GOOD answer shows TLS 1.2+ enforced everywhere including internal service-to-service traffic, managed certificates with no expired certs in production, and defined, controlled channels for data export with logging of large transfers.",
+     "probes": [
+      "Are there any unencrypted paths where customer data flows, even internally?",
+      "What stops an employee from exporting the customer database to a personal drive?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "soc2-p3-q08",
+     "controlRef": "CC6.8 \u2014 Malware prevention and detection",
+     "question": "What controls prevent and detect malicious software on in-scope systems \u2014 endpoint protection, application allow-listing, email filtering \u2014 and how are alerts actioned?",
+     "whyItMatters": "CC6.8 requires both preventive and detective malware controls. Deployed-but-unmonitored EDR is treated by auditors as a detective control that does not operate.",
+     "interviewees": [
+      "Security Engineer",
+      "IT Manager"
+     ],
+     "evidence": [
+      "EDR/AV deployment coverage reports",
+      "Alert queue and response records",
+      "Email security gateway configuration",
+      "Blocked/allowed software policy"
+     ],
+     "guidance": "A GOOD answer shows near-total endpoint coverage (verified, not assumed), centralized alerting with documented triage SLAs, and examples of detections investigated to closure during the period.",
+     "probes": [
+      "What percentage of in-scope endpoints report healthy to your EDR console right now?",
+      "Show me an alert from the period and its investigation record."
+     ],
+     "weight": 2
+    },
+    {
+     "id": "soc2-p3-q09",
+     "controlRef": "CC7.1 \u2014 Vulnerability and configuration change detection",
+     "question": "How do you detect vulnerabilities and unauthorized configuration changes \u2014 scanning cadence, coverage of infrastructure and applications, remediation SLAs by severity, and penetration testing?",
+     "whyItMatters": "CC7.1 requires detection processes. The auditor tests not just that scans run, but that findings are remediated within policy SLAs \u2014 chronic overdue criticals are a classic exception.",
+     "interviewees": [
+      "Security Engineer",
+      "IT Manager",
+      "Software Dev Lead"
+     ],
+     "evidence": [
+      "Vulnerability scan reports across the period",
+      "Remediation tickets with SLA tracking",
+      "Penetration test reports and retest evidence",
+      "Configuration/integrity monitoring alerts"
+     ],
+     "guidance": "A GOOD answer shows authenticated scans covering all in-scope assets on a defined cadence, tracked remediation meeting policy SLAs (e.g. critical 14/30 days), annual penetration testing with retested fixes, and detection of unauthorized changes to security configurations.",
+     "probes": [
+      "Show me your oldest open critical vulnerability and explain it.",
+      "What did the last penetration test find, and is every finding verified closed?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "soc2-p3-q10",
+     "controlRef": "CC7.2 \u2014 Monitoring for anomalies and malicious activity",
+     "question": "How are in-scope systems monitored to detect anomalies and indicators of compromise \u2014 logging coverage, SIEM/alerting, and who watches it, including outside business hours?",
+     "whyItMatters": "CC7.2 requires monitoring capable of detecting malicious acts, unusual behavior and config changes. Logs without alerting, or alerting nobody responds to, fail the criterion's intent.",
+     "interviewees": [
+      "Security Engineer",
+      "IT Ops",
+      "SOC/MDR Provider contact"
+     ],
+     "evidence": [
+      "Log source inventory and SIEM coverage",
+      "Alert rules/use cases",
+      "Alert triage records with timestamps",
+      "On-call or MDR arrangements"
+     ],
+     "guidance": "A GOOD answer shows critical log sources (IdP, cloud audit logs, production apps, endpoints) centralized, tuned detections with documented triage, 24/7 coverage via team or MDR, and evidence of response times during the period.",
+     "probes": [
+      "Which in-scope systems do not send logs to your SIEM?",
+      "Walk me through the last alert escalated outside business hours."
+     ],
+     "weight": 3
+    },
+    {
+     "id": "soc2-p3-q11",
+     "controlRef": "CC7.3 / CC7.4 / CC7.5 \u2014 Incident response, execution and recovery",
+     "question": "Walk me through a real security incident from the audit period: detection, triage, containment, eradication, recovery, communication \u2014 and the post-incident review. Then show me the plan and its last test.",
+     "whyItMatters": "CC7.3-7.5 cover the whole incident lifecycle including evaluation, response, recovery, communication and lessons learned. A real incident walkthrough tests whether the documented plan actually operated.",
+     "interviewees": [
+      "CISO",
+      "Security Engineer",
+      "Legal Counsel",
+      "Customer Success"
+     ],
+     "evidence": [
+      "Incident response plan and severity matrix",
+      "Incident tickets/timeline for sampled incidents",
+      "Post-incident review (postmortem) documents",
+      "Tabletop exercise records",
+      "Customer/regulator notification records if applicable"
+     ],
+     "guidance": "A GOOD answer recounts a real incident consistent with the documented plan \u2014 declared severity, contained within SLA, customers notified per policy if required \u2014 and a blameless postmortem with completed corrective actions, plus at least annual tabletop testing.",
+     "probes": [
+      "Did any incident during the period meet your customer notification threshold? What was sent and when?",
+      "What corrective action from the last postmortem is still open?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "soc2-p3-q12",
+     "controlRef": "CC8.1 \u2014 Change management",
+     "question": "Demonstrate the change management process end-to-end: how changes are authorized, designed, tested, approved and deployed to production \u2014 including how emergency changes differ and who can push code directly.",
+     "whyItMatters": "CC8.1 is tested with samples across the whole period. Undocumented emergency changes, self-approved pull requests, or deployments bypassing the pipeline are among the most common SOC 2 exceptions.",
+     "interviewees": [
+      "Software Dev Lead",
+      "DevOps Lead",
+      "QA Lead"
+     ],
+     "evidence": [
+      "Change management policy",
+      "Sampled change tickets with linked PRs, test results and approvals",
+      "Deployment pipeline configuration (branch protection, required reviews)",
+      "Emergency change log with retroactive approvals"
+     ],
+     "guidance": "A GOOD answer shows enforced (not just documented) controls: branch protection requiring peer review, automated tests gating deployment, segregation between developer and approver, and emergency changes logged and retrospectively approved within policy timelines.",
+     "probes": [
+      "Can anyone in engineering deploy to production alone right now?",
+      "Show me all emergency changes in the period and their retroactive approvals."
+     ],
+     "weight": 3
+    },
+    {
+     "id": "soc2-p3-q13",
+     "controlRef": "CC9.1 \u2014 Business disruption risk mitigation",
+     "question": "How have you identified and mitigated risks of business disruption \u2014 backup strategy and restoration testing, redundancy, and business continuity/disaster recovery planning with defined RTO/RPO?",
+     "whyItMatters": "CC9.1 requires mitigation of business disruption risk. Untested backups and a DR plan that exists only as a document leave the organization unable to meet availability commitments.",
+     "interviewees": [
+      "IT Manager",
+      "DevOps Lead",
+      "Risk Manager"
+     ],
+     "evidence": [
+      "Backup policy and job success logs",
+      "Restoration test records",
+      "BC/DR plan with RTO/RPO",
+      "DR exercise results"
+     ],
+     "guidance": "A GOOD answer shows backups running successfully with monitoring of failures, restoration actually tested on a schedule (not assumed), documented RTO/RPO approved by leadership, and at least annual DR exercises with lessons learned.",
+     "probes": [
+      "When did you last restore from backup, and how long did it take versus your RTO?",
+      "What is your recovery plan if your primary cloud region is unavailable?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "soc2-p3-q14",
+     "controlRef": "CC9.2 \u2014 Vendor and business partner risk management",
+     "question": "How do you assess and monitor vendors and business partners that could impact your security commitments \u2014 due diligence before onboarding, contract requirements, and ongoing review of their SOC reports?",
+     "whyItMatters": "CC9.2 requires vendor risk management. The auditor expects a risk-tiered vendor inventory, due diligence proportional to criticality, and documented annual review of subservice organizations' SOC reports including their exceptions and CUECs.",
+     "interviewees": [
+      "Procurement/Vendor Manager",
+      "CISO",
+      "Compliance Officer"
+     ],
+     "evidence": [
+      "Vendor inventory with risk tiers",
+      "Vendor due diligence questionnaires/reviews",
+      "Contracts with security clauses",
+      "SOC report review memos including bridge letters"
+     ],
+     "guidance": "A GOOD answer shows tiered assessment (critical vendors get deeper review), security requirements in contracts, annual review of critical vendors' SOC reports with their exceptions and CUECs evaluated for impact, and coverage gaps (e.g. SOC report period mismatch) bridged with bridge letters.",
+     "probes": [
+      "Show me the review notes for your most critical vendor's latest SOC report.",
+      "What happens when a critical vendor fails your assessment?"
+     ],
+     "weight": 3
+    }
+   ]
+  },
+  {
+   "id": "phase-4",
+   "name": "Phase 4 \u2014 Availability, Processing Integrity, Confidentiality, Privacy & Exceptions/Reporting",
+   "objective": "Test the additional Trust Services Criteria in scope (A1, PI1, C1, P1), evaluate exceptions identified during testing and their impact on the opinion, and confirm management responses and remediation commitments are credible before report issuance.",
+   "questions": [
+    {
+     "id": "soc2-p4-q01",
+     "controlRef": "A1.1 \u2014 Availability: capacity and performance monitoring",
+     "question": "If Availability is in scope: how do you monitor capacity, performance and availability of in-scope systems against your commitments, and what thresholds trigger action?",
+     "whyItMatters": "A1.1 requires monitoring to manage capacity demand and meet availability commitments. Committing to a 99.9% SLA without measurement means the criterion cannot be met and exceptions will surface in testing.",
+     "interviewees": [
+      "IT Ops",
+      "DevOps Lead",
+      "SRE Lead"
+     ],
+     "evidence": [
+      "Uptime/availability dashboards and reports",
+      "Capacity forecasts",
+      "Alert thresholds and escalation records",
+      "SLA attainment reports vs commitments"
+     ],
+     "guidance": "A GOOD answer shows availability measured against the exact SLA figures promised to customers, capacity trending with headroom management, and alerting thresholds that fire before customer impact, with action records.",
+     "probes": [
+      "What was measured availability per month during the period, and did it meet the SLA?",
+      "When did capacity last force a scaling decision?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "soc2-p4-q02",
+     "controlRef": "A1.2 \u2014 Availability: environmental protections and recovery",
+     "question": "How are in-scope systems protected against environmental threats and data loss \u2014 redundancy/failover design, backup integrity, and documented recovery procedures that are tested?",
+     "whyItMatters": "A1.2 requires protections against threats outside complete physical control plus backup and recovery infrastructure. The auditor tests recovery capability evidence, not just architecture diagrams.",
+     "interviewees": [
+      "DevOps Lead",
+      "IT Ops",
+      "Facilities Manager"
+     ],
+     "evidence": [
+      "High-availability/failover architecture and test records",
+      "Backup success and restoration test logs",
+      "Recovery runbooks",
+      "Failover exercise results"
+     ],
+     "guidance": "A GOOD answer demonstrates tested failover (or documented single-point-of-failure analysis with accepted risk), verified backup restoration within RPO/RTO, and runbooks proven in exercises rather than assumed.",
+     "probes": [
+      "Show me the last failover or restoration test \u2014 did it meet the documented RTO?",
+      "Which single points of failure remain, and who accepted that risk?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "soc2-p4-q03",
+     "controlRef": "A1.3 \u2014 Availability: recovery testing",
+     "question": "How is recovery plan testing performed for availability \u2014 what scenarios are exercised, how often, and how do test results change the plan?",
+     "whyItMatters": "A1.3 specifically requires testing of the recovery plan. A plan never exercised cannot be asserted as suitably designed or operating effectively.",
+     "interviewees": [
+      "IT Ops",
+      "Risk Manager",
+      "DevOps Lead"
+     ],
+     "evidence": [
+      "DR test plans and results",
+      "Scenario documentation (region loss, data corruption, ransomware)",
+      "Post-test action items and completion",
+      "Updated recovery plan versions"
+     ],
+     "guidance": "A GOOD answer shows at least annual testing against realistic scenarios, measured results against RTO/RPO, and a visible feedback loop where test failures produced plan updates.",
+     "probes": [
+      "What failed in your last recovery test, and what changed afterward?",
+      "Have you tested restoring from corrupted or encrypted (ransomware-simulated) backups?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "soc2-p4-q04",
+     "controlRef": "PI1.1 / PI1.2 \u2014 Processing Integrity: input completeness and accuracy",
+     "question": "If Processing Integrity is in scope: how do you ensure data inputs are complete, accurate, timely and authorized \u2014 and how are input errors detected and corrected?",
+     "whyItMatters": "PI1.1/PI1.2 address whether the system obtains and processes inputs validly. For platforms whose value is data processing, uncontrolled inputs mean outputs cannot be trusted \u2014 the exact assurance PI customers are buying.",
+     "interviewees": [
+      "Software Dev Lead",
+      "Product Manager",
+      "QA Lead"
+     ],
+     "evidence": [
+      "Input validation design documentation",
+      "Reconciliation controls between source and processed data",
+      "Error handling/rejection logs",
+      "Authorization workflow for data submission"
+     ],
+     "guidance": "A GOOD answer identifies the critical processing commitments made to customers and shows concrete controls: validation rules, completeness checks and reconciliations at ingestion, with rejected inputs logged, corrected and reprocessed.",
+     "probes": [
+      "Show me a reconciliation that caught an input error during the period.",
+      "What prevents duplicate or partial submissions from being processed?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "soc2-p4-q05",
+     "controlRef": "PI1.3 / PI1.4 / PI1.5 \u2014 Processing Integrity: processing, outputs and storage",
+     "question": "How do you ensure processing is complete, valid, accurate and timely, outputs are delivered as committed, and stored data is protected against error, delay and unauthorized change throughout its life?",
+     "whyItMatters": "PI1.3-1.5 cover the processing itself, output delivery and stored data integrity. Auditors look for monitoring of failed jobs, output verification, and protection against silent corruption or unauthorized modification.",
+     "interviewees": [
+      "Software Dev Lead",
+      "Data Engineering Lead",
+      "IT Ops"
+     ],
+     "evidence": [
+      "Job monitoring/failure alerting records",
+      "Output verification or checksum/reconciliation controls",
+      "Data integrity controls (constraints, audit trails)",
+      "Error correction procedures"
+     ],
+     "guidance": "A GOOD answer shows monitored processing pipelines with alerting on failures and retries, verification of output completeness before delivery, database integrity controls and audit trails over data modification, and defined error-correction procedures.",
+     "probes": [
+      "What happens operationally when a processing job fails at 2 a.m.?",
+      "Can anyone modify processed data without leaving an audit trail?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "soc2-p4-q06",
+     "controlRef": "C1.1 \u2014 Confidentiality: identification and protection of confidential information",
+     "question": "How do you identify information designated as confidential, and what protections apply throughout its life \u2014 classification, encryption at rest and in transit, access restriction, and secure retention and disposal?",
+     "whyItMatters": "C1.1 requires confidential information be protected commensurate with commitments. Without classification and lifecycle controls (including disposal), confidentiality commitments are unenforceable and untestable.",
+     "interviewees": [
+      "CISO",
+      "IT Manager",
+      "Legal Counsel",
+      "DPO"
+     ],
+     "evidence": [
+      "Data classification policy and inventory of confidential data",
+      "Encryption-at-rest configuration evidence",
+      "Retention schedule and disposal/destruction records",
+      "Access restrictions on confidential data stores"
+     ],
+     "guidance": "A GOOD answer shows confidential information explicitly identified per commitments, encrypted at rest and in transit, access restricted to need-to-know, and retention/disposal executed and evidenced (including certificates of destruction where applicable).",
+     "probes": [
+      "Where does confidential data live beyond your primary database (analytics, logs, support tools)?",
+      "Show me evidence of secure disposal from the period."
+     ],
+     "weight": 3
+    },
+    {
+     "id": "soc2-p4-q07",
+     "controlRef": "C1.2 \u2014 Confidentiality: disposal of confidential information",
+     "question": "How is confidential information securely erased or destroyed at end of retention \u2014 including data held by subservice organizations and on decommissioned assets?",
+     "whyItMatters": "C1.2 focuses on disposal. Residual customer data on decommissioned disks, stale backups beyond retention, or vendor-held copies are common leakage points auditors probe.",
+     "interviewees": [
+      "IT Manager",
+      "Security Engineer",
+      "Procurement/Vendor Manager"
+     ],
+     "evidence": [
+      "Data retention and disposal policy",
+      "Decommissioning/wiping records",
+      "Vendor data deletion certificates",
+      "Backup expiry configuration"
+     ],
+     "guidance": "A GOOD answer shows disposal executed on schedule with records, cryptographic erasure or certified destruction for hardware, contractual deletion obligations on vendors, and backups expiring in line with retention commitments.",
+     "probes": [
+      "How do you prove customer data was deleted when a customer requests it?",
+      "What happens to data in backups \u2014 how does it age out?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "soc2-p4-q08",
+     "controlRef": "P1.0 \u2014 Privacy: notice, consent, collection, use, retention, access, disclosure, quality, monitoring",
+     "question": "If Privacy is in scope: walk me through how personal information is handled against your privacy commitments \u2014 notice, consent/choice, collection limitation, use and retention, data subject access, disclosure to third parties, data quality, and privacy incident monitoring.",
+     "whyItMatters": "P1.0 bundles the AICPA Generally Accepted Privacy Principles. Inclusion is typically driven by contractual commitments; the auditor tests the operating mechanisms behind the privacy notice, not the notice's existence.",
+     "interviewees": [
+      "DPO",
+      "Legal Counsel",
+      "Product Manager",
+      "Compliance Officer"
+     ],
+     "evidence": [
+      "Privacy notice and version history",
+      "Consent records and preference management",
+      "Data subject request log and response times",
+      "Third-party data sharing agreements",
+      "Privacy incident/complaint register"
+     ],
+     "guidance": "A GOOD answer shows the notice matching actual practice, consent captured and enforceable, DSARs fulfilled within committed timelines, disclosed third-party sharing governed by agreements, and privacy complaints/incidents logged and resolved.",
+     "probes": [
+      "Show me a data subject access request from the period and how it was fulfilled end-to-end.",
+      "Does any actual data use exceed what your notice describes?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "soc2-p4-q09",
+     "controlRef": "AT-C 205 \u2014 Exceptions and deviations evaluation",
+     "question": "What exceptions did testing identify during the period, and for each: what was the root cause, over what duration did the control fail, and what is the assessed impact on the criteria?",
+     "whyItMatters": "Exceptions do not automatically mean a qualified opinion \u2014 the auditor evaluates severity, pervasiveness and duration. Understanding exceptions and their root cause determines report wording and remediation priority.",
+     "interviewees": [
+      "Compliance Officer",
+      "CISO",
+      "Control Owners"
+     ],
+     "evidence": [
+      "Exception/deviation log from fieldwork",
+      "Root cause analyses",
+      "Impact assessments per exception",
+      "Compensating control documentation"
+     ],
+     "guidance": "A GOOD answer treats exceptions as analysis inputs: each has a documented root cause (people/process/technology), a bounded failure window, an assessment of whether a compensating control limited impact, and an honest view of opinion impact.",
+     "probes": [
+      "Were any exceptions pervasive across samples rather than isolated?",
+      "Did any compensating control operate during the failure window?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "soc2-p4-q10",
+     "controlRef": "AT-C 205 \u2014 Management responses to exceptions",
+     "question": "What management responses accompany reported exceptions \u2014 what corrective actions are committed, by whom, by when \u2014 and how will the auditor verify remediation is real and not cosmetic?",
+     "whyItMatters": "Management responses in the report signal maturity to customers reading it. Vague responses ('we will improve training') without owners or dates undermine confidence; auditors and customers alike track whether last year's exception recurs.",
+     "interviewees": [
+      "Compliance Officer",
+      "CISO",
+      "Control Owners"
+     ],
+     "evidence": [
+      "Draft management responses",
+      "Corrective action plans with owners and dates",
+      "Remediation evidence post-period",
+      "Prior-year exception recurrence analysis"
+     ],
+     "guidance": "A GOOD answer produces specific responses \u2014 corrective action, accountable owner, completion date, and how recurrence is prevented \u2014 with remediation evidence that survives re-testing in the next period.",
+     "probes": [
+      "Did any exception from the prior report recur this period? Why?",
+      "Which corrective actions were completed before report issuance?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "soc2-p4-q11",
+     "controlRef": "AT-C 205 \u2014 Opinion outcome and report distribution",
+     "question": "Based on fieldwork, what opinion outcome do you expect (unqualified, qualified, adverse, disclaimer), how will you communicate results to stakeholders, and who controls report distribution?",
+     "whyItMatters": "The opinion type determines the report's commercial value. Qualified or adverse opinions must be understood and socialized before issuance, and uncontrolled distribution of a SOC 2 (a restricted-use report) is itself a governance issue.",
+     "interviewees": [
+      "CISO",
+      "CEO",
+      "CFO",
+      "Legal Counsel"
+     ],
+     "evidence": [
+      "Draft report and exception summary",
+      "Stakeholder communication plan",
+      "Report distribution list and NDA process",
+      "Bridge letter process for period gaps"
+     ],
+     "guidance": "A GOOD answer shows leadership briefed on the expected opinion before issuance, a plan for handling customer questions on exceptions, controlled distribution under NDA with tracking, and bridge letters planned for gaps between report periods.",
+     "probes": [
+      "If the opinion is qualified, which customers must be proactively briefed?",
+      "How do you handle a prospect who requests the report mid-cycle between periods?"
+     ],
+     "weight": 2
+    }
+   ]
+  }
+ ]
 }

@@ -1,34 +1,1283 @@
 {
-  "id": "iso42001",
-  "name": "ISO 42001",
-  "shortName": "ISO 42001",
-  "version": "2023",
-  "category": "governance",
-  "description": "Management system standard for artificial intelligence (AIMS).",
-  "phases": [
+ "id": "iso42001",
+ "name": "ISO/IEC 42001:2023",
+ "shortName": "ISO 42001",
+ "version": "2023",
+ "category": "governance",
+ "description": "ISO/IEC 42001:2023 specifies requirements for an AI Management System (AIMS), helping organisations govern the development, provision and use of AI systems responsibly. It follows the familiar management-system structure (Clauses 4-10) and adds AI-specific controls in Annex A covering AI policy, internal organisation, resources, impact assessment, the AI system life cycle, data, transparency, use of AI, and third-party relationships. An audit verifies that AI risk is identified and treated systematically, that intended purposes and impacts are documented, and that accountable leadership, human oversight and continual improvement are demonstrably in place.",
+ "tagline": "The international standard for establishing, running and continually improving an AI Management System (AIMS) for organisations that develop or use AI.",
+ "auditFocus": [
+  "Scope and context of the AIMS, including a complete inventory of AI systems and their intended purposes",
+  "AI risk assessment and AI system impact assessment, including effects on individuals, groups and society",
+  "Leadership commitment, AI policy, and clearly assigned responsible-AI roles and accountabilities",
+  "Life cycle controls: design, verification & validation, deployment, monitoring, change and retirement of AI systems",
+  "Data quality, provenance and governance for training, validation and operation of AI systems",
+  "Transparency to users and affected parties, human oversight, incident handling, and management of third-party/foundation-model dependencies"
+ ],
+ "phases": [
+  {
+   "id": "phase-1",
+   "name": "Phase 1 \u2014 Planning, AIMS Scope & AI Context",
+   "objective": "Establish the organisational context for AI, confirm the AIMS scope, verify the AI system inventory, and review how AI risks and opportunities are identified, assessed and planned for (Clauses 4-6).",
+   "questions": [
     {
-      "id": "iso42001-p1",
-      "name": "AI management system",
-      "questions": [
-        {
-          "id": "iso42001-q001",
-          "controlRef": "\u00a74.1",
-          "question": "Has the organization determined the context and scope of its AI management system?",
-          "whyItMatters": "This control establishes a foundational requirement; auditors verify both design and operating effectiveness.",
-          "interviewees": [
-            "CISO"
-          ],
-          "evidence": [
-            "EV-001 Policy document"
-          ],
-          "guidance": "Request the current approved policy, confirm management sign-off and review date, and test that it has been communicated to relevant staff.",
-          "probes": [
-            "When was this last reviewed and by whom?",
-            "How are exceptions handled?"
-          ],
-          "weight": 2
-        }
-      ]
+     "id": "iso42001-p1-q01",
+     "controlRef": "Clause 4.1 \u2014 Understanding the organization and its context",
+     "question": "Which internal and external issues that affect your ability to develop or use AI responsibly have you identified, and how were they determined?",
+     "whyItMatters": "Clause 4.1 requires the organisation to understand the context in which its AIMS operates. If AI-specific issues (regulatory change, public trust, data availability, model risk) are not identified, the whole management system is built on an incomplete foundation.",
+     "interviewees": [
+      "CEO/Top Management",
+      "Chief AI Officer or CISO",
+      "Risk Manager"
+     ],
+     "evidence": [
+      "Context analysis document (e.g. SWOT/PESTLE covering AI)",
+      "AIMS planning records",
+      "Board or executive briefing on AI strategy"
+     ],
+     "guidance": "A good answer names concrete issues: applicable AI regulation (e.g. EU AI Act, sector rules), data protection law, competitive pressure to adopt AI, internal AI maturity and skills, ethical commitments, and stakeholder expectations. Issues should trace into risk assessment and objectives.",
+     "probes": [
+      "When was this context analysis last reviewed and what triggered the review?",
+      "How did these issues influence the AIMS scope or AI objectives?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "iso42001-p1-q02",
+     "controlRef": "Clause 4.2 \u2014 Understanding the needs and expectations of interested parties",
+     "question": "Who are the interested parties for your AI systems \u2014 including people affected by AI decisions \u2014 and what requirements of theirs have you captured?",
+     "whyItMatters": "AI systems can affect people who never interact with the organisation directly. Missing affected individuals, regulators or civil-society expectations leads to unaddressed legal and ethical obligations.",
+     "interviewees": [
+      "Chief AI Officer or CISO",
+      "DPO/Legal",
+      "Product Manager"
+     ],
+     "evidence": [
+      "Interested-party register",
+      "Regulatory requirements mapping",
+      "Records of stakeholder consultation"
+     ],
+     "guidance": "Expect a documented register covering customers, end users, data subjects, employees, regulators, partners and shareholders, with their stated/implicit requirements (fairness, transparency, privacy, safety) traced into AIMS requirements.",
+     "probes": [
+      "How do you capture the expectations of people affected by AI decisions who have no direct relationship with you?",
+      "Which legal requirements for AI have you identified and who keeps that list current?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "iso42001-p1-q03",
+     "controlRef": "Clause 4.3 \u2014 Determining the scope of the AI management system",
+     "question": "What is the documented scope of your AIMS, and how did you decide which business units, products and AI systems are inside or outside it?",
+     "whyItMatters": "The scope defines what the certification actually covers. An artificially narrow scope that excludes the riskiest AI use is a red flag; an undefined scope makes the audit meaningless.",
+     "interviewees": [
+      "Chief AI Officer or CISO",
+      "CEO/Top Management"
+     ],
+     "evidence": [
+      "AIMS scope statement",
+      "Scope rationale and exclusions analysis",
+      "Organisation/product chart annotated with scope boundaries"
+     ],
+     "guidance": "A good answer shows a written scope (available as documented information), justified exclusions, and consistency with the AI system inventory. Scope should consider Clause 4.1 issues and 4.2 requirements.",
+     "probes": [
+      "Are any AI systems or pilots excluded from scope? Why?",
+      "Does the scope cover AI you procure from third parties as well as AI you build?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "iso42001-p1-q04",
+     "controlRef": "Clause 4.4 / Annex A.6 \u2014 AI system life cycle",
+     "question": "Show me your inventory of AI systems. How is every AI system in development, in production, or procured from a third party identified and registered?",
+     "whyItMatters": "You cannot govern what you do not know exists. A complete, maintained AI system registry is the backbone of the AIMS and the first thing a certification auditor will sample.",
+     "interviewees": [
+      "Chief AI Officer or CISO",
+      "Data Science Lead",
+      "ML Engineering Lead",
+      "Product Manager"
+     ],
+     "evidence": [
+      "AI system inventory/registry",
+      "Sample registry entries with owner, purpose, status",
+      "Process for registering new AI initiatives"
+     ],
+     "guidance": "A good registry records each AI system's name, owner, intended purpose, life cycle stage, data used, third-party components (e.g. foundation models), risk/impact classification and approval status \u2014 and there is an intake process ensuring new projects are registered before development proceeds.",
+     "probes": [
+      "How would a team building an AI feature get it into this registry?",
+      "How do you detect 'shadow AI' \u2014 models or AI SaaS adopted without registration?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "iso42001-p1-q05",
+     "controlRef": "Annex A.6 \u2014 AI system life cycle",
+     "question": "For each AI system, how do you document its intended purpose and classify its use case, including any prohibited or out-of-scope uses?",
+     "whyItMatters": "The intended purpose drives the risk level, the impact assessment, the controls applied and (in many jurisdictions) the regulatory classification. Vague purposes make downstream controls arbitrary.",
+     "interviewees": [
+      "Product Manager",
+      "Data Science Lead",
+      "DPO/Legal"
+     ],
+     "evidence": [
+      "Intended purpose statements in the registry",
+      "Use-case classification scheme",
+      "List of prohibited/unacceptable AI uses"
+     ],
+     "guidance": "Expect a written intended-purpose statement per system (users, context of use, decisions supported) plus a classification against the organisation's risk tiers and any regulatory categories, with explicit forbidden uses (e.g. social scoring, manipulative targeting).",
+     "probes": [
+      "Pick one AI system \u2014 what exactly is it intended to do, and what would count as misuse?",
+      "Who approves a change of intended purpose, and what happens when one occurs?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "iso42001-p1-q06",
+     "controlRef": "Clause 6.1 \u2014 Actions to address risks and opportunities (AI risk assessment)",
+     "question": "Walk me through your AI risk assessment methodology: how are AI-specific risks identified, analysed and evaluated, and how does it differ from your general enterprise risk process?",
+     "whyItMatters": "Clause 6.1 requires an AI risk assessment process that addresses the standard's AI risk criteria. AI risks (bias, opacity, drift, misuse, societal harm) often fall outside traditional risk registers, so a generic process is usually insufficient.",
+     "interviewees": [
+      "Risk Manager",
+      "Chief AI Officer or CISO",
+      "Data Science Lead"
+     ],
+     "evidence": [
+      "AI risk assessment methodology document",
+      "AI risk register with scoring",
+      "Risk criteria (likelihood/impact definitions, acceptance thresholds)"
+     ],
+     "guidance": "A good answer describes a defined, repeatable method with AI-specific risk criteria (impact on individuals and society, fairness, safety, security, privacy), consistent scoring, defined acceptance levels, and links to the impact assessments required by Annex A.5.",
+     "probes": [
+      "When was the last AI risk assessment performed, and on which systems?",
+      "Show me a risk that was assessed as unacceptable \u2014 what happened to it?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "iso42001-p1-q07",
+     "controlRef": "Clause 6.1 / Annex A \u2014 Statement of Applicability",
+     "question": "How do you select controls to treat AI risks, and can you show me your Statement of Applicability for the Annex A controls with justifications for inclusions and exclusions?",
+     "whyItMatters": "The Statement of Applicability (SoA) is the auditable link between risk assessment and control implementation. Missing or boilerplate justifications indicate the Annex A controls were never seriously considered.",
+     "interviewees": [
+      "Chief AI Officer or CISO",
+      "Risk Manager"
+     ],
+     "evidence": [
+      "Statement of Applicability",
+      "Risk treatment plan",
+      "Mapping of risks to Annex A controls"
+     ],
+     "guidance": "A good SoA lists every Annex A control area (A.2-A.10), states implemented/not implemented, justifies exclusions based on risk and applicability, and aligns with the risk treatment plan and any additional controls the organisation chose.",
+     "probes": [
+      "Which Annex A controls did you exclude, and what is the documented justification?",
+      "How does the SoA get updated when a new AI system or risk appears?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "iso42001-p1-q08",
+     "controlRef": "Clause 6.2 \u2014 AI objectives and planning to achieve them",
+     "question": "What are your AI objectives, how do they align with the AI policy, and how do you measure progress against them?",
+     "whyItMatters": "Clause 6.2 requires measurable AI objectives consistent with the AI policy. Objectives that exist only on paper, or that nobody monitors, signal a non-functioning management system.",
+     "interviewees": [
+      "CEO/Top Management",
+      "Chief AI Officer or CISO",
+      "Product Manager"
+     ],
+     "evidence": [
+      "Documented AI objectives",
+      "KPI dashboard or objective tracking records",
+      "Management review inputs showing objective status"
+     ],
+     "guidance": "Expect a small set of specific, measurable objectives (e.g. '% of AI systems with completed impact assessments', 'AI incident response time', 'models passing pre-deployment fairness gates') with owners, targets and periodic status reporting.",
+     "probes": [
+      "Which objective is furthest from target and what are you doing about it?",
+      "Who set these objectives and how do they connect to business strategy?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "iso42001-p1-q09",
+     "controlRef": "Clause 4.2 / Annex A.8 \u2014 Information for interested parties",
+     "question": "Which AI-related legal and regulatory obligations apply to you today (for example the EU AI Act, sector rules, privacy law), and how do you track changes and map them to your AI systems?",
+     "whyItMatters": "Regulatory exposure for AI is changing rapidly. Organisations that cannot map obligations to specific AI systems face compliance failures that the AIMS is supposed to prevent.",
+     "interviewees": [
+      "DPO/Legal",
+      "Chief AI Officer or CISO",
+      "Risk Manager"
+     ],
+     "evidence": [
+      "Legal/regulatory register for AI",
+      "Mapping of regulations to AI systems (e.g. AI Act risk classes)",
+      "Subscription/ownership for regulatory monitoring"
+     ],
+     "guidance": "A good answer names a specific owner, a maintained obligations register, classification of each AI system against relevant regimes, and a process to re-assess when laws change or systems enter new markets.",
+     "probes": [
+      "Which of your AI systems would be 'high-risk' under the EU AI Act, and what are you doing about it?",
+      "What happened the last time a relevant regulation changed?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "iso42001-p1-q10",
+     "controlRef": "Clause 4.4 \u2014 AI management system",
+     "question": "How is the AIMS integrated with your other management systems and processes (e.g. ISO 27001 ISMS, privacy, quality, enterprise risk), and where are the interfaces?",
+     "whyItMatters": "ISO 42001 is designed to integrate with other management-system standards. A stand-alone AI bureaucracy disconnected from security, privacy and risk processes duplicates effort and creates gaps between them.",
+     "interviewees": [
+      "Chief AI Officer or CISO",
+      "Risk Manager",
+      "DPO/Legal"
+     ],
+     "evidence": [
+      "Integrated management system documentation",
+      "Shared processes (incident management, internal audit, management review)",
+      "Org chart showing governance interfaces"
+     ],
+     "guidance": "A good answer shows shared infrastructure: one incident process extended to AI, joint management reviews or coordinated ones, reuse of ISMS risk methodology with AI extensions, and clear ownership of the seams (e.g. AI security risks owned jointly).",
+     "probes": [
+      "If an AI model is breached, which management system's incident process fires?",
+      "Are AI risks visible in the enterprise risk register?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "iso42001-p1-q11",
+     "controlRef": "Clause 7.1 / Clause 7.2 \u2014 Resources and competence",
+     "question": "How did you determine the people, infrastructure and competence needed to run the AIMS, and where are the current gaps?",
+     "whyItMatters": "An AIMS fails in practice when responsibility is assigned but capability is not. Auditors check that resource decisions are deliberate, documented and revisited.",
+     "interviewees": [
+      "CEO/Top Management",
+      "Chief AI Officer or CISO",
+      "Data Science Lead",
+      "ML Engineering Lead"
+     ],
+     "evidence": [
+      "Resource/budget plan for the AIMS",
+      "Competence matrix for AI roles",
+      "Training plans and records"
+     ],
+     "guidance": "Expect evidence of a deliberate capability assessment (AI risk skills, data governance, MLOps, legal/ethics), budget allocation, and training or hiring actions to close identified gaps \u2014 not just 'we have smart people'.",
+     "probes": [
+      "Who performs AI impact assessments and what qualifies them?",
+      "What capability gap worries you most right now?"
+     ],
+     "weight": 2
     }
-  ]
+   ]
+  },
+  {
+   "id": "phase-2",
+   "name": "Phase 2 \u2014 Leadership, AI Policy & Roles",
+   "objective": "Verify top-management commitment, the existence and communication of an AI policy, and the assignment of roles, responsibilities and authorities for the AIMS (Clause 5, with Annex A.2 and A.3).",
+   "questions": [
+    {
+     "id": "iso42001-p2-q01",
+     "controlRef": "Clause 5.1 \u2014 Leadership and commitment",
+     "question": "How does top management demonstrate active leadership of the AIMS \u2014 beyond signing the policy \u2014 for example in resourcing, decision-making and accountability for AI outcomes?",
+     "whyItMatters": "Clause 5.1 puts accountability for the AIMS on top management. Auditors look for evidence of genuine engagement; delegated-then-forgotten AI governance is a classic major nonconformity.",
+     "interviewees": [
+      "CEO/Top Management",
+      "Board/Audit Committee",
+      "Chief AI Officer or CISO"
+     ],
+     "evidence": [
+      "Board/executive minutes discussing AI risk and AIMS performance",
+      "Budget approvals for AI governance",
+      "Escalations of AI decisions to executives"
+     ],
+     "guidance": "A good answer cites specific, recent executive actions: reviewing AIMS performance, approving AI risk appetite, stopping or remediating a risky AI deployment, funding governance roles. Vague sponsorship claims are insufficient.",
+     "probes": [
+      "When did the executive team last make a decision about an AI risk?",
+      "Has leadership ever said no to an AI initiative on governance grounds?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "iso42001-p2-q02",
+     "controlRef": "Clause 5.2 / Annex A.2 \u2014 Policies related to AI",
+     "question": "Show me your AI policy. How was it established, what principles does it commit to, and how is it communicated and kept current?",
+     "whyItMatters": "The AI policy is the anchor document of the AIMS: Clause 5.2 requires it and Annex A.2 expects alignment between the policy and other organisational policies. An absent, generic or stale policy undermines everything downstream.",
+     "interviewees": [
+      "Chief AI Officer or CISO",
+      "CEO/Top Management",
+      "DPO/Legal"
+     ],
+     "evidence": [
+      "Approved AI policy document",
+      "Publication/communication records",
+      "Policy review history"
+     ],
+     "guidance": "A good AI policy is approved by top management, states commitments (lawful, ethical, fair, transparent, accountable AI; risk-based controls; human oversight), references roles and supporting procedures, is communicated to staff and relevant parties, and is reviewed on a defined cycle.",
+     "probes": [
+      "How does the AI policy connect to your code of conduct, security policy and data protection policy?",
+      "Give an example of a decision the policy actually influenced."
+     ],
+     "weight": 3
+    },
+    {
+     "id": "iso42001-p2-q03",
+     "controlRef": "Clause 5.3 / Annex A.3 \u2014 Internal organization",
+     "question": "Who is accountable for what in your AI governance? Show me how roles, responsibilities and authorities for the AIMS are assigned and understood.",
+     "whyItMatters": "Unassigned accountability is the most common root cause of AI governance failure. Clause 5.3 and Annex A.3 require defined roles for the AIMS and for AI system life cycle decisions.",
+     "interviewees": [
+      "Chief AI Officer or CISO",
+      "CEO/Top Management",
+      "Product Manager",
+      "Data Science Lead"
+     ],
+     "evidence": [
+      "RACI or responsibility matrix for the AIMS",
+      "Role descriptions (e.g. Chief AI Officer, model owner)",
+      "Governance committee charter"
+     ],
+     "guidance": "Expect named accountable owners for: the AIMS overall, each AI system, risk and impact assessments, deployment approvals, monitoring, and incident response. Interviewees should describe the same structure the documents show.",
+     "probes": [
+      "If a model starts producing biased output at 2 a.m., whose phone rings?",
+      "Who has authority to take an AI system offline?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "iso42001-p2-q04",
+     "controlRef": "Annex A.3 \u2014 Internal organization (responsible AI roles)",
+     "question": "Do you have designated responsible-AI or AI ethics functions (a committee, review board or accountable executive), and what decisions have they actually made?",
+     "whyItMatters": "A governance forum that meets but never decides anything is governance theatre. The auditor wants evidence the structure has teeth and independent challenge exists.",
+     "interviewees": [
+      "Chief AI Officer or CISO",
+      "CEO/Top Management",
+      "DPO/Legal",
+      "Risk Manager"
+     ],
+     "evidence": [
+      "Committee charter and membership",
+      "Meeting minutes with decisions",
+      "Cases escalated to and decided by the forum"
+     ],
+     "guidance": "A good answer shows a standing forum with cross-functional membership (technical, legal, risk, business), a defined mandate over high-risk AI decisions, and minutes proving real interventions (approvals with conditions, rejected use cases, mandated mitigations).",
+     "probes": [
+      "Tell me about a use case this forum blocked or sent back.",
+      "Does the forum include anyone independent of the teams building AI?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "iso42001-p2-q05",
+     "controlRef": "Clause 7.2 \u2014 Competence",
+     "question": "How do you ensure the people developing, deploying and overseeing AI are competent \u2014 and how do you evidence that competence?",
+     "whyItMatters": "Clause 7.2 requires determined competence, achieved through training or experience, with retained documented evidence. AI-specific skills (fairness testing, model risk, prompt/injection security) rarely appear in generic training programmes.",
+     "interviewees": [
+      "HR Manager",
+      "Data Science Lead",
+      "ML Engineering Lead",
+      "Chief AI Officer or CISO"
+     ],
+     "evidence": [
+      "Competence requirements per AI role",
+      "Training records for AI-specific topics",
+      "Certifications or qualification evidence"
+     ],
+     "guidance": "Expect role-based competence criteria, AI-specific training (responsible AI, data governance, model risk) with completion records, and evaluation of training effectiveness \u2014 not just a course catalogue.",
+     "probes": [
+      "What training does a new ML engineer get before touching a production model?",
+      "How do you keep skills current as the technology changes?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "iso42001-p2-q06",
+     "controlRef": "Clause 7.3 \u2014 Awareness",
+     "question": "What do general employees know about your AI policy and their role in using AI responsibly \u2014 including rules on using public AI tools with company data?",
+     "whyItMatters": "Clause 7.3 requires awareness of the AI policy, each person's contribution to AIMS effectiveness, and the consequences of nonconformity. Uncontrolled employee use of external AI tools is one of the biggest real-world AI risks.",
+     "interviewees": [
+      "End Users",
+      "HR Manager",
+      "Chief AI Officer or CISO"
+     ],
+     "evidence": [
+      "Awareness campaign materials",
+      "Acceptable-use rules for AI tools",
+      "Spot-check interview notes with staff"
+     ],
+     "guidance": "Staff should be able to state, in their own words, what the AI policy means for them: approved tools, what data may not be entered into external AI services, and who to ask. Evidence includes onboarding content and periodic refreshers.",
+     "probes": [
+      "Ask a random employee: may they paste customer data into a public chatbot?",
+      "How do you handle detected misuse of AI tools?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "iso42001-p2-q07",
+     "controlRef": "Clause 7.4 \u2014 Communication",
+     "question": "What internal and external communications about the AIMS and AI use have you planned \u2014 who communicates what, to whom, and when?",
+     "whyItMatters": "Clause 7.4 requires a determination of communications relevant to the AIMS. Unplanned communication leads to inconsistent external claims about AI and missed internal signals.",
+     "interviewees": [
+      "Chief AI Officer or CISO",
+      "Product Manager",
+      "DPO/Legal"
+     ],
+     "evidence": [
+      "Communication plan/matrix",
+      "External AI statements (website, product docs)",
+      "Internal announcements about AI governance"
+     ],
+     "guidance": "A good answer identifies key communications (policy publication, AI incident notifications, transparency statements to users, regulator engagement) with owners and triggers, and shows they actually happened.",
+     "probes": [
+      "Who approves public statements about how your AI works?",
+      "How are frontline teams told about changes to AI systems they support?"
+     ],
+     "weight": 1
+    },
+    {
+     "id": "iso42001-p2-q08",
+     "controlRef": "Clause 7.5 \u2014 Documented information",
+     "question": "How is AIMS documentation controlled \u2014 creation, approval, versioning, access and retention \u2014 and is it actually current?",
+     "whyItMatters": "Out-of-date or uncontrolled documentation means people follow different versions of the truth. Clause 7.5 discipline is a reliable indicator of overall management-system maturity.",
+     "interviewees": [
+      "Chief AI Officer or CISO",
+      "Data Science Lead",
+      "Internal Auditor"
+     ],
+     "evidence": [
+      "Document register with versions and owners",
+      "Sample controlled documents with review dates",
+      "Access control for AIMS documentation"
+     ],
+     "guidance": "Expect a maintained document register, approval workflows, version history, and review dates that have been met. Sampling several documents should show consistency between the register and reality.",
+     "probes": [
+      "Show me the version history of the AI risk assessment procedure.",
+      "Who can edit the AI policy and how is that controlled?"
+     ],
+     "weight": 1
+    },
+    {
+     "id": "iso42001-p2-q09",
+     "controlRef": "Clause 5.1 / Clause 6.1 \u2014 Risk appetite and escalation",
+     "question": "Has leadership articulated how much AI risk the organisation is willing to accept, and how do decisions that exceed that appetite get escalated?",
+     "whyItMatters": "Without an expressed risk appetite, risk acceptance decisions are made ad hoc by engineers or product teams. Leadership owns the boundary between acceptable and unacceptable AI risk.",
+     "interviewees": [
+      "CEO/Top Management",
+      "Risk Manager",
+      "Chief AI Officer or CISO",
+      "Board/Audit Committee"
+     ],
+     "evidence": [
+      "AI risk appetite statement",
+      "Escalation procedure",
+      "Examples of escalated decisions"
+     ],
+     "guidance": "A good answer includes a documented appetite or tolerance statement (even qualitative, e.g. 'no deployment of AI making fully automated decisions with significant effects on individuals without executive sign-off') plus a real escalation path that has been used.",
+     "probes": [
+      "What kind of AI decision can a product team make alone, and what must go higher?",
+      "Show me the last decision escalated under this rule."
+     ],
+     "weight": 2
+    }
+   ]
+  },
+  {
+   "id": "phase-3",
+   "name": "Phase 3 \u2014 AI Lifecycle Controls Walkthrough",
+   "objective": "Walk through the Annex A control areas (A.2-A.10) in operation: policies, internal organisation, resources, impact assessment, AI system life cycle, data, transparency, use of AI systems, and third-party relationships.",
+   "questions": [
+    {
+     "id": "iso42001-p3-q01",
+     "controlRef": "Annex A.2 \u2014 Policies related to AI",
+     "question": "How is the AI policy operationalised into working-level rules \u2014 and how do you check that existing policies (security, privacy, procurement, HR) account for AI?",
+     "whyItMatters": "Annex A.2 expects the AI policy to be considered against other organisational policies. A policy that lives in a slide deck but never changes a procedure, standard or gate is not implemented.",
+     "interviewees": [
+      "Chief AI Officer or CISO",
+      "DPO/Legal",
+      "Procurement/Vendor Manager"
+     ],
+     "evidence": [
+      "Procedures and standards referencing the AI policy",
+      "Updated procurement/security/privacy policies",
+      "Gap analysis of related policies for AI"
+     ],
+     "guidance": "Expect concrete artefacts: AI development standards, model approval gates, procurement clauses for AI, updated data-handling rules \u2014 each traceable to the AI policy.",
+     "probes": [
+      "Which existing policy changed most because of the AI policy?",
+      "Show me the procedure an engineer follows that comes from the AI policy."
+     ],
+     "weight": 2
+    },
+    {
+     "id": "iso42001-p3-q02",
+     "controlRef": "Annex A.4 \u2014 Resources for AI systems",
+     "question": "How do you document and manage the resources each AI system depends on \u2014 compute, tooling, people and third-party components?",
+     "whyItMatters": "Annex A.4 requires awareness of resource dependencies (including data, tooling, system components and human resources). Undocumented dependencies break continuity and hide concentration risks (e.g. a single GPU cluster or one critical vendor library).",
+     "interviewees": [
+      "ML Engineering Lead",
+      "Data Science Lead",
+      "CIO"
+     ],
+     "evidence": [
+      "Resource/dependency documentation per AI system",
+      "Architecture diagrams",
+      "Capacity and continuity plans for AI workloads"
+     ],
+     "guidance": "A good answer shows per-system documentation of compute, frameworks, external APIs/models, key personnel, plus consideration of continuity (what happens if a provider or key person is unavailable).",
+     "probes": [
+      "What happens to production AI if your cloud region or model provider goes down?",
+      "Which AI systems depend on a single person?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "iso42001-p3-q03",
+     "controlRef": "Annex A.5 \u2014 AI system impact assessment",
+     "question": "Show me your AI system impact assessment process. How do you assess consequences for individuals, groups and society \u2014 not just for the business \u2014 before deployment?",
+     "whyItMatters": "Annex A.5 is the heart of responsible AI in this standard: a documented process to assess potential impacts on individuals, groups of individuals and societies throughout the life cycle. Skipping it means fundamental-rights and societal harms are never systematically considered.",
+     "interviewees": [
+      "Chief AI Officer or CISO",
+      "DPO/Legal",
+      "Product Manager",
+      "Risk Manager"
+     ],
+     "evidence": [
+      "Impact assessment procedure and template",
+      "Completed assessments for sampled AI systems",
+      "Sign-off records before deployment"
+     ],
+     "guidance": "A good process defines when assessments are required (new systems, material changes), covers impacts on individuals/groups/society (fairness, safety, autonomy, environment where relevant), feeds results into risk treatment, and gates deployment. Completed examples must exist, not just a template.",
+     "probes": [
+      "Walk me through the impact assessment for one production AI system.",
+      "Have you ever changed or stopped a system because of an impact assessment?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "iso42001-p3-q04",
+     "controlRef": "Annex A.5 \u2014 Assessing impacts (fairness and bias)",
+     "question": "How do you test AI systems for bias and unfair outcomes \u2014 which protected groups, which metrics, what thresholds, and what happens when a system fails?",
+     "whyItMatters": "Bias in AI produces discriminatory outcomes, legal exposure and reputational damage. Auditors need evidence that fairness is measured with defined criteria, not asserted.",
+     "interviewees": [
+      "Data Science Lead",
+      "ML Engineering Lead",
+      "DPO/Legal"
+     ],
+     "evidence": [
+      "Fairness/bias testing methodology",
+      "Test results for sampled models",
+      "Records of remediation when thresholds were breached"
+     ],
+     "guidance": "Expect defined fairness metrics appropriate to the use case (e.g. demographic parity, equal opportunity), identified affected groups, pre-deployment thresholds, and a documented response (retrain, constrain, reject) when results fail. One-off ad hoc checks are weak evidence.",
+     "probes": [
+      "Show me a model that failed fairness testing \u2014 what did you do?",
+      "Who sets the fairness thresholds and on what basis?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "iso42001-p3-q05",
+     "controlRef": "Annex A.6 \u2014 AI system life cycle (design and development)",
+     "question": "Walk me through your defined life cycle for AI systems from concept to retirement, and the documentation produced at each stage for a system I choose.",
+     "whyItMatters": "Annex A.6 requires defined and documented life cycle processes. If design decisions, requirements and approvals are not documented, the organisation cannot demonstrate responsible development or reconstruct why a system behaves as it does.",
+     "interviewees": [
+      "ML Engineering Lead",
+      "Data Science Lead",
+      "Product Manager"
+     ],
+     "evidence": [
+      "AI life cycle process document",
+      "Design/requirements documentation for a sampled system",
+      "Stage-gate or approval records"
+     ],
+     "guidance": "Expect defined stages (concept, design, data preparation, build, verification & validation, deployment, operation, retirement) with entry/exit criteria and produced documentation. Sampling one real system should confirm the process is followed.",
+     "probes": [
+      "What documentation exists for the model in production the longest?",
+      "Which life cycle stage most often gets skipped under deadline pressure?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "iso42001-p3-q06",
+     "controlRef": "Annex A.6 \u2014 AI system life cycle (verification, validation and testing)",
+     "question": "How are AI systems verified and validated before deployment \u2014 accuracy, robustness, safety, security testing \u2014 and who signs off that a system meets its requirements?",
+     "whyItMatters": "Deploying untested or self-approved models is a core failure mode. Independent verification against documented requirements, with recorded results, is the minimum credible bar.",
+     "interviewees": [
+      "ML Engineering Lead",
+      "Data Science Lead",
+      "Product Manager"
+     ],
+     "evidence": [
+      "V&V/test plans and results",
+      "Deployment approval records",
+      "Test coverage for edge cases and failure modes"
+     ],
+     "guidance": "A good answer includes documented acceptance criteria, testing on representative and adversarial data, security testing (e.g. prompt injection for LLM systems), and a recorded approval by someone other than the developer for higher-risk systems.",
+     "probes": [
+      "Show me the test results that supported the last production deployment.",
+      "Can the person who built a model also approve its deployment?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "iso42001-p3-q07",
+     "controlRef": "Annex A.6 \u2014 AI system life cycle (model documentation)",
+     "question": "For each production AI system, what technical documentation exists \u2014 model cards or equivalent covering architecture, training data, performance, limitations and intended conditions of use?",
+     "whyItMatters": "Without model documentation, monitoring, incident response, audits and handover become impossible. It is also the foundation for transparency to interested parties under Annex A.8.",
+     "interviewees": [
+      "Data Science Lead",
+      "ML Engineering Lead"
+     ],
+     "evidence": [
+      "Model cards / system documentation",
+      "Experiment and training run records",
+      "Versioned model artefacts and metadata"
+     ],
+     "guidance": "Expect per-model documentation: purpose, architecture/approach, training data summary, evaluation results, known limitations, intended operating conditions, version history. Reproducibility (code, data versions, hyperparameters) should be achievable for key systems.",
+     "probes": [
+      "Pick a production model \u2014 can you show me exactly what data trained this version?",
+      "If the model's author left tomorrow, could your team maintain it?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "iso42001-p3-q08",
+     "controlRef": "Annex A.6 \u2014 AI system life cycle (operation and monitoring)",
+     "question": "How do you monitor AI systems in production \u2014 performance drift, data drift, fairness, usage anomalies \u2014 and what thresholds trigger action?",
+     "whyItMatters": "AI systems degrade silently as the world changes. Without defined monitoring and thresholds, organisations discover failures through customer harm or press coverage rather than telemetry.",
+     "interviewees": [
+      "ML Engineering Lead",
+      "Data Science Lead",
+      "Product Manager"
+     ],
+     "evidence": [
+      "Monitoring dashboards and metric definitions",
+      "Alert/threshold configuration",
+      "Records of actions taken on alerts"
+     ],
+     "guidance": "A good answer names monitored metrics per system (accuracy proxies, input/output drift, error rates, fairness indicators), defined thresholds, alerting owners, and real examples of detected degradation and response. 'We watch the dashboards' without thresholds is insufficient.",
+     "probes": [
+      "Tell me about the last time monitoring caught a problem \u2014 what happened?",
+      "How quickly would you notice a model quietly getting worse?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "iso42001-p3-q09",
+     "controlRef": "Annex A.6 \u2014 AI system life cycle (change management and retraining)",
+     "question": "How are changes to AI systems \u2014 retraining, new model versions, prompt/configuration changes, new data sources \u2014 assessed, approved and rolled back if needed?",
+     "whyItMatters": "AI systems change more fluidly than traditional software (silent retraining, provider model updates, prompt edits). Uncontrolled change invalidates prior risk and impact assessments without anyone noticing.",
+     "interviewees": [
+      "ML Engineering Lead",
+      "Data Science Lead",
+      "Product Manager"
+     ],
+     "evidence": [
+      "Change management procedure for AI",
+      "Change tickets with risk/impact re-assessment",
+      "Version history and rollback records"
+     ],
+     "guidance": "Expect a defined trigger for when change requires re-assessment (materiality criteria), approval proportionate to risk, versioning of models/prompts/config, and demonstrated rollback capability. Third-party model version changes should also be covered.",
+     "probes": [
+      "When your LLM provider silently updates the model, how do you detect and handle it?",
+      "Show me a change that was rolled back."
+     ],
+     "weight": 3
+    },
+    {
+     "id": "iso42001-p3-q10",
+     "controlRef": "Annex A.6 \u2014 AI system life cycle (incident handling and decommissioning)",
+     "question": "How are AI-specific incidents \u2014 harmful outputs, serious errors, misuse, unexpected behaviour \u2014 detected, reported, escalated and learned from, and how do you retire AI systems safely?",
+     "whyItMatters": "AI failures have distinct patterns (silent degradation, emergent harmful behaviour) that generic IT incident processes often miss. Contained, learned-from incidents are a hallmark of a functioning AIMS; repeated surprises are the opposite.",
+     "interviewees": [
+      "Chief AI Officer or CISO",
+      "ML Engineering Lead",
+      "Risk Manager",
+      "Product Manager"
+     ],
+     "evidence": [
+      "AI incident procedure integrated with incident management",
+      "AI incident log",
+      "Post-incident reviews and corrective actions",
+      "Decommissioning records for retired systems"
+     ],
+     "guidance": "A good answer defines what counts as an AI incident, severity levels, response and communication duties (including to affected users), post-incident review feeding Clause 10 improvement, and a retirement process that handles data, dependencies and user transition.",
+     "probes": [
+      "Show me your last AI incident \u2014 timeline, decisions, lessons.",
+      "Has any AI system been decommissioned? How were users and data handled?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "iso42001-p3-q11",
+     "controlRef": "Annex A.7 \u2014 Data for AI systems (quality and provenance)",
+     "question": "How do you govern the data used to train, validate and operate AI systems \u2014 quality criteria, provenance, representativeness and lawful basis?",
+     "whyItMatters": "Annex A.7 requires data quality and provenance controls for AI. Poor or unlawfully sourced training data produces unreliable models and direct legal exposure; provenance gaps make bias and defects untraceable.",
+     "interviewees": [
+      "Data Science Lead",
+      "DPO/Legal",
+      "ML Engineering Lead"
+     ],
+     "evidence": [
+      "Data governance standards for AI",
+      "Dataset documentation (datasheets, lineage records)",
+      "Data quality checks and results",
+      "Lawful-basis records for personal data in training"
+     ],
+     "guidance": "Expect documented data quality criteria (accuracy, completeness, representativeness for the intended population), lineage/provenance records for training datasets, assessment of bias in data, and confirmed lawful basis for personal data use \u2014 with evidence for a sampled system.",
+     "probes": [
+      "For one model, show me where the training data came from and how its quality was checked.",
+      "How do you know the training data represents the population the model serves?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "iso42001-p3-q12",
+     "controlRef": "Annex A.7 \u2014 Data for AI systems (data preparation and labelling)",
+     "question": "How are data preparation, labelling and annotation for AI controlled \u2014 including the quality and working practices of any human labelling?",
+     "whyItMatters": "Label errors and inconsistent annotation propagate directly into model behaviour, and exploitative or uncontrolled labelling practices create ethical and quality risk. This is a frequently overlooked Annex A.7 area.",
+     "interviewees": [
+      "Data Science Lead",
+      "ML Engineering Lead",
+      "Procurement/Vendor Manager"
+     ],
+     "evidence": [
+      "Annotation guidelines",
+      "Labelling quality assurance records (inter-annotator agreement, spot checks)",
+      "Contracts/standards for labelling vendors"
+     ],
+     "guidance": "A good answer covers written annotation guidelines, quality sampling of labelled data, handling of ambiguous cases, and due diligence on labelling providers (quality, confidentiality, working conditions).",
+     "probes": [
+      "What percentage of labelled data is quality-checked, and what error rate is acceptable?",
+      "Who labels your sensitive data and under what confidentiality terms?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "iso42001-p3-q13",
+     "controlRef": "Annex A.8 \u2014 Information for interested parties (transparency to users)",
+     "question": "What do you tell users and affected people about your AI systems \u2014 that they are interacting with AI, what it does, its limitations, and how to contest outcomes?",
+     "whyItMatters": "Annex A.8 requires appropriate information to interested parties. Transparency failures are among the fastest ways to lose trust and breach emerging AI regulation; hidden AI in consequential decisions is a serious finding.",
+     "interviewees": [
+      "Product Manager",
+      "DPO/Legal",
+      "End Users"
+     ],
+     "evidence": [
+      "User-facing AI disclosures/notices",
+      "Product documentation describing AI behaviour and limitations",
+      "Appeal/contest mechanism documentation"
+     ],
+     "guidance": "Expect clear disclosure when users interact with AI or are subject to AI-influenced decisions, plain-language explanation of purpose and limitations, human-contact and contest routes, and consistency between what documentation claims and what the system does.",
+     "probes": [
+      "Show me exactly what a user sees that tells them AI is involved.",
+      "If a user disputes an AI-influenced decision, walk me through what happens."
+     ],
+     "weight": 3
+    },
+    {
+     "id": "iso42001-p3-q14",
+     "controlRef": "Annex A.8 \u2014 Information for interested parties (external documentation)",
+     "question": "What documentation do you make available to customers, regulators or partners about your AI systems' intended purpose, performance, risk management and limitations?",
+     "whyItMatters": "Customers and regulators increasingly demand evidence of responsible AI. Organisations that cannot produce accurate external documentation cannot support their customers' own compliance and will fail due diligence.",
+     "interviewees": [
+      "Product Manager",
+      "Chief AI Officer or CISO",
+      "DPO/Legal"
+     ],
+     "evidence": [
+      "External AI system documentation",
+      "Responses to customer due-diligence questionnaires",
+      "Regulator correspondence"
+     ],
+     "guidance": "A good answer shows maintained external-facing documentation (purpose, capabilities, performance bounds, limitations, data practices, update policy) and a controlled process for responding to information requests without over-claiming.",
+     "probes": [
+      "What do you send a customer who asks 'is your AI safe and fair?'",
+      "Has a customer or regulator ever challenged your AI documentation?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "iso42001-p3-q15",
+     "controlRef": "Annex A.9 \u2014 Use of AI systems (human oversight)",
+     "question": "How is human oversight implemented for AI systems in operation \u2014 who can review, override or stop AI outputs, and are they able and empowered to do it?",
+     "whyItMatters": "Human oversight is the primary safeguard when AI behaves unexpectedly. Oversight that exists on paper but is operationally impossible (no time, no authority, automation bias) is worse than none, because it creates false assurance.",
+     "interviewees": [
+      "End Users",
+      "Product Manager",
+      "Data Science Lead",
+      "ML Engineering Lead"
+     ],
+     "evidence": [
+      "Human oversight design per AI system",
+      "Override/intervention logs",
+      "Training for oversight roles",
+      "User interface walkthrough"
+     ],
+     "guidance": "A good answer specifies, per system, what humans review (all outputs, samples, exceptions), their authority to override or halt, the tooling supporting them, and evidence oversight actually occurs (intervention logs, override statistics). Oversight staff should describe realistic workloads.",
+     "probes": [
+      "Show me an actual case where a human overrode the AI.",
+      "Do reviewers ever rubber-stamp AI outputs? How would you know?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "iso42001-p3-q16",
+     "controlRef": "Annex A.9 \u2014 Use of AI systems (acceptable use and deployment conditions)",
+     "question": "What rules govern how staff and customers may use your AI systems, and how do you ensure AI is used only for its intended purpose and within its validated conditions?",
+     "whyItMatters": "Use outside validated conditions \u2014 new populations, new decision types, repurposed models \u2014 silently invalidates every prior assessment. Controls over use close the loop between intended purpose and reality.",
+     "interviewees": [
+      "Product Manager",
+      "End Users",
+      "Chief AI Officer or CISO",
+      "DPO/Legal"
+     ],
+     "evidence": [
+      "Acceptable use rules/terms for AI features",
+      "Usage monitoring or access restrictions",
+      "Records of detected out-of-scope use"
+     ],
+     "guidance": "Expect documented conditions of use, technical or contractual enforcement where feasible (access controls, API terms), monitoring for anomalous use patterns, and a route to approve or reject proposed new uses of existing AI systems.",
+     "probes": [
+      "If a department wanted to use your HR screening model for a new decision type, what process applies?",
+      "How do you detect customers using your AI API in ways you prohibit?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "iso42001-p3-q17",
+     "controlRef": "Annex A.10 \u2014 Third-party and customer relationships (supplier assessment)",
+     "question": "How do you assess and contract with suppliers of AI components and services \u2014 including foundation model providers \u2014 before and during use?",
+     "whyItMatters": "Modern AI stacks depend heavily on third-party models, APIs and data. Their behaviour, terms, and failures become your risk; Annex A.10 requires that third-party AI is selected, allocated responsibility for, and monitored.",
+     "interviewees": [
+      "Procurement/Vendor Manager",
+      "Chief AI Officer or CISO",
+      "DPO/Legal",
+      "ML Engineering Lead"
+     ],
+     "evidence": [
+      "AI supplier due-diligence records",
+      "Contract clauses for AI services (use rights, data use, change notification, liability)",
+      "Ongoing supplier monitoring"
+     ],
+     "guidance": "A good answer shows risk-based due diligence on AI suppliers (training data practices, safety, security, sub-processor use), contracts covering permitted use of your data, model change notification, incident duties and audit rights, plus periodic reassessment.",
+     "probes": [
+      "What did you check before adopting your current foundation model provider?",
+      "Does any supplier train on your data? How do you know?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "iso42001-p3-q18",
+     "controlRef": "Annex A.10 \u2014 Third-party and customer relationships (foundation model dependencies)",
+     "question": "Which of your AI systems depend on external foundation models or AI platforms, and how do you manage the specific risks: version changes, deprecation, terms changes, outages and data flows?",
+     "whyItMatters": "Foundation-model dependencies create concentration, continuity and opacity risks that classic vendor management misses \u2014 the model can change under your application overnight, silently altering behaviour.",
+     "interviewees": [
+      "ML Engineering Lead",
+      "Chief AI Officer or CISO",
+      "Risk Manager",
+      "Procurement/Vendor Manager"
+     ],
+     "evidence": [
+      "Register of external model/platform dependencies",
+      "Version pinning/configuration records",
+      "Contingency/exit plans",
+      "Data flow documentation to providers"
+     ],
+     "guidance": "Expect an explicit dependency register, controlled model version/configuration management with evaluation on change, documented data flows to providers (and their retention/training use), and credible exit or fallback strategies for critical dependencies.",
+     "probes": [
+      "If your primary model provider deprecated your model in 90 days, what is the plan?",
+      "How do you regression-test when the provider ships a new model version?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "iso42001-p3-q19",
+     "controlRef": "Annex A.10 \u2014 Third-party and customer relationships (customer responsibilities)",
+     "question": "Where your organisation supplies AI systems or components to customers, how do you define and communicate the customer's responsibilities versus yours?",
+     "whyItMatters": "Annex A.10 addresses both sides of the relationship. Unclear responsibility splits mean safety-critical duties (monitoring, appropriate use, reporting issues) fall into the gap between provider and customer.",
+     "interviewees": [
+      "Product Manager",
+      "DPO/Legal",
+      "Procurement/Vendor Manager"
+     ],
+     "evidence": [
+      "Customer-facing responsibility documentation",
+      "Contracts/terms allocating AI responsibilities",
+      "Onboarding materials for customers using your AI"
+     ],
+     "guidance": "A good answer shows documented responsibility allocation (e.g. you ensure model quality and updates; customer ensures appropriate use context, oversight and configuration) embedded in contracts and onboarding, plus a channel for customers to report problems.",
+     "probes": [
+      "What must a customer do to use your AI responsibly, and how do they know?",
+      "Has a customer ever misused your AI? How did the responsibility split hold up?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "iso42001-p3-q20",
+     "controlRef": "Clause 8.1 \u2014 Operational planning and control",
+     "question": "How are the processes from your risk treatment plan actually implemented and controlled in day-to-day operations, and how do you manage planned changes to those processes?",
+     "whyItMatters": "Clause 8.1 is where the AIMS meets reality: documented processes, controlled changes, and managed outsourced elements. The audit samples whether operations match the paperwork.",
+     "interviewees": [
+      "ML Engineering Lead",
+      "Data Science Lead",
+      "Chief AI Officer or CISO",
+      "Product Manager"
+     ],
+     "evidence": [
+      "Operating procedures aligned to the risk treatment plan",
+      "Records from sampled processes (approvals, checks, gates)",
+      "Change records for AIMS processes"
+     ],
+     "guidance": "Sampling two or three operational processes (e.g. model approval gate, dataset intake, deployment) should show records proving the documented controls operated as designed \u2014 not just that procedures exist.",
+     "probes": [
+      "Show me the records for the last three model deployments against the documented process.",
+      "Where do reality and the written process diverge most?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "iso42001-p3-q21",
+     "controlRef": "Clause 8.2 / Annex A.5 \u2014 AI risk and impact assessment in operation",
+     "question": "Are AI risk assessments and impact assessments performed at the planned intervals and triggers \u2014 and do the results actually change decisions?",
+     "whyItMatters": "Clause 8.2 requires risk assessments at planned intervals or when significant changes occur. Assessments done once at inception and never repeated \u2014 or ignored \u2014 fail the operating-effectiveness test.",
+     "interviewees": [
+      "Risk Manager",
+      "Chief AI Officer or CISO",
+      "Product Manager",
+      "Data Science Lead"
+     ],
+     "evidence": [
+      "Assessment schedule and completed assessments with dates",
+      "Trigger events log (material changes prompting re-assessment)",
+      "Decisions/minutes referencing assessment results"
+     ],
+     "guidance": "A good answer shows assessments repeated on schedule and on triggers (new model version, new market, new data), with visible influence: changed controls, deployment conditions, postponed launches.",
+     "probes": [
+      "Which systems are overdue for re-assessment?",
+      "Show me a decision that changed because of a risk or impact assessment."
+     ],
+     "weight": 3
+    }
+   ]
+  },
+  {
+   "id": "phase-4",
+   "name": "Phase 4 \u2014 Performance Evaluation & Improvement",
+   "objective": "Assess how the organisation monitors, measures, audits and reviews the AIMS, and how nonconformities and improvement opportunities are handled (Clauses 9-10).",
+   "questions": [
+    {
+     "id": "iso42001-p4-q01",
+     "controlRef": "Clause 9.1 \u2014 Monitoring, measurement, analysis and evaluation",
+     "question": "What do you monitor and measure to know the AIMS is working \u2014 which metrics, what methods, and who analyses the results?",
+     "whyItMatters": "Clause 9.1 requires a deliberate determination of what is measured and how results are analysed. Without it, management review and improvement have no factual basis.",
+     "interviewees": [
+      "Chief AI Officer or CISO",
+      "Risk Manager",
+      "ML Engineering Lead"
+     ],
+     "evidence": [
+      "AIMS metrics/KPI definitions",
+      "Measurement reports and dashboards",
+      "Analysis presented to management"
+     ],
+     "guidance": "Expect defined metrics for both AIMS health (assessment coverage, incident trends, training completion, control implementation status) and AI system performance, with documented methods and periodic analysis \u2014 not just raw dashboards.",
+     "probes": [
+      "Which AIMS metric has moved most in the last year, and why?",
+      "Who decides when a metric result requires action?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "iso42001-p4-q02",
+     "controlRef": "Clause 9.1 \u2014 AI system performance evaluation",
+     "question": "Beyond individual model metrics, how do you evaluate whether your portfolio of AI systems is achieving its intended purposes and objectives?",
+     "whyItMatters": "Model accuracy can be excellent while the system fails its purpose (wrong problem, no uptake, unintended side effects). The standard expects evaluation of the AIMS and its objectives, not just technical metrics.",
+     "interviewees": [
+      "Product Manager",
+      "Data Science Lead",
+      "Chief AI Officer or CISO"
+     ],
+     "evidence": [
+      "Portfolio/system-level reviews",
+      "Objective achievement reports",
+      "Benefit and outcome tracking for AI systems"
+     ],
+     "guidance": "A good answer shows periodic review of whether each AI system delivers its intended purpose and whether AI objectives (Clause 6.2) are met, including decisions to fix, limit or retire underperforming systems.",
+     "probes": [
+      "Which AI system most underdelivered versus its stated purpose, and what did you do?",
+      "How do you measure outcomes rather than model metrics?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "iso42001-p4-q03",
+     "controlRef": "Clause 9.2 \u2014 Internal audit",
+     "question": "Show me your internal audit programme for the AIMS: scope, frequency, auditor independence, findings and follow-up.",
+     "whyItMatters": "Internal audit is the organisation's own check that the AIMS conforms and works. A programme that never audits AI-specific controls, or whose findings never close, predicts certification failure.",
+     "interviewees": [
+      "Internal Auditor",
+      "Chief AI Officer or CISO",
+      "Risk Manager"
+     ],
+     "evidence": [
+      "Internal audit programme/schedule covering the AIMS",
+      "Audit reports with findings",
+      "Corrective action tracking to closure"
+     ],
+     "guidance": "Expect a risk-based audit schedule covering Clauses 4-10 and Annex A, auditors independent of the areas audited (or competent external support), documented findings, and verified closure of corrective actions.",
+     "probes": [
+      "When did internal audit last examine the AI life cycle controls?",
+      "Show me an internal finding and its verified closure."
+     ],
+     "weight": 3
+    },
+    {
+     "id": "iso42001-p4-q04",
+     "controlRef": "Clause 9.3 \u2014 Management review",
+     "question": "Walk me through the last management review of the AIMS: inputs considered, decisions made, and actions assigned.",
+     "whyItMatters": "Management review is where leadership steers the AIMS. Reviews that are ceremonial (fixed agenda, no decisions) indicate top management is not actually running the system.",
+     "interviewees": [
+      "CEO/Top Management",
+      "Chief AI Officer or CISO",
+      "Risk Manager"
+     ],
+     "evidence": [
+      "Management review minutes",
+      "Input packs (audit results, incidents, risks, objectives status)",
+      "Action log with owners and due dates"
+     ],
+     "guidance": "Minutes should show the required inputs (performance, audits, incidents, changing context, risks/opportunities, resources, improvement) and outputs: decisions, resource changes, assigned actions \u2014 with prior actions checked for completion.",
+     "probes": [
+      "What did the last management review decide to change?",
+      "Which action from a previous review is still open, and why?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "iso42001-p4-q05",
+     "controlRef": "Clause 10.1 \u2014 Nonconformity and corrective action",
+     "question": "When something in the AIMS fails \u2014 a control missed, an assessment skipped, a harmful AI output \u2014 how is the nonconformity handled and its root cause eliminated?",
+     "whyItMatters": "Clause 10.1 requires reacting to nonconformity, evaluating root cause, implementing corrective action and reviewing effectiveness. Repeated identical findings signal the process is decorative.",
+     "interviewees": [
+      "Chief AI Officer or CISO",
+      "Internal Auditor",
+      "Risk Manager",
+      "ML Engineering Lead"
+     ],
+     "evidence": [
+      "Nonconformity/corrective action register",
+      "Root cause analyses",
+      "Effectiveness review records"
+     ],
+     "guidance": "A good answer shows a working register with real entries, credible root-cause analysis (not 'human error'), actions proportional to risk, and effectiveness checks that actually closed or reopened issues.",
+     "probes": [
+      "Show me a corrective action that failed its effectiveness check \u2014 what happened next?",
+      "What is the most significant nonconformity raised this year?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "iso42001-p4-q06",
+     "controlRef": "Clause 10.2 \u2014 Continual improvement",
+     "question": "How has the AIMS measurably improved in the last 12 months, and how do you capture improvement opportunities from incidents, audits, monitoring and the wider AI field?",
+     "whyItMatters": "Continual improvement distinguishes a living management system from a certificate-chasing exercise. Auditors look for a track record and a mechanism, not aspirations.",
+     "interviewees": [
+      "Chief AI Officer or CISO",
+      "CEO/Top Management",
+      "Data Science Lead",
+      "Risk Manager"
+     ],
+     "evidence": [
+      "Improvement log / completed improvements",
+      "Changes to policies, processes or controls with rationale",
+      "Horizon-scanning inputs (regulatory, technical)"
+     ],
+     "guidance": "Expect concrete examples: tightened thresholds after an incident, new controls after a supplier failure, process simplification after audit findings \u2014 plus a channel by which lessons and external developments enter the AIMS.",
+     "probes": [
+      "What is the most recent change to the AIMS and what triggered it?",
+      "How do developments like new regulations or attack techniques feed improvement?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "iso42001-p4-q07",
+     "controlRef": "Clause 9.1 / Annex A.6 \u2014 Effectiveness of AI controls",
+     "question": "How do you evaluate whether the AI controls themselves \u2014 oversight, testing gates, monitoring thresholds \u2014 are effective, and when did you last change a control because it was not working?",
+     "whyItMatters": "Controls that exist but do not reduce risk create false assurance. Evaluating control effectiveness is a step beyond operating them, and mature organisations can cite controls they strengthened or removed based on evidence.",
+     "interviewees": [
+      "Chief AI Officer or CISO",
+      "Risk Manager",
+      "ML Engineering Lead",
+      "Internal Auditor"
+     ],
+     "evidence": [
+      "Control effectiveness reviews",
+      "Control change history with reasons",
+      "Metrics on control performance (e.g. issues caught pre- vs post-deployment)"
+     ],
+     "guidance": "A good answer includes periodic effectiveness evaluation (via audits, incident analysis, near-misses) and at least one concrete example of a control adjusted because evidence showed it was too weak, too heavy, or misdirected.",
+     "probes": [
+      "Which control catches the most problems, and which catches nothing?",
+      "Have you ever removed a control? Why?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "iso42001-p4-q08",
+     "controlRef": "Clause 10.1 \u2014 AI incident trends and learning",
+     "question": "What do your AI incident and near-miss trends tell you, and what systemic changes resulted from analysing them?",
+     "whyItMatters": "Trend analysis converts individual incidents into systemic learning. Organisations that treat each AI failure as isolated repeat them; organisations that analyse patterns fix causes.",
+     "interviewees": [
+      "Risk Manager",
+      "Chief AI Officer or CISO",
+      "ML Engineering Lead",
+      "Product Manager"
+     ],
+     "evidence": [
+      "Incident trend reports",
+      "Systemic corrective actions derived from incident patterns",
+      "Post-incident review outputs linked to AIMS changes"
+     ],
+     "guidance": "Expect categorised incident data, periodic trend analysis reviewed by governance, and at least one systemic change (process, control, training, supplier action) traceable to incident patterns.",
+     "probes": [
+      "What is your most common category of AI incident, and what are you doing about the category rather than the instances?",
+      "How do you capture near-misses that caused no visible harm?"
+     ],
+     "weight": 2
+    }
+   ]
+  },
+  {
+   "id": "phase-5",
+   "name": "Phase 5 \u2014 Findings & Certification Readiness",
+   "objective": "Consolidate audit findings, verify the completeness of evidence and the Statement of Applicability, confirm corrective action plans, and assess readiness for Stage 1/Stage 2 certification.",
+   "questions": [
+    {
+     "id": "iso42001-p5-q01",
+     "controlRef": "Clauses 4-10 \u2014 Consolidated findings review",
+     "question": "Reviewing all findings from this audit: which gaps are nonconformities, which are observations, and does the organisation accept the classification and evidence for each?",
+     "whyItMatters": "Agreed, evidence-based findings are the audit's product. Disputes over facts at this stage usually mean earlier walkthroughs were not thorough, and unacknowledged major nonconformities block certification.",
+     "interviewees": [
+      "Chief AI Officer or CISO",
+      "Risk Manager",
+      "Internal Auditor"
+     ],
+     "evidence": [
+      "Draft findings list with evidence references",
+      "Organisation's responses/acceptance",
+      "Interview and sampling notes"
+     ],
+     "guidance": "Each finding should cite the clause/Annex A reference, objective evidence, and severity (major/minor/observation). The auditee should acknowledge the facts even where they contest the conclusion.",
+     "probes": [
+      "Which finding do you dispute, and what contrary evidence exists?",
+      "Which findings were already known internally before this audit?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "iso42001-p5-q02",
+     "controlRef": "Clause 6.1 / Annex A \u2014 Statement of Applicability completeness",
+     "question": "Is the Statement of Applicability final and accurate: every Annex A control area addressed, exclusions justified, and implementation claims verified against sampled evidence?",
+     "whyItMatters": "The SoA is the certification auditor's roadmap. Overstated implementation claims discovered in Stage 2 convert directly into major nonconformities.",
+     "interviewees": [
+      "Chief AI Officer or CISO",
+      "Risk Manager"
+     ],
+     "evidence": [
+      "Final SoA with justifications",
+      "Sampling results verifying selected controls",
+      "Cross-references to procedures and records"
+     ],
+     "guidance": "The SoA should cover A.2-A.10, each marked implemented or justified as excluded, with references to where evidence lives. Spot-verified controls must match their SoA entries.",
+     "probes": [
+      "Which SoA entries are you least confident would survive sampling?",
+      "When was the SoA last updated and by whom?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "iso42001-p5-q03",
+     "controlRef": "Clause 10.1 \u2014 Corrective action plans",
+     "question": "For each nonconformity, what is the corrective action plan \u2014 root cause, actions, owner, deadline \u2014 and how will effectiveness be verified?",
+     "whyItMatters": "Certification bodies require credible corrective action plans for nonconformities. Plans that patch symptoms ('retrain the person') rather than causes predict recurrence.",
+     "interviewees": [
+      "Chief AI Officer or CISO",
+      "Risk Manager",
+      "ML Engineering Lead",
+      "Internal Auditor"
+     ],
+     "evidence": [
+      "Corrective action plans per finding",
+      "Root cause analyses",
+      "Effectiveness verification approach and schedule"
+     ],
+     "guidance": "Each plan should address root cause, have a named owner and realistic date, and define how effectiveness will be checked (re-audit, metrics, sampling) \u2014 with leadership visibility of the overall plan.",
+     "probes": [
+      "Which corrective action is highest risk to complete on time?",
+      "Who verifies that the fix actually worked?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "iso42001-p5-q04",
+     "controlRef": "Clauses 7.5 / 9 \u2014 Evidence and documentation readiness",
+     "question": "Is the documented information required by the standard complete, current and retrievable \u2014 scope, policy, risk assessments, impact assessments, SoA, audits, reviews \u2014 sufficient to support Stage 1?",
+     "whyItMatters": "Stage 1 certification audits focus on documentation readiness. Missing or contradictory core documents delay certification and usually reveal deeper management-system immaturity.",
+     "interviewees": [
+      "Chief AI Officer or CISO",
+      "Internal Auditor"
+     ],
+     "evidence": [
+      "Documentation checklist mapped to Clauses 4-10 and Annex A",
+      "Document register with current versions",
+      "Readiness self-assessment or pre-audit report"
+     ],
+     "guidance": "A good answer demonstrates a clause-by-clause documentation check, current versions, internal consistency (e.g. scope matches inventory, SoA matches risk treatment), and ideally a completed internal pre-assessment.",
+     "probes": [
+      "Which required document is least mature?",
+      "Has an internal pre-assessment or mock audit been performed?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "iso42001-p5-q05",
+     "controlRef": "Clause 5.1 / Clause 9.3 \u2014 Management attestation and commitment to certification",
+     "question": "Is top management ready to attest that the AIMS is implemented and effective, and do they accept the obligations of certification \u2014 surveillance audits, change notification and maintaining the system after the certificate arrives?",
+     "whyItMatters": "Certificates decay when leadership treats certification as a project with an end date. Explicit management commitment to sustainment is the best predictor that surveillance audits will pass.",
+     "interviewees": [
+      "CEO/Top Management",
+      "Board/Audit Committee",
+      "Chief AI Officer or CISO"
+     ],
+     "evidence": [
+      "Management review outputs confirming readiness",
+      "Post-certification maintenance plan (audits, reviews, metrics)",
+      "Resourcing commitment for ongoing AIMS operation"
+     ],
+     "guidance": "Leadership should articulate the ongoing operating rhythm (internal audits, management reviews, monitoring) as business-as-usual, with named ownership and budget \u2014 not as activities that exist only for the audit.",
+     "probes": [
+      "What happens to the AIMS team after certification?",
+      "What would cause you to suspend or narrow the certificate scope?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "iso42001-p5-q06",
+     "controlRef": "Clauses 4-10 \u2014 Final certification readiness assessment",
+     "question": "Overall: does the evidence support a recommendation to proceed to certification, and what residual risks or conditions should accompany that recommendation?",
+     "whyItMatters": "This is the auditor's synthesis: an honest readiness judgement with conditions prevents wasted Stage 2 attempts and sets the organisation's improvement agenda regardless of the outcome.",
+     "interviewees": [
+      "Chief AI Officer or CISO",
+      "Risk Manager",
+      "CEO/Top Management",
+      "Internal Auditor"
+     ],
+     "evidence": [
+      "Audit report with findings summary and recommendation",
+      "Open findings tracker",
+      "Conditions/recommendations list"
+     ],
+     "guidance": "The recommendation should weigh major/minor findings against evidence sampled across all clauses and Annex A areas, state explicit conditions where applicable (e.g. close finding X before Stage 2), and be understood and accepted by management.",
+     "probes": [
+      "What single issue most threatens a successful Stage 2?",
+      "If certification were delayed 90 days, what would you fix first?"
+     ],
+     "weight": 3
+    }
+   ]
+  }
+ ]
 }

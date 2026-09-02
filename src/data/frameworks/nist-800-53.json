@@ -1,34 +1,1621 @@
 {
-  "id": "nist-800-53",
-  "name": "NIST SP 800-53",
-  "shortName": "NIST 800-53",
-  "version": "Rev 5",
-  "category": "security",
-  "description": "Security and privacy control catalog for federal information systems.",
-  "phases": [
+ "id": "nist-800-53",
+ "name": "NIST SP 800-53 Rev. 5",
+ "shortName": "NIST 800-53",
+ "version": "Rev. 5",
+ "category": "security",
+ "description": "NIST SP 800-53 Rev. 5 is the authoritative catalog of security and privacy controls for federal information systems and organizations, used with FIPS 199 categorization and the Risk Management Framework to select baselines, tailor controls, and achieve authorization. An audit of an 800-53 environment tests whether the system is correctly categorized, the baseline is properly selected and tailored, controls are implemented as documented in the System Security Plan, and continuous monitoring keeps the authorization current. Auditors should expect to trace findings into a living POA&M process.",
+ "tagline": "The U.S. federal catalog of security and privacy controls used to select, implement, assess, and continuously monitor protections for information systems.",
+ "auditFocus": [
+  "Correct FIPS 199 security categorization and selection of the low, moderate, or high control baseline",
+  "Quality and accuracy of the System Security Plan (SSP) as the authoritative description of control implementation",
+  "Operating effectiveness of management, operational, and technical controls across all 20 families",
+  "Continuous monitoring strategy (CA-7) and whether assessment results actually drive control updates",
+  "POA&M discipline: finding documentation, remediation milestones, risk acceptance, and closure evidence",
+  "Supply chain risk management controls (SR family), new in Revision 5"
+ ],
+ "phases": [
+  {
+   "id": "phase-1",
+   "name": "Phase 1 \u2014 Planning, System Categorization & Baseline Selection",
+   "objective": "Establish what system is being audited, confirm it is correctly categorized under FIPS 199, verify the right 800-53 baseline was selected and tailored, and confirm the SSP and authorization approach exist before testing begins.",
+   "questions": [
     {
-      "id": "nist-800-53-p1",
-      "name": "Access Control",
-      "questions": [
-        {
-          "id": "nist-800-53-q001",
-          "controlRef": "AC-1",
-          "question": "Is an access control policy developed, documented, and disseminated?",
-          "whyItMatters": "This control establishes a foundational requirement; auditors verify both design and operating effectiveness.",
-          "interviewees": [
-            "CISO"
-          ],
-          "evidence": [
-            "EV-001 Policy document"
-          ],
-          "guidance": "Request the current approved policy, confirm management sign-off and review date, and test that it has been communicated to relevant staff.",
-          "probes": [
-            "When was this last reviewed and by whom?",
-            "How are exceptions handled?"
-          ],
-          "weight": 2
-        }
-      ]
+     "id": "nist80053-p1-q01",
+     "controlRef": "RA-2 Security Categorization",
+     "question": "Walk me through how this system was categorized under FIPS 199. What information types did you identify, and what confidentiality, integrity, and availability impact levels were assigned to each?",
+     "whyItMatters": "The security categorization drives the entire control baseline. If the system is under-categorized, the organization is protecting it with too few controls; if over-categorized, money is wasted on controls that don't fit the risk.",
+     "interviewees": [
+      "System Owner",
+      "ISSO/Security Officer"
+     ],
+     "evidence": [
+      "FIPS 199 security categorization document",
+      "Information type inventory (per NIST SP 800-60)",
+      "Categorization approval memo"
+     ],
+     "guidance": "A good answer names specific information types (e.g., from NIST SP 800-60), assigns explicit low/moderate/high impact levels for each security objective, shows the system-level categorization as the high-water mark, and has System Owner and Authorizing Official sign-off.",
+     "probes": [
+      "When was the categorization last reviewed, and what triggered the review?",
+      "Did any information type drive the system to moderate or high impact? Which one?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "nist80053-p1-q02",
+     "controlRef": "PL-10 Baseline Selection",
+     "question": "Which control baseline was selected for this system (low, moderate, or high), and how does that map back to the FIPS 199 categorization?",
+     "whyItMatters": "Baseline selection translates the categorization into the actual set of controls the system must implement. A mismatch between impact level and baseline is a foundational audit finding.",
+     "interviewees": [
+      "ISSO/Security Officer",
+      "System Owner"
+     ],
+     "evidence": [
+      "SSP baseline identification section",
+      "Control baseline traceability matrix"
+     ],
+     "guidance": "The baseline must match the highest impact level across the three security objectives (high-water mark). The interviewee should produce the list of controls in the selected baseline and show it is the Rev. 5 baseline, not a legacy Rev. 4 set.",
+     "probes": [
+      "Is this system subject to any overlays (e.g., privacy, CUI) that added controls beyond the base baseline?",
+      "How many controls are in your tailored baseline?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "nist80053-p1-q03",
+     "controlRef": "PL-11 Baseline Tailoring",
+     "question": "How was the baseline tailored? Which controls were scoped out, added, or had parameters adjusted, and where is each tailoring decision documented and justified?",
+     "whyItMatters": "Tailoring is legitimate only when decisions are documented, risk-based, and approved. Undocumented 'we don't do that control' answers usually hide unmitigated risk or an inaccurate SSP.",
+     "interviewees": [
+      "ISSO/Security Officer",
+      "System Owner",
+      "CISO"
+     ],
+     "evidence": [
+      "Tailoring workbook or traceability matrix",
+      "Risk-based justification memos for removed controls",
+      "Authorizing Official concurrence records"
+     ],
+     "guidance": "Expect a documented tailoring record: organization-defined parameters filled in (e.g., time periods, lists of personnel), compensating control rationale for anything scoped out, and evidence the Authorizing Official accepted the tailored baseline.",
+     "probes": [
+      "Show me one control you tailored out and the justification.",
+      "Who approved the tailored baseline, and when?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "nist80053-p1-q04",
+     "controlRef": "PL-2 System Security and Privacy Plan",
+     "question": "Show me the System Security Plan. How current is it, and does it accurately describe the system boundary, the environment of operation, and how each control in the tailored baseline is implemented?",
+     "whyItMatters": "The SSP is the single source of truth an auditor tests against. An SSP that doesn't match reality means either the controls aren't implemented as claimed or the documentation process is broken \u2014 both are findings.",
+     "interviewees": [
+      "ISSO/Security Officer",
+      "System Owner"
+     ],
+     "evidence": [
+      "Current SSP",
+      "System boundary/network diagram",
+      "SSP revision history and review records"
+     ],
+     "guidance": "A strong answer includes a recently reviewed SSP (within the last year or after major change), a clear boundary description separating the system from interconnections, and per-control implementation narratives written in the system's own terms \u2014 not boilerplate copied from 800-53.",
+     "probes": [
+      "Pick one control narrative \u2014 walk me to where that actually happens in the environment.",
+      "What is the process for updating the SSP when the system changes?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "nist80053-p1-q05",
+     "controlRef": "CA-6 Authorization",
+     "question": "What is the current authorization status of this system? Who is the Authorizing Official, when was the ATO (or denial/interim authorization) issued, and on what evidence was it based?",
+     "whyItMatters": "Operating without a current authorization, or holding an ATO based on stale assessments, means senior leadership may be accepting risk they have never actually seen.",
+     "interviewees": [
+      "System Owner",
+      "CISO",
+      "ISSO/Security Officer"
+     ],
+     "evidence": [
+      "Signed ATO letter",
+      "Security assessment report supporting the ATO",
+      "Authorization package (SSP, SAR, POA&M)",
+      "ATO expiry date"
+     ],
+     "guidance": "Expect a named Authorizing Official, an ATO with a defined expiration or ongoing-authorization status, and an authorization package consisting of the SSP, a recent security assessment report, and a POA&M. 'We have always operated' with no ATO is a critical finding.",
+     "probes": [
+      "Has the AO formally accepted any residual risks? Show me the acceptance language.",
+      "Is this a traditional ATO or an ongoing authorization under continuous monitoring?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "nist80053-p1-q06",
+     "controlRef": "RA-3 Risk Assessment",
+     "question": "When was the last risk assessment performed for this system, and how did its results influence control selection, tailoring, or remediation priorities?",
+     "whyItMatters": "Risk assessment is the connective tissue between categorization and the controls actually chosen. If it is stale or ignored, the control set may not address the system's real threats.",
+     "interviewees": [
+      "ISSO/Security Officer",
+      "CISO",
+      "System Owner"
+     ],
+     "evidence": [
+      "Risk assessment report (per NIST SP 800-30 or equivalent)",
+      "Threat and vulnerability inputs used",
+      "Risk register entries for the system"
+     ],
+     "guidance": "Look for a documented methodology, identified threats and vulnerabilities, likelihood and impact analysis, and a demonstrable line from assessment results to control decisions or POA&M items.",
+     "probes": [
+      "What were the top three risks identified, and what did you do about each?",
+      "How often is the risk assessment refreshed?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "nist80053-p1-q07",
+     "controlRef": "PM-1 Information Security Program Plan",
+     "question": "Does the organization maintain an organization-wide information security program plan, and how does this system's security activity plug into that program?",
+     "whyItMatters": "PM-family controls are organization-level. If there is no security program plan, system-level controls are ad hoc and typically cannot be sustained between audits.",
+     "interviewees": [
+      "CISO",
+      "ISSO/Security Officer"
+     ],
+     "evidence": [
+      "Information security program plan",
+      "Security organization chart and role descriptions",
+      "Program performance metrics"
+     ],
+     "guidance": "A good answer shows a current program plan with defined roles (CISO, ISSOs, system owners), resources, and coordination mechanisms \u2014 and the interviewee can explain how system-level ISSO work reports up to the program.",
+     "probes": [
+      "Who is accountable for the program, and to whom do they report?",
+      "How are organization-wide security requirements pushed down to individual systems?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "nist80053-p1-q08",
+     "controlRef": "PM-11 Mission and Business Process Definition",
+     "question": "How are the mission and business processes this system supports defined, and how did that definition shape the system's security and privacy requirements?",
+     "whyItMatters": "Controls protect the mission, not the technology. If the business processes and their dependencies aren't defined, impact levels and availability requirements are guesswork.",
+     "interviewees": [
+      "System Owner",
+      "CISO"
+     ],
+     "evidence": [
+      "Mission/business process documentation",
+      "Business impact analysis or mission dependency mapping"
+     ],
+     "guidance": "Expect a clear statement of the business processes the system enables, the information flows involved, and a traceable link from mission needs to availability and integrity requirements in the categorization.",
+     "probes": [
+      "What happens to the mission if this system is down for 24 hours? A week?",
+      "Were mission owners consulted during categorization?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "nist80053-p1-q09",
+     "controlRef": "CM-8 System Component Inventory",
+     "question": "Show me the system component inventory. How do you know it is complete and current, and how does it define what is inside the authorization boundary?",
+     "whyItMatters": "You cannot protect or assess what you don't know you have. Inventory gaps are the root cause of unmanaged assets, unscanned hosts, and out-of-scope findings that later become incidents.",
+     "interviewees": [
+      "IT Ops",
+      "System Administrators",
+      "ISSO/Security Officer"
+     ],
+     "evidence": [
+      "Component inventory export",
+      "Asset management tool screenshots",
+      "Reconciliation records between inventory and network scans"
+     ],
+     "guidance": "A strong answer describes automated discovery reconciled against the documented inventory, owner and location recorded per component, and a defined update frequency. A manually maintained spreadsheet last touched a year ago is a red flag.",
+     "probes": [
+      "When did you last reconcile the inventory against actual network scan results?",
+      "How do new components get added to the inventory \u2014 is it part of provisioning?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "nist80053-p1-q10",
+     "controlRef": "PM-10 Authorization Process",
+     "question": "Describe the organization's overall authorization process. How many systems hold authorizations, how are authorization decisions tracked, and what happens when an ATO expires?",
+     "whyItMatters": "A defined, consistently applied authorization process is what makes individual ATOs meaningful. Without it, authorization decisions are inconsistent and expired ATOs quietly become unauthorized operations.",
+     "interviewees": [
+      "CISO",
+      "System Owner"
+     ],
+     "evidence": [
+      "Authorization process documentation",
+      "System authorization inventory/dashboard",
+      "Expired or renewed ATO records"
+     ],
+     "guidance": "Expect an inventory of authorized systems with ATO dates and expirations, a defined renewal or ongoing-authorization path, and a clear rule (ideally enforced) that systems do not operate on expired authorizations.",
+     "probes": [
+      "Have any systems operated past ATO expiration in the last two years? What happened?",
+      "Who tracks upcoming ATO expirations?"
+     ],
+     "weight": 2
     }
-  ]
+   ]
+  },
+  {
+   "id": "phase-2",
+   "name": "Phase 2 \u2014 Management & Governance Control Families",
+   "objective": "Test the design and operating effectiveness of the management-oriented families \u2014 access control, awareness and training, audit and accountability, assessment, configuration management, contingency planning, incident response, planning, program management, personnel security, risk assessment, system acquisition, and related SI/SC governance controls.",
+   "questions": [
+    {
+     "id": "nist80053-p2-q01",
+     "controlRef": "AC-2 Account Management",
+     "question": "Walk me through the full lifecycle of a user account on this system \u2014 from request and approval, through creation, periodic review, to deactivation. Who approves access, and how often are accounts recertified?",
+     "whyItMatters": "Unmanaged accounts \u2014 orphaned, shared, or never reviewed \u2014 are among the most common paths to unauthorized access. A broken account lifecycle undermines nearly every other access control.",
+     "interviewees": [
+      "System Administrators",
+      "IT Ops",
+      "ISSO/Security Officer"
+     ],
+     "evidence": [
+      "Account request/approval tickets",
+      "Most recent account review/recertification records",
+      "List of active accounts vs. current HR roster"
+     ],
+     "guidance": "Expect documented approval before account creation, role-based provisioning, defined review frequency (e.g., quarterly/annually), timely deactivation on termination or transfer, and evidence recertifications actually happen and result in removals.",
+     "probes": [
+      "Show me an account disabled in the last quarter because of a review.",
+      "How quickly are accounts disabled after termination \u2014 show me the last three examples with timestamps."
+     ],
+     "weight": 3
+    },
+    {
+     "id": "nist80053-p2-q02",
+     "controlRef": "AC-5 Separation of Duties",
+     "question": "Which duties has the organization determined must be separated on this system, and how is that separation enforced in practice \u2014 for example, between developers, approvers, and production administrators?",
+     "whyItMatters": "Without separation of duties, a single person can both execute and conceal fraud or errors. This is a classic audit finding when one admin can write code, approve it, and deploy it to production.",
+     "interviewees": [
+      "System Owner",
+      "Dev Lead",
+      "CISO"
+     ],
+     "evidence": [
+      "Separation of duties matrix",
+      "Role/permission assignments in the system",
+      "Documented risk acceptance for any SoD conflicts"
+     ],
+     "guidance": "A good answer names specific incompatible duty pairs, shows enforcement through role design rather than policy alone, and acknowledges any residual conflicts (small teams) with documented compensating controls and risk acceptance.",
+     "probes": [
+      "Can the same person approve and execute a payment/change/deployment? Show me.",
+      "What compensating controls exist where headcount forces combined roles?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "nist80053-p2-q03",
+     "controlRef": "AC-6 Least Privilege",
+     "question": "How is least privilege implemented on this system? How are privileged accounts identified, how is administrative access granted and reviewed, and do administrators use separate accounts for admin and non-admin work?",
+     "whyItMatters": "Excessive privilege multiplies the damage of any compromise or mistake. Shared or always-on admin access is one of the highest-impact weaknesses an audit can find.",
+     "interviewees": [
+      "System Administrators",
+      "IT Ops",
+      "ISSO/Security Officer"
+     ],
+     "evidence": [
+      "Privileged account inventory",
+      "Privileged access review records",
+      "Screenshots of separate admin/user account configuration",
+      "PAM tool reports if applicable"
+     ],
+     "guidance": "Expect an inventory of privileged users, periodic access reviews with evidence, separate credentials for administrative duties, and mechanisms (sudo, PAM, just-in-time elevation) rather than standing blanket admin rights.",
+     "probes": [
+      "Pull the current list of users with administrator rights \u2014 who reviews it and when?",
+      "Are there any shared admin accounts? How is their use attributable to an individual?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "nist80053-p2-q04",
+     "controlRef": "AT-2 Literacy Training and Awareness",
+     "question": "Describe the security and privacy awareness training program. What content do all users receive, how often, and how do you track and enforce completion?",
+     "whyItMatters": "Untrained users defeat technical controls. Auditors look for evidence training is delivered, current, tracked to completion, and enforced \u2014 not just that a slide deck exists.",
+     "interviewees": [
+      "ISSO/Security Officer",
+      "HR",
+      "CISO"
+     ],
+     "evidence": [
+      "Training completion report",
+      "Training content/syllabus",
+      "Policy for non-completion consequences",
+      "Phishing simulation results if conducted"
+     ],
+     "guidance": "A strong answer includes annual mandatory training with completion rates near 100%, onboarding training before system access, content refreshed for current threats, and a real enforcement mechanism for non-completion.",
+     "probes": [
+      "What percentage completed training this cycle \u2014 show the report.",
+      "What happens to a user who never completes training?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "nist80053-p2-q05",
+     "controlRef": "AT-3 Role-Based Training",
+     "question": "What role-based security training do privileged users \u2014 system administrators, developers, incident responders \u2014 receive beyond the general awareness program?",
+     "whyItMatters": "Privileged users hold the keys to the system; generic awareness training does not prepare them for role-specific risks like secure administration, secure coding, or forensic evidence handling.",
+     "interviewees": [
+      "ISSO/Security Officer",
+      "System Administrators",
+      "Dev Lead"
+     ],
+     "evidence": [
+      "Role-based training records for admins/developers",
+      "Course descriptions or certifications",
+      "Training requirements matrix by role"
+     ],
+     "guidance": "Expect defined per-role training requirements, records showing privileged staff completed them (e.g., admin hardening, secure development, incident handling), and refresher cadence tied to role changes.",
+     "probes": [
+      "Show me the training record for the most recently appointed system administrator.",
+      "What secure development training do your developers receive?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "nist80053-p2-q06",
+     "controlRef": "AU-2 Event Logging",
+     "question": "Which events does this system log, and how was that list determined? How do you verify that logging is actually enabled on every in-scope component?",
+     "whyItMatters": "If the wrong events are logged \u2014 or logging silently stops on some hosts \u2014 incident detection and forensic investigation become impossible, and AU-6 review has nothing to work with.",
+     "interviewees": [
+      "System Administrators",
+      "IT Ops",
+      "ISSO/Security Officer"
+     ],
+     "evidence": [
+      "Documented list of auditable events",
+      "Logging configuration standards",
+      "SIEM/log source onboarding list vs. component inventory"
+     ],
+     "guidance": "A good answer ties the logged-event list to organizational requirements and risk, covers authentication, privilege use, and security-relevant changes, and includes periodic verification that all in-scope components are actually sending logs.",
+     "probes": [
+      "Show me the last time a host stopped sending logs \u2014 how was that detected?",
+      "Are failed and successful logons logged everywhere, including databases?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "nist80053-p2-q07",
+     "controlRef": "AU-6 Audit Record Review, Analysis, and Reporting",
+     "question": "Who reviews audit logs, how often, and what are they looking for? Show me evidence that reviews happen and that anomalies found in logs have led to action.",
+     "whyItMatters": "Logs that nobody reviews provide zero detective value. This control is where log collection either becomes real security monitoring or wasted disk space.",
+     "interviewees": [
+      "ISSO/Security Officer",
+      "IT Ops",
+      "System Administrators"
+     ],
+     "evidence": [
+      "Log review procedures and schedule",
+      "SIEM alerting rules",
+      "Sample review notes or tickets generated from log findings"
+     ],
+     "guidance": "Expect defined review frequency matched to risk, correlation/alerting for high-priority events, documented findings, and at least one concrete example where log review triggered an investigation or change.",
+     "probes": [
+      "What was the most recent finding from log review, and what did you do?",
+      "Which events are alerted in real time versus reviewed periodically?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "nist80053-p2-q08",
+     "controlRef": "AU-9 Protection of Audit Information",
+     "question": "How are audit logs protected from unauthorized modification or deletion \u2014 including by system administrators themselves?",
+     "whyItMatters": "An attacker (or insider) who can alter logs can erase evidence of their activity. Admin access to the systems that store security logs is a classic conflict auditors must probe.",
+     "interviewees": [
+      "System Administrators",
+      "IT Ops",
+      "ISSO/Security Officer"
+     ],
+     "evidence": [
+      "Log platform access control lists",
+      "Centralized/immutable log storage configuration",
+      "Log retention configuration"
+     ],
+     "guidance": "Look for centralized log collection outside the control of the administrators of the systems being logged, restricted access to log stores, integrity protections (WORM, immutability, signing), and retention meeting defined requirements.",
+     "probes": [
+      "Can a system administrator delete their own activity logs? Demonstrate why not.",
+      "How long are logs retained, and who set that period?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "nist80053-p2-q09",
+     "controlRef": "CA-2 Control Assessments",
+     "question": "When was the last independent assessment of this system's controls, who performed it, and how were the results used?",
+     "whyItMatters": "Self-attestation without independent assessment is how control gaps persist for years. Assessments are also the evidentiary basis for authorization and continuous monitoring decisions.",
+     "interviewees": [
+      "ISSO/Security Officer",
+      "CISO",
+      "System Owner"
+     ],
+     "evidence": [
+      "Security assessment plan",
+      "Security assessment report with findings",
+      "Assessor independence/qualifications",
+      "Prior assessment schedule"
+     ],
+     "guidance": "A strong answer cites an assessment within the organization's defined frequency, performed by assessors with appropriate independence, producing documented findings that fed the POA&M and authorization decision.",
+     "probes": [
+      "Were all baseline controls assessed, or a sample? Who chose the sample?",
+      "What were the highest-risk findings from the last assessment?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "nist80053-p2-q10",
+     "controlRef": "CM-2 Baseline Configuration",
+     "question": "What are the approved baseline configurations for the system's operating systems, databases, and network devices, and how do you verify deployed systems actually match those baselines?",
+     "whyItMatters": "Configuration drift from hardened baselines is one of the most exploited weaknesses. A documented baseline with no compliance checking is indistinguishable from no baseline at all.",
+     "interviewees": [
+      "System Administrators",
+      "IT Ops",
+      "ISSO/Security Officer"
+     ],
+     "evidence": [
+      "Hardening standards (e.g., CIS Benchmarks, DISA STIGs)",
+      "Configuration compliance scan reports",
+      "Deviation/exception records"
+     ],
+     "guidance": "Expect named, versioned baselines (CIS/STIG or vendor equivalent), automated compliance scanning with pass rates, documented and approved deviations, and baselines updated when platforms change.",
+     "probes": [
+      "What percentage of systems currently pass the baseline scan? Show the report.",
+      "Show me a documented deviation and its approval."
+     ],
+     "weight": 3
+    },
+    {
+     "id": "nist80053-p2-q11",
+     "controlRef": "CM-4 Impact Analyses",
+     "question": "How are changes to the system analyzed for security impact before implementation, and who signs off that a change will not degrade security controls?",
+     "whyItMatters": "Unassessed changes silently break controls \u2014 opening ports, disabling logging, weakening authentication. Security impact analysis is what connects change management to the authorization.",
+     "interviewees": [
+      "IT Ops",
+      "Dev Lead",
+      "ISSO/Security Officer"
+     ],
+     "evidence": [
+      "Change tickets with security impact analysis section",
+      "Change advisory board minutes",
+      "Examples of changes rejected or modified for security reasons"
+     ],
+     "guidance": "A good answer shows security impact analysis embedded in the change workflow, ISSO/security review participation, and a trigger for SSP or significant-change evaluation when changes affect the security posture.",
+     "probes": [
+      "Show me three recent change tickets and their security impact analysis.",
+      "What defines a 'significant change' that requires authorization review?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "nist80053-p2-q12",
+     "controlRef": "CP-2 Contingency Plan",
+     "question": "Show me the contingency plan for this system. Does it define recovery objectives, roles, and procedures for restoring the system after disruption, and is it consistent with the availability impact level?",
+     "whyItMatters": "A system categorized moderate or high for availability must have recovery capabilities to match. A plan that doesn't reflect the actual system \u2014 or doesn't exist \u2014 leaves the mission exposed to any disruption.",
+     "interviewees": [
+      "System Owner",
+      "IT Ops",
+      "ISSO/Security Officer"
+     ],
+     "evidence": [
+      "Contingency/ISCP plan",
+      "Defined RTO and RPO values",
+      "Plan review/update records",
+      "Alternate processing/storage site agreements if applicable"
+     ],
+     "guidance": "Expect a current plan tied to the system's categorization, explicit RTO/RPO, named recovery roles and contact lists, recovery procedures specific to this system, and evidence of periodic review.",
+     "probes": [
+      "What is the RTO for this system, and have you ever actually met it in a test?",
+      "Where are plan copies stored so they are available during a disaster?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "nist80053-p2-q13",
+     "controlRef": "CP-4 Contingency Plan Testing",
+     "question": "When was the contingency plan last tested, what type of test was performed, and what did you learn and change as a result?",
+     "whyItMatters": "Untested recovery plans fail when needed. The difference between a tabletop exercise and an actual functional recovery test tells the auditor how much confidence the RTO claims deserve.",
+     "interviewees": [
+      "System Owner",
+      "IT Ops",
+      "ISSO/Security Officer"
+     ],
+     "evidence": [
+      "Test reports and after-action reports",
+      "Test schedule",
+      "Corrective actions from prior tests",
+      "Recovery time measurements"
+     ],
+     "guidance": "Expect tests at the organization-defined frequency with documented results, identified deficiencies, and tracked corrective actions. A functional recovery test carries far more weight than a paper walkthrough for higher-impact systems.",
+     "probes": [
+      "Was the last test a tabletop, or did you actually restore systems? Show the recovery time achieved.",
+      "What corrective actions came out of the last test, and are they closed?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "nist80053-p2-q14",
+     "controlRef": "IR-4 Incident Handling",
+     "question": "Walk me through what happens when a security incident is detected on this system \u2014 from triage through containment, eradication, recovery, and lessons learned. Show me records from recent incidents.",
+     "whyItMatters": "Incident handling is where security operations prove themselves. An inability to produce records of real incident handling suggests incidents are either not being detected or not being managed.",
+     "interviewees": [
+      "ISSO/Security Officer",
+      "IT Ops",
+      "CISO"
+     ],
+     "evidence": [
+      "Incident response procedures",
+      "Incident tickets/case records",
+      "Post-incident/lessons-learned reports",
+      "Escalation and reporting timelines"
+     ],
+     "guidance": "A strong answer follows a defined lifecycle, shows documented handling of real incidents with timestamps and outcomes, includes escalation criteria to the CISO/organization level, and closes with lessons learned feeding control improvements.",
+     "probes": [
+      "Show me the most significant incident from the past year and how it was handled end to end.",
+      "What changed after that incident?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "nist80053-p2-q15",
+     "controlRef": "IR-6 Incident Reporting",
+     "question": "What are the requirements and timelines for reporting incidents \u2014 internally and to external bodies (e.g., US-CERT/CISA, agency SOC, or contractual reporting) \u2014 and how do you verify reporting actually happens within those timelines?",
+     "whyItMatters": "Late or missed external reporting can violate law, regulation, or contract and prevents coordinated response. Auditors need evidence the timelines are known and met.",
+     "interviewees": [
+      "ISSO/Security Officer",
+      "CISO",
+      "System Owner"
+     ],
+     "evidence": [
+      "Incident reporting procedure with timelines",
+      "Records of externally reported incidents",
+      "Internal escalation logs"
+     ],
+     "guidance": "Expect explicit reporting timelines (e.g., federal one-hour reporting to CISA where applicable), a defined channel and responsible role, and records demonstrating past reports met the deadline \u2014 or an honest statement there were no reportable incidents with evidence detection is working.",
+     "probes": [
+      "What is your external reporting deadline and to whom?",
+      "Show me the last incident reported externally and when it was sent relative to detection."
+     ],
+     "weight": 2
+    },
+    {
+     "id": "nist80053-p2-q16",
+     "controlRef": "IR-3 Incident Response Testing",
+     "question": "How and when is the incident response capability tested, and do the people who would actually respond participate?",
+     "whyItMatters": "Untested response plans fail under stress. Tabletop participation by the real responders \u2014 not just the security team \u2014 reveals coordination gaps before a real incident does.",
+     "interviewees": [
+      "ISSO/Security Officer",
+      "CISO",
+      "IT Ops"
+     ],
+     "evidence": [
+      "IR test/exercise plan and results",
+      "After-action reports",
+      "Participant lists for exercises"
+     ],
+     "guidance": "Look for tests at least annually (or organization-defined), scenarios realistic for this system's threats, participation across IT ops, management, and communications roles, and documented improvements afterward.",
+     "probes": [
+      "When was the last exercise, and who sat at the table?",
+      "What was the top lesson from the last exercise, and was it fixed?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "nist80053-p2-q17",
+     "controlRef": "IR-8 Incident Response Plan",
+     "question": "Show me the incident response plan. Does it cover this system specifically, and when was it last updated based on incidents or tests?",
+     "whyItMatters": "A generic template plan that doesn't name this system's contacts, data types, and procedures will not hold up in a real incident. Currency is the proxy for whether the plan is alive.",
+     "interviewees": [
+      "ISSO/Security Officer",
+      "CISO"
+     ],
+     "evidence": [
+      "Incident response plan document",
+      "Revision history",
+      "Contact trees and escalation paths"
+     ],
+     "guidance": "Expect a plan tailored to the system or organization, updated within the last year or after incidents/tests, with current contact information, defined reportable incident types, and metrics or lessons-learned integration.",
+     "probes": [
+      "When was the contact list last verified? Call out one change made after the last incident.",
+      "Does the plan address privacy breach response, not just security incidents?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "nist80053-p2-q18",
+     "controlRef": "PS-3 Personnel Screening",
+     "question": "What background screening is required before individuals are granted access to this system, and is rescreening performed? Show evidence screening is completed before access is granted.",
+     "whyItMatters": "Insider risk cannot be managed if people are granted access before vetting completes. Auditors check that screening precedes access \u2014 not that paperwork eventually catches up.",
+     "interviewees": [
+      "HR",
+      "ISSO/Security Officer",
+      "System Owner"
+     ],
+     "evidence": [
+      "Screening policy by role/risk level",
+      "Sample of completed screening records matched to access grant dates",
+      "Rescreening schedule"
+     ],
+     "guidance": "A good answer ties screening level to position risk designation, shows screening completed before access in sampled cases, and includes rescreening or continuous evaluation for sensitive roles where required.",
+     "probes": [
+      "Pick three users granted access this year \u2014 show screening completion dates versus access dates.",
+      "Are contractors screened to the same standard?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "nist80053-p2-q19",
+     "controlRef": "PS-4 Personnel Termination",
+     "question": "Walk me through what happens, hour by hour, when someone with access to this system is terminated or resigns. How quickly is access revoked, and how do you verify it?",
+     "whyItMatters": "Terminated employees retaining access is a top insider-threat vector. The termination workflow is auditable end to end \u2014 tickets, timestamps, and property return either exist or they don't.",
+     "interviewees": [
+      "HR",
+      "IT Ops",
+      "System Administrators",
+      "ISSO/Security Officer"
+     ],
+     "evidence": [
+      "Termination checklist/procedure",
+      "Recent termination tickets with access-revocation timestamps",
+      "Exit and property-return records"
+     ],
+     "guidance": "Expect HR-to-IT notification within hours, deactivation within the organization-defined period (often same day), retrieval of badges and equipment, and a sample demonstrating actual timestamps meet the requirement \u2014 including for involuntary terminations.",
+     "probes": [
+      "Show me the last three terminations and when each account was disabled.",
+      "What happens differently for an involuntary termination?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "nist80053-p2-q20",
+     "controlRef": "PS-5 Personnel Transfer",
+     "question": "What happens to access rights when an employee transfers to a different role or department? How do you prevent privilege accumulation over time?",
+     "whyItMatters": "Privilege accumulation \u2014 'access creep' \u2014 means long-tenured staff often hold far more access than their job requires. Transfers are where least privilege quietly erodes.",
+     "interviewees": [
+      "HR",
+      "IT Ops",
+      "System Administrators"
+     ],
+     "evidence": [
+      "Transfer procedure",
+      "Access review triggered by transfers",
+      "Examples of access removed on transfer"
+     ],
+     "guidance": "A strong answer includes a transfer-triggered review that removes old-role access before or as new access is granted, plus periodic recertification to catch anything missed.",
+     "probes": [
+      "Show me a recent transfer and which old permissions were removed.",
+      "Is removal of old access automatic or dependent on someone remembering?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "nist80053-p2-q21",
+     "controlRef": "RA-5 Vulnerability Monitoring and Scanning",
+     "question": "How are vulnerability scans performed on this system \u2014 scope, frequency, tooling \u2014 and how do scan results flow into remediation with defined timelines by severity?",
+     "whyItMatters": "Scanning without remediation timelines is theater. Auditors test whether high/critical findings are actually patched within policy windows and whether scan scope covers the whole boundary.",
+     "interviewees": [
+      "IT Ops",
+      "System Administrators",
+      "ISSO/Security Officer"
+     ],
+     "evidence": [
+      "Vulnerability scan reports (recent and trend)",
+      "Remediation SLA policy by severity",
+      "Tickets showing remediation of critical findings",
+      "Scan scope vs. component inventory"
+     ],
+     "guidance": "Expect authenticated scans covering the full inventory at defined frequency, severity-based remediation deadlines (e.g., critical 15/30 days), evidence of meeting them, and exceptions documented and risk-accepted.",
+     "probes": [
+      "Show me current unremediated critical findings older than your SLA.",
+      "Are scans credentialed/authenticated? Why or why not?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "nist80053-p2-q22",
+     "controlRef": "SA-4 Acquisition Process",
+     "question": "How are security and privacy requirements embedded into contracts and acquisition documents for the products and services used by this system?",
+     "whyItMatters": "If security requirements aren't in the contract, they cannot be enforced on vendors. This is the front door for supply chain and outsourced-service risk.",
+     "interviewees": [
+      "Procurement",
+      "System Owner",
+      "CISO"
+     ],
+     "evidence": [
+      "Contract templates with security clauses",
+      "Recent contract with security requirements section",
+      "Acquisition security review records"
+     ],
+     "guidance": "Look for standard security requirement language (controls, incident notification, right to audit, data handling) applied consistently, and evidence security staff review acquisitions before signature.",
+     "probes": [
+      "Show me the security section of a contract signed this year.",
+      "Who reviews security requirements before a contract is executed?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "nist80053-p2-q23",
+     "controlRef": "SA-9 External System Services",
+     "question": "Which external services does this system depend on (cloud, SaaS, outsourced operations), and how do you verify those providers meet your security requirements \u2014 for example through FedRAMP, SOC 2, or contract terms?",
+     "whyItMatters": "Outsourcing a service does not outsource the risk. The organization remains responsible for verifying provider controls, and the SSP must accurately describe what is inherited versus self-implemented.",
+     "interviewees": [
+      "System Owner",
+      "ISSO/Security Officer",
+      "Procurement",
+      "CISO"
+     ],
+     "evidence": [
+      "Inventory of external services",
+      "FedRAMP/SOC 2/attestation reports for providers",
+      "Customer responsibility/shared-responsibility matrices",
+      "Interconnection agreements"
+     ],
+     "guidance": "A strong answer enumerates external services, shows current independent attestations reviewed by security staff, and documents which controls are inherited from providers versus implemented internally.",
+     "probes": [
+      "For your cloud provider, which controls do you inherit and which remain yours?",
+      "When did you last review the provider's SOC 2 or FedRAMP package?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "nist80053-p2-q24",
+     "controlRef": "SA-11 Developer Testing and Evaluation",
+     "question": "What security testing do developers perform before code is deployed to production \u2014 static/dynamic analysis, vulnerability scanning, penetration testing \u2014 and what happens when testing finds flaws?",
+     "whyItMatters": "Application-level flaws introduced by development bypass infrastructure controls. Evidence of pre-deployment security testing and a fix-or-accept workflow is the difference between secure SDLC and hopeful coding.",
+     "interviewees": [
+      "Dev Lead",
+      "ISSO/Security Officer",
+      "IT Ops"
+     ],
+     "evidence": [
+      "Secure SDLC policy",
+      "SAST/DAST scan reports for recent releases",
+      "Penetration test reports",
+      "Tickets tracking security fixes"
+     ],
+     "guidance": "Expect defined pre-deployment security testing gates, results retained per release, severity-based remediation before deployment, and documented risk acceptance for anything deployed with known flaws.",
+     "probes": [
+      "Show me the security test results for the last production release.",
+      "Has any release shipped with known critical flaws? Who accepted that risk?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "nist80053-p2-q25",
+     "controlRef": "SI-2 Flaw Remediation",
+     "question": "How are software flaws identified, prioritized, and remediated on this system? What are the patch timelines by severity, and what is the current patch compliance rate?",
+     "whyItMatters": "Unpatched known vulnerabilities are the most common root cause of breaches. The audit question is not whether patches exist but whether remediation happens within defined, risk-based timeframes.",
+     "interviewees": [
+      "System Administrators",
+      "IT Ops",
+      "ISSO/Security Officer"
+     ],
+     "evidence": [
+      "Patch management policy with timelines",
+      "Patch compliance reports",
+      "Examples of emergency patching for critical CVEs",
+      "Exception/deviation records"
+     ],
+     "guidance": "Look for defined remediation windows tied to severity, measured compliance against those windows, a process for emergency patches, and documented handling of systems that cannot be patched (compensating controls, risk acceptance).",
+     "probes": [
+      "What percentage of systems are within patch SLA right now?",
+      "Show me how you handled the last critical, widely exploited vulnerability."
+     ],
+     "weight": 3
+    }
+   ]
+  },
+  {
+   "id": "phase-3",
+   "name": "Phase 3 \u2014 Operational & Technical Control Families Walkthrough",
+   "objective": "Walk through the operational and technical families \u2014 identification and authentication, maintenance, media protection, physical and environmental protection, PII processing and transparency, system and communications protection, system and information integrity technical controls, and the Rev. 5 supply chain family \u2014 verifying controls work in practice, not just on paper.",
+   "questions": [
+    {
+     "id": "nist80053-p3-q01",
+     "controlRef": "IA-2 Identification and Authentication (Organizational Users)",
+     "question": "How are users uniquely identified and authenticated to this system, and where is multifactor authentication enforced \u2014 including for remote access and privileged accounts?",
+     "whyItMatters": "Single-factor authentication on remote or privileged access is among the highest-risk findings in any audit. Unique identification is also the prerequisite for accountability in audit logs.",
+     "interviewees": [
+      "System Administrators",
+      "IT Ops",
+      "ISSO/Security Officer"
+     ],
+     "evidence": [
+      "Authentication architecture description",
+      "MFA configuration screenshots",
+      "List of accounts exempt from MFA with justification",
+      "Remote access authentication settings"
+     ],
+     "guidance": "Expect MFA enforced for remote access and privileged users (at minimum), unique accounts per person with no shared user credentials, and any MFA exceptions documented, time-limited, and risk-accepted.",
+     "probes": [
+      "Show me an account that authenticates with password only \u2014 why does it exist?",
+      "Is MFA phishing-resistant (e.g., PIV/FIDO2), and for whom?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "nist80053-p3-q02",
+     "controlRef": "IA-5 Authenticator Management",
+     "question": "How are passwords and other authenticators managed \u2014 complexity or length requirements, secure storage, handling of default and service account credentials?",
+     "whyItMatters": "Weak authenticator management (default passwords, plaintext storage, unmanaged service accounts) routinely defeats otherwise strong identification controls.",
+     "interviewees": [
+      "System Administrators",
+      "IT Ops"
+     ],
+     "evidence": [
+      "Password/authenticator policy settings export",
+      "Service account inventory with credential rotation records",
+      "Evidence default credentials were changed",
+      "Password vault/PAM configuration"
+     ],
+     "guidance": "A good answer shows enforced authenticator standards aligned to NIST SP 800-63B (length over forced complexity), salted/hashed credential storage, service account credentials vaulted and rotated, and verification that vendor default passwords were changed.",
+     "probes": [
+      "How are service account passwords managed and rotated?",
+      "When did you last verify no default credentials remain on network devices?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "nist80053-p3-q03",
+     "controlRef": "MA-4 Nonlocal Maintenance",
+     "question": "How is remote/nonlocal maintenance performed on this system \u2014 who is allowed, through what path, with what authentication, and how are sessions monitored and logged?",
+     "whyItMatters": "Vendor and administrator remote maintenance channels are prime attack paths. Unmonitored vendor access has been the entry point in major public breaches.",
+     "interviewees": [
+      "System Administrators",
+      "IT Ops",
+      "ISSO/Security Officer"
+     ],
+     "evidence": [
+      "Remote maintenance procedure",
+      "VPN/jump-host configuration",
+      "Vendor access approval records",
+      "Session logs or recordings of remote maintenance"
+     ],
+     "guidance": "Expect remote maintenance only through approved, MFA-protected paths, per-session or time-bound vendor authorization, session monitoring/logging, and termination of sessions when work completes.",
+     "probes": [
+      "Show me the last vendor maintenance session and its approval.",
+      "Do vendors have standing access, or is it enabled per session?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "nist80053-p3-q04",
+     "controlRef": "MA-6 Timely Maintenance",
+     "question": "How do you obtain maintenance support and spare parts within the timeframes needed to meet this system's availability requirements?",
+     "whyItMatters": "A high-availability categorization is meaningless if a failed component takes weeks to replace. Timely maintenance links the contingency plan's RTO to real support contracts.",
+     "interviewees": [
+      "IT Ops",
+      "System Owner",
+      "Procurement"
+     ],
+     "evidence": [
+      "Support/maintenance contracts with SLAs",
+      "Spare parts inventory",
+      "Mean-time-to-repair records"
+     ],
+     "guidance": "Expect support agreements with response times consistent with the system's availability impact level and RTO, evidence SLAs are met, and spares for critical single points of failure.",
+     "probes": [
+      "Which single component failure would take longest to recover from, and why?",
+      "When did a support SLA last get exercised, and was it met?"
+     ],
+     "weight": 1
+    },
+    {
+     "id": "nist80053-p3-q05",
+     "controlRef": "MP-2 Media Access",
+     "question": "How is access to digital and non-digital media containing this system's data restricted \u2014 backups, removable drives, printed output?",
+     "whyItMatters": "Media that anyone can pick up bypasses every logical access control. Backup tapes and printed reports are routinely overlooked in otherwise well-controlled environments.",
+     "interviewees": [
+      "IT Ops",
+      "System Administrators",
+      "Facilities"
+     ],
+     "evidence": [
+      "Media handling policy",
+      "Backup media storage access logs",
+      "Removable media authorization list"
+     ],
+     "guidance": "Look for media stored in controlled areas, access restricted to authorized personnel, removable media use restricted and approved, and printed sensitive output handled per policy.",
+     "probes": [
+      "Where are backups stored, and who can physically reach them?",
+      "Is USB/removable media allowed? How is it controlled?"
+     ],
+     "weight": 1
+    },
+    {
+     "id": "nist80053-p3-q06",
+     "controlRef": "MP-6 Media Sanitization",
+     "question": "How is media sanitized before disposal or reuse \u2014 what methods are used for different media types, and what records prove sanitization happened?",
+     "whyItMatters": "Improperly sanitized drives and devices are a recurring source of data exposure. Certificates of destruction and sanitization logs are the evidence this control is real.",
+     "interviewees": [
+      "IT Ops",
+      "System Administrators",
+      "ISSO/Security Officer"
+     ],
+     "evidence": [
+      "Sanitization procedure (aligned to NIST SP 800-88)",
+      "Sanitization/destruction certificates",
+      "Equipment disposal records"
+     ],
+     "guidance": "Expect techniques matched to media type and data sensitivity (clear, purge, destroy per 800-88), tracked per device with certificates or logs, and verification sampling of sanitized media.",
+     "probes": [
+      "Show me destruction certificates from the last equipment refresh.",
+      "How are failed drives under warranty handled \u2014 are they ever returned unsanitized?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "nist80053-p3-q07",
+     "controlRef": "PE-2 Physical Access Authorizations",
+     "question": "Who is authorized for physical access to the facilities housing this system, how is that list maintained, and how quickly is access removed when roles change or people leave?",
+     "whyItMatters": "Physical access defeats logical access. Stale badge lists with former employees still authorized are a common and serious finding.",
+     "interviewees": [
+      "Facilities",
+      "System Owner",
+      "HR"
+     ],
+     "evidence": [
+      "Physical access authorization list",
+      "Badge system access report",
+      "Access removal records tied to terminations/transfers"
+     ],
+     "guidance": "Expect a maintained authorization list reviewed periodically, badge access deactivated promptly on termination or transfer, and physical access aligned to job need rather than convenience.",
+     "probes": [
+      "Reconcile the badge list against current staff \u2014 any names that shouldn't be there?",
+      "How quickly are badges deactivated after termination?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "nist80053-p3-q08",
+     "controlRef": "PE-3 Physical Access Control",
+     "question": "Walk me through the physical controls protecting the server rooms and equipment \u2014 entry control, visitor handling, and how physical access is logged and reviewed.",
+     "whyItMatters": "Tailgating, unescorted visitors, and unlogged entry are the physical equivalents of shared accounts. Auditors verify controls at the door, not just in the policy.",
+     "interviewees": [
+      "Facilities",
+      "IT Ops",
+      "ISSO/Security Officer"
+     ],
+     "evidence": [
+      "Physical entry logs/badge reports",
+      "Visitor sign-in and escort records",
+      "Photos or walkthrough of server room entry controls",
+      "Review records of physical access logs"
+     ],
+     "guidance": "A good walkthrough shows controlled entry points (badge/biometric), visitor escort and logging, retention and periodic review of physical access logs, and alarms or guards appropriate to the impact level.",
+     "probes": [
+      "Show me the physical access log review \u2014 who reviews it and how often?",
+      "How are visitors and vendors escorted in the data center?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "nist80053-p3-q09",
+     "controlRef": "PE-6 Monitoring Physical Access",
+     "question": "How is physical access to the system monitored \u2014 cameras, intrusion alarms, review of badge logs \u2014 and how would you detect someone entering outside authorized patterns?",
+     "whyItMatters": "Physical entry without monitoring is undetected access. For moderate/high impact systems, detection capability is expected, not just locked doors.",
+     "interviewees": [
+      "Facilities",
+      "ISSO/Security Officer"
+     ],
+     "evidence": [
+      "Camera coverage map and retention settings",
+      "Intrusion alarm configuration and test records",
+      "Physical access log review reports"
+     ],
+     "guidance": "Expect monitored entry points, functioning alarms with test evidence, camera retention sufficient for investigation, and correlation of physical logs with incidents when needed.",
+     "probes": [
+      "How long is camera footage retained?",
+      "When was the intrusion detection system last tested?"
+     ],
+     "weight": 1
+    },
+    {
+     "id": "nist80053-p3-q10",
+     "controlRef": "PT-2 Authority to Process PII",
+     "question": "If this system processes personally identifiable information, what is the documented authority and purpose for processing it, and how is that purpose enforced in the system's design?",
+     "whyItMatters": "Rev. 5 added the PT family because privacy failures now carry legal and mission risk equal to security failures. Processing PII without documented authority exposes the organization regardless of how good security controls are.",
+     "interviewees": [
+      "System Owner",
+      "CISO",
+      "ISSO/Security Officer"
+     ],
+     "evidence": [
+      "Privacy impact assessment (PIA) or equivalent",
+      "Documented authority/purpose statement",
+      "Data inventory identifying PII elements"
+     ],
+     "guidance": "Expect a clear statement of legal/mission authority for PII processing, a completed PIA or equivalent analysis, defined processing purposes, and design decisions (minimization, retention limits) consistent with that purpose.",
+     "probes": [
+      "Which PII elements does the system collect, and which could be eliminated without harming the mission?",
+      "Who is accountable for privacy compliance for this system?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "nist80053-p3-q11",
+     "controlRef": "PT-3 PII Processing Purposes",
+     "question": "How do you ensure PII is actually used only for the documented purposes \u2014 and how would you detect or prevent function creep into new uses?",
+     "whyItMatters": "Function creep \u2014 repurposing collected PII for new uses without review \u2014 is the most common real-world privacy failure. Purpose limitation must be operational, not aspirational.",
+     "interviewees": [
+      "System Owner",
+      "CISO",
+      "Dev Lead"
+     ],
+     "evidence": [
+      "Data use policies and access rules by purpose",
+      "Change/approval records for new uses of PII",
+      "Privacy review of new features using PII"
+     ],
+     "guidance": "A strong answer shows new uses of PII require review/approval before implementation, access is scoped to purpose, and periodic checks confirm actual use matches documented purposes.",
+     "probes": [
+      "Has the system's use of PII changed since the PIA? Was the PIA updated?",
+      "Who approves a new report or feature that touches PII?"
+     ],
+     "weight": 1
+    },
+    {
+     "id": "nist80053-p3-q12",
+     "controlRef": "SC-7 Boundary Protection",
+     "question": "Describe the boundary protections for this system \u2014 firewalls, segmentation, DMZs, managed interfaces \u2014 and how firewall rules are reviewed and recertified.",
+     "whyItMatters": "Flat networks and stale firewall rules allow a compromise anywhere to reach the system. Rule-base review evidence is where theoretical segmentation is proven or disproven.",
+     "interviewees": [
+      "IT Ops",
+      "System Administrators",
+      "ISSO/Security Officer"
+     ],
+     "evidence": [
+      "Network/boundary architecture diagram",
+      "Firewall rule sets with last review date",
+      "Rule review/recertification records",
+      "List of managed interfaces"
+     ],
+     "guidance": "Expect documented boundary architecture, deny-by-default posture, business justification per rule, periodic rule recertification with removals, and segmentation between the system and general user/corporate networks.",
+     "probes": [
+      "When was the firewall rule base last recertified, and how many rules were removed?",
+      "Can the general user network reach the database tier directly? Demonstrate."
+     ],
+     "weight": 3
+    },
+    {
+     "id": "nist80053-p3-q13",
+     "controlRef": "SC-8 Transmission Confidentiality and Integrity",
+     "question": "How is data in transit protected \u2014 which protocols and cipher suites are permitted, and how do you verify no weak or deprecated encryption remains in service?",
+     "whyItMatters": "Deprecated TLS versions and unencrypted internal traffic expose data to interception. Auditors check configuration evidence, not policy statements.",
+     "interviewees": [
+      "System Administrators",
+      "IT Ops",
+      "Dev Lead"
+     ],
+     "evidence": [
+      "TLS/encryption configuration standards",
+      "SSL/TLS scan results",
+      "Protocol/cipher configuration exports from load balancers and services"
+     ],
+     "guidance": "Expect approved cryptographic standards (e.g., TLS 1.2+ with approved ciphers), scans showing deprecated protocols disabled, encryption for external and sensitive internal flows, and certificates managed with expiry monitoring.",
+     "probes": [
+      "Show me scan results proving TLS 1.0/1.1 are disabled.",
+      "Is internal traffic between application tiers encrypted?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "nist80053-p3-q14",
+     "controlRef": "SC-12 Cryptographic Key Establishment and Management",
+     "question": "How are cryptographic keys generated, stored, rotated, and destroyed for this system? Who can access key material?",
+     "whyItMatters": "Encryption with unmanaged keys is a false sense of security \u2014 hardcoded keys in source code and keys stored next to the data they protect are recurring audit findings.",
+     "interviewees": [
+      "System Administrators",
+      "Dev Lead",
+      "ISSO/Security Officer"
+     ],
+     "evidence": [
+      "Key management procedure",
+      "Key inventory with rotation dates",
+      "HSM/KMS configuration if applicable",
+      "Access list to key material"
+     ],
+     "guidance": "Look for documented key lifecycle, keys stored in KMS/HSM or protected vaults rather than config files, defined rotation, restricted access, and no secrets in source repositories (verified by scanning).",
+     "probes": [
+      "Where do application secrets live \u2014 show me how a deployed app retrieves its database password.",
+      "When were production keys last rotated?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "nist80053-p3-q15",
+     "controlRef": "SC-28 Protection of Information at Rest",
+     "question": "What data at rest is encrypted on this system \u2014 databases, file stores, backups, endpoints \u2014 and how was that scope decided?",
+     "whyItMatters": "Unencrypted backups and databases turn any theft or misplacement into a breach. The scope decision must trace back to the confidentiality impact level.",
+     "interviewees": [
+      "System Administrators",
+      "IT Ops",
+      "ISSO/Security Officer"
+     ],
+     "evidence": [
+      "Encryption-at-rest configuration evidence (database, storage, backup)",
+      "Data classification mapping to encryption requirements",
+      "Endpoint disk encryption compliance report"
+     ],
+     "guidance": "Expect encryption for data stores consistent with the confidentiality categorization \u2014 including backups and replicas \u2014 with keys managed per SC-12, and any unencrypted stores documented and justified.",
+     "probes": [
+      "Are backups encrypted? Show the setting.",
+      "Which data stores are not encrypted, and who accepted that?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "nist80053-p3-q16",
+     "controlRef": "SI-3 Malicious Code Protection",
+     "question": "How is malicious code protection deployed across the system \u2014 what tools, on which platforms, and how do you know signatures/engines are current everywhere?",
+     "whyItMatters": "Anti-malware with stale definitions or coverage gaps (servers and Linux hosts are commonly missed) provides little real protection. Central reporting is the proof of currency.",
+     "interviewees": [
+      "IT Ops",
+      "System Administrators"
+     ],
+     "evidence": [
+      "Anti-malware/EDR console coverage report",
+      "Definition currency report",
+      "Detections and response records",
+      "Coverage gaps vs. component inventory"
+     ],
+     "guidance": "A good answer shows centralized management with a coverage report reconciled to the component inventory, automatic updates verified current, detections investigated, and protection on workstations, servers, and email/web gateways.",
+     "probes": [
+      "Show me hosts where the agent is not reporting \u2014 how many and why?",
+      "Show me the most recent real detection and how it was handled."
+     ],
+     "weight": 2
+    },
+    {
+     "id": "nist80053-p3-q17",
+     "controlRef": "SI-4 System Monitoring",
+     "question": "How is the system monitored for attacks and indicators of compromise \u2014 what monitoring tools and use cases are deployed, where, and who watches the output around the clock or responds to alerts?",
+     "whyItMatters": "SI-4 is the core detective control of the baseline. Monitoring deployed but unwatched, or covering only the perimeter while east-west traffic goes unobserved, leaves the organization blind to active compromise.",
+     "interviewees": [
+      "ISSO/Security Officer",
+      "IT Ops",
+      "CISO"
+     ],
+     "evidence": [
+      "Monitoring architecture (IDS/IPS, SIEM, EDR telemetry)",
+      "Alert use cases/correlation rules",
+      "Alert triage tickets with response times",
+      "Coverage map vs. network diagram"
+     ],
+     "guidance": "Expect monitoring across perimeter, internal network, and endpoints; documented detection use cases tied to threats; defined alert triage with measured response times; and evidence alerts lead to investigation (link to IR-4 records).",
+     "probes": [
+      "Who is alerted at 2 a.m. on a Saturday, and what do they do?",
+      "Show me a recent alert escalated to an incident.",
+      "Is internal/east-west traffic monitored, or only the perimeter?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "nist80053-p3-q18",
+     "controlRef": "SI-7 Software, Firmware, and Information Integrity",
+     "question": "How do you verify the integrity of software, firmware, and critical system files \u2014 integrity checking tools, allowlisting, secure boot \u2014 and how are integrity violations handled?",
+     "whyItMatters": "Integrity verification is how unauthorized changes and sophisticated malware (rootkits, tampered binaries) are detected. Its absence is especially significant on high-impact systems.",
+     "interviewees": [
+      "System Administrators",
+      "IT Ops",
+      "ISSO/Security Officer"
+     ],
+     "evidence": [
+      "File integrity monitoring configuration and reports",
+      "Application allowlisting policy and enforcement evidence",
+      "Secure boot/firmware verification settings"
+     ],
+     "guidance": "Expect file integrity monitoring on critical system files with alerts investigated, allowlisting where defined by the baseline or tailoring, and integrity checks incorporated into change and incident workflows.",
+     "probes": [
+      "Show me the last integrity alert and its disposition.",
+      "Is application allowlisting in enforcement mode or audit mode? Why?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "nist80053-p3-q19",
+     "controlRef": "SR-3 Supply Chain Controls and Processes",
+     "question": "What supply chain controls and processes protect the acquisition of the hardware, software, and services this system depends on \u2014 from vetting suppliers through delivery and integration?",
+     "whyItMatters": "The SR family is new in Rev. 5 in response to real supply chain compromises (e.g., tampered software updates). Organizations that have not operationalized SR-3 lack defenses against compromised or counterfeit components.",
+     "interviewees": [
+      "Procurement",
+      "CISO",
+      "System Owner",
+      "Dev Lead"
+     ],
+     "evidence": [
+      "Supply chain risk management (SCRM) plan",
+      "Supplier vetting/approval records",
+      "Software bills of materials (SBOMs) where used",
+      "Integrity verification on received software/updates"
+     ],
+     "guidance": "A good answer describes a documented SCRM process: approved supplier lists, integrity/authenticity verification of software and updates, SBOM or component analysis for critical software, and contractual flow-down of security requirements.",
+     "probes": [
+      "How do you verify a software update is authentic before deploying it?",
+      "Which suppliers are considered critical, and how were they vetted?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "nist80053-p3-q20",
+     "controlRef": "SR-6 Supplier Assessments and Reviews",
+     "question": "How are critical suppliers assessed and periodically reviewed for security risk \u2014 what assessments, attestations, or audits do you require, and what happens when a supplier fails review?",
+     "whyItMatters": "One-time onboarding vetting goes stale. Supplier assessments and reviews are how the organization catches deteriorating supplier security before it becomes the organization's incident.",
+     "interviewees": [
+      "Procurement",
+      "CISO",
+      "ISSO/Security Officer"
+     ],
+     "evidence": [
+      "Supplier assessment questionnaires/reports",
+      "Third-party attestation review records (SOC 2, ISO certs)",
+      "Supplier risk register",
+      "Remediation or exit records for failed suppliers"
+     ],
+     "guidance": "Expect tiered assessment rigor by supplier criticality, periodic re-assessment, review of independent attestations, and at least one example (or a defined process) for handling suppliers that fail review.",
+     "probes": [
+      "When were your three most critical suppliers last reassessed?",
+      "Have you ever exited or remediated a supplier relationship for security reasons?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "nist80053-p3-q21",
+     "controlRef": "SR-8 Notification Agreements",
+     "question": "Do agreements with critical suppliers require them to notify you of security incidents, compromises, or supply chain disruptions affecting the products or services you depend on \u2014 and has that ever been exercised?",
+     "whyItMatters": "Without contractual notification, the organization may learn of a supplier compromise from the news. Notification clauses convert supply chain risk into actionable incident response time.",
+     "interviewees": [
+      "Procurement",
+      "CISO"
+     ],
+     "evidence": [
+      "Contract clauses for incident/compromise notification",
+      "Records of supplier notifications received and handled",
+      "Escalation path for supplier-reported incidents"
+     ],
+     "guidance": "Look for explicit notification requirements with timeframes in contracts with critical suppliers, a defined internal path to handle such notifications, and any real examples of receiving and acting on one.",
+     "probes": [
+      "Show me the notification clause in a critical supplier contract.",
+      "What would you do if a key software vendor announced their build system was compromised?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "nist80053-p3-q22",
+     "controlRef": "SC-20 / SC-21 Secure Name Resolution & Recursive Resolution",
+     "question": "How is name resolution secured for this system \u2014 are DNS services authenticated and integrity-protected, and do internal resolvers use trusted, protected resolution paths?",
+     "whyItMatters": "DNS manipulation silently redirects users and systems to attacker infrastructure. Secure name resolution is a small control with outsized impact on data-in-transit trust.",
+     "interviewees": [
+      "IT Ops",
+      "System Administrators"
+     ],
+     "evidence": [
+      "DNS architecture description",
+      "Resolver configuration (validated resolvers, DNSSEC where applicable)",
+      "DNS filtering/protective DNS service configuration"
+     ],
+     "guidance": "Expect use of authenticated/trusted resolvers, protective DNS filtering for outbound queries, and DNSSEC validation or signing where applicable \u2014 with configuration evidence rather than assertions.",
+     "probes": [
+      "Which resolvers do endpoints and servers use, and who controls them?",
+      "Is DNS query filtering in place, and what has it blocked recently?"
+     ],
+     "weight": 1
+    }
+   ]
+  },
+  {
+   "id": "phase-4",
+   "name": "Phase 4 \u2014 Continuous Monitoring & Assessment (CA-7)",
+   "objective": "Evaluate the continuous monitoring strategy: whether it defines metrics and assessment frequencies per control, whether monitoring results are current and actually consumed by decision-makers, and whether the authorization is maintained through ongoing awareness rather than point-in-time paperwork.",
+   "questions": [
+    {
+     "id": "nist80053-p4-q01",
+     "controlRef": "CA-7 Continuous Monitoring",
+     "question": "Describe the continuous monitoring strategy for this system. Which controls are monitored at what frequency, what metrics are collected, and who approved the strategy?",
+     "whyItMatters": "Continuous monitoring is the Rev. 5 mechanism that keeps an authorization honest between assessments. A strategy that exists only as a document, with no defined metrics or frequencies, means the ATO's assumptions decay invisibly.",
+     "interviewees": [
+      "ISSO/Security Officer",
+      "CISO",
+      "System Owner"
+     ],
+     "evidence": [
+      "Continuous monitoring strategy/plan document",
+      "Control-by-control monitoring frequency matrix",
+      "Authorizing Official approval of the strategy"
+     ],
+     "guidance": "A strong answer presents an approved strategy defining which controls are monitored continuously versus periodically, organization-defined frequencies matched to risk, and explicit ties to the authorization decision (ongoing authorization or reauthorization triggers).",
+     "probes": [
+      "Which controls do you monitor monthly, quarterly, and annually \u2014 show the matrix.",
+      "Did the Authorizing Official approve this strategy? Show me."
+     ],
+     "weight": 3
+    },
+    {
+     "id": "nist80053-p4-q02",
+     "controlRef": "CA-7 Continuous Monitoring",
+     "question": "Show me the actual security status reporting produced by continuous monitoring \u2014 recent dashboards, metrics, or status reports \u2014 and who receives and acts on them.",
+     "whyItMatters": "Monitoring that produces reports nobody reads is indistinguishable from no monitoring. The auditor needs evidence the output reaches decision-makers and changes behavior.",
+     "interviewees": [
+      "ISSO/Security Officer",
+      "CISO"
+     ],
+     "evidence": [
+      "Recent monthly/quarterly security status reports or dashboards",
+      "Distribution lists and meeting minutes where reports are reviewed",
+      "Decisions or actions traceable to a status report"
+     ],
+     "guidance": "Expect current, dated status reporting (not a template), delivered to the System Owner and Authorizing Official on the defined cadence, and at least one concrete decision or POA&M change traceable to the reporting.",
+     "probes": [
+      "Show me the last three status reports \u2014 what changed between them?",
+      "Tell me about a decision made because of a monitoring report."
+     ],
+     "weight": 3
+    },
+    {
+     "id": "nist80053-p4-q03",
+     "controlRef": "CA-7(1) Continuous Monitoring \u2014 Independent Assessment",
+     "question": "Does continuous monitoring include independent assessment of controls on an ongoing basis, rather than relying solely on the system team's self-monitoring?",
+     "whyItMatters": "Self-monitoring alone lets drift and bias persist. Independent assessment within the conmon program is what gives the Authorizing Official confidence the reported status reflects reality.",
+     "interviewees": [
+      "CISO",
+      "ISSO/Security Officer"
+     ],
+     "evidence": [
+      "Independent assessor scope and schedule",
+      "Assessment reports produced under the conmon program",
+      "Assessor independence documentation"
+     ],
+     "guidance": "For moderate/high systems, expect a rolling independent assessment of control subsets each year with reports feeding the authorization, plus clear separation between those who operate controls and those who assess them.",
+     "probes": [
+      "Which controls were independently assessed in the last 12 months?",
+      "How do assessment findings from independent assessors differ from the team's self-reported status?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "nist80053-p4-q04",
+     "controlRef": "RA-5 Vulnerability Monitoring and Scanning",
+     "question": "How do vulnerability scanning results feed continuous monitoring \u2014 are scan trends reported over time, and are recurring or aging findings escalated?",
+     "whyItMatters": "Vulnerability trend data is one of the most objective conmon inputs. Flat or worsening trends that nobody escalates indicate the monitoring loop is broken.",
+     "interviewees": [
+      "ISSO/Security Officer",
+      "IT Ops"
+     ],
+     "evidence": [
+      "Scan trend reports over 6-12 months",
+      "Escalation records for overdue findings",
+      "Integration of scan data into status dashboards"
+     ],
+     "guidance": "Look for trending (not just point-in-time) vulnerability data included in conmon reporting, automatic escalation of findings past SLA, and visible improvement or explained variance over time.",
+     "probes": [
+      "What is the trend in critical findings over the past year?",
+      "What is the oldest open critical finding right now, and why is it still open?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "nist80053-p4-q05",
+     "controlRef": "CM-6 Configuration Settings",
+     "question": "How does configuration compliance monitoring run on an ongoing basis \u2014 are configuration settings continuously checked against the approved baselines, and how is drift detected and corrected?",
+     "whyItMatters": "Baselines verified once a year are wrong most of the year. Continuous configuration compliance checking is the difference between a hardened environment and a hardened moment.",
+     "interviewees": [
+      "System Administrators",
+      "IT Ops",
+      "ISSO/Security Officer"
+     ],
+     "evidence": [
+      "Continuous configuration compliance scan schedule and results",
+      "Drift alerts and remediation tickets",
+      "Compliance percentage trends"
+     ],
+     "guidance": "Expect automated, recurring compliance checking against CM-2 baselines with current compliance rates, alerts or tickets for drift, and remediation tracked to closure \u2014 plus reporting of drift metrics into conmon status.",
+     "probes": [
+      "How quickly after a baseline deviation would you know about it?",
+      "Show me a drift detection from this quarter and its resolution."
+     ],
+     "weight": 2
+    },
+    {
+     "id": "nist80053-p4-q06",
+     "controlRef": "PM-14 Testing, Training, and Monitoring",
+     "question": "How does the organization-wide program monitor the effectiveness of security controls across systems \u2014 and how does this system's monitoring roll up into that program view?",
+     "whyItMatters": "PM-14 is the organizational counterpart to CA-7. Without a program-level view, systemic weaknesses recur across systems and leadership cannot see aggregate risk.",
+     "interviewees": [
+      "CISO",
+      "ISSO/Security Officer"
+     ],
+     "evidence": [
+      "Program-level security metrics and reports",
+      "Cross-system control effectiveness reporting",
+      "Leadership review minutes (e.g., risk executive function)"
+     ],
+     "guidance": "A good answer shows aggregated metrics across systems (assessment results, POA&M aging, incident trends), regular review by senior leadership or a risk executive function, and system-level reporting that demonstrably feeds it.",
+     "probes": [
+      "What does the CISO/dashboard show about this system right now?",
+      "What organization-wide control weakness did the program identify recently, and what changed?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "nist80053-p4-q07",
+     "controlRef": "CA-6 Authorization",
+     "question": "How does continuous monitoring affect the authorization itself \u2014 is this system under ongoing authorization, and what events would trigger reauthorization or a change to the authorization decision?",
+     "whyItMatters": "Ongoing authorization only works if significant-change and risk-threshold triggers are defined and enforced. Otherwise 'continuous' authorization quietly becomes permanent authorization.",
+     "interviewees": [
+      "System Owner",
+      "CISO",
+      "ISSO/Security Officer"
+     ],
+     "evidence": [
+      "Ongoing authorization documentation",
+      "Significant change definition and trigger list",
+      "Records of reauthorization or authorization updates"
+     ],
+     "guidance": "Expect an explicit definition of significant change, documented triggers for AO re-review (major incidents, new threats, system changes), and at least one instance where monitoring results changed the authorization posture \u2014 or a defensible explanation of stable status.",
+     "probes": [
+      "What would constitute a significant change requiring AO re-review?",
+      "Has the AO's risk acceptance ever been revisited because of monitoring results?"
+     ],
+     "weight": 3
+    }
+   ]
+  },
+  {
+   "id": "phase-5",
+   "name": "Phase 5 \u2014 Findings & POA&M",
+   "objective": "Confirm that weaknesses are captured accurately in a Plan of Action & Milestones, prioritized by risk, remediated within milestones, and closed only with evidence \u2014 and that the POA&M informs authorization and continuous monitoring rather than becoming a write-only list.",
+   "questions": [
+    {
+     "id": "nist80053-p5-q01",
+     "controlRef": "CA-5 Plan of Action and Milestones",
+     "question": "Show me the current POA&M for this system. How does every identified weakness get onto it, and how are entries structured \u2014 milestones, resources, owners, and scheduled completion dates?",
+     "whyItMatters": "The POA&M is the official record of known, accepted, and planned-to-fix weaknesses. Weaknesses that never reach the POA&M are invisible to the Authorizing Official, which defeats the entire risk management framework.",
+     "interviewees": [
+      "ISSO/Security Officer",
+      "System Owner",
+      "CISO"
+     ],
+     "evidence": [
+      "Current POA&M document or tool export",
+      "Intake process showing how assessment/audit/incident findings become entries",
+      "Sample entries with milestones and owners"
+     ],
+     "guidance": "Expect a current POA&M where every entry has a weakness description, source, risk/severity, responsible owner, milestones, resources required, and completion date. Verify the intake path by tracing a recent audit or assessment finding to a POA&M entry.",
+     "probes": [
+      "Trace the last assessment's findings \u2014 is every one on the POA&M?",
+      "How many entries are past their scheduled completion date?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "nist80053-p5-q02",
+     "controlRef": "CA-5 Plan of Action and Milestones",
+     "question": "How are POA&M items prioritized and remediated \u2014 what determines the order and deadlines, and what is the process and evidence for closing an item?",
+     "whyItMatters": "POA&Ms that grow but never shrink are risk inventories, not remediation plans. Closure without evidence is how fixed-on-paper weaknesses return in the next assessment.",
+     "interviewees": [
+      "ISSO/Security Officer",
+      "System Owner",
+      "IT Ops"
+     ],
+     "evidence": [
+      "POA&M aging report",
+      "Closed items with supporting remediation evidence (tickets, configs, test results)",
+      "Prioritization criteria"
+     ],
+     "guidance": "A strong answer shows risk-based prioritization (severity, exposure, exploitation), realistic milestones with slip management, and a closure process requiring verified evidence \u2014 ideally independent confirmation \u2014 before an item is marked closed.",
+     "probes": [
+      "Show me a recently closed item and the evidence that verified the fix.",
+      "What happens when a milestone slips \u2014 who approves the new date?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "nist80053-p5-q03",
+     "controlRef": "RA-3 Risk Assessment",
+     "question": "When a weakness cannot be remediated on schedule, how is the residual risk reassessed and formally accepted \u2014 and by whom?",
+     "whyItMatters": "Open-ended risk acceptance by the wrong person, or no reassessment at all, means risk decisions are being made by default rather than by accountable officials.",
+     "interviewees": [
+      "CISO",
+      "System Owner",
+      "ISSO/Security Officer"
+     ],
+     "evidence": [
+      "Risk acceptance memos with named approver and expiry",
+      "Reassessment records for delayed POA&M items",
+      "Risk register updates"
+     ],
+     "guidance": "Expect risk acceptance at the appropriate level (AO or delegated authority), time-limited rather than indefinite, based on reassessed likelihood and impact, and reflected in the POA&M and authorization documentation.",
+     "probes": [
+      "Show me a current risk acceptance \u2014 when does it expire and who signed it?",
+      "Has any risk acceptance ever been revoked or escalated?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "nist80053-p5-q04",
+     "controlRef": "CA-2 Control Assessments",
+     "question": "How do findings from this audit (or any assessment) get validated with the system team, rated for severity, and communicated to the Authorizing Official?",
+     "whyItMatters": "The finding-to-decision pipeline determines whether leadership's risk picture matches reality. Disagreements about findings must be resolved on evidence, not negotiated away.",
+     "interviewees": [
+      "CISO",
+      "ISSO/Security Officer",
+      "System Owner"
+     ],
+     "evidence": [
+      "Finding validation/management-review process",
+      "Severity rating methodology",
+      "Records of findings transmitted to the AO"
+     ],
+     "guidance": "Expect a defined process for factual-accuracy review of findings, consistent severity criteria, documented resolution of disagreements, and evidence the AO receives unfiltered assessment results along with the POA&M.",
+     "probes": [
+      "What happens when the system owner disputes a finding?",
+      "Does the AO see all findings, or a summarized subset? Who decides?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "nist80053-p5-q05",
+     "controlRef": "PM-4 Plan of Action and Milestones Process",
+     "question": "At the organization level, how are POA&Ms from all systems managed and reviewed \u2014 is there a central process or tool, and what does leadership see about aggregate weakness trends?",
+     "whyItMatters": "PM-4 elevates the POA&M from a system artifact to an organizational risk management tool. Without it, systemic weaknesses (e.g., patching failures across many systems) are never addressed at the root.",
+     "interviewees": [
+      "CISO",
+      "ISSO/Security Officer"
+     ],
+     "evidence": [
+      "Organization-wide POA&M process description or tool",
+      "Aggregate POA&M metrics reported to leadership",
+      "Examples of organization-level remediation initiatives"
+     ],
+     "guidance": "Look for a consolidated view of POA&Ms across systems, leadership reporting on volume, aging, and severity trends, and evidence that recurring cross-system weaknesses drive program-level fixes (funding, tooling, policy).",
+     "probes": [
+      "What is the aggregate count and aging of open weaknesses across systems?",
+      "Give an example of a systemic weakness fixed at the program level rather than system by system."
+     ],
+     "weight": 2
+    },
+    {
+     "id": "nist80053-p5-q06",
+     "controlRef": "PL-2 System Security and Privacy Plan",
+     "question": "After findings are remediated or the system changes, how are the SSP, risk assessment, and other authorization documents updated so they stay accurate?",
+     "whyItMatters": "Documentation that drifts from reality invalidates the basis of the authorization. The SSP update discipline is the final test of whether the RMF lifecycle actually loops.",
+     "interviewees": [
+      "ISSO/Security Officer",
+      "System Owner"
+     ],
+     "evidence": [
+      "SSP revision history aligned to changes and remediations",
+      "Change-triggered documentation review records",
+      "Annual review sign-offs"
+     ],
+     "guidance": "Expect defined triggers (significant change, remediation completion, annual review) that update the SSP and related documents, revision history demonstrating this happens, and re-approval where the change is significant.",
+     "probes": [
+      "Show me an SSP update made because of a remediation or system change.",
+      "Who verifies the SSP still matches reality, and when did that last happen?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "nist80053-p5-q07",
+     "controlRef": "IR-8 Incident Response Plan",
+     "question": "How do lessons learned from incidents, assessments, and audits feed back into the security program \u2014 plans, training, control implementations \u2014 with a concrete recent example?",
+     "whyItMatters": "Findings and incidents that produce no change guarantee repeat findings. A worked example of lessons-learned driving a concrete improvement is the strongest evidence of a functioning security program.",
+     "interviewees": [
+      "CISO",
+      "ISSO/Security Officer",
+      "System Owner"
+     ],
+     "evidence": [
+      "Lessons-learned reports with assigned actions",
+      "Updated plans/procedures showing resulting changes",
+      "Training content updated after an incident or finding"
+     ],
+     "guidance": "A good answer cites a specific recent incident or finding, the corrective action assigned, the change made (plan, control, training), and verification the change is in effect \u2014 not just a meeting where lessons were 'discussed'.",
+     "probes": [
+      "What is the most recent control improvement that originated from a lesson learned?",
+      "How are corrective actions tracked to completion?"
+     ],
+     "weight": 2
+    }
+   ]
+  }
+ ]
 }

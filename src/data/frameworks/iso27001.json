@@ -1,34 +1,2017 @@
 {
-  "id": "iso27001",
-  "name": "ISO 27001:2022",
-  "shortName": "ISO 27001",
-  "version": "2022",
-  "category": "security",
-  "description": "International standard for information security management systems (ISMS).",
-  "phases": [
+ "id": "iso27001",
+ "name": "ISO/IEC 27001:2022",
+ "shortName": "ISO 27001",
+ "version": "2022",
+ "category": "security",
+ "description": "ISO/IEC 27001:2022 specifies the requirements for an Information Security Management System built around risk assessment, leadership commitment and continual improvement. Certification audits verify that the ISMS is scoped correctly, that the Annex A controls selected in the Statement of Applicability are designed and operating effectively, and that monitoring, internal audit and management review drive real corrective action.",
+ "tagline": "The international standard for establishing, running and continually improving an Information Security Management System (ISMS).",
+ "auditFocus": [
+  "Correct scoping of the ISMS and a complete, justified Statement of Applicability",
+  "Risk assessment and risk treatment that are repeatable, owned and acted upon",
+  "Design and operating effectiveness of the 93 Annex A controls across Organizational, People, Physical and Technological themes",
+  "Leadership commitment, policy framework and allocation of security roles",
+  "Internal audit, management review, nonconformity handling and corrective action",
+  "Evidence that the ISMS continually improves rather than existing only on paper"
+ ],
+ "phases": [
+  {
+   "id": "phase-1",
+   "name": "Phase 1 \u2014 Engagement Planning, Scoping & ISMS Context (Clauses 4\u20136)",
+   "objective": "Establish what the ISMS covers, how the organization understands its context and risks, and whether the foundational documented information (scope, risk methodology, SoA, objectives) exists and is current before detailed testing begins.",
+   "questions": [
     {
-      "id": "iso27001-p1",
-      "name": "Organizational controls",
-      "questions": [
-        {
-          "id": "iso27001-q001",
-          "controlRef": "A.5.1",
-          "question": "Are policies for information security defined, approved by management, published, and communicated?",
-          "whyItMatters": "This control establishes a foundational requirement; auditors verify both design and operating effectiveness.",
-          "interviewees": [
-            "CISO"
-          ],
-          "evidence": [
-            "EV-001 Policy document"
-          ],
-          "guidance": "Request the current approved policy, confirm management sign-off and review date, and test that it has been communicated to relevant staff.",
-          "probes": [
-            "When was this last reviewed and by whom?",
-            "How are exceptions handled?"
-          ],
-          "weight": 2
-        }
-      ]
+     "id": "iso27001-p1-q01",
+     "controlRef": "Clause 4.1 Understanding the organization and its context",
+     "question": "Walk me through how the organization determined the internal and external issues that affect what your ISMS must achieve. Who was involved and when was this last revisited?",
+     "whyItMatters": "Context drives scope and risk. If internal/external issues were never genuinely analyzed, the ISMS is likely scoped on assumption and the certification audit starts on sand.",
+     "interviewees": [
+      "CISO",
+      "Top Management/CEO",
+      "Risk Manager"
+     ],
+     "evidence": [
+      "Context analysis document (e.g. SWOT/PESTLE)",
+      "ISMS steering committee minutes",
+      "Last review date of the context document"
+     ],
+     "guidance": "A GOOD answer names specific issues (regulatory exposure, business model, technology stack, threat landscape, organizational structure), shows a documented analysis owned by leadership, and evidences periodic review \u2014 not a template filled in once for the initial certification.",
+     "probes": [
+      "What changed in your context since the last review, and what did you update in the ISMS because of it?",
+      "How do external issues like new privacy regulation feed into your risk assessment?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "iso27001-p1-q02",
+     "controlRef": "Clause 4.2 Understanding the needs and expectations of interested parties",
+     "question": "Which interested parties have you identified for the ISMS, and what are their relevant security, legal and contractual requirements? Show me the register.",
+     "whyItMatters": "Interested-party requirements (customers, regulators, shareholders, employees) become obligations the ISMS must satisfy. Missing a party means missing requirements that later surface as nonconformities.",
+     "interviewees": [
+      "CISO",
+      "Compliance Officer",
+      "Legal Counsel"
+     ],
+     "evidence": [
+      "Interested parties register",
+      "List of legal/regulatory/contractual requirements",
+      "Customer contract security clauses"
+     ],
+     "guidance": "A GOOD answer is a maintained register naming parties and their specific requirements (e.g. GDPR, client audit rights, sector regulation), with an owner and review cycle, and a demonstrable link from these requirements into controls and the SoA.",
+     "probes": [
+      "Which customer contractual security requirements were hardest to meet, and how did you address them?",
+      "How do you learn about new regulatory requirements?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "iso27001-p1-q03",
+     "controlRef": "Clause 4.3 Determining the scope of the ISMS",
+     "question": "Show me the documented ISMS scope. Which business units, locations, systems and information types are in, what is excluded, and how do you justify each exclusion?",
+     "whyItMatters": "Scope defines the certificate boundary. Unjustified exclusions (e.g. carving out the development team or a risky site) are a classic Stage 1 finding and can invalidate the certification.",
+     "interviewees": [
+      "CISO",
+      "Top Management/CEO",
+      "IT Manager"
+     ],
+     "evidence": [
+      "ISMS scope statement",
+      "Organizational chart and site list",
+      "Network/application inventory supporting the scope",
+      "Justification for exclusions"
+     ],
+     "guidance": "A GOOD answer presents a current, approved scope document covering interfaces and dependencies (including outsourced services), where every exclusion has a risk-based justification and no excluded area processes in-scope information.",
+     "probes": [
+      "Does any excluded unit store or process in-scope information?",
+      "How are cloud services and outsourced providers treated in the scope?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "iso27001-p1-q04",
+     "controlRef": "Clause 4.4 / 8.1 ISMS processes and operational planning",
+     "question": "Describe the processes that make up your ISMS end-to-end \u2014 how are they established, who owns each, and how do you control planned changes to them?",
+     "whyItMatters": "Clause 4.4 requires the ISMS to be a functioning set of interacting processes, not a folder of policies. Auditors test whether process owners actually exist and operate their processes.",
+     "interviewees": [
+      "CISO",
+      "IT Manager",
+      "Compliance Officer"
+     ],
+     "evidence": [
+      "ISMS process map or manual",
+      "Process owner assignments",
+      "Change records for ISMS processes"
+     ],
+     "guidance": "A GOOD answer walks through named processes (risk management, incident management, access management, supplier management, etc.) with accountable owners, documented criteria, and evidence they interact \u2014 e.g. incident trends feed the risk register.",
+     "probes": [
+      "Give an example of one process changing in the last year and how that change was controlled.",
+      "Which process is weakest today and what is the plan for it?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "iso27001-p1-q05",
+     "controlRef": "Clause 6.1.2 Information security risk assessment",
+     "question": "Explain your risk assessment methodology: how do you identify risks to confidentiality, integrity and availability, who owns each risk, and what acceptance criteria apply?",
+     "whyItMatters": "The entire control selection hinges on a repeatable, criteria-based risk assessment. A methodology that is undefined, unused or inconsistent undermines the SoA and every downstream control.",
+     "interviewees": [
+      "Risk Manager",
+      "CISO",
+      "Top Management/CEO"
+     ],
+     "evidence": [
+      "Risk assessment methodology document",
+      "Risk register",
+      "Risk acceptance criteria approved by management",
+      "Risk owner sign-offs"
+     ],
+     "guidance": "A GOOD answer describes a documented, repeatable method producing comparable results, with named risk owners (not 'IT'), defined likelihood/impact scales, explicit acceptance criteria, and evidence the last assessment was actually performed on schedule.",
+     "probes": [
+      "Show me a risk that was accepted above normal appetite \u2014 who signed that off?",
+      "When did you last re-run the full assessment, and what triggered it?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "iso27001-p1-q06",
+     "controlRef": "Clause 6.1.3 Information security risk treatment",
+     "question": "How did you move from assessed risks to a risk treatment plan? Show me how treatment options were chosen, controls selected, and residual risk approved.",
+     "whyItMatters": "A treatment plan without owner-approved residual risk and mapped controls is one of the most frequent major nonconformities \u2014 it means control selection was arbitrary.",
+     "interviewees": [
+      "Risk Manager",
+      "CISO"
+     ],
+     "evidence": [
+      "Risk treatment plan",
+      "Mapping of risks to Annex A controls",
+      "Residual risk acceptance sign-off by risk owners",
+      "Implementation status per treatment action"
+     ],
+     "guidance": "A GOOD answer shows each unacceptable risk mapped to modify/retain/avoid/share decisions, specific Annex A controls selected with implementation dates and owners, and documented management acceptance of residual risk.",
+     "probes": [
+      "Which treatments are behind schedule and why?",
+      "Show me a risk you chose to share via insurance or contract \u2014 how is that evidenced?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "iso27001-p1-q07",
+     "controlRef": "Clause 6.1.3 d) Statement of Applicability",
+     "question": "Show me your Statement of Applicability. For a handful of controls you marked as excluded, justify why \u2014 and for included controls, point me to where each is implemented.",
+     "whyItMatters": "The SoA is the single most-scrutinized document in the audit. Unjustified exclusions, stale versions, or SoA entries that do not match reality are high-impact findings.",
+     "interviewees": [
+      "CISO",
+      "Compliance Officer",
+      "Internal Auditor"
+     ],
+     "evidence": [
+      "Current approved SoA (all 93 Annex A controls)",
+      "Version history and approval record",
+      "Cross-references from SoA entries to policies/procedures"
+     ],
+     "guidance": "A GOOD answer produces a current SoA listing every Annex A control, each marked applicable or not with a justification tied to the risk assessment, implementation status stated, and the document demonstrably matching what is actually deployed.",
+     "probes": [
+      "Pick control A.8.10 (information deletion) \u2014 applicable or not, and why?",
+      "When was the SoA last updated, and what triggered the update?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "iso27001-p1-q08",
+     "controlRef": "Clause 6.2 Information security objectives",
+     "question": "What are your current information security objectives, how are they measured, and what did last period's results look like against target?",
+     "whyItMatters": "Objectives convert policy into measurable intent. Vague objectives ('improve security') with no measurement signal a paper ISMS and fail Clause 6.2 requirements.",
+     "interviewees": [
+      "CISO",
+      "Top Management/CEO",
+      "IT Manager"
+     ],
+     "evidence": [
+      "Documented security objectives with metrics and targets",
+      "KPI dashboards or reports",
+      "Review minutes discussing objective achievement"
+     ],
+     "guidance": "A GOOD answer lists specific measurable objectives (e.g. patch SLA compliance %, incident MTTR, training completion rate), each with an owner, data source, current result vs target, and actions where targets were missed.",
+     "probes": [
+      "Which objective did you miss last year and what changed as a result?",
+      "How do these objectives connect to the risk assessment?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "iso27001-p1-q09",
+     "controlRef": "Clause 7.1 Resources",
+     "question": "How did you determine the people, budget and tooling the ISMS needs, and is there evidence management actually provided them?",
+     "whyItMatters": "Under-resourced ISMS programs produce unimplemented SoA entries. Auditors test resourcing to distinguish genuine commitment from aspirational documentation.",
+     "interviewees": [
+      "Top Management/CEO",
+      "CISO",
+      "CFO"
+     ],
+     "evidence": [
+      "Security budget approval",
+      "Security team headcount and org chart",
+      "Tooling/licenses inventory for security functions"
+     ],
+     "guidance": "A GOOD answer ties resourcing to the risk treatment plan, shows an approved budget and staffed roles (or justified compensating arrangements for small teams), and management can explain what was funded this year and what was deferred with rationale.",
+     "probes": [
+      "What security initiative was refused funding and what risk did that leave?",
+      "How many FTEs run the ISMS day-to-day?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "iso27001-p1-q10",
+     "controlRef": "Clause 7.2 Competence",
+     "question": "How do you define and verify the competence required for roles that affect information security \u2014 including the people running the ISMS itself?",
+     "whyItMatters": "Clause 7.2 requires evidence of competence, not just job titles. Auditors check that security-critical roles have defined requirements and demonstrable qualifications or training.",
+     "interviewees": [
+      "HR Manager",
+      "CISO",
+      "IT Manager"
+     ],
+     "evidence": [
+      "Competence matrix or role profiles",
+      "Training records and certifications",
+      "Hiring criteria for security roles"
+     ],
+     "guidance": "A GOOD answer shows defined competence criteria per security-relevant role, records proving people meet them (certs, training, experience), and a mechanism to close gaps \u2014 including competence of whoever performs internal audits and risk assessments.",
+     "probes": [
+      "What qualifies the person who performed your last risk assessment?",
+      "Show me the competence record for one security engineer."
+     ],
+     "weight": 2
+    },
+    {
+     "id": "iso27001-p1-q11",
+     "controlRef": "Clause 7.4 Communication",
+     "question": "What does your ISMS communication plan say must be communicated, to whom, and when \u2014 and can you show it happening in practice?",
+     "whyItMatters": "Communication failures mean staff never learn policy changes, incidents go unreported, and interested parties are not informed \u2014 a quiet but systemic Clause 7.4 gap.",
+     "interviewees": [
+      "CISO",
+      "HR Manager",
+      "IT Manager"
+     ],
+     "evidence": [
+      "Communication plan/matrix",
+      "Examples: policy release announcements, security bulletins, incident notifications",
+      "Intranet/email archives"
+     ],
+     "guidance": "A GOOD answer shows a defined plan covering what/who/when/how for internal and external communication, plus concrete recent examples (a policy rollout, a security advisory, a regulator or customer notification) with evidence of receipt or acknowledgement where required.",
+     "probes": [
+      "How did staff learn about the last policy change?",
+      "Who communicates with customers after a security incident, and under what timeline?"
+     ],
+     "weight": 1
+    },
+    {
+     "id": "iso27001-p1-q12",
+     "controlRef": "Clause 7.5 Documented information",
+     "question": "How do you control ISMS documented information \u2014 creation, approval, versioning, access, retention and disposal? Show me version history on two key documents.",
+     "whyItMatters": "Uncontrolled documents mean staff follow obsolete procedures and the auditor cannot trust the documentation set. Clause 7.5 failures also cast doubt on every other document presented as evidence.",
+     "interviewees": [
+      "Compliance Officer",
+      "CISO",
+      "IT Manager"
+     ],
+     "evidence": [
+      "Document control procedure",
+      "Document register/master list",
+      "Version histories of the ISMS policy and risk methodology",
+      "Access permissions on the document repository"
+     ],
+     "guidance": "A GOOD answer demonstrates a controlled repository with owner, approver, version, review date and access rights on each document, plus evidence that obsolete versions are withdrawn and retention/disposal rules are applied.",
+     "probes": [
+      "Can an employee still find last year's obsolete access control procedure?",
+      "Who approved the current ISMS policy version and when?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "iso27001-p1-q13",
+     "controlRef": "Clause 8.2 / 8.3 Performing risk assessment and treatment",
+     "question": "Show me the output of your most recent operational risk assessment and treatment cycle \u2014 when it ran, what changed as a result, and how you know the plan is being executed.",
+     "whyItMatters": "Clauses 8.2/8.3 require risk assessment and treatment to be performed at planned intervals and on significant change \u2014 this is where paper methodology meets operational reality.",
+     "interviewees": [
+      "Risk Manager",
+      "CISO",
+      "Internal Auditor"
+     ],
+     "evidence": [
+      "Dated risk assessment results",
+      "Updated risk register",
+      "Risk treatment plan with progress tracking",
+      "Minutes showing results presented to management"
+     ],
+     "guidance": "A GOOD answer produces dated assessment results consistent with the stated methodology, evidence of re-assessment triggered by significant changes (e.g. new system, merger, incident), and a treatment plan whose actions are tracked to completion or escalated.",
+     "probes": [
+      "What significant change last year triggered a risk re-assessment?",
+      "How many treatment actions are overdue right now?"
+     ],
+     "weight": 3
     }
-  ]
+   ]
+  },
+  {
+   "id": "phase-2",
+   "name": "Phase 2 \u2014 Leadership, Policies & Risk Management (Clause 5, A.5 governance controls)",
+   "objective": "Verify that top management demonstrably leads the ISMS, that the policy framework and security governance structure are real and current, and that asset, data-handling and legal/compliance governance controls are designed properly.",
+   "questions": [
+    {
+     "id": "iso27001-p2-q01",
+     "controlRef": "Clause 5.1 Leadership and commitment",
+     "question": "How does top management personally demonstrate leadership of the ISMS \u2014 beyond signing the policy? Give me three concrete examples from the last 12 months.",
+     "whyItMatters": "Clause 5.1 places accountability on top management. Auditors distinguish ceremonial endorsement from visible leadership; without it, certification bodies issue findings on leadership commitment.",
+     "interviewees": [
+      "Top Management/CEO",
+      "CISO"
+     ],
+     "evidence": [
+      "Management review minutes attended by executives",
+      "Budget/resource approvals",
+      "Executive communications about security",
+      "Steering committee attendance records"
+     ],
+     "guidance": "A GOOD answer cites specific acts: chairing management reviews, approving residual risk, funding security initiatives, communicating security importance, holding leaders accountable \u2014 with dates and artifacts to match.",
+     "probes": [
+      "When did the CEO last make a decision that changed the ISMS?",
+      "Have executives ever accepted risk against security team's advice \u2014 how was that documented?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "iso27001-p2-q02",
+     "controlRef": "Clause 5.2 Policy / A.5.1 Policies for information security",
+     "question": "Walk me through your policy hierarchy: the top-level information security policy, the topic-specific policies beneath it, approval levels, and the review cycle. When were they last reviewed and what changed?",
+     "whyItMatters": "Policies set the rules everything else is tested against. Unapproved, uncommunicated or never-reviewed policies are among the most common certification findings.",
+     "interviewees": [
+      "CISO",
+      "Compliance Officer",
+      "Top Management/CEO"
+     ],
+     "evidence": [
+      "Signed top-level ISMS policy",
+      "Topic-specific policies (access control, acceptable use, cryptography, etc.)",
+      "Approval and review records",
+      "Publication/acknowledgement evidence"
+     ],
+     "guidance": "A GOOD answer shows a top-level policy approved by top management, topic-specific policies mapped to Annex A controls and the SoA, defined review intervals with actual review evidence, and staff acknowledgement or training records.",
+     "probes": [
+      "Show me a policy that was substantively updated after an incident or audit finding.",
+      "How do you know employees have read the acceptable use policy?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "iso27001-p2-q03",
+     "controlRef": "Clause 5.3 / A.5.2 Roles, responsibilities and authorities",
+     "question": "Who is accountable for each part of the ISMS, and how are information security roles and responsibilities assigned, documented and communicated?",
+     "whyItMatters": "Undefined or unassigned roles leave controls ownerless \u2014 the root cause of most repeat findings. Both Clause 5.3 and A.5.2 require explicit allocation.",
+     "interviewees": [
+      "CISO",
+      "Top Management/CEO",
+      "HR Manager"
+     ],
+     "evidence": [
+      "RACI matrix for ISMS activities",
+      "Role descriptions including security duties",
+      "Org chart showing security function",
+      "Appointment letters for key roles (CISO, risk owners)"
+     ],
+     "guidance": "A GOOD answer names accountable individuals for each ISMS process and Annex A theme, shows these in job descriptions or formal appointments, and demonstrates staff actually know their security responsibilities.",
+     "probes": [
+      "Who is accountable when the CISO is unavailable?",
+      "Ask a random asset owner what their responsibilities are \u2014 what would they say?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "iso27001-p2-q04",
+     "controlRef": "A.5.3 Segregation of duties",
+     "question": "Where have you identified duties that must be segregated (e.g. initiating vs approving payments, developing vs deploying code, requesting vs approving access), and how is segregation enforced where headcount is limited?",
+     "whyItMatters": "Failure to segregate conflicting duties is a prime fraud and error enabler. Auditors expect a deliberate analysis plus compensating controls where full segregation is impossible.",
+     "interviewees": [
+      "CISO",
+      "IT Manager",
+      "CFO",
+      "Software/Dev Lead"
+     ],
+     "evidence": [
+      "Segregation of duties matrix",
+      "Role/permission design in key systems",
+      "Compensating control documentation (e.g. enhanced logging, independent review)"
+     ],
+     "guidance": "A GOOD answer shows a documented conflict-of-duties analysis across finance, IT and development, enforced by system roles where possible, and named compensating controls (review, logging, dual approval) where one person must hold combined duties.",
+     "probes": [
+      "Can a developer deploy their own code to production without review?",
+      "Who can both create a supplier and pay them?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "iso27001-p2-q05",
+     "controlRef": "A.5.4 Management responsibilities",
+     "question": "What do line managers actually do for information security \u2014 how are they required to ensure their staff and contractors follow security procedures?",
+     "whyItMatters": "A.5.4 makes security a line-management duty, not just a security-team duty. If managers cannot describe their role, the control exists only on paper.",
+     "interviewees": [
+      "HR Manager",
+      "IT Manager",
+      "End Users",
+      "CISO"
+     ],
+     "evidence": [
+      "Management role descriptions",
+      "Team-level security check-ins or attestations",
+      "Onboarding checklists completed by managers",
+      "Performance objectives including security duties"
+     ],
+     "guidance": "A GOOD answer has managers describing concrete duties \u2014 onboarding/offboarding actions, ensuring training completion, enforcing clear desk, reporting events \u2014 corroborated by staff interviews and records.",
+     "probes": [
+      "What happens in your team when someone ignores the password policy?",
+      "How do managers verify new joiners completed security onboarding?"
+     ],
+     "weight": 1
+    },
+    {
+     "id": "iso27001-p2-q06",
+     "controlRef": "A.5.5\u2013A.5.6 Contact with authorities and special interest groups",
+     "question": "Which authorities and industry/security bodies do you maintain contact with (regulators, law enforcement, CERT/ISACs, professional forums), who owns each contact, and when were they last used?",
+     "whyItMatters": "During an incident, organizations without established authority contacts improvise \u2014 delaying breach notifications and forensic support. This control is cheap but frequently absent.",
+     "interviewees": [
+      "CISO",
+      "Legal Counsel",
+      "Compliance Officer"
+     ],
+     "evidence": [
+      "Contact list for authorities and security groups",
+      "Membership records (ISAC, CERT, professional bodies)",
+      "Examples of threat advisories received and acted on"
+     ],
+     "guidance": "A GOOD answer shows a maintained contact register with named owners, active memberships or subscriptions relevant to the sector, and a real example of information flowing in and being used (e.g. an advisory that triggered patching).",
+     "probes": [
+      "Who contacts the data protection authority within 72 hours of a breach \u2014 and using what process?",
+      "Which threat advisories did you act on this quarter?"
+     ],
+     "weight": 1
+    },
+    {
+     "id": "iso27001-p2-q07",
+     "controlRef": "A.5.7 Threat intelligence",
+     "question": "How do you collect and use threat intelligence to stay aware of the threats relevant to your environment, and can you show a decision it changed?",
+     "whyItMatters": "Threat intelligence is new and explicit in the 2022 revision. Auditors check it is more than a vendor feed \u2014 it must inform risk assessment and control tuning.",
+     "interviewees": [
+      "CISO",
+      "Security Engineer",
+      "Risk Manager"
+     ],
+     "evidence": [
+      "Threat intel sources list",
+      "Examples of intel-driven actions (patches prioritized, rules tuned)",
+      "Feed of advisories into risk register or SOC processes"
+     ],
+     "guidance": "A GOOD answer identifies relevant internal and external sources, shows analysis (not just collection), and gives at least one concrete example where intelligence changed a priority, control or risk rating.",
+     "probes": [
+      "Which threat actor groups or techniques are most relevant to your sector, and how do you know?",
+      "How does threat intel reach the people who patch systems?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "iso27001-p2-q08",
+     "controlRef": "A.5.8 Information security in project management",
+     "question": "How is information security integrated into your project management method \u2014 show me a recent project where security requirements were addressed from initiation, not bolted on.",
+     "whyItMatters": "Projects are where new risk enters the organization. If security is absent from project gates, new systems routinely launch without risk assessment \u2014 a systemic design flaw.",
+     "interviewees": [
+      "CISO",
+      "Software/Dev Lead",
+      "IT Manager"
+     ],
+     "evidence": [
+      "Project methodology including security gates",
+      "Completed project security assessment or checklist",
+      "Risk assessment for a recent project",
+      "Sign-off records at project milestones"
+     ],
+     "guidance": "A GOOD answer shows security requirements defined at project initiation, risk assessment performed before go-live, security sign-off as a go-live gate, and a completed example project file demonstrating all of it.",
+     "probes": [
+      "Has a project ever been blocked or delayed for security reasons?",
+      "Who decides whether a project needs a security review \u2014 and based on what criteria?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "iso27001-p2-q09",
+     "controlRef": "A.5.9\u2013A.5.11 Inventory of assets, acceptable use, return of assets",
+     "question": "Show me your inventory of information and associated assets. How are owners assigned, how is the inventory kept current, and how do acceptable use rules and asset return at offboarding connect to it?",
+     "whyItMatters": "You cannot protect what you have not inventoried. Asset management underpins classification, access control and offboarding \u2014 gaps here cascade into many Annex A failures.",
+     "interviewees": [
+      "IT Manager",
+      "CISO",
+      "IT Ops",
+      "HR Manager"
+     ],
+     "evidence": [
+      "Asset inventory (hardware, software, information, services)",
+      "Assigned asset owners",
+      "Acceptable use policy and acknowledgements",
+      "Leaver asset-return checklist with completed examples"
+     ],
+     "guidance": "A GOOD answer produces a current inventory with named owners and lifecycle dates, reconciled periodically against reality (spot checks match), an acknowledged acceptable use policy, and evidence leavers return assets with records.",
+     "probes": [
+      "Pick ten inventory entries \u2014 do they match what is actually on the network?",
+      "Show me the asset-return record for the last person who left."
+     ],
+     "weight": 3
+    },
+    {
+     "id": "iso27001-p2-q10",
+     "controlRef": "A.5.12\u2013A.5.14 Classification, labelling and transfer of information",
+     "question": "Explain your information classification scheme. How is information labelled in practice, and what rules and mechanisms govern transferring information internally and to third parties?",
+     "whyItMatters": "Classification drives handling, protection and transfer decisions. If classification exists only in a policy while documents are unlabelled and transfers uncontrolled, protection is arbitrary.",
+     "interviewees": [
+      "CISO",
+      "Compliance Officer",
+      "IT Manager",
+      "End Users"
+     ],
+     "evidence": [
+      "Classification scheme and handling matrix",
+      "Examples of labelled documents/emails/systems",
+      "Data transfer procedures and approved channels",
+      "DLP or transfer tool configuration"
+     ],
+     "guidance": "A GOOD answer shows a simple, understood scheme (e.g. Public/Internal/Confidential/Restricted), evidence of actual labelling on sampled artifacts, defined rules per classification for storage and transfer, and controlled mechanisms for third-party sharing.",
+     "probes": [
+      "Ask an end user how they know whether a document is Confidential \u2014 what would they say?",
+      "How do you send Restricted data to a supplier?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "iso27001-p2-q11",
+     "controlRef": "A.5.31 Legal, statutory, regulatory and contractual requirements",
+     "question": "How do you identify and keep current every legal, statutory, regulatory and contractual requirement relevant to information security, and how do these map into your controls?",
+     "whyItMatters": "A.5.31 requires an explicit, maintained identification of obligations. Organizations that cannot list their obligations cannot demonstrate compliance with them.",
+     "interviewees": [
+      "Legal Counsel",
+      "Compliance Officer",
+      "CISO",
+      "DPO"
+     ],
+     "evidence": [
+      "Register of legal/regulatory/contractual requirements",
+      "Mapping of requirements to controls/SoA",
+      "Evidence of monitoring for legal changes",
+      "Contract repository with security clauses"
+     ],
+     "guidance": "A GOOD answer produces a current obligations register with owners, a process for detecting changes (legal updates service, counsel review), and traceability from key obligations into specific controls and policy clauses.",
+     "probes": [
+      "What new legal requirement affected the ISMS in the last year and what did you change?",
+      "Which contracts impose breach notification duties, and what are the timelines?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "iso27001-p2-q12",
+     "controlRef": "A.5.32\u2013A.5.33 Intellectual property rights and protection of records",
+     "question": "How do you ensure intellectual property rights are respected (software licensing, copyrighted material) and how are business records protected against loss, falsification and unauthorized access through their retention period?",
+     "whyItMatters": "License violations create legal and financial exposure; unprotected records fail evidentiary and regulatory needs. Both are auditable, concrete controls often neglected.",
+     "interviewees": [
+      "IT Manager",
+      "Legal Counsel",
+      "Compliance Officer",
+      "Procurement/Vendor Manager"
+     ],
+     "evidence": [
+      "Software asset management / license reconciliation records",
+      "Records retention schedule",
+      "Backup and access controls for records repositories",
+      "Examples of record retrieval"
+     ],
+     "guidance": "A GOOD answer shows license counts reconciled against deployments, controls preventing unlicensed installs, a retention schedule with legal input, and records stored with integrity, access control and retrievability demonstrated.",
+     "probes": [
+      "When did you last reconcile installed software against licenses, and what did you find?",
+      "Retrieve a five-year-old contract \u2014 how long would that take?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "iso27001-p2-q13",
+     "controlRef": "A.5.34 Privacy and protection of PII",
+     "question": "How do you identify where PII lives, what privacy requirements apply to it, and how are those requirements implemented and verified within the ISMS?",
+     "whyItMatters": "PII mishandling brings regulatory penalties and is a top audit focus wherever GDPR or similar regimes apply. The ISMS must demonstrably cover privacy, not defer it entirely to a separate program.",
+     "interviewees": [
+      "DPO",
+      "Legal Counsel",
+      "CISO",
+      "HR Manager"
+     ],
+     "evidence": [
+      "Record of processing activities / PII inventory",
+      "Privacy notices and DPIAs",
+      "Data subject request handling records",
+      "Privacy-related controls in the SoA"
+     ],
+     "guidance": "A GOOD answer identifies PII systems and flows, names applicable privacy law, shows DPIAs for risky processing, documented DSR handling with metrics, and technical/organizational measures traceable into the ISMS.",
+     "probes": [
+      "Show me the DPIA for your most sensitive processing.",
+      "How many data subject requests did you receive last year and were deadlines met?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "iso27001-p2-q14",
+     "controlRef": "A.5.35 Independent review of information security",
+     "question": "When was the last independent review of your information security approach (beyond the internal audit) \u2014 by whom, covering what, and what did you do with the results?",
+     "whyItMatters": "A.5.35 requires independent review at planned intervals or on significant change. Auditors check it is genuinely independent \u2014 not the ISMS owner grading their own homework.",
+     "interviewees": [
+      "CISO",
+      "Internal Auditor",
+      "Top Management/CEO",
+      "Compliance Officer"
+     ],
+     "evidence": [
+      "Independent review report (external assessor, group audit, or independent internal function)",
+      "Action plan from review findings",
+      "Evidence of implemented improvements"
+     ],
+     "guidance": "A GOOD answer shows a planned independent review (penetration test alone is not enough \u2014 the review must cover the management approach), with findings tracked to closure and reported to management.",
+     "probes": [
+      "What significant change should have triggered an independent review \u2014 and did one happen?",
+      "Who commissioned the last review and to whom did the reviewer report?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "iso27001-p2-q15",
+     "controlRef": "A.5.36 Compliance with policies, rules and standards",
+     "question": "How do you regularly check that people and systems actually comply with your security policies and standards \u2014 not just assume they do? Show me the last compliance check and its outcome.",
+     "whyItMatters": "A.5.36 closes the loop between written rules and practice. Organizations that never verify compliance discover violations only during incidents or external audits.",
+     "interviewees": [
+      "CISO",
+      "Internal Auditor",
+      "IT Manager"
+     ],
+     "evidence": [
+      "Compliance check schedule and reports",
+      "Spot-check or self-assessment records",
+      "Violation handling records",
+      "Technical compliance scans (e.g. configuration compliance)"
+     ],
+     "guidance": "A GOOD answer shows a defined program of periodic compliance verification (procedural spot checks plus technical scans), documented results including violations found, and corrective actions tracked \u2014 findings proving the checks are real.",
+     "probes": [
+      "What was the last policy violation your checks detected, and what happened?",
+      "Who performs the checks and are they independent of the area checked?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "iso27001-p2-q16",
+     "controlRef": "A.5.37 Documented operating procedures",
+     "question": "For your key security-relevant operations (backups, access administration, patching, monitoring), where are the operating procedures documented, and do the people performing them actually use them?",
+     "whyItMatters": "A.5.37 requires documented procedures so activities are performed correctly and consistently. Tribal-knowledge operations fail when staff leave and cannot be audited.",
+     "interviewees": [
+      "IT Manager",
+      "IT Ops",
+      "Security Engineer"
+     ],
+     "evidence": [
+      "Operating procedure documents/runbooks",
+      "Version and approval records",
+      "Observed practice matching procedure during walkthrough",
+      "Training records on procedures"
+     ],
+     "guidance": "A GOOD answer produces current, version-controlled procedures for each critical operation, and walkthrough observation matches the documented steps \u2014 discrepancies are explained and corrected.",
+     "probes": [
+      "Show me the backup procedure, then walk me through what you actually did last night \u2014 do they match?",
+      "What happens when a procedure is found to be wrong or outdated?"
+     ],
+     "weight": 2
+    }
+   ]
+  },
+  {
+   "id": "phase-3",
+   "name": "Phase 3 \u2014 Control Design & Implementation Walkthrough (Annex A: Organizational A.5, People A.6, Physical A.7, Technological A.8)",
+   "objective": "Walk through the design and implementation of every Annex A theme, confirming each SoA-applicable control is implemented as described, with sampled evidence rather than policy-level assurance.",
+   "questions": [
+    {
+     "id": "iso27001-p3-q01",
+     "controlRef": "A.5.15\u2013A.5.18 Access control, identity management, authentication information, access rights",
+     "question": "Walk me through the full access lifecycle for a sample user: how access is requested and approved, how identities and credentials are issued, and how rights are reviewed, adjusted on role change, and revoked at termination.",
+     "whyItMatters": "Access control is the heart of the ISMS. Auditors sample joiners/movers/leavers because orphaned accounts and excessive rights are the most exploited real-world weakness.",
+     "interviewees": [
+      "IT Manager",
+      "IT Ops",
+      "HR Manager",
+      "CISO"
+     ],
+     "evidence": [
+      "Access request/approval tickets",
+      "User account listings from AD/IdP and key apps",
+      "Access recertification records",
+      "Leaver deprovisioning logs with timestamps"
+     ],
+     "guidance": "A GOOD answer demonstrates documented rules for access control, formal approval before provisioning, unique identities, protected credential issuance, periodic reviews with evidence, prompt revocation at termination (same day), and sampled accounts that all match approvals.",
+     "probes": [
+      "Show me three leavers from last quarter \u2014 when was each account disabled relative to their last day?",
+      "How are movers' old rights removed, not just new rights added?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "iso27001-p3-q02",
+     "controlRef": "A.5.19\u2013A.5.20 Information security in supplier relationships and agreements",
+     "question": "How do you assess security risk before engaging a supplier who handles your information, and what security requirements end up in the contract? Show me two live supplier examples.",
+     "whyItMatters": "Supplier failures are a leading breach cause. Auditors test whether supplier security is risk-based and contractual, or simply assumed.",
+     "interviewees": [
+      "Procurement/Vendor Manager",
+      "CISO",
+      "Legal Counsel"
+     ],
+     "evidence": [
+      "Supplier security assessment process and completed assessments",
+      "Contract security clauses / data processing agreements",
+      "Approved supplier register with risk tiering",
+      "Due diligence records (certificates, questionnaires)"
+     ],
+     "guidance": "A GOOD answer shows risk-tiered due diligence before onboarding, mandatory security clauses (confidentiality, breach notification, audit rights, sub-processor control), and completed evidence for sampled suppliers including reassessment at renewal.",
+     "probes": [
+      "Which supplier has the most sensitive access, and what assurance do you hold over them?",
+      "Has a supplier ever failed your security assessment \u2014 what happened?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "iso27001-p3-q03",
+     "controlRef": "A.5.21\u2013A.5.22 ICT supply chain security and monitoring/review of supplier services",
+     "question": "Beyond onboarding, how do you monitor supplier security performance over time \u2014 including ICT supply chain risks like software components and sub-contractors \u2014 and how do you manage changes to supplier services?",
+     "whyItMatters": "One-time due diligence decays. Supply-chain compromises (malicious updates, fourth parties) require ongoing monitoring and change control, which most organizations lack.",
+     "interviewees": [
+      "Procurement/Vendor Manager",
+      "CISO",
+      "IT Manager"
+     ],
+     "evidence": [
+      "Supplier performance/security review records",
+      "SLA and security monitoring reports",
+      "Change notifications from critical suppliers",
+      "SBOM or component assurance for critical software"
+     ],
+     "guidance": "A GOOD answer shows periodic security reviews of critical suppliers with documented outcomes, a process to receive and act on supplier change notifications, awareness of sub-contracting chains, and specific ICT supply-chain measures for critical products.",
+     "probes": [
+      "When did you last re-review your most critical supplier, and what changed?",
+      "How would you know if a key supplier sub-contracted your data processing to a fourth party?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "iso27001-p3-q04",
+     "controlRef": "A.5.23 Information security for use of cloud services",
+     "question": "List the cloud services in scope. How do you manage security for each \u2014 roles between you and the provider, configuration responsibility, data location, and exit strategy?",
+     "whyItMatters": "Cloud use without defined shared-responsibility understanding leaves gaps where both parties assume the other protects the data. A.5.23 is new in 2022 and heavily examined.",
+     "interviewees": [
+      "IT Manager",
+      "CISO",
+      "IT Ops"
+     ],
+     "evidence": [
+      "Cloud service inventory",
+      "Shared responsibility documentation per service",
+      "Cloud security configuration reviews",
+      "Provider assurance reports (ISO 27001 / SOC 2)",
+      "Exit/portability provisions"
+     ],
+     "guidance": "A GOOD answer inventories all cloud services (including shadow IT handling), documents responsibility splits per service, reviews provider assurance annually, configures services per policy with evidence, and addresses data location and exit.",
+     "probes": [
+      "Who is responsible for patching your IaaS workloads \u2014 show me where that is documented.",
+      "How do you detect a new unsanctioned SaaS tool holding company data?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "iso27001-p3-q05",
+     "controlRef": "A.5.24\u2013A.5.26 Incident management planning, assessment of events, and response",
+     "question": "Walk me through your incident management process end-to-end: how events are detected and reported, who assesses and classifies them, how response is coordinated, and show me two real incidents handled this year.",
+     "whyItMatters": "Incident handling is where the ISMS proves itself under pressure. Auditors examine real incident records because rehearsal on paper fails in a crisis.",
+     "interviewees": [
+      "CISO",
+      "IT Manager",
+      "IT Ops",
+      "Security Engineer"
+     ],
+     "evidence": [
+      "Incident response plan and playbooks",
+      "Incident register/ticket records",
+      "Post-incident reports",
+      "Contact trees and escalation records",
+      "Tabletop exercise records"
+     ],
+     "guidance": "A GOOD answer shows defined roles (incident manager, comms, legal), triage and classification criteria, escalation and external notification paths (including regulator clocks), real incident records demonstrating the process, and at least one exercised scenario in the past year.",
+     "probes": [
+      "Which incident this year reached your highest severity \u2014 walk me through its timeline.",
+      "How fast would you know about ransomware on a server at 2 a.m.?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "iso27001-p3-q06",
+     "controlRef": "A.5.27\u2013A.5.28 Learning from incidents and collection of evidence",
+     "question": "How do you systematically learn from incidents and near-misses, and if an incident has legal or disciplinary consequences, how do you collect and preserve evidence so it remains admissible?",
+     "whyItMatters": "Organizations that do not learn from incidents repeat them; organizations that mishandle evidence cannot pursue legal remedies or satisfy regulators after a breach.",
+     "interviewees": [
+      "CISO",
+      "Security Engineer",
+      "Legal Counsel"
+     ],
+     "evidence": [
+      "Post-incident review/lessons-learned records",
+      "Risk register or control updates traced to incidents",
+      "Evidence handling procedure (chain of custody)",
+      "Forensic readiness arrangements"
+     ],
+     "guidance": "A GOOD answer shows documented lessons-learned with owners feeding back into risk assessment and controls, plus an evidence collection procedure covering identification, preservation (imaging, hashing, logging integrity), and chain of custody.",
+     "probes": [
+      "Show me a control that exists because of a past incident.",
+      "If an employee is suspected of data theft tomorrow, who images their laptop and how is it logged?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "iso27001-p3-q07",
+     "controlRef": "A.5.29\u2013A.5.30 Information security during disruption and ICT readiness for business continuity",
+     "question": "How is information security maintained during a disruption, and what are your ICT continuity targets (RTO/RPO)? When did you last test recovery of a critical system, and what were the results?",
+     "whyItMatters": "Continuity controls that are never tested fail when needed. Auditors require evidence that recovery objectives exist, are approved, and have been demonstrated \u2014 not just documented.",
+     "interviewees": [
+      "IT Manager",
+      "CISO",
+      "IT Ops",
+      "Top Management/CEO"
+     ],
+     "evidence": [
+      "Business continuity / ICT continuity plans",
+      "Business impact analysis with RTO/RPO per critical service",
+      "Test/exercise records and results",
+      "Remediation actions from failed test steps"
+     ],
+     "guidance": "A GOOD answer links ICT continuity to a BIA, states approved RTO/RPOs, shows security maintained in degraded mode (e.g. emergency access controls), and produces dated test evidence with results against targets and actions for gaps.",
+     "probes": [
+      "Which critical system last failed a recovery test, and what did you fix?",
+      "Could you run securely for a week from your DR site \u2014 how do you know?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "iso27001-p3-q08",
+     "controlRef": "A.6.1\u2013A.6.2 Screening and terms & conditions of employment",
+     "question": "What background screening do you perform before hiring, how does it scale with role sensitivity, and where do security obligations appear in employment contracts?",
+     "whyItMatters": "Insider risk starts at hiring. Screening proportionate to role sensitivity and contractual security duties are the baseline people controls every certification audit samples.",
+     "interviewees": [
+      "HR Manager",
+      "CISO"
+     ],
+     "evidence": [
+      "Screening procedure and completed screening records (per legal limits)",
+      "Employment contract template with security clauses",
+      "Job descriptions including security responsibilities",
+      "Records of screening exceptions and approvals"
+     ],
+     "guidance": "A GOOD answer shows defined screening levels by role sensitivity, consistent application with records, contract clauses covering confidentiality, acceptable use and post-employment duties, and lawful handling of screening data.",
+     "probes": [
+      "Show me screening evidence for a recent hire into a privileged IT role.",
+      "What do you do when screening reveals a concern?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "iso27001-p3-q09",
+     "controlRef": "A.6.3 Information security awareness, education and training",
+     "question": "Describe your security awareness program: onboarding training, annual refreshers, role-specific training, and phishing exercises. What are your completion and failure metrics telling you?",
+     "whyItMatters": "People remain the dominant attack vector. Auditors test whether awareness is measured and effective, not merely offered.",
+     "interviewees": [
+      "HR Manager",
+      "CISO",
+      "End Users"
+     ],
+     "evidence": [
+      "Training content and completion records",
+      "Phishing simulation results and trend",
+      "Role-specific training for privileged/dev roles",
+      "Acknowledgement of key policies"
+     ],
+     "guidance": "A GOOD answer shows near-100% completion with consequences for non-completion, improving phishing metrics, targeted training for high-risk roles, and end users interviewed who can recall core rules (reporting incidents, handling data, passwords).",
+     "probes": [
+      "Ask an end user how they report a suspicious email \u2014 do they know?",
+      "What happens to repeat phishing-clickers?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "iso27001-p3-q10",
+     "controlRef": "A.6.4\u2013A.6.5 Disciplinary process and post-employment responsibilities",
+     "question": "What happens when someone deliberately violates security policy, and how are security responsibilities communicated and enforced when people leave or change roles?",
+     "whyItMatters": "Without a credible disciplinary process policies carry no weight; without enforced post-employment duties, departing staff walk out with data.",
+     "interviewees": [
+      "HR Manager",
+      "CISO",
+      "Legal Counsel"
+     ],
+     "evidence": [
+      "Disciplinary procedure covering security violations",
+      "Anonymized examples of enforcement",
+      "Leaver process checklist including confidentiality reminders",
+      "Exit interview or sign-off records"
+     ],
+     "guidance": "A GOOD answer shows a formal graduated disciplinary process that has actually been used, leaver processes that re-communicate ongoing confidentiality obligations, and evidence access/assets are recovered at exit.",
+     "probes": [
+      "Has anyone been disciplined for a security violation \u2014 what was the outcome?",
+      "What prevents a departing salesperson keeping the customer list?"
+     ],
+     "weight": 1
+    },
+    {
+     "id": "iso27001-p3-q11",
+     "controlRef": "A.6.6 Confidentiality and non-disclosure agreements",
+     "question": "Where do confidentiality obligations live for employees and third parties, how are NDAs kept current with roles and risks, and can you show signed coverage for a sample of staff and contractors?",
+     "whyItMatters": "NDAs are the legal backstop for information protection. Unsigned or outdated agreements \u2014 especially for contractors \u2014 are a frequent and easily avoided finding.",
+     "interviewees": [
+      "HR Manager",
+      "Legal Counsel",
+      "Procurement/Vendor Manager"
+     ],
+     "evidence": [
+      "NDA/confidentiality agreement templates",
+      "Signed agreement register or HR file samples",
+      "Third-party NDA records",
+      "Review records showing templates updated for legal changes"
+     ],
+     "guidance": "A GOOD answer shows confidentiality clauses in all employment contracts plus NDAs for third parties before information access, a register proving coverage, periodic template review, and 100% coverage on the auditor's sample.",
+     "probes": [
+      "Show me NDAs for the last three contractors given system access.",
+      "Do NDAs cover post-termination obligations \u2014 show me the clause."
+     ],
+     "weight": 1
+    },
+    {
+     "id": "iso27001-p3-q12",
+     "controlRef": "A.6.7\u2013A.6.8 Remote working and information security event reporting",
+     "question": "What controls protect remote and hybrid working, and how do personnel \u2014 including remote staff \u2014 actually report security events and weaknesses? Show me reporting channels and volumes.",
+     "whyItMatters": "Remote work dissolved the perimeter, making home-network and device controls critical; an unused or distrusted reporting channel means incidents stay invisible until they escalate.",
+     "interviewees": [
+      "CISO",
+      "IT Manager",
+      "HR Manager",
+      "End Users"
+     ],
+     "evidence": [
+      "Remote working policy and technical standards (VPN, MDM, home network guidance)",
+      "Event reporting channel definition",
+      "Report volumes/trend",
+      "Examples of user-reported events and their handling"
+     ],
+     "guidance": "A GOOD answer shows defined remote-work security requirements enforced technically, an easy well-publicized reporting channel (button, mailbox, hotline), real reporting volume (zero reports is a red flag), and feedback to reporters.",
+     "probes": [
+      "What stops an employee using an unmanaged personal laptop for work?",
+      "When did a user report last prevent or shorten an incident?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "iso27001-p3-q13",
+     "controlRef": "A.7.1\u2013A.7.2 Physical security perimeters and physical entry",
+     "question": "Walk me through the physical security of this site: perimeter protection, entry controls, and visitor handling. Then show me the entry log for last week and how access badges are issued and revoked.",
+     "whyItMatters": "Physical access defeats most technical controls. Auditors walk the site because badge-tailgating, propped doors and unlogged visitors are discovered by observation, not paperwork.",
+     "interviewees": [
+      "Facilities Manager",
+      "IT Manager",
+      "CISO"
+     ],
+     "evidence": [
+      "Physical security policy",
+      "Badge system configuration and access logs",
+      "Visitor register and escort records",
+      "Badge issuance/revocation records tied to HR events"
+     ],
+     "guidance": "A GOOD answer shows defined security zones with entry controls proportionate to sensitivity, working badge systems with anti-tailgating measures where needed, visitor identity checks and escorting, and badge rights revoked promptly at termination.",
+     "probes": [
+      "Whose badge opened the server room door at 22:00 last Tuesday?",
+      "Show me a terminated employee's badge deactivation timestamp."
+     ],
+     "weight": 2
+    },
+    {
+     "id": "iso27001-p3-q14",
+     "controlRef": "A.7.3\u2013A.7.4 Securing offices, rooms and facilities; physical security monitoring",
+     "question": "How are sensitive areas (server/comms rooms, records storage) protected and monitored, and how would you detect and respond to unauthorized physical access out of hours?",
+     "whyItMatters": "Unmonitored sensitive rooms allow undetected tampering. Monitoring (CCTV, alarms, guards) must exist, work, and be reviewed \u2014 broken cameras discovered during an incident are worthless.",
+     "interviewees": [
+      "Facilities Manager",
+      "IT Manager",
+      "Security Engineer"
+     ],
+     "evidence": [
+      "Zone/room security design",
+      "CCTV and alarm system status and retention settings",
+      "Alarm/incident response records",
+      "Camera coverage map"
+     ],
+     "guidance": "A GOOD answer demonstrates restricted rooms with individual accountability for entry, monitored CCTV/alarms with defined retention, periodic checks that monitoring actually works, and documented response to physical alerts.",
+     "probes": [
+      "When did you last test the intruder alarm and review CCTV footage \u2014 show me.",
+      "Who gets alerted if the comms room door opens at night?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "iso27001-p3-q15",
+     "controlRef": "A.7.5\u2013A.7.6 Protection against physical/environmental threats and working in secure areas",
+     "question": "How are your facilities protected against fire, flood, power and environmental threats, and what special rules apply to working in secure areas like the server room?",
+     "whyItMatters": "Environmental events cause availability loss as surely as attackers. Secure-area rules prevent exactly the casual behaviors (propped doors, unattended work, photography) that lead to compromise.",
+     "interviewees": [
+      "Facilities Manager",
+      "IT Manager",
+      "IT Ops"
+     ],
+     "evidence": [
+      "Fire suppression and detection service records",
+      "Environmental monitoring (temperature, water) alerts",
+      "UPS/generator test records",
+      "Secure area working rules"
+     ],
+     "guidance": "A GOOD answer shows maintained detection/suppression systems with service records, environmental monitoring with alerting, tested backup power, and documented secure-area rules (no unattended entry, no removable media/photography where justified) that match observed practice.",
+     "probes": [
+      "When was the fire suppression in the server room last serviced?",
+      "What environmental alert fired last, and who responded?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "iso27001-p3-q16",
+     "controlRef": "A.7.7 Clear desk and clear screen",
+     "question": "What do your clear desk and clear screen rules require, and are they actually followed? Walk me through this office floor and point out compliance \u2014 and the last time someone checked.",
+     "whyItMatters": "Exposed documents and unlocked screens are trivially exploited by visitors, cleaners and malicious insiders. This control is verified by walking around, not by reading the policy.",
+     "interviewees": [
+      "End Users",
+      "Facilities Manager",
+      "CISO",
+      "HR Manager"
+     ],
+     "evidence": [
+      "Clear desk/clear screen policy",
+      "Floor-walk or inspection records",
+      "Automatic screen-lock configuration",
+      "Observations from the audit walkthrough itself"
+     ],
+     "guidance": "A GOOD answer shows an enforced policy with auto screen-lock (e.g. <=15 minutes), secure storage for sensitive papers, printer safeguards, periodic spot checks with findings, and an office walkthrough that substantially matches the policy.",
+     "probes": [
+      "Count unlocked screens on this floor right now \u2014 what does that tell us?",
+      "What happens to documents left on the shared printer?"
+     ],
+     "weight": 1
+    },
+    {
+     "id": "iso27001-p3-q17",
+     "controlRef": "A.7.8\u2013A.7.9 Equipment siting/protection and security of assets off-premises",
+     "question": "How is equipment sited to minimize environmental and access risks, and how do you protect organization assets \u2014 laptops, phones, removable drives \u2014 when they are off-premises?",
+     "whyItMatters": "Most organizational information now lives on devices outside the perimeter. Lost unencrypted laptops remain a leading reportable breach cause.",
+     "interviewees": [
+      "IT Manager",
+      "IT Ops",
+      "End Users",
+      "Facilities Manager"
+     ],
+     "evidence": [
+      "Equipment placement documentation",
+      "Encryption status reports for endpoints (MDM)",
+      "Off-premises asset policy",
+      "Lost/stolen device handling records"
+     ],
+     "guidance": "A GOOD answer shows sensible siting (protected power/network points, no critical kit in public areas) plus enforced full-disk encryption, remote lock/wipe capability, secure transport rules, and a working lost-device process with evidence of past use.",
+     "probes": [
+      "Show me MDM proof that all laptops are encrypted.",
+      "Walk me through what happened the last time a phone was lost."
+     ],
+     "weight": 2
+    },
+    {
+     "id": "iso27001-p3-q18",
+     "controlRef": "A.7.10 Storage media",
+     "question": "How do you manage removable and storage media through its life: authorization for use, encryption, handling, and chain of custody for media containing sensitive information?",
+     "whyItMatters": "Uncontrolled USB media is a classic malware and exfiltration vector, and forgotten backup tapes or drives routinely surface in breaches.",
+     "interviewees": [
+      "IT Manager",
+      "IT Ops",
+      "CISO"
+     ],
+     "evidence": [
+      "Removable media policy",
+      "Endpoint control configuration (USB restrictions)",
+      "Media register for sensitive holdings",
+      "Encryption evidence for authorized media"
+     ],
+     "guidance": "A GOOD answer shows removable media either technically blocked or restricted to approved encrypted devices, sensitive media registered and tracked, and handling rules (storage, transport) consistent with classification.",
+     "probes": [
+      "Plug an unknown USB stick into a workstation \u2014 what happens?",
+      "Where are the old backup tapes and who can list them?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "iso27001-p3-q19",
+     "controlRef": "A.7.11\u2013A.7.12 Supporting utilities and cabling security",
+     "question": "How are supporting utilities (power, HVAC) made resilient for critical equipment, and how is power/data cabling protected from damage and interception?",
+     "whyItMatters": "Utility and cabling failures cause outages; exposed cabling in shared spaces invites tapping. Auditors check these unglamorous controls because failures here are severe and quiet.",
+     "interviewees": [
+      "Facilities Manager",
+      "IT Manager",
+      "IT Ops"
+     ],
+     "evidence": [
+      "UPS/generator capacity and test records",
+      "HVAC maintenance contracts and records",
+      "Cabling standards and inspection records",
+      "Comms room cabling walkthrough observations"
+     ],
+     "guidance": "A GOOD answer shows UPS/generator with tested failover, maintained HVAC with environmental alerting, segregated and protected cable runs (separate power/data, protected in public areas), and tidy labeled comms rooms on inspection.",
+     "probes": [
+      "When did the generator last carry load, and what was the result?",
+      "Is any network cabling reachable in public or shared-tenant areas?"
+     ],
+     "weight": 1
+    },
+    {
+     "id": "iso27001-p3-q20",
+     "controlRef": "A.7.13\u2013A.7.14 Equipment maintenance and secure disposal or re-use",
+     "question": "How is equipment maintained per vendor schedule with controlled access for maintainers, and how do you sanitize or destroy equipment and media before disposal or reuse? Show me disposal records.",
+     "whyItMatters": "Data recovered from disposed drives is a perennial breach source, and uncontrolled third-party maintenance access bypasses your access controls entirely.",
+     "interviewees": [
+      "IT Manager",
+      "IT Ops",
+      "Facilities Manager"
+     ],
+     "evidence": [
+      "Maintenance logs and contracts",
+      "Third-party maintainer access records",
+      "Disposal/sanitization certificates (wiping, shredding, degaussing)",
+      "Asset disposal register tied to inventory"
+     ],
+     "guidance": "A GOOD answer shows scheduled maintenance with supervised/controlled maintainer access, a disposal process requiring certified sanitization before any asset leaves, certificates on file, and the asset inventory updated accordingly.",
+     "probes": [
+      "Show me certificates for the last batch of disposed laptops.",
+      "Could a maintenance engineer access the server room alone?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "iso27001-p3-q21",
+     "controlRef": "A.8.1 User endpoint devices",
+     "question": "What security standards are enforced on user endpoint devices (laptops, desktops, mobiles), how is compliance verified centrally, and what happens to a non-compliant device?",
+     "whyItMatters": "Endpoints are where users and attackers meet. Unmanaged or drifting endpoint configuration is the entry point for most intrusions.",
+     "interviewees": [
+      "IT Manager",
+      "IT Ops",
+      "Security Engineer"
+     ],
+     "evidence": [
+      "Endpoint security baseline/hardening standard",
+      "MDM/EDR console compliance view",
+      "Encryption and patch compliance reports",
+      "Non-compliance handling examples"
+     ],
+     "guidance": "A GOOD answer shows a defined baseline (encryption, EDR, screen lock, patch level, no local admin) enforced and reported via central tooling, with non-compliant devices blocked or remediated on evidence.",
+     "probes": [
+      "Show me the current percentage of endpoints meeting baseline.",
+      "Can a user disable the EDR agent on their laptop?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "iso27001-p3-q22",
+     "controlRef": "A.8.2\u2013A.8.3 Privileged access rights and information access restriction",
+     "question": "Who holds privileged access across your infrastructure, how is it allocated and reviewed, and how do application/system access restrictions enforce need-to-know for ordinary users?",
+     "whyItMatters": "Compromised admin credentials drive the worst breaches. Excess privilege and broad access rights are among the highest-impact findings an audit can raise.",
+     "interviewees": [
+      "IT Manager",
+      "IT Ops",
+      "Security Engineer",
+      "CISO"
+     ],
+     "evidence": [
+      "Privileged account inventory",
+      "PAM tool configuration/session records",
+      "Privileged access review records",
+      "Role-based access matrices for key applications"
+     ],
+     "guidance": "A GOOD answer shows a complete privileged account inventory (no shared generic admins in daily use), just-in-time or vaulted credentials where feasible, MFA on admin access, periodic review evidence, and application access aligned to documented role matrices.",
+     "probes": [
+      "List all Domain Admins \u2014 is every one justified?",
+      "How are admin sessions recorded or monitored?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "iso27001-p3-q23",
+     "controlRef": "A.8.4\u2013A.8.5 Access to source code and secure authentication",
+     "question": "Who can read and modify your source code and how is that access controlled, and what authentication standards (MFA, password rules, credential protection) apply across systems and users?",
+     "whyItMatters": "Source code tampering enables supply-chain compromise; weak authentication defeats every other control. Both are core technological controls tested in every audit.",
+     "interviewees": [
+      "Software/Dev Lead",
+      "IT Manager",
+      "Security Engineer"
+     ],
+     "evidence": [
+      "Repository access lists and branch protection settings",
+      "Commit review/approval configuration",
+      "MFA coverage reports",
+      "Password/authentication policy and IdP configuration"
+     ],
+     "guidance": "A GOOD answer shows least-privilege repo access with enforced review before merge, audit trails on code changes, MFA enforced for all users (and admins especially), strong credential storage, and no exceptions without documented risk acceptance.",
+     "probes": [
+      "Can a developer push directly to main without review? Show me the setting.",
+      "Show me MFA coverage \u2014 who is excluded and why?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "iso27001-p3-q24",
+     "controlRef": "A.8.6\u2013A.8.7 Capacity management and protection against malware",
+     "question": "How do you monitor capacity so availability targets are not silently breached, and what layered malware defenses protect endpoints, servers, email and web traffic \u2014 with what evidence they work?",
+     "whyItMatters": "Capacity exhaustion causes self-inflicted outages; malware remains the top external threat. Both controls require operating evidence \u2014 dashboards and detections \u2014 not just installed products.",
+     "interviewees": [
+      "IT Ops",
+      "IT Manager",
+      "Security Engineer"
+     ],
+     "evidence": [
+      "Capacity monitoring dashboards and forecasts",
+      "AV/EDR deployment and alert records",
+      "Email/web filtering statistics",
+      "Examples of malware detections and response"
+     ],
+     "guidance": "A GOOD answer shows capacity trends reviewed with headroom actions, anti-malware deployed across all entry points with central alerting, update health monitored, and real detection/response examples demonstrating the stack works.",
+     "probes": [
+      "Show me the last malware detection and how it was handled.",
+      "Which system is closest to capacity limits and what is the plan?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "iso27001-p3-q25",
+     "controlRef": "A.8.8 Management of technical vulnerabilities",
+     "question": "Walk me through vulnerability management: how you discover vulnerabilities (scanning cadence, scope), how they are risk-rated and prioritized, remediation SLAs per severity, and current performance against those SLAs.",
+     "whyItMatters": "Unpatched known vulnerabilities cause the majority of exploited breaches. Auditors test the full loop \u2014 discovery to verified remediation \u2014 because scan reports without action are decoration.",
+     "interviewees": [
+      "Security Engineer",
+      "IT Manager",
+      "IT Ops"
+     ],
+     "evidence": [
+      "Vulnerability scan reports (last 3 cycles)",
+      "Remediation SLA policy",
+      "Ticket records for remediated vulnerabilities",
+      "Exception/risk-acceptance register for deferred fixes"
+     ],
+     "guidance": "A GOOD answer shows authenticated scans covering the whole estate at defined frequency, risk-based prioritization, SLAs actually met (e.g. critical in 14 days) with metrics, formal exceptions for deferred items, and re-scan verification of fixes.",
+     "probes": [
+      "How many critical vulnerabilities are currently past SLA \u2014 and why?",
+      "Show me a vulnerability found, fixed and verified closed end-to-end."
+     ],
+     "weight": 3
+    },
+    {
+     "id": "iso27001-p3-q26",
+     "controlRef": "A.8.9\u2013A.8.12 Configuration management, information deletion, data masking, data leakage prevention",
+     "question": "How are secure configurations defined and enforced across systems, how is information securely deleted when no longer required, and how do masking and leakage-prevention controls stop sensitive data escaping?",
+     "whyItMatters": "Configuration drift quietly re-opens holes; retained data beyond need expands breach impact; without masking/DLP, sensitive data leaks through test systems and careless channels.",
+     "interviewees": [
+      "IT Manager",
+      "Security Engineer",
+      "Software/Dev Lead",
+      "IT Ops"
+     ],
+     "evidence": [
+      "Hardening baselines/benchmarks and compliance scan results",
+      "Data retention and deletion procedure with deletion logs",
+      "Masking in non-production environments (evidence)",
+      "DLP rules and incident/alert records"
+     ],
+     "guidance": "A GOOD answer shows documented baselines (e.g. CIS) with automated compliance checking, deletion tied to the retention schedule with verifiable destruction, masked or synthetic data outside production, and DLP coverage proportionate to the data's sensitivity with real alert handling.",
+     "probes": [
+      "Show me last quarter's configuration compliance trend.",
+      "Pull a customer record from the test database \u2014 is it masked?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "iso27001-p3-q27",
+     "controlRef": "A.8.13\u2013A.8.14 Information backup and redundancy of information processing facilities",
+     "question": "What is backed up, how often, where is it stored (including offline/immutable copies against ransomware), when did you last restore-test critical data, and which systems have redundancy meeting their availability requirements?",
+     "whyItMatters": "Backups that cannot be restored and redundancy never tested are discovered at the worst possible moment. Restore-test evidence is a mandatory audit checkpoint.",
+     "interviewees": [
+      "IT Ops",
+      "IT Manager"
+     ],
+     "evidence": [
+      "Backup policy/schedule and job success logs",
+      "Offline/immutable copy evidence",
+      "Restore test records with timings vs RPO/RTO",
+      "Redundancy architecture and failover test records"
+     ],
+     "guidance": "A GOOD answer shows backup scope aligned to the BIA, monitored job success with failure handling, protected offline/immutable copies, dated restore tests meeting recovery targets, and redundancy (clustering, replication) demonstrated by test or incident evidence.",
+     "probes": [
+      "Restore one file from a month ago, now \u2014 how long does it take?",
+      "When did a failover last happen, planned or unplanned, and what did you learn?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "iso27001-p3-q28",
+     "controlRef": "A.8.15\u2013A.8.17 Logging, monitoring activities, and clock synchronization",
+     "question": "What do you log across systems and networks, where do logs go, who reviews alerts and how quickly, and how do you guarantee accurate, synchronized timestamps for correlation?",
+     "whyItMatters": "Without trustworthy, reviewed logs, attacks run for months undetected and investigations become impossible. Auditors test that logging leads to actual detection and response.",
+     "interviewees": [
+      "Security Engineer",
+      "IT Ops",
+      "IT Manager"
+     ],
+     "evidence": [
+      "Logging standard (what is logged, retention)",
+      "SIEM/log platform scope and rules",
+      "Alert handling records and response times",
+      "NTP configuration across estate",
+      "Log access/integrity protections"
+     ],
+     "guidance": "A GOOD answer shows defined logging scope (security events, admin actions, access to sensitive data), centralized tamper-protected storage with retention, monitored alerts with triage evidence and response SLAs, and estate-wide time sync verified by configuration.",
+     "probes": [
+      "Show me a security alert from last month and trace how it was handled.",
+      "Are domain controllers, servers and network devices all on the same time source?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "iso27001-p3-q29",
+     "controlRef": "A.8.18\u2013A.8.19 Privileged utility programs and installation of software on operational systems",
+     "question": "How do you control powerful utilities and tools that can bypass security, and who is allowed to install software on production systems and user endpoints \u2014 how is that enforced?",
+     "whyItMatters": "Admin utilities and unrestricted software installation are favored attacker tools (living-off-the-land, trojanized software). Tight control here sharply reduces both.",
+     "interviewees": [
+      "IT Manager",
+      "IT Ops",
+      "Security Engineer"
+     ],
+     "evidence": [
+      "Inventory/authorization of privileged utilities",
+      "Application allow-listing or restriction configuration",
+      "Software installation approval workflow",
+      "Endpoint admin rights review"
+     ],
+     "guidance": "A GOOD answer shows privileged utilities restricted to named accounts with usage logged, users lacking local admin by default, software installed only via approved catalog/request process, and technical enforcement (allow-listing or equivalent) demonstrated.",
+     "probes": [
+      "Can a standard user install unapproved software \u2014 try to prove it.",
+      "Who can run network sniffing or credential tools, and is that logged?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "iso27001-p3-q30",
+     "controlRef": "A.8.20\u2013A.8.23 Network security, security of network services, segregation of networks, and web filtering",
+     "question": "How are your networks secured and segregated (perimeter, internal zones, guest/IoT/OT separation), how are network services managed securely, and how is outbound web access filtered?",
+     "whyItMatters": "Flat networks let a single compromise become total compromise. Segregation, managed network services and filtering are the architectural controls auditors verify by config review.",
+     "interviewees": [
+      "IT Manager",
+      "Security Engineer",
+      "IT Ops"
+     ],
+     "evidence": [
+      "Network architecture diagrams",
+      "Firewall rule sets and last rule review",
+      "VLAN/segmentation configuration",
+      "Web filtering policy and block logs",
+      "Network service agreements (SLAs, security clauses)"
+     ],
+     "guidance": "A GOOD answer shows documented zones with justified firewall rules reviewed periodically, guest/IoT separated from corporate, secure management of network devices, filtering enforced with exception handling, and network service providers bound by security requirements.",
+     "probes": [
+      "Can the guest Wi-Fi reach the file servers \u2014 show me the rules.",
+      "When were firewall rules last reviewed and how many stale rules were removed?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "iso27001-p3-q31",
+     "controlRef": "A.8.24 Use of cryptography",
+     "question": "Where is cryptography used (data at rest, in transit, key exchange), what standards and algorithms are approved, and how are cryptographic keys generated, stored, rotated and retired?",
+     "whyItMatters": "Cryptography done wrong (obsolete algorithms, hardcoded keys, no key management) gives false assurance. Auditors check the policy-to-practice chain, including key lifecycle.",
+     "interviewees": [
+      "CISO",
+      "Security Engineer",
+      "Software/Dev Lead",
+      "IT Manager"
+     ],
+     "evidence": [
+      "Cryptographic policy/standard (approved algorithms, key lengths)",
+      "TLS configuration scan results",
+      "Key management procedure (generation, storage, rotation, destruction)",
+      "Certificate inventory and expiry management"
+     ],
+     "guidance": "A GOOD answer shows a documented cryptographic standard aligned to current guidance (no SSLv3/TLS1.0, no weak ciphers), encryption coverage matching data classification, keys protected (HSM/KMS or equivalent), rotation performed, and certificate expiry proactively managed.",
+     "probes": [
+      "Show me where encryption keys for the database are stored and who can access them.",
+      "Run a TLS scan on your public services \u2014 any weak protocols?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "iso27001-p3-q32",
+     "controlRef": "A.8.25\u2013A.8.27 Secure development life cycle, application security requirements, and secure system architecture",
+     "question": "Describe your secure development lifecycle: where security requirements are defined for new systems, what architecture and engineering principles you follow, and show me one project where these gates were actually applied.",
+     "whyItMatters": "Retrofitting security costs multiples of building it in. Auditors verify that secure development is a defined process with stage gates, not developer goodwill.",
+     "interviewees": [
+      "Software/Dev Lead",
+      "CISO",
+      "Security Engineer"
+     ],
+     "evidence": [
+      "SDLC policy with security stages",
+      "Security requirements in a recent project's specs",
+      "Architecture review records",
+      "Threat modelling artifacts for a critical application"
+     ],
+     "guidance": "A GOOD answer shows security requirements captured at specification, architecture principles (least privilege, defense in depth, secure defaults) documented and applied, threat modelling or design review for significant systems, and one evidenced project walk-through.",
+     "probes": [
+      "Show me the threat model for your most critical application.",
+      "What security requirement was rejected on a recent project, and who approved the risk?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "iso27001-p3-q33",
+     "controlRef": "A.8.28\u2013A.8.30 Secure coding, security testing in development and acceptance, and outsourced development",
+     "question": "What secure coding standards do developers follow, how is code tested for security before release (SAST/DAST/pen-testing), and how do you control security when development is outsourced?",
+     "whyItMatters": "Application vulnerabilities are a top external attack surface. Auditors sample pipeline evidence because 'we test before release' claims often dissolve under scrutiny.",
+     "interviewees": [
+      "Software/Dev Lead",
+      "Security Engineer"
+     ],
+     "evidence": [
+      "Secure coding standard/guidelines",
+      "Pipeline security scan results (SAST/DAST/dependency scanning)",
+      "Penetration test reports and remediation tracking",
+      "Outsourced development contracts with security requirements and acceptance criteria"
+     ],
+     "guidance": "A GOOD answer shows adopted coding standards with developer training, automated security testing in CI/CD with release gates for critical findings, periodic penetration tests with tracked remediation, and contractual security obligations plus verification for outsourced development.",
+     "probes": [
+      "Show me a build that failed the security gate \u2014 what happened next?",
+      "How do you verify code quality from your outsourced developers?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "iso27001-p3-q34",
+     "controlRef": "A.8.31\u2013A.8.34 Separation of development/test/production, change management, test information, and protection during audit testing",
+     "question": "How are development, test and production environments separated, how are changes approved and deployed with rollback, what data is used in test, and how are audit or testing activities prevented from harming production?",
+     "whyItMatters": "Uncontrolled change and production data in test cause outages and breaches; auditors also check that their own testing activities are governed \u2014 a control unique to this area.",
+     "interviewees": [
+      "Software/Dev Lead",
+      "IT Manager",
+      "IT Ops"
+     ],
+     "evidence": [
+      "Environment separation (accounts, networks, access lists)",
+      "Change management records with approvals and rollback plans",
+      "Emergency change procedure and examples",
+      "Test data management approach (masked/synthetic)",
+      "Rules for audit/testing in production"
+     ],
+     "guidance": "A GOOD answer shows developers lacking standing production access, enforced change workflow (approval, testing, rollback, post-implementation review) with emergency change control, masked or synthetic test data only, and defined rules for running scans/tests against live systems.",
+     "probes": [
+      "Show me last month's changes \u2014 which were emergency and were they ratified after?",
+      "Whose production data, if any, sits in the test environment?"
+     ],
+     "weight": 3
+    }
+   ]
+  },
+  {
+   "id": "phase-4",
+   "name": "Phase 4 \u2014 Operating Effectiveness, Monitoring & Internal Audit (Clauses 9\u201310)",
+   "objective": "Test that controls have operated effectively over time, that performance is monitored and measured, that the internal audit and management review cycles run as required, and that nonconformities trigger genuine corrective action.",
+   "questions": [
+    {
+     "id": "iso27001-p4-q01",
+     "controlRef": "Clause 9.1 Monitoring, measurement, analysis and evaluation",
+     "question": "What do you monitor and measure to know the ISMS is working \u2014 which metrics exist, how are they produced, and what decisions did last quarter's measurements drive?",
+     "whyItMatters": "Clause 9.1 demands evaluated results, not collected numbers. Metrics that no one analyzes cannot demonstrate effectiveness and signal a decorative ISMS.",
+     "interviewees": [
+      "CISO",
+      "IT Manager",
+      "Risk Manager"
+     ],
+     "evidence": [
+      "ISMS metrics/KPI definitions",
+      "Periodic measurement reports",
+      "Management or committee minutes discussing results",
+      "Actions traced to metric trends"
+     ],
+     "guidance": "A GOOD answer shows defined metrics with method, frequency and owner, regular analysis (not just dashboards), and at least one concrete decision or control change traced to what the measurements showed.",
+     "probes": [
+      "Which metric moved the wrong way recently and what did you do?",
+      "Who looks at these numbers between audits?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "iso27001-p4-q02",
+     "controlRef": "Clause 9.1 / A.5.36 Effectiveness of control operation",
+     "question": "Pick three SoA controls you claim are operating effectively. For each, show me the operational evidence from the last six months that proves it \u2014 not the policy, the records.",
+     "whyItMatters": "Certification hinges on operating effectiveness. Auditors sample records (reviews, tickets, logs) because well-written policies frequently describe controls that nobody runs.",
+     "interviewees": [
+      "CISO",
+      "IT Manager",
+      "IT Ops",
+      "Internal Auditor"
+     ],
+     "evidence": [
+      "Access review sign-offs",
+      "Incident tickets with timelines",
+      "Patch/scan compliance history",
+      "Training completion reports",
+      "Supplier review records"
+     ],
+     "guidance": "A GOOD answer produces time-stamped operational records for the sampled controls covering the full period without gaps; gaps are explained honestly and tied to corrective action rather than excuses.",
+     "probes": [
+      "Show me the access review for March \u2014 not the procedure, the completed review.",
+      "Where in these records did the control fail, and what happened then?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "iso27001-p4-q03",
+     "controlRef": "Clause 9.2 Internal audit \u2014 programme",
+     "question": "Show me your internal audit programme: does it cover all ISMS requirements and SoA controls over a defined cycle, how are audits prioritized by risk, and is the programme actually on schedule?",
+     "whyItMatters": "A missing, incomplete or overdue internal audit programme is one of the most common major nonconformities at certification \u2014 Clause 9.2 is a hard requirement.",
+     "interviewees": [
+      "Internal Auditor",
+      "CISO",
+      "Compliance Officer"
+     ],
+     "evidence": [
+      "Multi-year internal audit programme/schedule",
+      "Completed audit plans and reports",
+      "Coverage matrix of clauses and controls vs audits performed",
+      "Records showing schedule adherence"
+     ],
+     "guidance": "A GOOD answer shows a risk-based programme covering all Clauses and applicable controls across a defined cycle, audits performed on schedule with documented scope and criteria, and results fed to management review.",
+     "probes": [
+      "Which areas were audited in the last cycle and which were skipped \u2014 why?",
+      "What changed in the programme after last year's results?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "iso27001-p4-q04",
+     "controlRef": "Clause 9.2 Internal audit \u2014 auditor independence and competence",
+     "question": "Who performs your internal ISMS audits, how do you ensure they are competent and do not audit their own work, and can I see evidence of both?",
+     "whyItMatters": "Self-audited ISMS areas produce unreliable assurance. Certification bodies probe auditor objectivity and competence specifically because it is so often weak.",
+     "interviewees": [
+      "Internal Auditor",
+      "CISO",
+      "HR Manager"
+     ],
+     "evidence": [
+      "Internal auditor qualifications/training records",
+      "Audit assignments showing separation from audited areas",
+      "Outsourced audit agreements if applicable",
+      "Audit working papers showing rigor"
+     ],
+     "guidance": "A GOOD answer shows trained auditors (internal course, external training or experience), assignment rules preventing self-review, and working papers demonstrating real testing rather than checklist box-ticking.",
+     "probes": [
+      "Has the internal auditor ever audited a process they own?",
+      "What training qualifies them to audit technical controls?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "iso27001-p4-q05",
+     "controlRef": "Clause 9.2 / 10.2 Follow-up on internal audit findings",
+     "question": "Take the findings from your last two internal audits: how were they recorded, who owned the corrections, and what proof exists that corrective actions were completed and effective?",
+     "whyItMatters": "Findings without verified closure mean the internal audit is theater. Repeat findings across cycles are a red flag certification auditors actively hunt for.",
+     "interviewees": [
+      "Internal Auditor",
+      "CISO",
+      "IT Manager"
+     ],
+     "evidence": [
+      "Internal audit findings register",
+      "Corrective action records with owners and due dates",
+      "Verification evidence for closed actions",
+      "Trend of repeat findings"
+     ],
+     "guidance": "A GOOD answer shows findings logged with root cause, owned corrective actions, closure verified by someone other than the action owner, and no unexplained repeat findings from cycle to cycle.",
+     "probes": [
+      "Which finding took longest to close and why?",
+      "Show me a finding that recurred \u2014 what was done differently the second time?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "iso27001-p4-q06",
+     "controlRef": "Clause 9.3 Management review \u2014 inputs",
+     "question": "Show me the minutes of your last management review. Does it cover every required input \u2014 prior actions, context changes, performance, nonconformities, audit results, risk status, improvement opportunities?",
+     "whyItMatters": "Management review with missing mandatory inputs is a frequent Stage 2 finding and indicates leadership is not genuinely steering the ISMS.",
+     "interviewees": [
+      "Top Management/CEO",
+      "CISO",
+      "Risk Manager"
+     ],
+     "evidence": [
+      "Management review minutes and attendance",
+      "Agenda mapped to Clause 9.3 inputs",
+      "Supporting packs (metrics, audit results, risk status)",
+      "Previous review action tracking"
+     ],
+     "guidance": "A GOOD answer shows reviews at planned intervals with top management present, an agenda demonstrably covering all Clause 9.3 inputs (including feedback from interested parties and risk assessment results), and tracked follow-through on prior actions.",
+     "probes": [
+      "Which required input was hardest to assemble, and is the evidence in the pack?",
+      "Did the review actually happen on schedule \u2014 show me the calendar."
+     ],
+     "weight": 3
+    },
+    {
+     "id": "iso27001-p4-q07",
+     "controlRef": "Clause 9.3 Management review \u2014 outputs",
+     "question": "What decisions and actions came out of your last management review \u2014 resource allocations, changes to the ISMS, revised objectives \u2014 and how were they tracked to completion?",
+     "whyItMatters": "Clause 9.3 requires documented outputs with owners. A review that produces no decisions indicates management is observing the ISMS, not leading it.",
+     "interviewees": [
+      "Top Management/CEO",
+      "CISO"
+     ],
+     "evidence": [
+      "Management review output/action log",
+      "Resource or budget decisions traced to review",
+      "Updated objectives or risk treatment actions",
+      "Completion evidence for review actions"
+     ],
+     "guidance": "A GOOD answer shows concrete outputs \u2014 decisions on improvement, resource changes, scope or objective updates \u2014 each with owner and due date, and evidence the majority completed on time with escalation for stragglers.",
+     "probes": [
+      "Name one decision from the last review that changed something measurable.",
+      "Which review action is still open past its due date?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "iso27001-p4-q08",
+     "controlRef": "Clause 10.2 Nonconformity and corrective action",
+     "question": "Walk me through your nonconformity and corrective action process using a real example: how the issue was identified, root-caused, corrected, and how you verified it would not recur.",
+     "whyItMatters": "Corrective action without root-cause analysis produces recurrence. Clause 10.2 explicitly requires evaluating the need to eliminate root causes and reviewing effectiveness.",
+     "interviewees": [
+      "CISO",
+      "Compliance Officer",
+      "Internal Auditor",
+      "IT Manager"
+     ],
+     "evidence": [
+      "Nonconformity/corrective action register",
+      "Root cause analysis records (e.g. 5-Why, fishbone)",
+      "Effectiveness review evidence for closed actions",
+      "Risk register updates triggered by nonconformities"
+     ],
+     "guidance": "A GOOD answer shows a defined process applied to real cases: documented root cause (not symptom-fixing), proportional corrective action, verification of effectiveness after implementation, and consideration of whether similar risks exist elsewhere.",
+     "probes": [
+      "Show me the root cause analysis for your most significant nonconformity.",
+      "Has any closed corrective action later proven ineffective?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "iso27001-p4-q09",
+     "controlRef": "Clause 10.1 Continual improvement",
+     "question": "How has the ISMS demonstrably improved over the past year? Give me three concrete improvements and the mechanism (incident, audit, review, metrics) that drove each.",
+     "whyItMatters": "Continual improvement distinguishes a living ISMS from a certificate-maintenance exercise. Auditors look for a traceable chain from signals to change.",
+     "interviewees": [
+      "CISO",
+      "Top Management/CEO",
+      "Risk Manager"
+     ],
+     "evidence": [
+      "Improvement log or action tracker",
+      "Before/after evidence for claimed improvements",
+      "Sources: incident reviews, audit findings, management review outputs",
+      "Updated documents reflecting improvements"
+     ],
+     "guidance": "A GOOD answer names specific, evidenced improvements (a control added, a process automated, a metric improved) each traceable to an identified driver \u2014 not generic claims of 'ongoing improvement'.",
+     "probes": [
+      "What is the single biggest ISMS improvement this year and what prompted it?",
+      "Where do improvement ideas come from operationally?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "iso27001-p4-q10",
+     "controlRef": "Clause 9.1 / A.5.18 Access review operating effectiveness",
+     "question": "Show me the last two cycles of user access reviews for your most critical system: who reviewed, what they found, and how removals were actioned and verified.",
+     "whyItMatters": "Access recertification is the classic effectiveness test \u2014 frequently rubber-stamped. Auditors sample findings and removals to distinguish real reviews from mass approvals.",
+     "interviewees": [
+      "IT Manager",
+      "IT Ops",
+      "CISO"
+     ],
+     "evidence": [
+      "Completed recertification records per cycle",
+      "Reviewers' decisions including revocations",
+      "Deprovisioning tickets matching revocation decisions",
+      "Metrics on review completion rates"
+     ],
+     "guidance": "A GOOD answer shows reviews performed on schedule by managers who know the users, evidence of actual scrutiny (access removed in most cycles), removals executed and verified, and overdue reviews escalated.",
+     "probes": [
+      "In the last review, whose access was revoked and when was it actually removed?",
+      "Are any reviews currently overdue?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "iso27001-p4-q11",
+     "controlRef": "Clause 9.1 / A.5.26 / A.5.30 Incident and continuity operating effectiveness",
+     "question": "Using your incident log and continuity test records, show me that response and recovery actually performed within target: detection-to-containment times, escalation evidence, and recovery results against RTO/RPO.",
+     "whyItMatters": "Plans are design; timings are effectiveness. Auditors compare recorded performance against stated objectives to judge whether incident and continuity controls genuinely work.",
+     "interviewees": [
+      "CISO",
+      "IT Ops",
+      "IT Manager",
+      "Security Engineer"
+     ],
+     "evidence": [
+      "Incident register with timestamps and severity",
+      "Response time metrics vs targets",
+      "Tabletop/live exercise after-action reports",
+      "Restore/failover test timings vs RTO/RPO"
+     ],
+     "guidance": "A GOOD answer produces measured performance data meeting (or honestly missing) targets, exercises conducted on schedule with after-action improvements, and recovery tests demonstrating stated RTO/RPOs are achievable.",
+     "probes": [
+      "What was your slowest incident response this year and why?",
+      "Which recovery test result fell short and what changed?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "iso27001-p4-q12",
+     "controlRef": "Clause 9.1 / A.8.8 / A.8.16 Vulnerability and monitoring effectiveness",
+     "question": "Show me the operating trend for vulnerability remediation and security monitoring over the last two quarters: backlog, SLA attainment, alert volumes and how alert quality is tuned.",
+     "whyItMatters": "Growing vuln backlogs and alert fatigue are leading indicators of control decay. Trend evidence reveals effectiveness that point-in-time samples miss.",
+     "interviewees": [
+      "Security Engineer",
+      "IT Ops",
+      "CISO"
+     ],
+     "evidence": [
+      "Vulnerability backlog and SLA trend reports",
+      "SIEM alert statistics and false-positive tuning records",
+      "Use cases/detection rule change log",
+      "Escalation records for overdue remediation"
+     ],
+     "guidance": "A GOOD answer shows stable or shrinking backlogs, SLA attainment tracked by severity, evidence detection rules are tuned (false positives reduced, new use cases added), and escalation paths that are demonstrably used.",
+     "probes": [
+      "Is the critical-vuln backlog growing or shrinking \u2014 show me the trend line.",
+      "Which detection rule did you tune last and why?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "iso27001-p4-q13",
+     "controlRef": "Clause 9.1 / A.5.22 / A.6.3 Supplier and awareness effectiveness",
+     "question": "How do you know your supplier oversight and security awareness program actually worked this year \u2014 what outcome measures do you track for each, and what did they show?",
+     "whyItMatters": "These controls often run on activity (reviews held, courses assigned) rather than outcomes. Auditors push for effectiveness evidence because activity metrics can mask failure.",
+     "interviewees": [
+      "Procurement/Vendor Manager",
+      "HR Manager",
+      "CISO"
+     ],
+     "evidence": [
+      "Supplier review outcomes and issue logs",
+      "Supplier SLA/security incident records",
+      "Phishing simulation trend and repeat-clicker data",
+      "Training completion vs incidents correlation"
+     ],
+     "guidance": "A GOOD answer shows outcome evidence: supplier issues detected and resolved through oversight, phishing failure rates declining, training gaps closed with consequences \u2014 plus honest treatment of areas that did not improve.",
+     "probes": [
+      "What supplier security issue did your monitoring catch this year?",
+      "Did reported user incidents increase after awareness campaigns \u2014 is that good or bad here?"
+     ],
+     "weight": 2
+    }
+   ]
+  },
+  {
+   "id": "phase-5",
+   "name": "Phase 5 \u2014 Findings, Nonconformities & Certification Readiness",
+   "objective": "Consolidate audit evidence into graded findings, agree corrective action plans, verify the SoA matches reality, and confirm the organization is ready for (or has closed gaps ahead of) the certification body's Stage 1/Stage 2 audit.",
+   "questions": [
+    {
+     "id": "iso27001-p5-q01",
+     "controlRef": "Clause 10.2 Nonconformity and corrective action",
+     "question": "Here are my draft findings. For each, do you agree with the facts, and how would you classify it \u2014 major nonconformity, minor nonconformity, or opportunity for improvement \u2014 and why?",
+     "whyItMatters": "Accurate grading drives certification outcomes: a major nonconformity blocks certification until corrected. Both auditor and auditee must apply consistent, defensible criteria.",
+     "interviewees": [
+      "CISO",
+      "Compliance Officer",
+      "Top Management/CEO"
+     ],
+     "evidence": [
+      "Findings list with supporting evidence per finding",
+      "Grading rationale against certification body criteria",
+      "Records of disputed findings and resolution"
+     ],
+     "guidance": "A GOOD discussion reaches factual agreement first, then grades by impact: systemic failure or absent requirement = major; isolated lapse = minor; improvement suggestion = OFI. Disagreements are resolved on evidence, not negotiation.",
+     "probes": [
+      "Which finding do you dispute, and what evidence contradicts it?",
+      "Is this lapse isolated or systemic \u2014 how would we tell?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "iso27001-p5-q02",
+     "controlRef": "Clause 10.2 Corrective action planning",
+     "question": "For each accepted nonconformity, what is your corrective action plan \u2014 root cause, correction, corrective action, owner, deadline \u2014 and can it be evidenced to the certification body within their required timeline?",
+     "whyItMatters": "Certification bodies require root-cause-based corrective action plans for major findings before a certificate issues. Weak plans (symptom fixes, no root cause) are rejected and delay certification.",
+     "interviewees": [
+      "CISO",
+      "IT Manager",
+      "Compliance Officer"
+     ],
+     "evidence": [
+      "Corrective action plans per finding",
+      "Root cause analyses",
+      "Owner and deadline assignments",
+      "Implementation evidence as actions complete"
+     ],
+     "guidance": "A GOOD answer produces per-finding plans separating immediate correction from root-cause corrective action, realistic deadlines meeting the certification body's submission window, and named accountable owners.",
+     "probes": [
+      "Which action is hardest to complete in time, and what is the contingency?",
+      "How will you prove effectiveness, not just completion?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "iso27001-p5-q03",
+     "controlRef": "Clause 6.1.3 d) Statement of Applicability \u2014 final verification",
+     "question": "Before I finalize: reconcile the SoA against everything we tested. Are all applicable-controls-implemented claims accurate, are exclusion justifications still valid, and is this the version going to the certification body?",
+     "whyItMatters": "A SoA that contradicts observed practice is itself a nonconformity and erodes the certification body's trust in every other document. Final reconciliation is mandatory.",
+     "interviewees": [
+      "CISO",
+      "Compliance Officer",
+      "Internal Auditor"
+     ],
+     "evidence": [
+      "Final SoA version",
+      "Discrepancy log from audit testing",
+      "Updated justifications",
+      "Management approval of the final SoA"
+     ],
+     "guidance": "A GOOD answer shows every tested control's SoA entry matching reality, discrepancies corrected with an audit trail, exclusions re-justified against the current risk assessment, and formal approval of the version submitted.",
+     "probes": [
+      "Were any SoA entries found overstated during this audit \u2014 show me the corrections.",
+      "Who signs off the final SoA?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "iso27001-p5-q04",
+     "controlRef": "Clause 7.5 Documented information \u2014 Stage 1 readiness",
+     "question": "Is the documented-information set complete enough for a Stage 1 documentation review tomorrow: scope, policy, risk methodology, risk register, treatment plan, SoA, procedures, and mandatory records \u2014 all current and approved?",
+     "whyItMatters": "Stage 1 exists to catch documentation gaps cheaply. Incomplete mandatory documented information stops the certification process before Stage 2 begins.",
+     "interviewees": [
+      "Compliance Officer",
+      "CISO",
+      "Internal Auditor"
+     ],
+     "evidence": [
+      "Document checklist mapped to mandatory ISO 27001 documented information",
+      "Current versions with approvals",
+      "Records required by the standard (audit results, reviews, nonconformities)",
+      "Document register"
+     ],
+     "guidance": "A GOOD answer produces a gap-checked inventory of all mandatory documents and records, each current and approved, with no item 'in progress' \u2014 or an honest, dated plan to complete identified gaps before Stage 1.",
+     "probes": [
+      "Which mandatory document is oldest and due for review?",
+      "Show me the records proving the last internal audit and management review happened."
+     ],
+     "weight": 3
+    },
+    {
+     "id": "iso27001-p5-q05",
+     "controlRef": "Clause 8.2 / 8.3 / 9.1 Evidence adequacy and sampling risk",
+     "question": "Reflecting on the samples we pulled: is the operating evidence across the full audit period consistently available, and where are the thin spots a Stage 2 auditor could still expose?",
+     "whyItMatters": "Stage 2 auditors sample independently. Gaps in evidence continuity (a missed review cycle, a quarter without logs) convert design strengths into effectiveness findings.",
+     "interviewees": [
+      "CISO",
+      "IT Manager",
+      "Internal Auditor"
+     ],
+     "evidence": [
+      "Evidence inventory by control and period",
+      "Known gaps log with remediation",
+      "Self-assessment or pre-assessment results",
+      "Mock-audit findings if performed"
+     ],
+     "guidance": "A GOOD answer shows the organization knows its own weak evidence areas, has remediation or compensating explanations ready, and ideally has run a pre-assessment/mock audit whose findings are closed or in progress.",
+     "probes": [
+      "Which control has the weakest evidence trail over the full period?",
+      "If the certification auditor samples a different month, will the evidence hold?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "iso27001-p5-q06",
+     "controlRef": "Clause 10.1 / 10.2 Outstanding issues and closure timeline",
+     "question": "What is the complete list of open nonconformities and improvement actions, which ones must close before certification, and what does the closure and verification schedule look like?",
+     "whyItMatters": "Certification timelines hinge on disciplined closure of majors. An untracked or over-optimistic closure plan is the main cause of certification slippage.",
+     "interviewees": [
+      "CISO",
+      "Compliance Officer",
+      "Top Management/CEO"
+     ],
+     "evidence": [
+      "Consolidated open-items register",
+      "Closure schedule with milestones",
+      "Verification method per item",
+      "Status report to management"
+     ],
+     "guidance": "A GOOD answer shows one consolidated register of all open items (internal audit, pre-assessment, this audit), majors prioritized with verified closure dates ahead of the certification audit, and management visibility of slippage risk.",
+     "probes": [
+      "What is the critical path item for certification and is it on track?",
+      "Who verifies closure \u2014 and is it independent of the fixer?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "iso27001-p5-q07",
+     "controlRef": "Clause 5.1 / 9.3 Top management sign-off and certification decision inputs",
+     "question": "Has top management reviewed the audit results, accepted the residual risks and open items, and formally committed the resources needed for corrective actions and ongoing ISMS operation?",
+     "whyItMatters": "Certification assumes leadership owns residual risk. Without documented management acceptance and resourcing, corrective plans stall and surveillance audits find drift.",
+     "interviewees": [
+      "Top Management/CEO",
+      "CISO",
+      "CFO"
+     ],
+     "evidence": [
+      "Management review or sign-off record covering audit results",
+      "Residual risk acceptance records",
+      "Resource commitments for corrective actions",
+      "Executive communication about certification"
+     ],
+     "guidance": "A GOOD answer produces documented top-management review of the findings, explicit acceptance of residual risk and open items with rationale, and committed budget/owners for corrective actions \u2014 before the certification audit, not after.",
+     "probes": [
+      "What residual risk did management explicitly accept \u2014 show me the record.",
+      "If a corrective action needs budget, is it approved?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "iso27001-p5-q08",
+     "controlRef": "Clause 9.3 / 10.1 Surveillance and post-certification improvement",
+     "question": "After certification, how will you keep the ISMS operating through surveillance audits \u2014 what is the ongoing calendar of internal audits, reviews, risk assessments and improvement activities for the next cycle?",
+     "whyItMatters": "Many ISMSs decay between certification and first surveillance. A credible forward calendar demonstrates the system is operated for the business, not for the certificate.",
+     "interviewees": [
+      "CISO",
+      "Internal Auditor",
+      "Compliance Officer"
+     ],
+     "evidence": [
+      "Forward internal audit programme",
+      "Scheduled management reviews and risk assessments",
+      "Improvement backlog",
+      "Surveillance audit readiness approach"
+     ],
+     "guidance": "A GOOD answer shows a dated forward calendar covering internal audits, management reviews, risk re-assessment and control testing, plus a maintained improvement backlog \u2014 with owners who know they are on it.",
+     "probes": [
+      "What is the first ISMS activity due after certification, and who owns it?",
+      "How will you avoid the ISMS going quiet until the next audit approaches?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "iso27001-p5-q09",
+     "controlRef": "Clause 7.4 Communication \u2014 closing and results",
+     "question": "How will the audit results, corrective actions and certification outcome be communicated \u2014 to staff, to management, and where required to customers or regulators?",
+     "whyItMatters": "How results are shared determines whether the audit changes behavior. Silent audit outcomes waste the learning; over-claiming certification status creates legal and reputational risk.",
+     "interviewees": [
+      "CISO",
+      "Top Management/CEO",
+      "HR Manager",
+      "Compliance Officer"
+     ],
+     "evidence": [
+      "Communication plan for audit outcomes",
+      "Closing meeting minutes",
+      "Staff awareness communications",
+      "Rules for referencing certification in marketing/contracts"
+     ],
+     "guidance": "A GOOD answer shows a closing meeting held with the right stakeholders, results communicated internally at appropriate detail, accurate external claims (scope and standard version stated correctly), and lessons shared with process owners.",
+     "probes": [
+      "What will staff be told about the findings that affect their daily work?",
+      "Where does the organization publicly claim certification, and does the claim match the certified scope?"
+     ],
+     "weight": 1
+    }
+   ]
+  }
+ ]
 }

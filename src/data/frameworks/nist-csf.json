@@ -1,34 +1,1737 @@
 {
-  "id": "nist-csf",
-  "name": "NIST CSF 2.0",
-  "shortName": "NIST CSF",
-  "version": "2.0",
-  "category": "security",
-  "description": "NIST Cybersecurity Framework \u2014 six functions from Govern to Recover.",
-  "phases": [
+ "id": "nist-csf",
+ "name": "NIST Cybersecurity Framework 2.0",
+ "shortName": "NIST CSF 2.0",
+ "version": "2.0",
+ "category": "security",
+ "description": "The NIST Cybersecurity Framework (CSF) 2.0, published in February 2024, provides outcome-based guidance that helps organizations of any size and sector understand, assess, prioritize, and communicate cybersecurity risk. Version 2.0 elevates governance to its own function (GOVERN), expands cybersecurity supply chain risk management (C-SCRM), and applies to all organizations \u2014 not just critical infrastructure. An assessment compares the organization's Current Profile against its Target Profile across the six functions to identify and prioritize gaps.",
+ "tagline": "A voluntary, risk-based framework of six functions \u2014 Govern, Identify, Protect, Detect, Respond, Recover \u2014 for managing and reducing cybersecurity risk in any organization.",
+ "auditFocus": [
+  "Whether governance of cybersecurity risk is real and board-visible: risk appetite, accountability, policy, and oversight (GOVERN)",
+  "Coverage and currency of asset, data, and supplier inventories and the risk assessment process (IDENTIFY)",
+  "Strength of preventive safeguards: identity and access, training, data security, platform hardening, and resilience (PROTECT)",
+  "Quality of continuous monitoring and adverse event analysis, including third-party environments (DETECT)",
+  "Incident response and recovery capability: triage, escalation, communication, containment, restoration (RESPOND and RECOVER)",
+  "Supply chain risk management (C-SCRM) and the gap between the Current Profile and Target Profile, expressed using CSF Tiers"
+ ],
+ "phases": [
+  {
+   "id": "phase-1",
+   "name": "Phase 1 \u2014 Engagement Planning, Scoping & GOVERN",
+   "objective": "Scope the assessment using CSF Profiles and Tiers, then evaluate the GOVERN function: organizational context, risk management strategy, roles and accountability, policy, oversight, and cybersecurity supply chain risk management (C-SCRM).",
+   "questions": [
     {
-      "id": "nist-csf-p1",
-      "name": "GOVERN",
-      "questions": [
-        {
-          "id": "nist-csf-q001",
-          "controlRef": "GV.OC-01",
-          "question": "Is the organizational mission and cybersecurity risk appetite understood and communicated?",
-          "whyItMatters": "This control establishes a foundational requirement; auditors verify both design and operating effectiveness.",
-          "interviewees": [
-            "CISO"
-          ],
-          "evidence": [
-            "EV-001 Policy document"
-          ],
-          "guidance": "Request the current approved policy, confirm management sign-off and review date, and test that it has been communicated to relevant staff.",
-          "probes": [
-            "When was this last reviewed and by whom?",
-            "How are exceptions handled?"
-          ],
-          "weight": 2
-        }
-      ]
+     "id": "nistcsf-p1-q01",
+     "controlRef": "CSF 2.0 \u2014 Organizational Profiles & Implementation Tiers",
+     "question": "Has the organization defined a CSF Current Profile and Target Profile, and which Implementation Tier (Partial, Risk Informed, Repeatable, Adaptive) does leadership believe the organization operates at today versus where it needs to be?",
+     "whyItMatters": "Profiles and Tiers are the scoping backbone of a CSF assessment. Without an agreed current state and target state, there is no baseline against which to measure gaps or prioritize remediation.",
+     "interviewees": [
+      "CISO",
+      "Risk Manager",
+      "CIO"
+     ],
+     "evidence": [
+      "Documented Current Profile",
+      "Documented Target Profile",
+      "Prior CSF self-assessment results",
+      "Tier rationale or board-approved target tier statement"
+     ],
+     "guidance": "A GOOD answer shows a documented Current Profile (per function/category), a Target Profile approved by leadership, and a defensible Tier characterization tied to risk management practices, not just aspiration. Bonus if a Community Profile or sector baseline was used as a reference.",
+     "probes": [
+      "Who approved the Target Profile and when was it last revisited?",
+      "How do you decide which subcategory outcomes are not applicable?",
+      "Is the gap between profiles translated into a funded remediation roadmap?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "nistcsf-p1-q02",
+     "controlRef": "GV.OC-01",
+     "question": "How is the organization's mission understood and used to inform cybersecurity risk management decisions?",
+     "whyItMatters": "GOVERN starts with context: security priorities must protect what the mission actually depends on. If security investment is disconnected from the mission, critical services may be under-protected while money is spent elsewhere.",
+     "interviewees": [
+      "CEO",
+      "CISO",
+      "Board/Audit Committee"
+     ],
+     "evidence": [
+      "Mission and strategy documents referenced in security strategy",
+      "Cybersecurity strategy showing traceability to business objectives"
+     ],
+     "guidance": "A GOOD answer names the mission-critical services and shows a traceable line from them to security priorities and budget. Leadership, not just the security team, can articulate this link.",
+     "probes": [
+      "Which business services would hurt most if disrupted for a week?",
+      "Give an example of a security investment justified by mission criticality."
+     ],
+     "weight": 2
+    },
+    {
+     "id": "nistcsf-p1-q03",
+     "controlRef": "GV.OC-02",
+     "question": "Who are the internal and external stakeholders for cybersecurity risk management, and how are their needs and expectations identified and considered?",
+     "whyItMatters": "Regulators, customers, partners, insurers, and internal business units all have expectations of the security program. Unidentified stakeholder expectations become unmet obligations and surprise findings.",
+     "interviewees": [
+      "CISO",
+      "Risk Manager",
+      "Legal Counsel"
+     ],
+     "evidence": [
+      "Stakeholder register or analysis",
+      "Customer/regulator security requirements log",
+      "Board or steering committee minutes referencing stakeholder expectations"
+     ],
+     "guidance": "A GOOD answer includes a maintained stakeholder list with documented expectations (e.g., customer contract clauses, regulator requirements) and shows these feeding into policy and control decisions.",
+     "probes": [
+      "How do you capture a new customer's security requirements during sales?",
+      "Which external stakeholder drove your most recent security change?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "nistcsf-p1-q04",
+     "controlRef": "GV.OC-03",
+     "question": "How are legal, regulatory, and contractual cybersecurity requirements identified, tracked, and managed across the jurisdictions where you operate?",
+     "whyItMatters": "CSF 2.0 is voluntary, but it operates alongside binding obligations (breach notification laws, sector rules, contracts). Missing an obligation can mean fines, breach-of-contract claims, and failed audits regardless of CSF maturity.",
+     "interviewees": [
+      "Legal Counsel",
+      "Compliance Officer",
+      "CISO"
+     ],
+     "evidence": [
+      "Cybersecurity obligations register",
+      "Mapping of obligations to controls",
+      "Compliance calendar with review dates"
+     ],
+     "guidance": "A GOOD answer includes a current register of applicable laws, regulations, and contractual security clauses, with named owners and a process to absorb new requirements (e.g., new state privacy laws, updated sector rules).",
+     "probes": [
+      "How did you learn about and implement your most recent new obligation?",
+      "Who owns deciding whether a new regulation applies to you?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "nistcsf-p1-q05",
+     "controlRef": "GV.OC-04\u201305",
+     "question": "Are the critical services external stakeholders depend on you for \u2014 and the external outcomes, capabilities, and services you depend on \u2014 understood and communicated?",
+     "whyItMatters": "Dependencies run both ways: customers rely on your uptime, and you rely on cloud providers, utilities, and suppliers. Unmapped dependencies are invisible single points of failure in both directions.",
+     "interviewees": [
+      "CIO",
+      "IT Manager",
+      "Risk Manager"
+     ],
+     "evidence": [
+      "Business impact analysis (BIA)",
+      "Critical services catalog",
+      "Dependency maps including third-party services"
+     ],
+     "guidance": "A GOOD answer references a BIA or equivalent that names externally-facing critical services and internal dependencies on third parties, with owners and maximum tolerable downtime for each.",
+     "probes": [
+      "Which third-party service failure would stop your operations within 24 hours?",
+      "When was the dependency map last validated with the business?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "nistcsf-p1-q06",
+     "controlRef": "GV.RM-01\u201302",
+     "question": "Have risk management objectives and formal risk appetite and risk tolerance statements been established, communicated, and maintained \u2014 and can you show them?",
+     "whyItMatters": "Risk appetite is the board's steering wheel for the whole program. Without documented tolerance levels, every risk acceptance decision is arbitrary and unauditable, and assessors cannot judge whether residual risk is acceptable.",
+     "interviewees": [
+      "Board/Audit Committee",
+      "CEO",
+      "Risk Manager",
+      "CISO"
+     ],
+     "evidence": [
+      "Board-approved risk appetite statement",
+      "Risk tolerance thresholds (quantitative or qualitative)",
+      "Minutes showing communication and annual review"
+     ],
+     "guidance": "A GOOD answer produces written, board-approved appetite/tolerance statements with concrete thresholds (e.g., maximum tolerable outage, maximum unremediated critical vulnerabilities) and evidence they are actually used to accept or escalate risks.",
+     "probes": [
+      "Give an example of a risk that exceeded tolerance and what happened next.",
+      "Who can accept a risk above tolerance, and is that authority written down?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "nistcsf-p1-q07",
+     "controlRef": "GV.RM-03",
+     "question": "How are cybersecurity risk management activities and outcomes included in the enterprise risk management (ERM) process?",
+     "whyItMatters": "If cyber risk lives in a silo separate from ERM, the board sees a distorted enterprise risk picture and cyber risks are not weighed against financial, operational, and strategic risks for resources.",
+     "interviewees": [
+      "Risk Manager",
+      "CISO",
+      "CFO"
+     ],
+     "evidence": [
+      "Enterprise risk register showing cyber risks",
+      "ERM framework documents referencing cybersecurity",
+      "Risk committee agendas and minutes"
+     ],
+     "guidance": "A GOOD answer shows cyber risks in the same enterprise register, scored on comparable scales, reported through the same risk committee, with clear hand-offs between the CISO function and ERM.",
+     "probes": [
+      "Where do cyber risks sit in your top-10 enterprise risks today?",
+      "How often does the CISO present to the enterprise risk committee?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "nistcsf-p1-q08",
+     "controlRef": "GV.RM-04, GV.RM-06\u201307",
+     "question": "Is there a standardized, communicated method for calculating, categorizing, and prioritizing cybersecurity risks \u2014 including defined risk response options (accept, mitigate, transfer, avoid) and treatment of positive risk/opportunities?",
+     "whyItMatters": "A standardized methodology makes risk ratings comparable and repeatable across teams and over time. Without it, two assessors rate the same risk differently and remediation priorities become political rather than analytical.",
+     "interviewees": [
+      "Risk Manager",
+      "CISO"
+     ],
+     "evidence": [
+      "Risk assessment methodology document",
+      "Risk scoring matrix and definitions",
+      "Risk register entries using the methodology",
+      "Documented risk response decisions"
+     ],
+     "guidance": "A GOOD answer produces one documented methodology (likelihood x impact scales, inherent vs residual risk), shows it applied consistently in the register, and shows response options assigned to each risk with owners and dates.",
+     "probes": [
+      "Show me how one specific risk moved from identification to a response decision.",
+      "Are risk ratings consistent between IT, security, and business teams?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "nistcsf-p1-q09",
+     "controlRef": "GV.RM-05",
+     "question": "What lines of communication exist across the organization for cybersecurity risks, including risks from suppliers and third parties?",
+     "whyItMatters": "Risk information that cannot flow up, down, and sideways arrives at leadership too late. Supply chain risks in particular often stall in procurement and never reach the risk function.",
+     "interviewees": [
+      "CISO",
+      "Risk Manager",
+      "Procurement"
+     ],
+     "evidence": [
+      "Risk reporting lines/RACI",
+      "Escalation procedure",
+      "Examples of third-party risks escalated to leadership"
+     ],
+     "guidance": "A GOOD answer describes defined channels (e.g., procurement flags vendor risk to the risk register; SOC escalates to CISO; CISO to board committee) with real examples of risks traveling those channels in the last year.",
+     "probes": [
+      "Tell me about a supplier risk that reached executive level \u2014 how did it get there?",
+      "How does a front-line employee report a suspected risk?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "nistcsf-p1-q10",
+     "controlRef": "GV.RR-01",
+     "question": "Is organizational leadership demonstrably responsible and accountable for cybersecurity risk, and does it foster a risk-aware, ethical, continually improving culture?",
+     "whyItMatters": "CSF 2.0's GOVERN function makes leadership accountability explicit \u2014 this is the biggest shift from CSF 1.1. If accountability stops at the CISO, governance fails and the board cannot demonstrate due care.",
+     "interviewees": [
+      "Board/Audit Committee",
+      "CEO",
+      "CISO"
+     ],
+     "evidence": [
+      "Board/committee charter assigning cyber accountability",
+      "Board minutes showing cybersecurity discussion",
+      "Executive performance objectives including security outcomes"
+     ],
+     "guidance": "A GOOD answer shows cybersecurity as a standing board or committee agenda item, a named accountable executive, and leadership behaviors (budget decisions, incident involvement, tone from the top) that evidence a risk-aware culture.",
+     "probes": [
+      "When did the board last challenge a cybersecurity decision?",
+      "Is cyber risk accountability in any executive's job description or objectives?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "nistcsf-p1-q11",
+     "controlRef": "GV.RR-02",
+     "question": "Are cybersecurity roles, responsibilities, and authorities established, communicated, understood, and enforced \u2014 including who may make risk decisions during an incident?",
+     "whyItMatters": "Unclear ownership means controls fall between teams and incident decisions stall. Authorities (who can disconnect a system, shut down a service, approve an exception) must be defined before a crisis, not during one.",
+     "interviewees": [
+      "CISO",
+      "CIO",
+      "IT Manager"
+     ],
+     "evidence": [
+      "RACI matrix for cybersecurity activities",
+      "Role descriptions for security positions",
+      "Documented decision authorities and delegation",
+      "Exception approval records"
+     ],
+     "guidance": "A GOOD answer includes a current RACI covering all six CSF functions, named owners for each category, and documented incident-time authorities. Interviewees can describe their own responsibilities unprompted.",
+     "probes": [
+      "Who is authorized to take a production system offline during an incident?",
+      "Show me the owner of the risk assessment process and their last output."
+     ],
+     "weight": 3
+    },
+    {
+     "id": "nistcsf-p1-q12",
+     "controlRef": "GV.RR-03",
+     "question": "Are adequate resources \u2014 budget, people, and tools \u2014 allocated commensurate with the cybersecurity risk strategy, roles, and policies?",
+     "whyItMatters": "A Target Profile without funded resources is fiction. Chronic under-resourcing is a leading indicator that stated risk appetite and actual practice diverge.",
+     "interviewees": [
+      "CISO",
+      "CIO",
+      "CFO"
+     ],
+     "evidence": [
+      "Security budget (absolute and trend)",
+      "Staffing plan vs actuals, vacancies",
+      "Tooling/asset coverage reports",
+      "Business cases linking spend to risk reduction"
+     ],
+     "guidance": "A GOOD answer links budget lines to the risk strategy and Target Profile gaps, shows realistic staffing for the operating model (in-house vs MSSP), and can explain how resource shortfalls are escalated as risks.",
+     "probes": [
+      "Which security initiatives were deferred this year for lack of budget, and was the resulting risk formally accepted?",
+      "What is your vacancy rate on the security team?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "nistcsf-p1-q13",
+     "controlRef": "GV.RR-04",
+     "question": "How is cybersecurity included in human resources practices \u2014 screening, onboarding, role changes, and offboarding?",
+     "whyItMatters": "People are both a control and a risk. Background checks, security obligations in contracts, and disciplined joiner-mover-leaver processes prevent insider incidents and orphaned access.",
+     "interviewees": [
+      "HR Manager",
+      "CISO",
+      "IT Manager"
+     ],
+     "evidence": [
+      "Screening policy",
+      "Employment contract security clauses",
+      "Onboarding/offboarding checklists and tickets",
+      "Access removal SLAs and samples"
+     ],
+     "guidance": "A GOOD answer shows screening proportionate to role sensitivity, signed security obligations, and a joiner-mover-leaver process with evidence that departed users lose access promptly (sampled tickets, not just policy).",
+     "probes": [
+      "Show me the last three leavers and when their access was revoked.",
+      "What happens to access when someone changes roles internally?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "nistcsf-p1-q14",
+     "controlRef": "GV.PO-01\u201302",
+     "question": "Is there an established cybersecurity risk management policy, communicated and enforced \u2014 and is it reviewed and updated to reflect changes in requirements, threats, technology, and mission?",
+     "whyItMatters": "Policy is the formal expression of governance. Unreviewed, unenforced policy is worse than none because it creates a false sense of control and an audit discrepancy between documented and actual practice.",
+     "interviewees": [
+      "CISO",
+      "Compliance Officer",
+      "IT Manager"
+     ],
+     "evidence": [
+      "Cybersecurity policy suite with version history",
+      "Policy review log with dates and approvers",
+      "Attestation/acknowledgment records",
+      "Exception register"
+     ],
+     "guidance": "A GOOD answer shows a policy hierarchy (policy, standards, procedures) with a defined review cycle, evidence of recent updates driven by threat or regulatory changes, and enforcement mechanisms (attestations, technical enforcement, exception handling).",
+     "probes": [
+      "When was each top-level policy last reviewed, and what changed?",
+      "How do you handle and record policy exceptions?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "nistcsf-p1-q15",
+     "controlRef": "GV.OV-01\u201303",
+     "question": "How does leadership oversee the program: are strategy outcomes reviewed, the strategy adjusted for coverage of risks, and overall cybersecurity performance evaluated with metrics?",
+     "whyItMatters": "Oversight (GV.OV) is new in CSF 2.0 and tests whether governance is a loop, not a document. Without performance evaluation and adjustment, the program drifts out of alignment with the threat landscape and the business.",
+     "interviewees": [
+      "Board/Audit Committee",
+      "CISO",
+      "Internal Auditor",
+      "Risk Manager"
+     ],
+     "evidence": [
+      "Security KPI/KRI dashboards",
+      "Periodic strategy review records",
+      "Internal audit or independent assessment reports",
+      "Management review minutes"
+     ],
+     "guidance": "A GOOD answer shows defined metrics (e.g., MTTD/MTTR, patch latency, coverage rates) reported to leadership on a cadence, plus documented strategy reviews that produced actual adjustments.",
+     "probes": [
+      "Which metric last triggered a change in strategy or investment?",
+      "What independent assurance (internal audit, third party) has the program had?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "nistcsf-p1-q16",
+     "controlRef": "GV.SC-01\u201304",
+     "question": "Is a cybersecurity supply chain risk management (C-SCRM) program established with stakeholder agreement, roles defined for suppliers/customers/partners, and suppliers known and prioritized by criticality?",
+     "whyItMatters": "C-SCRM is a flagship addition in CSF 2.0 \u2014 moved from ID.SC in v1.1 into GOVERN with ten subcategories. Most organizations cannot even list their critical suppliers, let alone rank the cyber risk each poses.",
+     "interviewees": [
+      "CISO",
+      "Procurement",
+      "Risk Manager"
+     ],
+     "evidence": [
+      "C-SCRM policy/program document",
+      "Supplier inventory with criticality tiers",
+      "Third-party risk assessments for critical suppliers"
+     ],
+     "guidance": "A GOOD answer shows an approved C-SCRM program integrated into enterprise risk processes, a complete supplier inventory tiered by criticality, and risk assessments proportionate to tier.",
+     "probes": [
+      "How many critical suppliers do you have and how was that list built?",
+      "Which supplier worries you most and what did you do about it?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "nistcsf-p1-q17",
+     "controlRef": "GV.SC-05\u201307",
+     "question": "Are cybersecurity requirements integrated into supplier contracts, is due diligence performed before entering supplier relationships, and are supplier risks assessed and monitored over the life of the relationship?",
+     "whyItMatters": "Contract clauses without monitoring are paper controls; monitoring without contracts has no teeth. CSF 2.0 expects both, continuously, across the relationship lifecycle.",
+     "interviewees": [
+      "Procurement",
+      "Legal Counsel",
+      "CISO"
+     ],
+     "evidence": [
+      "Standard contract security clauses/templates",
+      "Pre-contract due diligence records (questionnaires, SOC 2 reviews)",
+      "Ongoing monitoring records (reviews, ratings, reassessments)",
+      "Sample of executed contracts with security schedules"
+     ],
+     "guidance": "A GOOD answer shows security requirements embedded in contract templates, risk-based due diligence before signing, and scheduled reassessment of critical suppliers with evidence of follow-up on deficiencies.",
+     "probes": [
+      "Pick a critical supplier contract \u2014 show me the security clauses and the last reassessment.",
+      "What happens when a supplier fails a reassessment?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "nistcsf-p1-q18",
+     "controlRef": "GV.SC-08\u201310",
+     "question": "Are relevant suppliers included in your incident planning, response, and recovery activities \u2014 and do C-SCRM plans cover what happens when a partnership or service agreement ends?",
+     "whyItMatters": "Supplier incidents are your incidents: SolarWinds and MOVEit showed that response depends on supplier cooperation. And offboarding suppliers without revoking access and recovering data leaves lasting exposure.",
+     "interviewees": [
+      "CISO",
+      "Procurement",
+      "IT Manager"
+     ],
+     "evidence": [
+      "Incident response plan naming supplier roles and contacts",
+      "Supplier participation in exercises",
+      "Offboarding checklists (access revocation, data return/destruction certificates)"
+     ],
+     "guidance": "A GOOD answer shows critical suppliers embedded in IR plans with 24x7 contacts and notification SLAs, joint or informed exercising, and a termination process covering access removal, data return/destruction, and ongoing confidentiality.",
+     "probes": [
+      "Which suppliers would you call in the first hour of a major incident, and do they know that?",
+      "Show me evidence from your last supplier termination."
+     ],
+     "weight": 2
     }
-  ]
+   ]
+  },
+  {
+   "id": "phase-2",
+   "name": "Phase 2 \u2014 IDENTIFY (Asset Management, Risk Assessment, Improvement)",
+   "objective": "Evaluate whether the organization knows what it has, understands its risks, and systematically improves \u2014 covering Asset Management (ID.AM), Risk Assessment (ID.RA), and Improvement (ID.IM).",
+   "questions": [
+    {
+     "id": "nistcsf-p2-q01",
+     "controlRef": "ID.AM-01\u201302",
+     "question": "Are complete, current inventories of hardware and of software, services, and systems maintained \u2014 and how do you keep them accurate?",
+     "whyItMatters": "You cannot protect, patch, or monitor what you do not know exists. Incomplete asset inventories are the root cause of shadow IT, unparked legacy systems, and breaches through forgotten assets.",
+     "interviewees": [
+      "IT Manager",
+      "CIO",
+      "Security Engineer"
+     ],
+     "evidence": [
+      "Hardware asset inventory/CMDB extract",
+      "Software inventory with versions",
+      "Reconciliation process between discovery tools and records",
+      "Asset discovery scan results vs inventory comparison"
+     ],
+     "guidance": "A GOOD answer combines a maintained CMDB/asset register with automated discovery, periodic reconciliation, and a named owner. Ask for a sample: pick 5 discovered devices and confirm they are in the inventory with owners.",
+     "probes": [
+      "How do you detect an unauthorized device plugged into the network?",
+      "When did discovery tooling last find assets missing from the inventory?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "nistcsf-p2-q02",
+     "controlRef": "ID.AM-03",
+     "question": "Do you maintain current representations of authorized network communication and internal/external data flows?",
+     "whyItMatters": "Data-flow diagrams expose where sensitive data crosses trust boundaries and where segmentation should be. Without them, monitoring gaps and unauthorized flows go undetected and incident scoping is guesswork.",
+     "interviewees": [
+      "Security Engineer",
+      "IT Manager",
+      "CIO"
+     ],
+     "evidence": [
+      "Network architecture and data-flow diagrams",
+      "Firewall rule documentation mapped to flows",
+      "Date stamps / review records on diagrams"
+     ],
+     "guidance": "A GOOD answer produces diagrams dated within the last 12 months (or updated with major changes) showing trust boundaries, external connections, and key data paths \u2014 and the team uses them in incident and change work.",
+     "probes": [
+      "Show me the diagram covering your most sensitive data store.",
+      "How are diagrams updated when network changes are made?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "nistcsf-p2-q03",
+     "controlRef": "ID.AM-04",
+     "question": "Is an inventory maintained of the services provided by suppliers (cloud, SaaS, managed services) that the organization relies on?",
+     "whyItMatters": "Externally provided services carry your data and your availability risk. CSF 2.0 explicitly requires visibility of supplier-provided services so their risk can be assessed and monitored under GOVERN.",
+     "interviewees": [
+      "IT Manager",
+      "Procurement",
+      "CISO"
+     ],
+     "evidence": [
+      "SaaS/cloud service register",
+      "CASB or SaaS discovery output",
+      "Mapping of supplier services to business processes"
+     ],
+     "guidance": "A GOOD answer shows a register of third-party services linked to business owners and data types, plus a mechanism to detect unsanctioned SaaS (discovery tooling, expense review).",
+     "probes": [
+      "How would you learn about a department adopting a new SaaS tool without telling IT?",
+      "Which supplier services hold personal or regulated data?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "nistcsf-p2-q04",
+     "controlRef": "ID.AM-05",
+     "question": "How are assets prioritized based on classification, criticality, resources, and impact to the mission?",
+     "whyItMatters": "Prioritization drives everything downstream: monitoring depth, patch urgency, backup frequency, incident severity. Treating all assets equally means critical ones are under-protected.",
+     "interviewees": [
+      "CISO",
+      "IT Manager",
+      "Risk Manager"
+     ],
+     "evidence": [
+      "Asset criticality ratings in CMDB",
+      "Classification scheme",
+      "BIA linking assets to mission impact"
+     ],
+     "guidance": "A GOOD answer shows a defined criticality scheme applied consistently in the inventory, aligned to the BIA, and demonstrably driving differentiated controls (e.g., crown-jewel systems get stricter monitoring and patch SLAs).",
+     "probes": [
+      "Show me your ten most critical assets and what extra protection they get.",
+      "Who assigns criticality and how often is it revisited?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "nistcsf-p2-q05",
+     "controlRef": "ID.AM-07",
+     "question": "Are inventories of data and corresponding metadata maintained for designated data types (e.g., personal data, financial data, intellectual property)?",
+     "whyItMatters": "Data is usually the actual target of an attack. Without knowing what data types exist and where they live, encryption, retention, breach-notification, and DLP decisions are made blind.",
+     "interviewees": [
+      "CISO",
+      "DPO",
+      "IT Manager"
+     ],
+     "evidence": [
+      "Data inventory or data catalog",
+      "Data classification records",
+      "Records of processing activities (ROPA) if applicable"
+     ],
+     "guidance": "A GOOD answer shows a data inventory identifying designated sensitive data types, locations, owners, and flows \u2014 kept current and used to drive protection and retention decisions.",
+     "probes": [
+      "Where does your most sensitive data type reside, including copies and backups?",
+      "How is the data inventory updated when a new system goes live?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "nistcsf-p2-q06",
+     "controlRef": "ID.AM-08",
+     "question": "How are systems, hardware, software, services, and data managed through their full life cycles \u2014 including secure disposal and end-of-life?",
+     "whyItMatters": "End-of-life assets stop receiving patches and become silent entry points; improperly disposed media leaks data. Life-cycle management closes both doors.",
+     "interviewees": [
+      "IT Manager",
+      "CIO",
+      "Facilities Manager"
+     ],
+     "evidence": [
+      "Asset lifecycle policy",
+      "End-of-life/unsupported software register with remediation plans",
+      "Media sanitization and destruction certificates"
+     ],
+     "guidance": "A GOOD answer identifies unsupported/end-of-life technology, has funded plans to retire or isolate it, and evidences certified destruction or sanitization of data-bearing assets.",
+     "probes": [
+      "What unsupported operating systems or software are still running, and why?",
+      "Show me disposal records for the last equipment refresh."
+     ],
+     "weight": 2
+    },
+    {
+     "id": "nistcsf-p2-q07",
+     "controlRef": "ID.RA-01",
+     "question": "How are vulnerabilities in assets identified, validated, and recorded \u2014 what is your scanning coverage, cadence, and tracking process?",
+     "whyItMatters": "Vulnerability management is the front door of technical risk identification. Gaps in scan coverage or unvalidated results mean exploited weaknesses were known to attackers before they were known to you.",
+     "interviewees": [
+      "Security Engineer",
+      "IT Manager",
+      "CISO"
+     ],
+     "evidence": [
+      "Vulnerability scan reports (recent and historical)",
+      "Scan scope/coverage documentation",
+      "Vulnerability tracking tool export with remediation SLAs and status"
+     ],
+     "guidance": "A GOOD answer shows authenticated scanning of the full estate on a defined cadence, validation to remove false positives, risk-ranked tracking with SLAs by severity, and metrics on overdue items.",
+     "probes": [
+      "What percentage of assets are scanned, and how do you know?",
+      "Show me critical vulnerabilities currently past their remediation SLA and why."
+     ],
+     "weight": 3
+    },
+    {
+     "id": "nistcsf-p2-q08",
+     "controlRef": "ID.RA-02\u201303",
+     "question": "How do you receive cyber threat intelligence from sharing forums and sources, and how are internal and external threats to the organization identified and recorded?",
+     "whyItMatters": "Risk assessment is only as good as its threat picture. Organizations without threat intelligence miss sector-specific campaigns and cannot prioritize defenses against threats that actually target them.",
+     "interviewees": [
+      "CISO",
+      "SOC Analyst",
+      "Risk Manager"
+     ],
+     "evidence": [
+      "Threat intelligence feeds/sources list",
+      "ISAC/CERT membership or sharing records",
+      "Threat register or threat model outputs",
+      "Examples of intel-driven changes"
+     ],
+     "guidance": "A GOOD answer names specific sources (ISAC, vendor feeds, government advisories) mapped to a process for recording threats and, critically, examples where intelligence changed a control, detection rule, or priority.",
+     "probes": [
+      "Tell me about the last time threat intel caused you to change something.",
+      "Which threat actors or campaigns are most relevant to your sector right now?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "nistcsf-p2-q09",
+     "controlRef": "ID.RA-04\u201306",
+     "question": "Walk me through a full risk assessment: how are likelihoods and impacts of threats exploiting vulnerabilities determined, how is inherent risk understood, and how are risk responses chosen, prioritized, planned, tracked, and communicated?",
+     "whyItMatters": "This is the engine of the IDENTIFY function. A risk assessment that produces a register nobody acts on is compliance theater; the audit must trace risks all the way to funded, tracked responses.",
+     "interviewees": [
+      "Risk Manager",
+      "CISO"
+     ],
+     "evidence": [
+      "Risk assessment report(s) with dates",
+      "Risk register with inherent/residual scores",
+      "Risk treatment plans with owners and deadlines",
+      "Communications to leadership on top risks"
+     ],
+     "guidance": "A GOOD answer traces at least two risks end-to-end: identified, scored for likelihood/impact, assigned a response with owner and date, tracked to completion or explicit acceptance at the right authority level, and reported upward.",
+     "probes": [
+      "Pick your highest current risk \u2014 show me its history in the register.",
+      "Which risks were formally accepted this year, and by whom?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "nistcsf-p2-q10",
+     "controlRef": "ID.RA-07",
+     "question": "How are changes and exceptions managed and assessed for risk impact, and where are they recorded?",
+     "whyItMatters": "Most security drift enters through change: new systems, urgent fixes, policy exceptions. Unassessed changes silently invalidate the risk assessment and the Current Profile.",
+     "interviewees": [
+      "IT Manager",
+      "CIO",
+      "Security Engineer"
+     ],
+     "evidence": [
+      "Change management tickets with security review fields",
+      "Exception register with expiry dates",
+      "CAB minutes",
+      "Emergency change records"
+     ],
+     "guidance": "A GOOD answer shows security risk assessment embedded in the change process (including emergency changes after the fact) and time-bound exceptions with owners, compensating controls, and expiry review.",
+     "probes": [
+      "Show me a recent change that was rejected or modified for security reasons.",
+      "How many active policy exceptions exist and when do they expire?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "nistcsf-p2-q11",
+     "controlRef": "ID.RA-08",
+     "question": "Do you have a process for receiving, analyzing, and responding to vulnerability disclosures \u2014 including from external researchers and suppliers?",
+     "whyItMatters": "Zero-days and supplier advisories arrive without warning. Without an intake and triage path (and ideally a published VDP/security.txt), critical disclosures are missed or sit unanswered in a mailbox.",
+     "interviewees": [
+      "Security Engineer",
+      "CISO",
+      "SOC Analyst"
+     ],
+     "evidence": [
+      "Vulnerability disclosure policy or security.txt",
+      "Intake mailbox/portal and triage records",
+      "Supplier security advisories and your tracked responses",
+      "Examples of disclosures actioned"
+     ],
+     "guidance": "A GOOD answer shows a monitored intake channel, defined triage with SLAs, a way to receive supplier advisories (e.g., PSIRT subscriptions), and worked examples of disclosures turned into mitigations.",
+     "probes": [
+      "How did you respond to the last major industry vulnerability (e.g., a Log4j-class event)?",
+      "Can an external researcher report a bug to you today \u2014 how?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "nistcsf-p2-q12",
+     "controlRef": "ID.RA-09\u201310",
+     "question": "How do you assess the authenticity and integrity of hardware and software before acquisition and use, and how are critical suppliers assessed prior to acquisition?",
+     "whyItMatters": "Counterfeit components and compromised software are supply chain attack vectors that arrive pre-installed. Pre-acquisition assessment is the cheapest point to stop them; afterward you inherit the risk.",
+     "interviewees": [
+      "Procurement",
+      "Security Engineer",
+      "IT Manager"
+     ],
+     "evidence": [
+      "Procurement security requirements",
+      "Supplier security assessments completed pre-contract",
+      "Software provenance/SBOM or integrity verification practices",
+      "Authorized reseller/channel policies"
+     ],
+     "guidance": "A GOOD answer shows pre-acquisition security gates for critical purchases: supplier assessment, sourcing from authorized channels, integrity verification (hashes, signatures, SBOM review where proportionate).",
+     "probes": [
+      "Show me the security assessment done before your last critical software purchase.",
+      "How do you verify a download or firmware image is authentic?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "nistcsf-p2-q13",
+     "controlRef": "ID.IM-01\u201302",
+     "question": "How are improvements identified from evaluations and from security tests and exercises \u2014 including penetration tests, tabletop exercises, and tests coordinated with suppliers?",
+     "whyItMatters": "ID.IM is CSF 2.0's explicit continuous-improvement category. Tests that don't produce tracked improvements are wasted spend; lessons that stay in a report never reduce risk.",
+     "interviewees": [
+      "CISO",
+      "Security Engineer",
+      "Risk Manager"
+     ],
+     "evidence": [
+      "Penetration test reports with remediation tracking",
+      "Tabletop exercise after-action reports",
+      "Improvement/action log with owners and closure evidence",
+      "Supplier-involved exercise records"
+     ],
+     "guidance": "A GOOD answer shows a regular cadence of tests and exercises, findings converted into a tracked improvement log, verified closure (not just marked done), and upward reporting of trends.",
+     "probes": [
+      "Show me findings from your last pen test and proof each was fixed.",
+      "What did your last exercise change in your plans or tooling?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "nistcsf-p2-q14",
+     "controlRef": "ID.IM-03\u201304",
+     "question": "Are improvements identified from day-to-day operational execution, and are incident response and other cybersecurity plans established, communicated, maintained, and improved from lessons learned?",
+     "whyItMatters": "Plans decay: contacts change, systems change, attackers adapt. A response plan not updated after the last incident or exercise will fail in the next one \u2014 usually at the worst moment.",
+     "interviewees": [
+      "CISO",
+      "IT Manager",
+      "SOC Analyst"
+     ],
+     "evidence": [
+      "IR plan with version history and review dates",
+      "Lessons-learned records from incidents feeding plan updates",
+      "Process improvement suggestions from operations and their disposition"
+     ],
+     "guidance": "A GOOD answer shows versioned plans updated after incidents and exercises with traceable lessons-learned entries, plus a channel for operational staff to surface improvement ideas that are actually acted on.",
+     "probes": [
+      "Show me a plan section that changed because of a real incident.",
+      "When did operations last propose a security improvement and what happened?"
+     ],
+     "weight": 2
+    }
+   ]
+  },
+  {
+   "id": "phase-3",
+   "name": "Phase 3 \u2014 PROTECT (Identity, Awareness, Data, Platform & Infrastructure Safeguards)",
+   "objective": "Evaluate preventive safeguards across Identity Management, Authentication and Access Control (PR.AA), Awareness and Training (PR.AT), Data Security (PR.DS), Platform Security (PR.PS), and Technology Infrastructure Resilience (PR.IR).",
+   "questions": [
+    {
+     "id": "nistcsf-p3-q01",
+     "controlRef": "PR.AA-01\u201302",
+     "question": "How are identities and credentials for users, services, and hardware managed \u2014 and how are identities proofed and bound to credentials appropriate to the interaction?",
+     "whyItMatters": "Identity is the new perimeter. Unmanaged service accounts, shared credentials, and weak identity proofing are among the most common breach root causes, especially for remote onboarding and privileged access.",
+     "interviewees": [
+      "Security Engineer",
+      "IT Manager",
+      "CISO"
+     ],
+     "evidence": [
+      "Identity lifecycle procedures (provision/review/deprovision)",
+      "IdP/IAM system configuration",
+      "Service account inventory",
+      "Identity proofing process for remote hires and high-risk actions"
+     ],
+     "guidance": "A GOOD answer shows centralized identity management covering humans AND services/devices, unique credentials (no sharing), periodic account reviews, and risk-based identity proofing for sensitive interactions.",
+     "probes": [
+      "Show me your service accounts \u2014 how many exist and who reviews them?",
+      "How do you verify a remote new hire is who they claim to be?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "nistcsf-p3-q02",
+     "controlRef": "PR.AA-03\u201304",
+     "question": "How are users, services, and hardware authenticated \u2014 where is MFA enforced, and how are identity assertions (tokens, assertions, credentials in transit) protected and verified?",
+     "whyItMatters": "Credential theft and phishing remain the top intrusion vector. MFA coverage gaps (legacy apps, service accounts, VPN) and weak assertion protection (token theft, session hijack) are where real-world attacks succeed.",
+     "interviewees": [
+      "Security Engineer",
+      "IT Manager"
+     ],
+     "evidence": [
+      "MFA coverage report by application/user population",
+      "Authentication policy/standards",
+      "Conditional access or equivalent policies",
+      "IdP logs showing enforcement"
+     ],
+     "guidance": "A GOOD answer demonstrates MFA on all remote access, email, privileged accounts, and cloud consoles with named exceptions that are risk-accepted; phishing-resistant methods for admins; and TLS/SSO protecting assertions.",
+     "probes": [
+      "Which systems cannot do MFA today and how is that risk handled?",
+      "Are SMS codes still allowed anywhere? Why?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "nistcsf-p3-q03",
+     "controlRef": "PR.AA-05",
+     "question": "Are access permissions, entitlements, and authorizations defined in policy, enforced, and reviewed \u2014 incorporating least privilege and separation of duties?",
+     "whyItMatters": "Excess privilege converts any single compromise into a major incident. Without periodic entitlement reviews, access accumulates indefinitely ('privilege creep') and toxic combinations go unnoticed.",
+     "interviewees": [
+      "CISO",
+      "IT Manager",
+      "Internal Auditor"
+     ],
+     "evidence": [
+      "Access control policy",
+      "Role/permission definitions",
+      "Access review campaign records with sign-offs",
+      "Privileged access management (PAM) reports"
+     ],
+     "guidance": "A GOOD answer shows documented entitlement models, scheduled access reviews with evidence of actual revocations, separation-of-duties rules for sensitive processes (e.g., payments), and privileged access tightly controlled and logged.",
+     "probes": [
+      "Show me the last access review \u2014 what was revoked?",
+      "How are privileged accounts issued, monitored, and reclaimed?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "nistcsf-p3-q04",
+     "controlRef": "PR.AA-06",
+     "question": "How is physical access to assets managed, monitored, and enforced commensurate with risk?",
+     "whyItMatters": "Logical controls fail if an attacker or careless insider can walk into a server room or walk out with drives. Physical access must match the criticality of what's behind the door.",
+     "interviewees": [
+      "Facilities Manager",
+      "IT Manager",
+      "Security Engineer"
+     ],
+     "evidence": [
+      "Badge access logs for server/comms rooms",
+      "Physical access policy and zone definitions",
+      "Visitor management records",
+      "CCTV coverage and retention"
+     ],
+     "guidance": "A GOOD answer shows zoned physical access with least-privilege badging, logged and reviewed entry to sensitive areas, visitor controls, and periodic reconciliation of badge rights against employment.",
+     "probes": [
+      "Who currently has access to the server room and when was that list last reviewed?",
+      "Show me the visitor log for last month."
+     ],
+     "weight": 2
+    },
+    {
+     "id": "nistcsf-p3-q05",
+     "controlRef": "PR.AT-01",
+     "question": "How are all personnel given security awareness and training so they can perform general tasks with cybersecurity risks in mind \u2014 and how do you measure it works?",
+     "whyItMatters": "Phishing and social engineering target everyone, not just IT. Training that is annual, generic, and unmeasured produces click rates and incident patterns the audit can see in the data.",
+     "interviewees": [
+      "CISO",
+      "HR Manager",
+      "End Users"
+     ],
+     "evidence": [
+      "Training content and completion records",
+      "Phishing simulation results and trend",
+      "Onboarding security module records",
+      "Awareness metrics reported to leadership"
+     ],
+     "guidance": "A GOOD answer shows role-appropriate, recurring awareness with tracked completion, simulated phishing with improving trends and follow-up for repeat clickers, and new-hire training within days of joining.",
+     "probes": [
+      "What is your current phishing click rate and trend?",
+      "What happens to someone who repeatedly fails simulations?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "nistcsf-p3-q06",
+     "controlRef": "PR.AT-02",
+     "question": "Do individuals in specialized roles \u2014 developers, administrators, incident responders, executives \u2014 receive role-specific security training?",
+     "whyItMatters": "General awareness doesn't teach a developer secure coding or a responder forensics. Specialized roles carry specialized risk, and CSF 2.0 calls this out separately (PR.AT-02).",
+     "interviewees": [
+      "CISO",
+      "Software/Dev Lead",
+      "IT Manager"
+     ],
+     "evidence": [
+      "Role-based training matrix",
+      "Secure coding training records",
+      "IR team training/certification records",
+      "Executive-targeted awareness (e.g., whaling) materials"
+     ],
+     "guidance": "A GOOD answer maps specialized roles to specific curricula (secure SDLC for devs, hardening for admins, fraud/whaling awareness for finance and execs) with completion tracking and refresh cycles.",
+     "probes": [
+      "Show me the training your developers completed in the last year.",
+      "How are incident responders kept current on techniques?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "nistcsf-p3-q07",
+     "controlRef": "PR.DS-01\u201302",
+     "question": "How is the confidentiality, integrity, and availability of data-at-rest and data-in-transit protected \u2014 encryption, key management, and integrity controls?",
+     "whyItMatters": "Encryption failures turn stolen drives, intercepted traffic, and cloud misconfigurations into reportable breaches. Key management is where most encryption programs quietly fail.",
+     "interviewees": [
+      "Security Engineer",
+      "CISO",
+      "IT Manager"
+     ],
+     "evidence": [
+      "Encryption standard (algorithms, key lengths)",
+      "Data store encryption configuration evidence",
+      "TLS configuration and certificate inventory",
+      "Key management procedures and rotation records"
+     ],
+     "guidance": "A GOOD answer shows encryption applied by data classification at rest and in transit (modern TLS only), documented key management with rotation and access control, and integrity mechanisms (checksums, signing) for critical data.",
+     "probes": [
+      "Which sensitive data stores are NOT encrypted, and is that risk accepted?",
+      "Who can access encryption keys and how is that logged?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "nistcsf-p3-q08",
+     "controlRef": "PR.DS-10",
+     "question": "How is data protected while in use \u2014 preventing leakage through endpoints, email, cloud sharing, and removable media?",
+     "whyItMatters": "Most data loss happens while data is being used: pasted into webmail, synced to personal cloud, copied to USB. Data-in-use protection is where policy meets real user behavior.",
+     "interviewees": [
+      "Security Engineer",
+      "CISO",
+      "IT Manager"
+     ],
+     "evidence": [
+      "DLP policy and tooling alerts/reports",
+      "Removable media controls",
+      "Cloud sharing/tenant restrictions configuration",
+      "Endpoint protection policy"
+     ],
+     "guidance": "A GOOD answer shows risk-based controls: restricted or encrypted removable media, controlled external sharing, DLP or CASB rules tuned to sensitive data types, and evidence of alerts being triaged.",
+     "probes": [
+      "Can a user upload your customer database to a personal drive account? Show me.",
+      "Show me the last DLP incident and its outcome."
+     ],
+     "weight": 2
+    },
+    {
+     "id": "nistcsf-p3-q09",
+     "controlRef": "PR.DS-11",
+     "question": "Are backups of data created, protected, maintained, and tested in accordance with policy \u2014 including isolation from production and restoration testing?",
+     "whyItMatters": "Backups are the last line against ransomware and destructive attacks. Attackers now target backups first; untested backups fail at restore time roughly a third of the time in real incidents.",
+     "interviewees": [
+      "IT Manager",
+      "Security Engineer",
+      "CIO"
+     ],
+     "evidence": [
+      "Backup policy with scope, frequency, retention",
+      "Backup success/failure reports",
+      "Restore test records with dates and outcomes",
+      "Evidence of immutable/offline or logically isolated backup copies"
+     ],
+     "guidance": "A GOOD answer shows backup scope aligned to the data/asset inventory, isolated or immutable copies protected from production credentials, and documented restore tests (not just backup job success) meeting RTO/RPO targets.",
+     "probes": [
+      "When did you last restore a full critical system from backup, and how long did it take?",
+      "Could ransomware that owns your admin credentials also encrypt your backups?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "nistcsf-p3-q10",
+     "controlRef": "PR.PS-01",
+     "question": "Are configuration management practices established and applied \u2014 secure baselines/hardening standards, and detection of unauthorized configuration changes?",
+     "whyItMatters": "Default and drifted configurations are the quiet killer: open ports, default creds, disabled logging. Baselines plus drift detection keep the estate at a known, defensible state.",
+     "interviewees": [
+      "Security Engineer",
+      "IT Manager"
+     ],
+     "evidence": [
+      "Hardening standards (e.g., CIS Benchmarks) per platform",
+      "Configuration compliance scan results",
+      "Change/drift detection tooling output",
+      "Exceptions with justification"
+     ],
+     "guidance": "A GOOD answer shows documented secure baselines for key platforms, automated compliance measurement against them, a process for remediation or risk-accepted exception, and alerting on unauthorized changes to critical configurations.",
+     "probes": [
+      "What percentage of your estate complies with your baseline today?",
+      "Show me a configuration drift alert and what happened next."
+     ],
+     "weight": 3
+    },
+    {
+     "id": "nistcsf-p3-q11",
+     "controlRef": "PR.PS-02\u201303",
+     "question": "How is software and hardware maintained, replaced, and removed commensurate with risk \u2014 patch management and technology refresh?",
+     "whyItMatters": "Exploited known vulnerabilities remain a top breach vector. Patch latency on critical systems and aging hardware past support both translate directly into probability of compromise and outage.",
+     "interviewees": [
+      "IT Manager",
+      "Security Engineer",
+      "CIO"
+     ],
+     "evidence": [
+      "Patch management policy with SLAs by severity",
+      "Patch compliance reports and trend",
+      "Emergency patch procedure and examples",
+      "Hardware lifecycle/refresh plan"
+     ],
+     "guidance": "A GOOD answer shows risk-based patch SLAs (accelerated for internet-facing and critical vulnerabilities), measured compliance, a demonstrated emergency patching capability, and refresh plans eliminating unsupported tech.",
+     "probes": [
+      "What is your average time to patch a critical internet-facing vulnerability?",
+      "Show me systems currently behind on patching and the compensating controls."
+     ],
+     "weight": 3
+    },
+    {
+     "id": "nistcsf-p3-q12",
+     "controlRef": "PR.PS-04",
+     "question": "Are log records generated and made available for continuous monitoring across the environment \u2014 with adequate coverage, protection, and retention?",
+     "whyItMatters": "Logs are the raw material of DETECT and incident forensics. Missing sources, short retention, or attacker-writable logs make breaches invisible and investigations impossible.",
+     "interviewees": [
+      "Security Engineer",
+      "SOC Analyst",
+      "IT Manager"
+     ],
+     "evidence": [
+      "Logging standard defining required sources/fields",
+      "SIEM/log platform source inventory vs asset inventory",
+      "Retention configuration",
+      "Log access controls and integrity protection"
+     ],
+     "guidance": "A GOOD answer shows a logging standard mapped to critical assets, centralized collection with coverage gaps documented, retention aligned to investigation and compliance needs, and logs protected from tampering.",
+     "probes": [
+      "Which critical systems are NOT sending logs to your central platform?",
+      "If an admin went rogue, could they delete evidence of their actions?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "nistcsf-p3-q13",
+     "controlRef": "PR.PS-05",
+     "question": "How is the installation and execution of unauthorized software prevented?",
+     "whyItMatters": "Unauthorized software \u2014 from shadow IT tools to malware droppers \u2014 bypasses every control built around the sanctioned estate. Application control and least-privilege endpoints stop entire malware classes.",
+     "interviewees": [
+      "IT Manager",
+      "Security Engineer"
+     ],
+     "evidence": [
+      "Application allowlisting/denylisting policy and configuration",
+      "Endpoint local-admin removal evidence",
+      "EDR application control reports",
+      "Software request/approval workflow"
+     ],
+     "guidance": "A GOOD answer shows users without standing local admin rights, application control on servers and high-risk endpoints, a sanctioned software catalog with an approval path, and alerting on blocked executions.",
+     "probes": [
+      "Can a standard user install software right now? Demonstrate the control.",
+      "How do developers get the tools they need without standing admin?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "nistcsf-p3-q14",
+     "controlRef": "PR.PS-06",
+     "question": "Are secure software development practices integrated and monitored through the software development life cycle (SDLC)?",
+     "whyItMatters": "For anything the organization builds, vulnerabilities coded in are vulnerabilities you own forever. CSF 2.0 expects SSDF-style practices: security requirements, testing, code review, and dependency management.",
+     "interviewees": [
+      "Software/Dev Lead",
+      "Security Engineer",
+      "CISO"
+     ],
+     "evidence": [
+      "Secure SDLC policy referencing NIST SSDF or similar",
+      "SAST/DAST/dependency scan results integrated in CI/CD",
+      "Code review records",
+      "Pre-production security sign-off examples"
+     ],
+     "guidance": "A GOOD answer shows security gates in the pipeline (code review, automated scanning, secrets detection), third-party dependency management, and remediation SLAs for findings \u2014 with evidence from a recent release.",
+     "probes": [
+      "Show me a security finding that blocked or delayed a release.",
+      "How do you track and patch vulnerable open-source dependencies?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "nistcsf-p3-q15",
+     "controlRef": "PR.IR-01",
+     "question": "How are networks and environments protected from unauthorized logical access \u2014 segmentation, boundary defenses, and remote access controls?",
+     "whyItMatters": "Flat networks turn one phished laptop into an enterprise-wide incident. Segmentation and boundary control determine whether an intrusion is a contained event or a company-killer.",
+     "interviewees": [
+      "Security Engineer",
+      "IT Manager",
+      "CIO"
+     ],
+     "evidence": [
+      "Network segmentation design and zone rules",
+      "Firewall rulebase review records",
+      "Remote access architecture (VPN/ZTNA) configuration",
+      "Segmentation testing results"
+     ],
+     "guidance": "A GOOD answer shows documented segmentation between user, server, and sensitive zones (and OT/guest where relevant), default-deny boundary rules with periodic rule review, and hardened, MFA-protected remote access.",
+     "probes": [
+      "Can a compromised workstation reach your domain controllers and backups directly? How do you know?",
+      "When were firewall rules last reviewed for stale entries?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "nistcsf-p3-q16",
+     "controlRef": "PR.IR-02",
+     "question": "How are technology assets protected from environmental threats \u2014 power, fire, flood, temperature \u2014 in your facilities and with your providers?",
+     "whyItMatters": "Availability is a security outcome. A single HVAC or power failure in an unprotected server room can cause as much damage as a cyberattack, and environmental risk transfers to cloud/colo providers must be verified, not assumed.",
+     "interviewees": [
+      "Facilities Manager",
+      "IT Manager",
+      "CIO"
+     ],
+     "evidence": [
+      "UPS/generator test records",
+      "Environmental monitoring alerts (temperature, water, smoke)",
+      "Fire suppression maintenance records",
+      "Provider certifications/SLAs for hosted environments"
+     ],
+     "guidance": "A GOOD answer shows environmental monitoring with alerting, tested power resilience, maintained suppression systems for on-prem, and verified provider assurances (certifications, audit reports) for hosted infrastructure.",
+     "probes": [
+      "When did the UPS last carry a real load?",
+      "What alerts fire if the server room hits 35\u00b0C at 2 a.m.?"
+     ],
+     "weight": 1
+    },
+    {
+     "id": "nistcsf-p3-q17",
+     "controlRef": "PR.IR-03\u201304",
+     "question": "What resilience mechanisms ensure availability in normal and adverse situations \u2014 redundancy, failover, DDoS protection \u2014 and is adequate resource capacity maintained?",
+     "whyItMatters": "Resilience determines whether incidents (cyber or otherwise) become outages. Untested failover is a common fiction; capacity ceilings discovered during a traffic spike or attack are discovered too late.",
+     "interviewees": [
+      "IT Manager",
+      "CIO",
+      "Security Engineer"
+     ],
+     "evidence": [
+      "Architecture docs showing redundancy/failover",
+      "Failover/DR test records",
+      "Capacity monitoring and forecasts",
+      "DDoS mitigation arrangements"
+     ],
+     "guidance": "A GOOD answer shows single points of failure identified and addressed, failover actually tested on a schedule with results, capacity monitored against headroom thresholds, and DDoS protection for public-facing services proportionate to risk.",
+     "probes": [
+      "When did you last fail over a critical service in a test, and what broke?",
+      "Which critical component still has no redundancy, and is that risk accepted?"
+     ],
+     "weight": 2
+    }
+   ]
+  },
+  {
+   "id": "phase-4",
+   "name": "Phase 4 \u2014 DETECT (Continuous Monitoring & Adverse Event Analysis)",
+   "objective": "Evaluate whether adverse events are found and analyzed in time to matter \u2014 Continuous Monitoring (DE.CM) across networks, physical, personnel, providers, and platforms, and Adverse Event Analysis (DE.AE) through to incident declaration.",
+   "questions": [
+    {
+     "id": "nistcsf-p4-q01",
+     "controlRef": "DE.CM-01",
+     "question": "How are networks and network services monitored to find potentially adverse events \u2014 what tooling, coverage, and alerting exists?",
+     "whyItMatters": "Network monitoring catches lateral movement, C2 traffic, and exfiltration that endpoint tools miss. Blind spots in network segments are where attackers dwell undetected for months.",
+     "interviewees": [
+      "SOC Analyst",
+      "Security Engineer",
+      "IT Manager"
+     ],
+     "evidence": [
+      "IDS/IPS/NDR deployment and coverage maps",
+      "Network flow/log collection configuration",
+      "Sample network alerts with dispositions",
+      "Detection rule/use-case inventory"
+     ],
+     "guidance": "A GOOD answer shows monitoring across internal and boundary traffic (not just perimeter), tuned detection content, coverage matched against the network diagrams from ID.AM-03, and evidence that alerts are actually triaged.",
+     "probes": [
+      "Which network segments have no monitoring visibility?",
+      "Show me a network alert from last week and how it was handled."
+     ],
+     "weight": 3
+    },
+    {
+     "id": "nistcsf-p4-q02",
+     "controlRef": "DE.CM-02",
+     "question": "How is the physical environment monitored for potentially adverse events \u2014 badge anomalies, unauthorized entry, environmental alarms?",
+     "whyItMatters": "Physical intrusion enables logical compromise: a rogue device on a LAN or a stolen laptop with cached credentials bypasses network defenses. Physical events must feed the same detection picture.",
+     "interviewees": [
+      "Facilities Manager",
+      "SOC Analyst",
+      "Security Engineer"
+     ],
+     "evidence": [
+      "Badge system alerting rules (off-hours, denied attempts, tailgating)",
+      "CCTV coverage and monitoring arrangements",
+      "Integration (or process link) between physical security and SOC"
+     ],
+     "guidance": "A GOOD answer shows alerting on anomalous physical access (off-hours entry to sensitive zones, repeated denials), someone actually watching/responding, and a path for physical events to reach security operations.",
+     "probes": [
+      "Would an 2 a.m. badge-in to the server room page anyone?",
+      "Show me a physical security event that was investigated in the last year."
+     ],
+     "weight": 1
+    },
+    {
+     "id": "nistcsf-p4-q03",
+     "controlRef": "DE.CM-03",
+     "question": "How are personnel activity and technology usage monitored \u2014 account behavior, privilege use, and insider-risk indicators?",
+     "whyItMatters": "Compromised credentials and malicious insiders look like legitimate users to perimeter tools. Behavioral monitoring of accounts and privilege use is the main way to catch them.",
+     "interviewees": [
+      "SOC Analyst",
+      "Security Engineer",
+      "HR Manager"
+     ],
+     "evidence": [
+      "UEBA or behavioral analytics deployment",
+      "Privileged session logging/monitoring records",
+      "Alert examples for anomalous user behavior",
+      "Insider risk procedure with HR/Legal coordination"
+     ],
+     "guidance": "A GOOD answer shows monitoring of authentication anomalies (impossible travel, unusual hours), privileged account session capture, and a defined, legally-coordinated process for investigating user behavior \u2014 balanced with privacy obligations.",
+     "probes": [
+      "Show me an alert triggered by unusual user behavior and its resolution.",
+      "How is monitoring of employees governed and disclosed?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "nistcsf-p4-q04",
+     "controlRef": "DE.CM-06",
+     "question": "How are external service provider activities and services monitored for potentially adverse events \u2014 MSP access, SaaS security posture, cloud telemetry?",
+     "whyItMatters": "Providers hold your credentials, data, and connectivity; their compromise is your compromise. CSF 2.0 explicitly requires monitoring what providers do in and to your environment.",
+     "interviewees": [
+      "CISO",
+      "IT Manager",
+      "SOC Analyst"
+     ],
+     "evidence": [
+      "Logs of third-party/MSP accounts and sessions",
+      "Cloud security posture management (CSPM) output",
+      "SaaS security monitoring/alerting",
+      "Provider security notifications and your tracked responses"
+     ],
+     "guidance": "A GOOD answer shows third-party accounts named, least-privileged, and logged into your monitoring; cloud/SaaS telemetry integrated; and a process for acting on provider breach notifications.",
+     "probes": [
+      "Show me every account your MSP holds and where their activity is logged.",
+      "What is your process when a key supplier announces a breach?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "nistcsf-p4-q05",
+     "controlRef": "DE.CM-09",
+     "question": "How are computing hardware, software, runtime environments, and their data monitored \u2014 endpoint detection coverage and response capability?",
+     "whyItMatters": "Endpoints and servers are where most intrusions execute. EDR coverage gaps \u2014 servers, legacy OS, contractors' machines \u2014 are the first thing an attacker enumerates.",
+     "interviewees": [
+      "SOC Analyst",
+      "Security Engineer",
+      "IT Manager"
+     ],
+     "evidence": [
+      "EDR/antimalware deployment and coverage report vs asset inventory",
+      "Detection content/version currency",
+      "Sample endpoint detections and response actions taken",
+      "Isolation/containment capability demonstration or test records"
+     ],
+     "guidance": "A GOOD answer shows EDR coverage reconciled to the asset inventory with gaps explained, detections leading to documented response (isolation, reimage), and tamper protection so users/admins cannot silently disable it.",
+     "probes": [
+      "What percentage of your estate has no working EDR today, and which assets are they?",
+      "Show me the last endpoint detection that led to a device isolation."
+     ],
+     "weight": 3
+    },
+    {
+     "id": "nistcsf-p4-q06",
+     "controlRef": "DE.AE-02\u201303",
+     "question": "When a potentially adverse event occurs, how is it analyzed to understand the associated activity \u2014 and how is information correlated from multiple sources?",
+     "whyItMatters": "Single-source alerts are noise; correlated events are signal. Analysis quality \u2014 enrichment, correlation across network/endpoint/identity \u2014 determines detection accuracy and false-positive load on the team.",
+     "interviewees": [
+      "SOC Analyst",
+      "Security Engineer"
+     ],
+     "evidence": [
+      "SIEM correlation rules/use cases",
+      "Analyst workflow/runbooks for alert triage",
+      "Ticket examples showing multi-source correlation",
+      "Alert metrics (volume, false-positive rate, MTTA)"
+     ],
+     "guidance": "A GOOD answer shows defined triage runbooks, correlation across at least endpoint/network/identity sources, alert quality metrics, and worked ticket examples where correlation changed the assessment of an event.",
+     "probes": [
+      "Walk me through your last alert that escalated to a real investigation \u2014 which sources combined?",
+      "How do you measure and reduce false positives?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "nistcsf-p4-q07",
+     "controlRef": "DE.AE-04",
+     "question": "How is the estimated impact and scope of an adverse event understood \u2014 what systems, data, and users are affected, and how bad could it get?",
+     "whyItMatters": "Impact and scope estimation drives proportionate response: a malware detection on a kiosk is not the same as on a domain controller. Poor scoping leads to overreaction or \u2014 worse \u2014 underreaction.",
+     "interviewees": [
+      "SOC Analyst",
+      "CISO",
+      "Risk Manager"
+     ],
+     "evidence": [
+      "Severity/impact classification matrix tied to asset criticality",
+      "Investigation records documenting scope determination",
+      "Examples of scoping changing response level"
+     ],
+     "guidance": "A GOOD answer links event severity to the asset criticality from ID.AM-05, shows investigation steps that establish blast radius (accounts touched, data accessed, systems reached), and documents the rationale in tickets.",
+     "probes": [
+      "How do you decide whether an event warrants waking executives at night?",
+      "Show me an event where initial scope estimates changed during investigation."
+     ],
+     "weight": 2
+    },
+    {
+     "id": "nistcsf-p4-q08",
+     "controlRef": "DE.AE-06\u201307",
+     "question": "Is adverse event information delivered to the right staff and tools automatically, and is cyber threat intelligence and other context integrated into the analysis?",
+     "whyItMatters": "Detection without routing dies in a dashboard nobody watches. Intelligence context (known IOCs, actor TTPs, sector campaigns) is what turns raw events into prioritized, actionable analysis.",
+     "interviewees": [
+      "SOC Analyst",
+      "Security Engineer",
+      "CISO"
+     ],
+     "evidence": [
+      "Alert routing/escalation configuration (SOAR, paging, ticketing)",
+      "Threat intelligence platform or feed integration",
+      "IOC matching/enrichment examples",
+      "On-call and coverage model"
+     ],
+     "guidance": "A GOOD answer shows alerts routed automatically to accountable responders with defined SLAs, enrichment from threat intel and asset context at triage time, and coverage arrangements (24x7 in-house or via MSSP) matching the risk profile.",
+     "probes": [
+      "What happens to a critical alert generated at 3 a.m. on a Sunday?",
+      "Show me an alert enriched with threat intelligence and how it changed the handling."
+     ],
+     "weight": 3
+    },
+    {
+     "id": "nistcsf-p4-q09",
+     "controlRef": "DE.AE-08",
+     "question": "What are your criteria for declaring an adverse event an incident, and who has authority to declare \u2014 is it documented and understood by the people watching the screens?",
+     "whyItMatters": "The event-to-incident threshold is where detection hands off to response. Unclear or overly high declaration criteria delay response by hours or days; unclear authority causes fatal hesitation.",
+     "interviewees": [
+      "CISO",
+      "SOC Analyst",
+      "IT Manager"
+     ],
+     "evidence": [
+      "Documented incident declaration criteria",
+      "Declaration authority/delegation",
+      "Incident register showing declared vs non-declared events",
+      "Analysts able to articulate the criteria in interview"
+     ],
+     "guidance": "A GOOD answer produces written declaration criteria (e.g., confirmed compromise of critical asset, data exfiltration confirmed), a named declaration authority with 24x7 delegation, and evidence the register captures the event-to-incident decision.",
+     "probes": [
+      "Ask a tier-1 analyst: what would make you declare an incident right now?",
+      "Show me the last three incident declarations and the criteria applied."
+     ],
+     "weight": 3
+    },
+    {
+     "id": "nistcsf-p4-q10",
+     "controlRef": "DE.CM-01, DE.CM-09 (effectiveness validation)",
+     "question": "How do you validate that detection actually works \u2014 detection coverage mapping (e.g., MITRE ATT&CK), purple teaming, or detection-as-code testing?",
+     "whyItMatters": "Deployed tools are not detected threats. Without adversary-based validation, monitoring coverage is an assumption; real gaps are only found during a breach.",
+     "interviewees": [
+      "Security Engineer",
+      "SOC Analyst",
+      "CISO"
+     ],
+     "evidence": [
+      "Detection coverage map against ATT&CK or similar",
+      "Purple team/adversary emulation reports",
+      "Detection engineering backlog and test results",
+      "MTTD metrics and trend"
+     ],
+     "guidance": "A GOOD answer shows a living mapping of detections to attacker techniques, periodic testing (atomic tests, emulation, pen-test-detection feedback), and metrics on time-to-detect with improvement actions.",
+     "probes": [
+      "Which ATT&CK techniques could you NOT detect today?",
+      "When a pen tester got in last time, which of your tools saw them and which didn't?"
+     ],
+     "weight": 2
+    }
+   ]
+  },
+  {
+   "id": "phase-5",
+   "name": "Phase 5 \u2014 RESPOND, RECOVER & Findings",
+   "objective": "Evaluate incident response (RS.MA, RS.AN, RS.CO, RS.MI) and recovery (RC.RP, RC.CO) capability end-to-end, then consolidate findings against the Target Profile into a prioritized remediation roadmap.",
+   "questions": [
+    {
+     "id": "nistcsf-p5-q01",
+     "controlRef": "RS.MA-01",
+     "question": "When an incident is declared, is the incident response plan executed in coordination with relevant third parties \u2014 suppliers, MSSPs, insurers, counsel, law enforcement?",
+     "whyItMatters": "Modern response is a team sport: forensic firms, retained counsel, and key suppliers must activate in hours. Contracts and contacts that were never exercised fail when first used under fire.",
+     "interviewees": [
+      "CISO",
+      "Legal Counsel",
+      "IT Manager"
+     ],
+     "evidence": [
+      "Incident response plan with third-party roles and contacts",
+      "Retainer agreements (IR firm, counsel)",
+      "Cyber insurance notification requirements",
+      "Exercise records involving third parties"
+     ],
+     "guidance": "A GOOD answer shows an IR plan naming third parties with tested contact paths, current retainers, insurance notification obligations understood, and evidence of coordination in a real incident or exercise.",
+     "probes": [
+      "Who calls the forensics retainer at 2 a.m., and have they ever been called?",
+      "What must you tell your cyber insurer, and within what timeframe?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "nistcsf-p5-q02",
+     "controlRef": "RS.MA-02\u201303",
+     "question": "How are incident reports triaged and validated, and how are incidents categorized and prioritized once confirmed?",
+     "whyItMatters": "Triage discipline determines whether the team's scarce hours go to real threats. A documented categorization scheme tied to business impact keeps response proportionate and consistent across analysts.",
+     "interviewees": [
+      "SOC Analyst",
+      "CISO",
+      "IT Manager"
+     ],
+     "evidence": [
+      "Triage runbook and validation checklist",
+      "Incident category/severity matrix",
+      "Incident tickets showing categorization and prioritization rationale",
+      "Queue metrics (backlog, aging)"
+     ],
+     "guidance": "A GOOD answer shows a standard intake and validation path (including reports from users, suppliers, and external parties), severity classes linked to asset criticality and business impact, and tickets demonstrating consistent application.",
+     "probes": [
+      "How do external reports (a customer, a researcher, a supplier) enter triage?",
+      "Show me two incidents of different severities and explain the prioritization."
+     ],
+     "weight": 3
+    },
+    {
+     "id": "nistcsf-p5-q03",
+     "controlRef": "RS.MA-04",
+     "question": "How and when are incidents escalated or elevated \u2014 internally to leadership and externally to authorities \u2014 and are those thresholds understood?",
+     "whyItMatters": "Late escalation is one of the most damaging response failures: leadership learns from the news, regulators learn late, and legal privilege opportunities are lost. Thresholds must be explicit before an incident.",
+     "interviewees": [
+      "CISO",
+      "CEO",
+      "Legal Counsel",
+      "SOC Analyst"
+     ],
+     "evidence": [
+      "Escalation matrix with thresholds and contacts",
+      "Crisis management plan link",
+      "Examples of escalations with timestamps",
+      "Executive notification records from past incidents"
+     ],
+     "guidance": "A GOOD answer shows explicit escalation thresholds (severity, data types, regulatory triggers), a tested on-call executive chain, and evidence from real incidents that escalation happened on time.",
+     "probes": [
+      "At what point does the CEO get called, and who makes that call?",
+      "Show me an incident's timeline from detection to executive notification."
+     ],
+     "weight": 3
+    },
+    {
+     "id": "nistcsf-p5-q04",
+     "controlRef": "RS.MA-05",
+     "question": "Are criteria defined for when incident recovery is initiated, and are they actually applied during incidents?",
+     "whyItMatters": "Starting recovery too early (before eradication) lets attackers persist through the restore; starting too late extends the outage. Documented criteria remove guesswork at the worst moment.",
+     "interviewees": [
+      "CISO",
+      "IT Manager",
+      "Risk Manager"
+     ],
+     "evidence": [
+      "IR/recovery plan section defining recovery initiation criteria",
+      "Incident records showing the decision point",
+      "Roles authorized to approve recovery start"
+     ],
+     "guidance": "A GOOD answer shows written criteria (e.g., threat contained, eradication verified, clean restore points confirmed) with named approvers, and incident records where the criteria were explicitly assessed before recovery began.",
+     "probes": [
+      "Who decides recovery can start during a ransomware event, and on what evidence?",
+      "Show me where this decision was documented in your last major incident or exercise."
+     ],
+     "weight": 2
+    },
+    {
+     "id": "nistcsf-p5-q05",
+     "controlRef": "RS.AN-03",
+     "question": "How is analysis performed to determine what happened during an incident and its root cause \u2014 and does root cause feed back into control improvements?",
+     "whyItMatters": "Incidents closed without root-cause analysis recur. The value of a painful incident is the control gap it exposes; organizations that skip RCA pay for the same lesson twice.",
+     "interviewees": [
+      "CISO",
+      "SOC Analyst",
+      "Security Engineer"
+     ],
+     "evidence": [
+      "Post-incident reports with root cause",
+      "RCA methodology",
+      "Improvement actions traced to incident root causes (link to ID.IM)",
+      "Recurring-incident trend analysis"
+     ],
+     "guidance": "A GOOD answer shows structured post-incident analysis producing root causes (not just symptoms), tracked corrective actions, and evidence that repeat incident categories decline as a result.",
+     "probes": [
+      "Show me the last incident's root cause and the control change it produced.",
+      "Which incident type keeps recurring, and why hasn't it been fixed?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "nistcsf-p5-q06",
+     "controlRef": "RS.AN-06\u201307",
+     "question": "Are investigation actions recorded, and are incident data and metadata collected with their integrity and provenance preserved (chain of custody)?",
+     "whyItMatters": "Evidence handling determines whether you can support disciplinary action, insurance claims, regulator inquiries, or prosecution. Ad hoc collection makes evidence inadmissible and investigations unrepeatable.",
+     "interviewees": [
+      "SOC Analyst",
+      "Security Engineer",
+      "Legal Counsel"
+     ],
+     "evidence": [
+      "Forensic/evidence handling procedure",
+      "Investigation logs/timelines from a real incident",
+      "Evidence storage with access control and integrity measures",
+      "Legal hold process"
+     ],
+     "guidance": "A GOOD answer shows documented evidence handling (imaging, hashing, chain-of-custody records), protected evidence storage, complete investigation timelines, and legal counsel involvement where litigation is plausible.",
+     "probes": [
+      "If you had to prove in court how a forensic image was handled, could you?",
+      "Show me the evidence records from your last serious investigation."
+     ],
+     "weight": 2
+    },
+    {
+     "id": "nistcsf-p5-q07",
+     "controlRef": "RS.AN-08",
+     "question": "How is an incident's magnitude estimated and validated \u2014 business impact, data affected, regulatory exposure \u2014 and who confirms it?",
+     "whyItMatters": "Magnitude drives everything: escalation, disclosure obligations, resource mobilization, and public statements. Understating magnitude early creates regulatory and reputational debt that compounds.",
+     "interviewees": [
+      "CISO",
+      "Risk Manager",
+      "Legal Counsel",
+      "CEO"
+     ],
+     "evidence": [
+      "Impact assessment section of incident records",
+      "Magnitude estimation criteria",
+      "Examples where magnitude was revised as facts emerged",
+      "Sign-off records"
+     ],
+     "guidance": "A GOOD answer shows a structured magnitude estimate recorded per incident (users, data types, financial exposure, regulatory triggers), validated by a second accountable person, and updated as the investigation progresses.",
+     "probes": [
+      "Show me an incident where the initial magnitude estimate was wrong \u2014 how was it corrected?",
+      "Who has authority to conclude no personal data was affected?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "nistcsf-p5-q08",
+     "controlRef": "RS.CO-02\u201303",
+     "question": "How are internal and external stakeholders notified of incidents and kept informed \u2014 regulators, customers, insurers, affected individuals \u2014 within required timeframes?",
+     "whyItMatters": "Notification failures convert a security incident into a compliance violation: breach notification clocks (e.g., 72-hour regimes, sector rules, contract SLAs) start ticking whether or not your process is ready.",
+     "interviewees": [
+      "Legal Counsel",
+      "CISO",
+      "Compliance Officer",
+      "CEO"
+     ],
+     "evidence": [
+      "Communication plan with stakeholder matrix and templates",
+      "Regulatory notification procedure with timeframes",
+      "Records of actual notifications made",
+      "Spokesperson/approval protocol"
+     ],
+     "guidance": "A GOOD answer shows pre-defined notification obligations by scenario with owners and deadlines, pre-approved templates, a clear approval chain for external statements, and evidence of meeting deadlines in real incidents.",
+     "probes": [
+      "Walk me through who gets notified, by whom, and by when if customer data is breached tonight.",
+      "Show me a notification you made and how the deadline was met."
+     ],
+     "weight": 3
+    },
+    {
+     "id": "nistcsf-p5-q09",
+     "controlRef": "RS.MI-01\u201302",
+     "question": "How are incidents contained and then eradicated \u2014 and how do you confirm the attacker or malware is actually gone before moving on?",
+     "whyItMatters": "Containment speed determines blast radius; eradication rigor determines whether the incident ends or merely pauses. Persistent access surviving 'cleanup' is a classic cause of repeat breaches.",
+     "interviewees": [
+      "SOC Analyst",
+      "Security Engineer",
+      "IT Manager"
+     ],
+     "evidence": [
+      "Containment playbooks (isolation, credential resets, blocking)",
+      "Eradication procedures (reimage, persistence checks)",
+      "Incident records showing containment and eradication steps with verification",
+      "Time-to-contain metrics"
+     ],
+     "guidance": "A GOOD answer shows practiced containment options (network isolation, account disablement), eradication with verification (persistence sweep, credential hygiene, clean rebuild), and a documented decision that the threat is gone before recovery.",
+     "probes": [
+      "How fast can you isolate a compromised host or disable an account \u2014 show me.",
+      "After your last malware incident, how did you prove there was no persistence left?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "nistcsf-p5-q10",
+     "controlRef": "RC.RP-01\u201302",
+     "question": "Is the recovery portion of the incident response plan executed when triggered, with recovery actions selected, scoped, and prioritized based on business impact?",
+     "whyItMatters": "Recovery order is a business decision made under stress unless pre-planned. Restoring the wrong systems first extends the outage of what actually matters to the mission.",
+     "interviewees": [
+      "IT Manager",
+      "CIO",
+      "CISO",
+      "Risk Manager"
+     ],
+     "evidence": [
+      "Recovery plan with prioritized system/service restoration order",
+      "RTO/RPO definitions per service",
+      "Records of recovery execution in incidents or tests",
+      "Business sign-off on restoration priorities"
+     ],
+     "guidance": "A GOOD answer shows restoration priorities derived from the BIA and asset criticality, agreed RTO/RPO targets, a coordinated handoff from response to recovery, and evidence of execution in tests or real events.",
+     "probes": [
+      "Which five services get restored first after a total outage, and who decided that?",
+      "When did you last execute \u2014 not just read \u2014 this recovery plan?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "nistcsf-p5-q11",
+     "controlRef": "RC.RP-03",
+     "question": "Is the integrity of backups and other restoration assets verified before they are used for restoration?",
+     "whyItMatters": "Restoring from compromised backups re-installs the attacker or the corruption \u2014 ransomware crews routinely dwell long enough to poison backup chains. Integrity verification is the guardrail.",
+     "interviewees": [
+      "IT Manager",
+      "Security Engineer",
+      "SOC Analyst"
+     ],
+     "evidence": [
+      "Backup integrity verification procedure (hash checks, scan-before-restore, test mounts)",
+      "Records of integrity checks during a real or test restoration",
+      "Malware scanning of restore points"
+     ],
+     "guidance": "A GOOD answer shows integrity verification built into the restoration runbook \u2014 selecting restore points predating compromise, scanning them, verifying checksums \u2014 with records from the last test or incident.",
+     "probes": [
+      "How do you choose which restore point is safe after a 30-day attacker dwell time?",
+      "Show me where integrity was verified in your last restore test."
+     ],
+     "weight": 3
+    },
+    {
+     "id": "nistcsf-p5-q12",
+     "controlRef": "RC.RP-04\u201305",
+     "question": "When restoring, how are critical mission functions and new operational norms considered, and how is the integrity of restored assets verified and normal operation confirmed before declaring 'back to normal'?",
+     "whyItMatters": "Post-incident operations may need to run degraded or altered (new controls, temporary workarounds). Declaring normal operations without verification risks running on still-compromised or misconfigured systems.",
+     "interviewees": [
+      "IT Manager",
+      "CIO",
+      "CISO"
+     ],
+     "evidence": [
+      "Restoration verification checklist",
+      "Post-restore validation records (functional and security checks)",
+      "Decisions on interim operating norms from a real incident or exercise",
+      "Business confirmation of service resumption"
+     ],
+     "guidance": "A GOOD answer shows post-restore validation combining functional tests (business confirms service works) and security tests (clean, hardened, monitored), plus deliberate decisions on any interim operating norms with leadership visibility.",
+     "probes": [
+      "Who signs off that a restored system is clean enough for production?",
+      "After your last recovery, what changed in how you operated afterward?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "nistcsf-p5-q13",
+     "controlRef": "RC.RP-06",
+     "question": "Is the end of incident recovery formally declared against defined criteria, with incident documentation completed and closed out?",
+     "whyItMatters": "Without a formal end, incidents linger open, documentation stays incomplete, lessons are never captured, and obligations tied to incident closure (final regulator reports, insurance claims) are missed.",
+     "interviewees": [
+      "CISO",
+      "Risk Manager",
+      "IT Manager"
+     ],
+     "evidence": [
+      "Recovery completion criteria",
+      "Closed incident records with full documentation",
+      "Post-incident review scheduling tied to closure",
+      "Final reports to regulators/insurers where applicable"
+     ],
+     "guidance": "A GOOD answer shows closure criteria (services restored and verified, monitoring heightened, documentation complete), a named authority declaring closure, and a lessons-learned process triggered at closure feeding ID.IM.",
+     "probes": [
+      "Show me your last incident's closure record \u2014 who declared it over and on what basis?",
+      "What monitoring stays elevated after closure, and for how long?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "nistcsf-p5-q14",
+     "controlRef": "RC.CO-03\u201304",
+     "question": "During recovery, how is progress communicated to designated internal and external stakeholders \u2014 and how are public updates handled with approved methods and messaging?",
+     "whyItMatters": "Recovery communication sustains trust: customers and partners tolerate outages far better than silence or inconsistent statements. Ungoverned public messaging creates legal exposure and contradicts official notices.",
+     "interviewees": [
+      "CEO",
+      "CISO",
+      "Legal Counsel",
+      "Communications/PR lead"
+     ],
+     "evidence": [
+      "Recovery communication plan with stakeholder matrix",
+      "Pre-approved public statement templates",
+      "Records of status updates from a real incident or exercise",
+      "Media/social protocol with named spokesperson"
+     ],
+     "guidance": "A GOOD answer shows a cadence of recovery updates to defined stakeholders, public messaging through a single approved channel and spokesperson, legal review of external statements, and consistency between public statements and regulator notifications.",
+     "probes": [
+      "Who may speak publicly during a recovery, and what have they pre-agreed to say?",
+      "Show me the update cadence you used in your last significant outage."
+     ],
+     "weight": 2
+    },
+    {
+     "id": "nistcsf-p5-q15",
+     "controlRef": "CSF 2.0 \u2014 Profiles gap analysis (all six Functions)",
+     "question": "Pulling the assessment together: how do assessment findings and profile gaps get consolidated, prioritized by risk, and converted into a funded remediation roadmap with owners and dates?",
+     "whyItMatters": "A CSF assessment that ends in a slide deck changes nothing. The audit's value is the traceable path from each gap to a risk-ranked, resourced action that moves the Current Profile toward the Target Profile.",
+     "interviewees": [
+      "CISO",
+      "Risk Manager",
+      "CIO",
+      "Board/Audit Committee"
+     ],
+     "evidence": [
+      "Prior assessment reports with findings",
+      "Remediation plan with owners, dates, funding",
+      "Progress tracking against Target Profile",
+      "Leadership reporting on remediation status"
+     ],
+     "guidance": "A GOOD answer shows findings consolidated against the Target Profile, prioritized using the risk methodology (GV.RM-06), assigned owners/dates/budget, tracked to closure, and reported to leadership with residual risk explicitly accepted where items are deferred.",
+     "probes": [
+      "Show me the remediation status of findings from your last assessment.",
+      "Which gaps were consciously left open, and who accepted that risk?"
+     ],
+     "weight": 3
+    }
+   ]
+  }
+ ]
 }

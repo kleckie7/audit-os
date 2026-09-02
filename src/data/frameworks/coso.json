@@ -1,34 +1,1215 @@
 {
-  "id": "coso",
-  "name": "COSO",
-  "shortName": "COSO",
-  "version": "2013",
-  "category": "governance",
-  "description": "Internal control \u2014 integrated framework across five components.",
-  "phases": [
+ "id": "coso",
+ "name": "COSO Internal Control \u2014 Integrated Framework (2013) + ERM (2017)",
+ "shortName": "COSO",
+ "version": "2013 (Internal Control) / 2017 (ERM)",
+ "category": "governance",
+ "description": "The COSO Internal Control \u2014 Integrated Framework (2013) is the most widely used internal control framework in the world and the de facto standard for Sarbanes-Oxley Section 404 assessments of internal control over financial reporting. It defines internal control as a process effected by the board, management, and other personnel to provide reasonable assurance regarding operations, reporting, and compliance objectives, organized into five interrelated components and 17 explicit principles. COSO ERM \u2014 Enterprise Risk Management: Integrating with Strategy and Performance (2017) extends this to enterprise-wide risk, connecting risk appetite, culture, and decision-making to strategy. This question bank walks an auditor from engagement planning through each of the five components and 17 principles, then through ERM alignment and deficiency severity evaluation (deficiency / significant deficiency / material weakness) to the final effectiveness conclusion.",
+ "tagline": "The foundational framework for designing, implementing, and assessing internal control over operations, reporting, and compliance \u2014 five components, 17 principles \u2014 extended by COSO ERM 2017's integration of risk with strategy and performance.",
+ "auditFocus": [
+  "Control Environment fundamentals: tone at the top, integrity and ethical values, board/audit committee independence and oversight, structure and authority, competence, and accountability (Principles 1\u20135)",
+  "Risk Assessment: clarity of objectives, entity-wide risk identification, explicit fraud risk assessment including management override of controls, and assessment of significant change (Principles 6\u20139)",
+  "Control Activities: risk-linked control selection, segregation of duties, financial reporting and close-process controls (SOX 404 linkage), IT general controls, and deployment through policies and procedures (Principles 10\u201312)",
+  "Information & Communication: quality of information used in controls, internal communication and whistleblower/anonymous reporting channels, and external communication with regulators and auditors (Principles 13\u201315)",
+  "Monitoring Activities: ongoing evaluations, the internal audit function's separate evaluations, and timely deficiency escalation and remediation (Principles 16\u201317)",
+  "COSO ERM 2017 alignment: risk culture, board-defined risk appetite, strategy integration, portfolio view of risk, and decision-useful risk reporting; plus deficiency severity evaluation culminating in the overall internal control effectiveness conclusion"
+ ],
+ "phases": [
+  {
+   "id": "phase-1",
+   "name": "Phase 1 \u2014 Planning & Understanding the Entity",
+   "objective": "Scope the engagement around the entity's operations, reporting, and compliance objectives; understand the business model, structure, significant accounts, and outsourced processes; and establish a risk-based plan for assessing the five COSO components and all 17 Principles.",
+   "questions": [
     {
-      "id": "coso-p1",
-      "name": "Control Environment",
-      "questions": [
-        {
-          "id": "coso-q001",
-          "controlRef": "Principle 1",
-          "question": "Does the organization demonstrate a commitment to integrity and ethical values?",
-          "whyItMatters": "This control establishes a foundational requirement; auditors verify both design and operating effectiveness.",
-          "interviewees": [
-            "CISO"
-          ],
-          "evidence": [
-            "EV-001 Policy document"
-          ],
-          "guidance": "Request the current approved policy, confirm management sign-off and review date, and test that it has been communicated to relevant staff.",
-          "probes": [
-            "When was this last reviewed and by whom?",
-            "How are exceptions handled?"
-          ],
-          "weight": 2
-        }
-      ]
+     "id": "coso-p1-q01",
+     "controlRef": "COSO 2013 \u2014 Definition of Internal Control & the Five Components",
+     "question": "How does the organization define internal control, and can management describe the five COSO components \u2014 Control Environment, Risk Assessment, Control Activities, Information & Communication, and Monitoring Activities \u2014 as they operate in this entity?",
+     "whyItMatters": "COSO defines internal control as a process effected by the board, management, and other personnel to provide reasonable assurance regarding objectives. If leadership cannot describe the five components, the audit starts with a framework-literacy gap that often predicts weak control ownership elsewhere.",
+     "interviewees": [
+      "CEO",
+      "CFO",
+      "Controller",
+      "Internal Auditor"
+     ],
+     "evidence": [
+      "Internal control framework or methodology document",
+      "Control catalog or risk-control matrix organized by COSO component",
+      "Board or audit committee materials referencing COSO"
+     ],
+     "guidance": "A GOOD answer comes from the CFO or Controller in plain language, correctly naming the five components and giving one concrete example of a control under each. Management references a documented framework (COSO 2013 explicitly) rather than treating internal control as just 'the finance checklists.'",
+     "probes": [
+      "Which of the five components do you believe is weakest here, and why?",
+      "Who owns the internal control framework at the entity level?",
+      "Has anyone mapped your existing controls to the 17 Principles?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "coso-p1-q02",
+     "controlRef": "COSO 2013 \u2014 Three Categories of Objectives (Operations, Reporting, Compliance)",
+     "question": "Which categories of objectives are in scope for this assessment \u2014 operations, external financial reporting, compliance with laws and regulations \u2014 and which of them drive the most critical control requirements?",
+     "whyItMatters": "COSO explicitly organizes internal control around three categories of objectives. Scope confusion at this stage means the audit either over-reaches (wasting effort on immaterial operations) or under-reaches (missing compliance obligations that carry penalties).",
+     "interviewees": [
+      "CFO",
+      "Controller",
+      "Compliance Officer"
+     ],
+     "evidence": [
+      "Audit scope memo or engagement letter",
+      "List of external reporting obligations (SEC, lender covenants, statutory filings)",
+      "Compliance obligations register"
+     ],
+     "guidance": "A GOOD answer distinguishes clearly between objectives categories, identifies which entities, accounts, and obligations fall in scope, and explains why \u2014 typically driven by financial statement materiality, SOX applicability, or regulated-industry obligations.",
+     "probes": [
+      "Is this organization subject to Sarbanes-Oxley Section 404, or an equivalent requirement?",
+      "Which compliance obligations have external attestation attached?",
+      "Were any objectives categories deliberately excluded, and who approved that?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "coso-p1-q03",
+     "controlRef": "Audit Planning \u2014 Understanding the Entity, Its Business Model & Organizational Structure",
+     "question": "Walk me through the entity's business model, legal and organizational structure, principal locations, and the key business processes (e.g., revenue, procurement, payroll, treasury, close process) that internal control must cover.",
+     "whyItMatters": "Auditors cannot assess controls over processes they do not understand. Complex structures \u2014 multiple legal entities, shared services, joint ventures, recent acquisitions \u2014 change both the population of controls and where fraud and error risk concentrates.",
+     "interviewees": [
+      "CEO",
+      "CFO",
+      "Controller"
+     ],
+     "evidence": [
+      "Organization chart",
+      "Legal entity chart",
+      "Process narratives or flowcharts for key cycles",
+      "List of locations and shared service centers"
+     ],
+     "guidance": "A GOOD answer produces a current org chart and entity chart without hesitation, names the key transaction cycles and their process owners, and flags structural complexity (acquisitions, shared services, foreign operations) that affects control coverage.",
+     "probes": [
+      "Which entities or locations were added or divested in the last two years?",
+      "Where do shared service centers perform controls on your behalf?",
+      "Which business process generates the most adjusting journal entries at year-end?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "coso-p1-q04",
+     "controlRef": "Audit Planning \u2014 Materiality & Significant Accounts/Disclosures (ICFR Scoping)",
+     "question": "How were planning materiality and performance materiality determined, and how did management identify the significant accounts, disclosures, and relevant assertions that internal control over financial reporting must address?",
+     "whyItMatters": "Materiality anchors the entire audit: it defines which accounts, locations, and controls are in scope, and later drives deficiency severity evaluation. An unjustified materiality figure or a scoping exercise that ignores qualitative factors (fraud risk, covenant thresholds) undermines every subsequent judgment.",
+     "interviewees": [
+      "CFO",
+      "Controller",
+      "Internal Auditor"
+     ],
+     "evidence": [
+      "Materiality memo with benchmark and rationale",
+      "Significant accounts mapping (accounts x assertions x processes)",
+      "Prior-year scoping document with changes highlighted"
+     ],
+     "guidance": "A GOOD answer shows a documented benchmark (e.g., pre-tax income, total assets, revenue) with a defensible percentage, explains qualitative considerations (covenants, earnings expectations, fraud risk), and traces significant accounts to processes and locations in scope.",
+     "probes": [
+      "What benchmark did you use and why is it appropriate for this entity?",
+      "Which accounts are significant only because of fraud or estimation risk, not size?",
+      "How did the scoping conclusion change versus last year?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "coso-p1-q05",
+     "controlRef": "Audit Planning \u2014 Risk-Based Scoping of Locations & Business Units",
+     "question": "How did you decide which locations, business units, and shared service functions are individually significant, which are subject only to analytical procedures, and what controls operate at each?",
+     "whyItMatters": "Multi-location entities must scope rationally: some units warrant full control testing, others only entity-level or analytical coverage. Arbitrary exclusions \u2014 or reliance on distant shared services without evidence \u2014 create gaps where misstatements can accumulate undetected.",
+     "interviewees": [
+      "CFO",
+      "Controller",
+      "Internal Auditor"
+     ],
+     "evidence": [
+      "Location/unit scoping matrix with rationale",
+      "Coverage analysis (percent of revenue/assets in scope)",
+      "Documentation of controls at shared service centers"
+     ],
+     "guidance": "A GOOD answer presents a coverage analysis showing what percentage of revenue, assets, and expenses fall within fully scoped units, a documented rationale for each excluded unit (quantitative and qualitative), and visibility into controls performed at shared service locations.",
+     "probes": [
+      "Which unit was excluded despite individual risk factors, and why?",
+      "Do excluded units rotate into scope over a multi-year cycle?",
+      "What entity-level controls do you rely on to cover the unscoped remainder?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "coso-p1-q06",
+     "controlRef": "Audit Planning \u2014 Prior-Period Findings & Significant Changes",
+     "question": "What control deficiencies, audit adjustments, or restatements were identified in prior periods, and what significant changes \u2014 systems, personnel, acquisitions, new standards \u2014 have occurred since the last assessment that affect the control environment?",
+     "whyItMatters": "Prior findings are the best predictor of current risk, and unremediated deficiencies are often the finding itself. Significant changes (new ERP, departed Controller, an acquisition) directly implicate COSO Principle 9 and typically shift where the audit should concentrate.",
+     "interviewees": [
+      "CFO",
+      "Controller",
+      "Internal Auditor"
+     ],
+     "evidence": [
+      "Prior-year deficiency letters / management letter points",
+      "Remediation status tracker",
+      "Audit adjustment and passed-adjustment schedules",
+      "Summary of organizational and system changes"
+     ],
+     "guidance": "A GOOD answer openly lists prior deficiencies with current remediation status, discloses passed adjustments without prompting, and volunteers recent changes (leadership turnover, system go-lives, M&A) with their control implications already considered.",
+     "probes": [
+      "Which prior-year finding recurred, and what does that tell us about root cause?",
+      "Were there any restatements or out-of-period adjustments in the last three years?",
+      "Who left a key control role this year, and who performs that control now?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "coso-p1-q07",
+     "controlRef": "Audit Planning \u2014 Walkthroughs & Evidence (PBC) Preparation",
+     "question": "What is the plan for walkthroughs of each significant process, and what evidence (process narratives, flowcharts, control matrices, samples) will the entity provide and by when?",
+     "whyItMatters": "Walkthroughs confirm the auditor's understanding of process flow and control design before operating-effectiveness testing begins. Poorly prepared PBC responses are the leading cause of audit delay and often signal that control documentation does not actually exist.",
+     "interviewees": [
+      "Controller",
+      "Internal Auditor",
+      "IT Manager"
+     ],
+     "evidence": [
+      "PBC (prepared-by-client) list with owners and due dates",
+      "Process narratives and flowcharts for each significant cycle",
+      "Risk-control matrix linking risks to controls"
+     ],
+     "guidance": "A GOOD answer commits to named preparers and dates for each PBC item, and the walkthrough plan covers each significant process end-to-end from initiation through recording, including the IT systems and reports involved.",
+     "probes": [
+      "Which processes lack current narratives or flowcharts?",
+      "When were the flowcharts last updated \u2014 before or after the last system change?",
+      "Who performs each control, and can they sit for the walkthrough?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "coso-p1-q08",
+     "controlRef": "Audit Planning \u2014 Service Organizations & Outsourced Processes",
+     "question": "Which processes or control activities are performed by service organizations (payroll providers, cloud/hosting providers, third-party administrators), and how does the entity obtain assurance over those outsourced controls?",
+     "whyItMatters": "Outsourcing a process does not outsource management's responsibility for internal control. Without SOC 1/SOC 2 reports, complementary user entity control analysis, and vendor oversight, a material slice of the control population is effectively unaudited.",
+     "interviewees": [
+      "CFO",
+      "Controller",
+      "IT Manager",
+      "Compliance Officer"
+     ],
+     "evidence": [
+      "Inventory of service organizations",
+      "SOC 1 Type II / SOC 2 reports with coverage periods",
+      "Complementary user entity controls (CUEC) analysis",
+      "Bridge letters covering report gaps"
+     ],
+     "guidance": "A GOOD answer produces a complete inventory of relevant service organizations, current Type II reports with periods aligned to the audit period, documented review of exceptions, and evidence the entity performs the complementary user entity controls the reports assume.",
+     "probes": [
+      "Are there gaps between the SOC report period and your fiscal year, and how are they bridged?",
+      "Were there any exceptions or qualified opinions in the latest SOC reports?",
+      "Who reviews new vendors for control reliance before contracting?"
+     ],
+     "weight": 2
     }
-  ]
+   ]
+  },
+  {
+   "id": "phase-2",
+   "name": "Phase 2 \u2014 Control Environment & Risk Assessment (Components 1\u20132, Principles 1\u20139)",
+   "objective": "Assess the tone at the top, board oversight, organizational structure, competence, and accountability that form the Control Environment (Principles 1\u20135), then evaluate the entity's risk assessment process including objectives clarity, risk identification, fraud risk, and change management (Principles 6\u20139).",
+   "questions": [
+    {
+     "id": "coso-p2-q01",
+     "controlRef": "Principle 1 \u2014 Demonstrates Commitment to Integrity and Ethical Values",
+     "question": "How do the board and senior management demonstrate the entity's commitment to integrity and ethical values \u2014 and what is the 'tone at the top' employees actually experience day to day?",
+     "whyItMatters": "Principle 1 is the foundation of the entire framework: every other control operates within a culture set at the top. A 'no' here \u2014 leadership that tolerates aggressive accounting or punishes bad news \u2014 can negate transaction-level controls through management override.",
+     "interviewees": [
+      "Board/Audit Committee",
+      "CEO",
+      "CFO",
+      "HR",
+      "End Users"
+     ],
+     "evidence": [
+      "Code of conduct with board approval",
+      "Signed annual ethics acknowledgments",
+      "Ethics training completion records",
+      "Examples of tone-setting communications from CEO/CFO"
+     ],
+     "guidance": "A GOOD answer cites specific, recent actions \u2014 a CEO communication after an ethics incident, a deal declined on integrity grounds, visible consistency between stated values and promotion/reward decisions \u2014 corroborated by what end users say unprompted, not just what executives claim.",
+     "probes": [
+      "Tell me about the last time someone was disciplined for an ethics breach despite strong performance.",
+      "Do employees believe hitting targets matters more than how they are hit?",
+      "When did the board last discuss culture or conduct risk?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "coso-p2-q02",
+     "controlRef": "Principle 1 \u2014 Demonstrates Commitment to Integrity and Ethical Values (Standards of Conduct)",
+     "question": "Is there a current code of conduct, acknowledged by all employees and enforced consistently, and how are deviations \u2014 including deviations by senior management \u2014 investigated and resolved?",
+     "whyItMatters": "A code that exists on paper but is waived for top performers teaches the organization that controls are optional. Inconsistent enforcement is direct evidence against the operating effectiveness of Principle 1.",
+     "interviewees": [
+      "HR",
+      "Compliance Officer",
+      "CEO"
+     ],
+     "evidence": [
+      "Code of conduct with revision history",
+      "Acknowledgment logs covering all employees and contractors",
+      "Ethics case log with dispositions",
+      "Records of any code waivers granted to executives"
+     ],
+     "guidance": "A GOOD answer shows near-100% acknowledgment coverage, a real case log with consistent dispositions across seniority levels, and formal board approval required for any waiver benefiting an executive officer.",
+     "probes": [
+      "Has the code ever been waived for an executive? Who approved it and was it disclosed?",
+      "What percentage of employees completed acknowledgment this year?",
+      "How are contractors and temporary staff covered?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "coso-p2-q03",
+     "controlRef": "Principle 2 \u2014 Exercises Oversight Responsibility",
+     "question": "How does the board of directors / audit committee exercise oversight of internal control \u2014 and is it independent of management, with the financial expertise to challenge financial reporting judgments?",
+     "whyItMatters": "Principle 2 requires the board to be independent and to oversee the development and performance of internal control. An audit committee that rubber-stamps management cannot detect management override \u2014 the fraud vector behind most major financial restatements.",
+     "interviewees": [
+      "Board/Audit Committee",
+      "CEO",
+      "CFO",
+      "Internal Auditor"
+     ],
+     "evidence": [
+      "Audit committee charter",
+      "Committee composition and independence determinations",
+      "Meeting minutes showing probing questions and challenge",
+      "Financial expert designation",
+      "Executive sessions held without management present"
+     ],
+     "guidance": "A GOOD answer shows a charter aligned to COSO, a majority of independent members, at least one designated financial expert, regular meetings with agendas covering internal control and risk, executive sessions with auditors, and minutes evidencing genuine challenge rather than passive receipt of reports.",
+     "probes": [
+      "How often does the committee meet in executive session with internal and external audit?",
+      "Give an example where the committee rejected or pushed back on a management position.",
+      "How are committee members educated on internal control and financial reporting developments?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "coso-p2-q04",
+     "controlRef": "Principle 3 \u2014 Establishes Structure, Authority, and Responsibility",
+     "question": "How has management established \u2014 with board oversight \u2014 the reporting lines, delegation of authority, and responsibility assignments needed to pursue objectives, and are they documented and current?",
+     "whyItMatters": "Unclear authority and reporting lines mean nobody owns a control when it fails, and approval limits can be circumvented informally. Principle 3 failures surface as unauthorized transactions, orphaned controls, and accountability vacuums after incidents.",
+     "interviewees": [
+      "CEO",
+      "CFO",
+      "HR",
+      "Controller"
+     ],
+     "evidence": [
+      "Organization chart",
+      "Delegation of authority (DOA) matrix with approval thresholds",
+      "Job descriptions for key control roles",
+      "Board minutes approving structure or authority changes"
+     ],
+     "guidance": "A GOOD answer produces a current org chart and a written DOA matrix covering commitments, payments, contracts, and journal entries, shows the board reviews key executive appointments, and confirms reporting lines were re-examined after reorganizations.",
+     "probes": [
+      "Show me the approval threshold for a payment above $X \u2014 where is it written?",
+      "Who can override the DOA matrix, and how is that logged?",
+      "When the Controller role turned over, how were control responsibilities reassigned?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "coso-p2-q05",
+     "controlRef": "Principle 4 \u2014 Demonstrates Commitment to Competence",
+     "question": "How does the organization attract, develop, and retain competent individuals for key internal control roles \u2014 particularly in finance, IT, and compliance \u2014 and what happens when a key control performer leaves?",
+     "whyItMatters": "Controls are only as reliable as the people performing them. Principle 4 addresses competence directly; a departed revenue-recognition specialist or an undertrained reviewer turns a well-designed control into a paper exercise.",
+     "interviewees": [
+      "HR",
+      "CFO",
+      "Controller",
+      "IT Manager"
+     ],
+     "evidence": [
+      "Competency requirements in job descriptions for key roles",
+      "Training plans and CPE records for finance/control staff",
+      "Succession plans for key positions",
+      "Turnover statistics for control-critical functions"
+     ],
+     "guidance": "A GOOD answer shows defined competencies per key role, actual training investment (not just budget lines), documented cross-training or backup performers for critical controls, and honest acknowledgment of gaps with mentoring or hiring plans to close them.",
+     "probes": [
+      "Which control would fail tomorrow if one specific person quit?",
+      "How are new preparers and reviewers trained before they perform a key control?",
+      "When did finance last receive training on new accounting standards?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "coso-p2-q06",
+     "controlRef": "Principle 5 \u2014 Enforces Accountability",
+     "question": "How are individuals held accountable for their internal control responsibilities \u2014 through performance measures, incentives, and consequences \u2014 and do incentives ever pressure people to circumvent controls?",
+     "whyItMatters": "Principle 5 makes accountability the enforcement arm of the control environment. Misaligned incentives \u2014 revenue-at-any-cost targets, bonuses tied to metrics a single person can manipulate \u2014 are a documented fraud pressure under the fraud triangle.",
+     "interviewees": [
+      "CEO",
+      "CFO",
+      "HR",
+      "End Users"
+     ],
+     "evidence": [
+      "Performance evaluation templates including control responsibilities",
+      "Incentive/bonus plan structures and metrics",
+      "Examples of corrective action for control failures",
+      "Employee survey results on pressure to meet targets"
+     ],
+     "guidance": "A GOOD answer shows control responsibilities embedded in evaluations for control owners, incentive plans with balanced metrics and clawback or malus provisions, and real examples where a control failure had consequences. Leadership can articulate how incentive risk is assessed.",
+     "probes": [
+      "Could a salesperson's commission be earned on revenue that shouldn't be recognized?",
+      "What happened to the person responsible for the last significant control failure?",
+      "Are there 'make the quarter' behaviors everyone knows about but nobody documents?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "coso-p2-q07",
+     "controlRef": "Principle 6 \u2014 Specifies Suitable Objectives",
+     "question": "Are objectives specified with enough clarity \u2014 including tolerances for error \u2014 that risks to achieving them can be identified and assessed, particularly for external financial reporting?",
+     "whyItMatters": "Risk assessment is impossible against vague objectives. Principle 6 specifically requires that financial reporting objectives reflect what suitable external statements look like \u2014 including materiality thresholds \u2014 so the entity knows what 'misstatement' it is actually controlling against.",
+     "interviewees": [
+      "CFO",
+      "Controller",
+      "CEO",
+      "Risk Manager"
+     ],
+     "evidence": [
+      "Documented entity and process-level objectives",
+      "Materiality and tolerance thresholds used in control design",
+      "Linkage of objectives to the risk register"
+     ],
+     "guidance": "A GOOD answer shows objectives specific enough to test ('close the books within X days with no post-close adjustments over $Y'), financial reporting objectives explicitly tied to GAAP/IFRS compliance and assertions, and tolerances that control designers actually use.",
+     "probes": [
+      "What level of error in revenue recognition would be unacceptable, and who set that?",
+      "Are compliance objectives documented separately from financial reporting objectives?",
+      "Do operations objectives exist in writing, or only financial ones?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "coso-p2-q08",
+     "controlRef": "Principle 7 \u2014 Identifies and Analyzes Risk",
+     "question": "Describe the entity-wide risk assessment process: how are risks to objectives identified across the entity, analyzed for likelihood and impact, and used to determine how risks should be managed?",
+     "whyItMatters": "Principle 7 is the engine that decides where controls are needed. An annual checkbox exercise \u2014 or a risk register that never changes \u2014 means new risks (cyber, supply chain, new products) are running uncontrolled while the audit program tests yesterday's risks.",
+     "interviewees": [
+      "Risk Manager",
+      "CFO",
+      "CEO",
+      "Internal Auditor"
+     ],
+     "evidence": [
+      "Risk assessment methodology (likelihood/impact scales)",
+      "Current entity risk register with inherent and residual ratings",
+      "Minutes of risk workshops or committee meetings",
+      "Traceability from top risks to control coverage"
+     ],
+     "guidance": "A GOOD answer describes a repeatable process with defined scales, broad participation across functions, documented inherent and residual ratings, and \u2014 critically \u2014 demonstrable linkage where the top risks map to specific controls the audit can test.",
+     "probes": [
+      "Show me your top five risks and the specific controls mitigating each.",
+      "When did a risk last move materially in rating, and what changed?",
+      "Who participates in risk identification beyond the executive team?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "coso-p2-q09",
+     "controlRef": "Principle 8 \u2014 Assesses Fraud Risk",
+     "question": "Has the entity performed a specific fraud risk assessment covering fraudulent financial reporting, misappropriation of assets, and corruption \u2014 including the incentives, pressures, and opportunities present here?",
+     "whyItMatters": "Principle 8 explicitly requires considering fraud as part of risk assessment. Entities that only assess generic 'risks' routinely miss fraud schemes with known red flags \u2014 related-party transactions, side agreements, manual journal entries near period end.",
+     "interviewees": [
+      "CFO",
+      "Internal Auditor",
+      "Compliance Officer",
+      "Board/Audit Committee"
+     ],
+     "evidence": [
+      "Documented fraud risk assessment with schemes considered",
+      "Fraud risk brainstorming session records",
+      "Mapping of fraud schemes to anti-fraud controls",
+      "Fraud incident history"
+     ],
+     "guidance": "A GOOD answer shows a distinct fraud risk assessment (not just a line in the general register), considers the fraud triangle explicitly, names plausible entity-specific schemes (channel stuffing, expense fraud, bid rigging), and links each to preventive and detective controls.",
+     "probes": [
+      "Which fraud scheme keeps the CFO up at night, and which control catches it?",
+      "Are incentives and pressures on management discussed explicitly in the assessment?",
+      "When did the audit committee last discuss fraud risk?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "coso-p2-q10",
+     "controlRef": "Principle 8 \u2014 Assesses Fraud Risk (Management Override of Controls)",
+     "question": "What specific controls exist over management override \u2014 journal entry review, estimates oversight, unusual transaction scrutiny \u2014 and have they ever actually detected or deterred an override attempt?",
+     "whyItMatters": "Management override is the fraud risk that exists in every entity regardless of control quality, and COSO and auditing standards (e.g., AS 2401/ISA 240) require it be addressed directly. It is the mechanism behind Enron, WorldCom, and most major restatements.",
+     "interviewees": [
+      "CFO",
+      "Controller",
+      "Internal Auditor",
+      "Board/Audit Committee"
+     ],
+     "evidence": [
+      "Journal entry review procedures including nonstandard/topside entries",
+      "Controls over significant estimates and management judgments",
+      "Analysis of unusual or complex transactions",
+      "Whistleblower allegations involving management and their disposition"
+     ],
+     "guidance": "A GOOD answer describes layered anti-override controls: independent review of nonstandard journal entries, scrutiny of late manual entries and topside adjustments, challenge of estimates by the audit committee, and a culture where finance staff can escalate pressure without retaliation.",
+     "probes": [
+      "Who reviews the CFO's own journal entries, and can that reviewer be overruled?",
+      "How many topside or late manual entries were posted last year-end, and who approved each?",
+      "Has anyone in finance ever been asked to 'hold' an entry until next quarter?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "coso-p2-q11",
+     "controlRef": "Principle 9 \u2014 Identifies and Analyzes Significant Change",
+     "question": "How does the entity identify and assess changes \u2014 new systems, acquisitions, leadership turnover, new regulations, rapid growth \u2014 that could significantly impact the system of internal control, and who is responsible for triggering reassessment?",
+     "whyItMatters": "Principle 9 recognizes that internal control decays when the business changes around it. The classic failure pattern: an ERP migration or acquisition lands, old controls silently stop working, and the misstatement is discovered at year-end audit.",
+     "interviewees": [
+      "CFO",
+      "Controller",
+      "IT Manager",
+      "Risk Manager",
+      "CEO"
+     ],
+     "evidence": [
+      "Change assessment procedures at the entity level",
+      "Post-implementation control reviews for recent system changes",
+      "Control impact assessments for acquisitions or restructurings",
+      "Regulatory change tracking process"
+     ],
+     "guidance": "A GOOD answer shows a defined trigger process \u2014 any material system, organizational, regulatory, or business-model change prompts a control impact assessment \u2014 with recent real examples where control mappings were updated before or immediately after change, not at audit time.",
+     "probes": [
+      "When the ERP was upgraded, which controls were re-documented before go-live?",
+      "How were the acquired company's controls evaluated and integrated?",
+      "Who owns watching for new accounting standards, and how did the last adoption change controls?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "coso-p2-q12",
+     "controlRef": "Principles 6\u20139 \u2014 Risk Assessment Component (Entity-Level Integration)",
+     "question": "Is the risk assessment process a living, entity-wide practice that reaches all significant locations and functions \u2014 and do the results actually change what gets controlled, monitored, and audited each year?",
+     "whyItMatters": "This synthesizes Principles 6\u20139: a risk assessment that exists but does not alter control coverage, internal audit plans, or monitoring priorities fails the spirit of the entire Risk Assessment component even if a register document exists.",
+     "interviewees": [
+      "Risk Manager",
+      "Internal Auditor",
+      "CFO",
+      "CEO"
+     ],
+     "evidence": [
+      "Risk assessment outputs compared year over year",
+      "Internal audit plan explicitly derived from risk rankings",
+      "Control additions/removals traced to risk assessment results",
+      "Coverage of all locations and functions in the assessment"
+     ],
+     "guidance": "A GOOD answer demonstrates a feedback loop: last year's assessment demonstrably changed the internal audit plan, added or retired controls, and shifted monitoring attention \u2014 and every significant location participated rather than only headquarters.",
+     "probes": [
+      "Name one control added this year because of the risk assessment.",
+      "Which risks did you consciously accept with no new control, and who signed off?",
+      "Does the foreign subsidiary's risk view make it into the entity-level register?"
+     ],
+     "weight": 2
+    }
+   ]
+  },
+  {
+   "id": "phase-3",
+   "name": "Phase 3 \u2014 Control Activities & Information/Communication (Components 3\u20134, Principles 10\u201315)",
+   "objective": "Evaluate the design and deployment of control activities that mitigate identified risks \u2014 including segregation of duties, financial reporting controls, and general controls over technology (Principles 10\u201312) \u2014 and the quality and flow of information supporting internal control, internally and externally (Principles 13\u201315).",
+   "questions": [
+    {
+     "id": "coso-p3-q01",
+     "controlRef": "Principle 10 \u2014 Selects and Develops Control Activities",
+     "question": "How does management select and develop control activities that reduce each identified risk to an acceptable level \u2014 and can you trace a top risk to the specific control(s) that mitigate it?",
+     "whyItMatters": "Principle 10 demands a direct line from risk to control. Controls that exist out of habit rather than risk linkage waste effort, while risks without mapped controls are unmitigated exposures the audit must surface.",
+     "interviewees": [
+      "Controller",
+      "CFO",
+      "Risk Manager",
+      "Internal Auditor"
+     ],
+     "evidence": [
+      "Risk-control matrix (RCM)",
+      "Control descriptions with frequency, owner, and precision level",
+      "Documentation of control design assessment"
+     ],
+     "guidance": "A GOOD answer produces an RCM where each significant risk maps to at least one specific control with a named owner, defined frequency, and a precision level capable of catching a material error \u2014 and management can explain why residual risk is acceptable.",
+     "probes": [
+      "Pick your highest inherent risk \u2014 walk me from it to the control to the evidence.",
+      "Are there controls that no current risk justifies?",
+      "Which risks are accepted with no control at all, and by whom?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "coso-p3-q02",
+     "controlRef": "Principle 10 \u2014 Selects and Develops Control Activities (Segregation of Duties)",
+     "question": "How are incompatible duties segregated across initiation, authorization, recording, and custody of assets \u2014 and where segregation is impractical, what compensating controls operate?",
+     "whyItMatters": "Segregation of duties (SoD) is the bedrock preventive control against both error and fraud. One person who can create a vendor, approve it, and pay it controls the entire fraud chain; SoD failures are implicated in most occupational fraud cases.",
+     "interviewees": [
+      "Controller",
+      "CFO",
+      "IT Manager",
+      "End Users"
+     ],
+     "evidence": [
+      "SoD matrix defining incompatible duty combinations",
+      "System role/permission reports",
+      "SoD conflict reports with disposition",
+      "Documented compensating controls for small departments"
+     ],
+     "guidance": "A GOOD answer shows a defined SoD ruleset enforced in the ERP where possible, periodic conflict reports that are actually reviewed and remediated, and genuine compensating controls (independent review, detailed owner sign-off) where staffing forces concentration \u2014 not just a note saying 'small team.'",
+     "probes": [
+      "Show me a user who can both create a vendor and process its payment.",
+      "How are SoD conflicts resolved when someone changes roles?",
+      "What stops the person who reconciles the bank account from also initiating wires?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "coso-p3-q03",
+     "controlRef": "Principle 10 \u2014 Selects and Develops Control Activities (Financial Reporting Controls / SOX Linkage)",
+     "question": "Which control activities operate over the financial close and reporting process \u2014 account reconciliations, journal entry approval, consolidation, disclosure review \u2014 and are they documented and tested at a level sufficient for a SOX 404 assertion (or equivalent)?",
+     "whyItMatters": "Financial reporting controls are where COSO meets statutory obligation: SOX 404 requires management to assess ICFR, and COSO is the de facto framework. Weak close-process controls produce the audit adjustments, restatements, and late filings that destroy credibility.",
+     "interviewees": [
+      "CFO",
+      "Controller",
+      "Internal Auditor"
+     ],
+     "evidence": [
+      "Close calendar with control checkpoints",
+      "Account reconciliation policy and samples with evidence of review",
+      "Journal entry approval workflow",
+      "Disclosure checklist",
+      "SOX 404 control documentation and test results"
+     ],
+     "guidance": "A GOOD answer shows documented key controls across the close (reconciliations with preparer/reviewer evidence, JE approval thresholds, consolidation checks, disclosure review), tested with results management relies on, and clear linkage to any SOX 404 assertion.",
+     "probes": [
+      "Which reconciliations were completed late or with unreconciled items last quarter?",
+      "What journal entry dollar threshold triggers approval, and who approves entries above it?",
+      "How do you know the disclosure checklist is complete?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "coso-p3-q04",
+     "controlRef": "Principle 11 \u2014 Selects and Develops General Controls over Technology",
+     "question": "Are IT general controls established over access to programs and data, program changes, program development, and computer operations for the systems that support financial reporting and key operations?",
+     "whyItMatters": "Principle 11 makes ITGCs a first-class part of internal control: application controls are only as reliable as the environment they run in. Weak change management or broad access means any 'automated control' result can be manipulated upstream.",
+     "interviewees": [
+      "IT Manager",
+      "Controller",
+      "Internal Auditor"
+     ],
+     "evidence": [
+      "ITGC control matrix covering access, change management, development, and operations",
+      "User access reviews with sign-offs",
+      "Change tickets showing test/approval evidence",
+      "Terminated-user deprovisioning samples",
+      "Backup and job-scheduling monitoring records"
+     ],
+     "guidance": "A GOOD answer covers all four ITGC domains for each financially relevant system, shows quarterly access reviews with evidence of action on exceptions, requires tested and approved changes before production, and promptly removes access for leavers \u2014 verified with samples, not just policy.",
+     "probes": [
+      "How quickly was the last departed employee's access removed?",
+      "Can a developer deploy to production without independent approval?",
+      "Which financially relevant systems lack formal change management?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "coso-p3-q05",
+     "controlRef": "Principle 11 \u2014 Selects and Develops General Controls over Technology (Automated Controls & Interfaces)",
+     "question": "Where the entity relies on automated application controls, system calculations, and interfaces between systems, how is the completeness and accuracy of that automation verified and kept intact through system changes?",
+     "whyItMatters": "Modern entities rely on automated three-way matches, tax engines, and system interfaces for control execution. If an interface silently drops transactions or a configuration change alters a calculation, the 'control' reports green while errors flow through \u2014 a growing failure mode as ERP landscapes get more complex.",
+     "interviewees": [
+      "IT Manager",
+      "Controller",
+      "End Users"
+     ],
+     "evidence": [
+      "Inventory of key automated controls and interfaces",
+      "Interface reconciliation/error monitoring reports",
+      "Change log showing regression testing of automated controls",
+      "Configuration baselines for key control settings"
+     ],
+     "guidance": "A GOOD answer inventories the automated controls the entity depends on, monitors interfaces with reconciliations or error queues that someone actually reviews, and demonstrates that changes to systems trigger regression testing of dependent controls.",
+     "probes": [
+      "If tonight's billing interface fails silently, who finds out and when?",
+      "When the ERP config changed last quarter, which automated controls were retested?",
+      "Who owns the three-way match tolerance settings, and when were they last reviewed?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "coso-p3-q06",
+     "controlRef": "Principle 12 \u2014 Deploys through Policies and Procedures",
+     "question": "Are control activities deployed through documented policies that establish what is expected and procedures that put policy into action \u2014 with responsibility, timing, and corrective-action requirements made explicit?",
+     "whyItMatters": "Principle 12 is where design meets execution: a control understood only in one person's head dies when that person leaves. COSO's points of focus require that policies assign responsibility, procedures be performed timely and consistently, and exceptions be investigated and corrected.",
+     "interviewees": [
+      "Controller",
+      "HR",
+      "IT Manager",
+      "End Users"
+     ],
+     "evidence": [
+      "Policy library with owners and review dates",
+      "Desk procedures for key controls",
+      "Evidence that procedures are current (post any process/system change)",
+      "Exception logs showing investigation and correction"
+     ],
+     "guidance": "A GOOD answer shows a maintained policy set with named owners and current review dates, procedures detailed enough that a trained backup could perform the control, and evidence that exceptions are investigated and corrected rather than accumulated.",
+     "probes": [
+      "Could a new hire perform the bank reconciliation using only the written procedure?",
+      "Which policies are more than two years past their review date?",
+      "When a control exception occurred, what corrective action was required and by whom?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "coso-p3-q07",
+     "controlRef": "Principle 13 \u2014 Uses Relevant Information",
+     "question": "How does the entity obtain or generate relevant, quality information to support the functioning of internal control \u2014 and how is the completeness and accuracy of reports used in control performance (information produced by the entity) validated?",
+     "whyItMatters": "Principle 13 targets the information controls consume: aging reports, exception listings, system-generated data used in reconciliations. If the IPE feeding a review control is incomplete, the review's conclusion is worthless \u2014 this is one of the most common external-audit findings.",
+     "interviewees": [
+      "Controller",
+      "IT Manager",
+      "End Users"
+     ],
+     "evidence": [
+      "Inventory of key reports used in control performance (IPE)",
+      "Evidence of completeness/accuracy checks on those reports",
+      "Query/report logic documentation",
+      "Reconciliation of report totals to source systems"
+     ],
+     "guidance": "A GOOD answer shows control performers can explain where their report data comes from, how they know it is complete (record counts, control totals, tie-outs to the GL), and that report logic is controlled and changed only through change management.",
+     "probes": [
+      "For this review control, how do you know the population you reviewed was complete?",
+      "Who wrote the query behind this report, and who can change it?",
+      "When a system migrated, how was report accuracy re-validated?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "coso-p3-q08",
+     "controlRef": "Principle 14 \u2014 Communicates Internally",
+     "question": "How are internal control objectives and individual responsibilities communicated internally, and how does information flow upward \u2014 can front-line staff reach senior management with control concerns?",
+     "whyItMatters": "Principle 14 requires two-way communication: responsibilities flow down, and problems flow up. If employees do not know they perform a control, or cannot escalate a failure without career risk, the control system is operating blind.",
+     "interviewees": [
+      "CEO",
+      "CFO",
+      "HR",
+      "End Users",
+      "Internal Auditor"
+     ],
+     "evidence": [
+      "Communication of control responsibilities (role descriptions, training)",
+      "Escalation procedures",
+      "Examples of issues raised by staff that reached leadership",
+      "Town halls or control-awareness communications"
+     ],
+     "guidance": "A GOOD answer shows employees can name the controls they own, there is a defined upward escalation path that has demonstrably been used in the last year, and leadership received and acted on at least one control concern raised from below.",
+     "probes": [
+      "Ask a control performer to describe the control they own \u2014 does their description match the documentation?",
+      "When did an operational employee last flag a control problem, and what happened?",
+      "How are interim staff made aware of their control responsibilities?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "coso-p3-q09",
+     "controlRef": "Principle 14 \u2014 Communicates Internally (Whistleblower / Anonymous Reporting Channel)",
+     "question": "Is there an independent, anonymous whistleblower channel (hotline) for reporting suspected fraud or control violations \u2014 and are reports actually investigated, tracked, and reported to the audit committee?",
+     "whyItMatters": "Tips are consistently the leading source of fraud detection (per ACFE data), and SOX Section 301 requires audit committees to maintain procedures for confidential, anonymous complaints about accounting matters. A hotline that exists but routes to the CFO it might be about is worse than none.",
+     "interviewees": [
+      "Board/Audit Committee",
+      "Compliance Officer",
+      "HR",
+      "Internal Auditor",
+      "End Users"
+     ],
+     "evidence": [
+      "Hotline/whistleblower policy",
+      "Third-party hotline administration reports",
+      "Case log with investigation outcomes",
+      "Audit committee minutes reviewing hotline activity",
+      "Anti-retaliation policy"
+     ],
+     "guidance": "A GOOD answer shows an externally administered channel with anonymity protection, intake routed so allegations about executives bypass those executives, documented investigations with dispositions, periodic reporting to the audit committee, and employee awareness proven by actual usage.",
+     "probes": [
+      "Who sees a complaint that names the CFO?",
+      "How many reports came in last year, and what was the substantiation rate?",
+      "Has anyone ever claimed retaliation, and how was it handled?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "coso-p3-q10",
+     "controlRef": "Principle 15 \u2014 Communicates Externally",
+     "question": "How does the entity communicate with external parties \u2014 customers, suppliers, regulators, external auditors, shareholders \u2014 on matters affecting internal control, and how are inbound external communications (complaints, regulator inquiries) routed into the control system?",
+     "whyItMatters": "Principle 15 closes the loop with the outside world: customer complaints can reveal control failures internal monitoring misses, and regulator or auditor communications carry obligations. Entities that treat external communication as marketing rather than control intelligence miss early warning signals.",
+     "interviewees": [
+      "Compliance Officer",
+      "CFO",
+      "CEO",
+      "Risk Manager"
+     ],
+     "evidence": [
+      "Regulator correspondence log",
+      "Customer complaint process with control-relevant escalation",
+      "External audit management letters and responses",
+      "Investor/stakeholder communication procedures"
+     ],
+     "guidance": "A GOOD answer shows defined channels in both directions: regulator inquiries get tracked and answered by named owners, customer/vendor complaints are analyzed for control root causes, and external auditor communications are actioned with board visibility.",
+     "probes": [
+      "Show me a customer complaint that led to a control change.",
+      "Who owns responses to regulator inquiries, and what is the turnaround record?",
+      "How were the external auditor's management letter points from last year dispositioned?"
+     ],
+     "weight": 2
+    }
+   ]
+  },
+  {
+   "id": "phase-4",
+   "name": "Phase 4 \u2014 Monitoring Activities & ERM Alignment (Component 5, Principles 16\u201317 + COSO ERM 2017)",
+   "objective": "Assess ongoing and separate evaluations of internal control (Principles 16\u201317), including the internal audit function and deficiency escalation, then evaluate alignment with COSO ERM 2017: governance and risk culture, risk appetite and strategy integration, risk-informed performance, and review and reporting.",
+   "questions": [
+    {
+     "id": "coso-p4-q01",
+     "controlRef": "Principle 16 \u2014 Conducts Ongoing and/or Separate Evaluations (Ongoing Monitoring)",
+     "question": "What ongoing monitoring is built into business processes \u2014 supervisory review, management dashboards, control self-assessments, KPI exception monitoring \u2014 that tells management whether the components of internal control are present and functioning?",
+     "whyItMatters": "Principle 16 distinguishes monitoring woven into operations from periodic separate evaluations. Entities relying only on the annual audit learn about broken controls a year late; ongoing monitoring catches drift \u2014 a reconciliation quietly skipped for months \u2014 while it is still cheap to fix.",
+     "interviewees": [
+      "CFO",
+      "Controller",
+      "Risk Manager",
+      "End Users"
+     ],
+     "evidence": [
+      "Control self-assessment program and results",
+      "Management dashboards monitoring control performance",
+      "Supervisory review evidence",
+      "Exception/KPI monitoring reports"
+     ],
+     "guidance": "A GOOD answer describes monitoring embedded in routine management (e.g., monthly controller review of reconciliation status, self-assessment cycles with follow-up), and can point to a control failure that ongoing monitoring caught internally before any auditor did.",
+     "probes": [
+      "Tell me about a broken control that monitoring found before audit did.",
+      "Which controls have no monitoring at all between audits?",
+      "Who reviews the self-assessment results and challenges overly generous scores?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "coso-p4-q02",
+     "controlRef": "Principle 16 \u2014 Conducts Ongoing and/or Separate Evaluations (Internal Audit Function)",
+     "question": "Is there an internal audit function (in-house, co-sourced, or outsourced) performing separate evaluations of internal control, and does it have the charter, independence, competence, and audit-committee reporting line COSO and the IIA standards expect?",
+     "whyItMatters": "Internal audit is the principal 'separate evaluation' mechanism under Principle 16. Without an independent, competent, risk-based internal audit function reporting to the audit committee, management's assertion that controls operate effectively rests largely on self-review.",
+     "interviewees": [
+      "Internal Auditor",
+      "Board/Audit Committee",
+      "CFO"
+     ],
+     "evidence": [
+      "Internal audit charter",
+      "Risk-based audit plan approved by the audit committee",
+      "Completed audit reports and workpapers",
+      "CAE administrative/functional reporting lines",
+      "Staff qualifications (CIA/CPA/CISA) and QAIP results"
+     ],
+     "guidance": "A GOOD answer shows a charter granting unrestricted access, functional reporting to the audit committee, a plan demonstrably derived from the risk assessment, completed audits covering the five components over time, and a quality assurance program. For smaller entities, a reasoned alternative (co-source, or documented compensating evaluations) with committee approval is acceptable.",
+     "probes": [
+      "Can internal audit be overruled by management on scope? Has it happened?",
+      "Which audits were cut from last year's plan and why?",
+      "When did internal audit last audit the control environment or fraud risks directly?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "coso-p4-q03",
+     "controlRef": "Principle 17 \u2014 Evaluates and Communicates Deficiencies",
+     "question": "When monitoring or audits identify an internal control deficiency, how is it evaluated, escalated to those responsible for corrective action, and \u2014 when appropriate \u2014 reported to senior management and the board on a timely basis?",
+     "whyItMatters": "Principle 17 is the escalation obligation: findings that die in a workpaper or an inbox fail the principle even if they were correctly identified. Timing matters \u2014 a deficiency found in March but reported to the board the following January defeats the purpose.",
+     "interviewees": [
+      "Internal Auditor",
+      "CFO",
+      "Board/Audit Committee",
+      "Controller"
+     ],
+     "evidence": [
+      "Deficiency evaluation criteria",
+      "Findings escalation procedure with timelines",
+      "Audit committee reporting of deficiencies",
+      "Management responses to findings"
+     ],
+     "guidance": "A GOOD answer shows defined criteria for evaluating and rating findings, explicit escalation paths with timeframes, a track record of significant issues reaching senior management and the audit committee promptly, and no history of findings being softened or delayed to avoid embarrassment.",
+     "probes": [
+      "Which deficiency found last year reached the audit committee, and how fast?",
+      "Who decides a finding does NOT get reported upward, and where is that decision recorded?",
+      "Has any finding ever been re-rated downward after management pushback?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "coso-p4-q04",
+     "controlRef": "Principle 17 \u2014 Evaluates and Communicates Deficiencies (Remediation Tracking)",
+     "question": "How are corrective actions from identified deficiencies tracked to completion \u2014 with owners, due dates, and validation that the fix actually worked rather than just being implemented?",
+     "whyItMatters": "Repeat findings are the hallmark of failed Principle 17 execution. Closing a finding because an email says 'done' \u2014 without re-testing \u2014 produces the same deficiency next year, often with seniority escalation (deficiency becoming significant deficiency).",
+     "interviewees": [
+      "Internal Auditor",
+      "Controller",
+      "CFO"
+     ],
+     "evidence": [
+      "Remediation tracker with owners and dates",
+      "Re-testing evidence for closed findings",
+      "Aging analysis of open items",
+      "Repeat-finding statistics"
+     ],
+     "guidance": "A GOOD answer shows a single consolidated tracker (internal audit, external audit, and self-identified items together), independent validation before closure, few or no repeat findings, and audit committee visibility into overdue items.",
+     "probes": [
+      "Show me a finding closed last year and the evidence it was re-tested.",
+      "How many items are past due, and which is oldest?",
+      "Which finding has appeared three years running, and what is different this time?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "coso-p4-q05",
+     "controlRef": "COSO ERM 2017 \u2014 Component 1: Governance & Culture (Risk Culture)",
+     "question": "How does the organization define and reinforce its desired risk culture \u2014 the values, behaviors, and understanding of risk across the entity \u2014 and how does leadership know the actual culture matches the desired one?",
+     "whyItMatters": "COSO ERM 2017 opens with Governance & Culture because culture determines how every other ERM component performs. A stated risk-aware culture coexisting with a practice of punishing messengers produces exactly the risk blindness ERM exists to prevent.",
+     "interviewees": [
+      "CEO",
+      "Board/Audit Committee",
+      "Risk Manager",
+      "HR",
+      "End Users"
+     ],
+     "evidence": [
+      "Statements of core values including risk behavior",
+      "Culture or engagement survey results",
+      "Examples of risk-conscious decisions recognized/rewarded",
+      "Escalation incidents handled without retaliation"
+     ],
+     "guidance": "A GOOD answer articulates the desired culture in behavioral terms, measures it (surveys, escalation statistics, exit-interview themes), and leadership can describe divergence between desired and actual culture with actions underway \u2014 not just aspirational statements on the website.",
+     "probes": [
+      "Describe a time bad news traveled up fast here \u2014 what made that possible?",
+      "Are people rewarded for surfacing risks, or only for results?",
+      "Where does the actual culture diverge most from the stated one?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "coso-p4-q06",
+     "controlRef": "COSO ERM 2017 \u2014 Component 2: Strategy & Objective-Setting (Risk Appetite)",
+     "question": "Has the board and management formally defined risk appetite \u2014 the types and amount of risk the entity is willing to accept in pursuit of value \u2014 and is it documented, communicated, and actually used in decision-making?",
+     "whyItMatters": "Risk appetite is the connective tissue between strategy and control under COSO ERM 2017. Without an articulated appetite, managers cannot judge whether a residual risk is acceptable, and the board cannot hold management to a consistent standard of risk-taking.",
+     "interviewees": [
+      "Board/Audit Committee",
+      "CEO",
+      "CFO",
+      "Risk Manager"
+     ],
+     "evidence": [
+      "Board-approved risk appetite statement",
+      "Appetite translated into tolerances/limits by risk category",
+      "Examples of decisions checked against appetite",
+      "Communication of appetite to management layers"
+     ],
+     "guidance": "A GOOD answer produces a written, board-approved appetite statement with category-level tolerances (e.g., zero tolerance for regulatory breach, moderate appetite for new-market entry) and \u2014 decisively \u2014 real examples of opportunities declined or escalated because they exceeded appetite.",
+     "probes": [
+      "Name a decision in the last year that was shaped by the risk appetite statement.",
+      "Who can approve taking a risk beyond stated appetite?",
+      "How would a divisional manager learn what the appetite is?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "coso-p4-q07",
+     "controlRef": "COSO ERM 2017 \u2014 Component 2: Strategy & Objective-Setting (Strategy Alignment)",
+     "question": "How is enterprise risk management integrated with strategy-setting and business objective selection \u2014 does risk analysis shape strategy, or is it applied after the strategy is already decided?",
+     "whyItMatters": "ERM 2017's core repositioning is 'integrating with strategy and performance': risk considered only after strategy is set is compliance theater. Misalignment between strategy and risk profile is how entities drift into risks their control environment was never built to handle.",
+     "interviewees": [
+      "CEO",
+      "Board/Audit Committee",
+      "Risk Manager",
+      "CFO"
+     ],
+     "evidence": [
+      "Strategy documents incorporating risk analysis",
+      "Board minutes where risk considerations altered strategy",
+      "Analysis of alternative strategies from a risk perspective",
+      "Business context / operating environment analysis"
+     ],
+     "guidance": "A GOOD answer shows risk analysis present at the front of strategy discussions \u2014 alternative strategies evaluated for risk implications, risk profile compared against appetite before approval, and the board visibly weighing risk-return trade-offs in strategic decisions.",
+     "probes": [
+      "Which strategic option was rejected or reshaped because of its risk profile?",
+      "Does the risk function have a seat when strategy is debated, or only after?",
+      "How did the last major initiative's risk assessment change its design?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "coso-p4-q08",
+     "controlRef": "COSO ERM 2017 \u2014 Component 3: Performance (Risk Identification, Assessment & Prioritization)",
+     "question": "How are risks identified, assessed for likelihood and impact, prioritized, and responded to \u2014 and does management view risk at the portfolio level, not just risk-by-risk in silos?",
+     "whyItMatters": "ERM 2017 emphasizes that entity-level risk is more than the sum of individual registers: correlated risks (supply chain + concentration + currency) compound invisibly when each is managed by a different silo. Portfolio view failures were central to the 2008 financial crisis.",
+     "interviewees": [
+      "Risk Manager",
+      "CFO",
+      "CEO",
+      "Internal Auditor"
+     ],
+     "evidence": [
+      "Risk identification methods (workshops, interviews, indicators)",
+      "Severity/prioritization methodology",
+      "Risk response decisions (accept/avoid/reduce/share) with owners",
+      "Portfolio or aggregated risk reporting (heat maps, correlation analysis)"
+     ],
+     "guidance": "A GOOD answer shows consistent identification across functions, prioritization on defined severity criteria, a documented response selected for each priority risk, and aggregated reporting that surfaces combined concentrations the silo views miss.",
+     "probes": [
+      "Which two risks in your register could hit simultaneously, and has anyone modeled that?",
+      "Show me one risk response decision and its rationale.",
+      "Who looks at the aggregate picture rather than individual risks?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "coso-p4-q09",
+     "controlRef": "COSO ERM 2017 \u2014 Component 4: Review & Revision (Substantial Change & ERM Improvement)",
+     "question": "How does the organization review whether ERM itself remains effective \u2014 identifying substantial changes in the business or environment, evaluating ERM performance, and pursuing improvement of ERM capabilities?",
+     "whyItMatters": "Component 4 of ERM 2017 requires the risk management capability to be itself reviewed and improved. An ERM program unchanged for five years in a changed industry is itself a risk indicator \u2014 and auditors should test the meta-control, not just the controls.",
+     "interviewees": [
+      "Risk Manager",
+      "Board/Audit Committee",
+      "Internal Auditor",
+      "CEO"
+     ],
+     "evidence": [
+      "Periodic ERM maturity or effectiveness assessments",
+      "Reviews triggered by substantial change (M&A, market shifts)",
+      "ERM improvement roadmap",
+      "Benchmarking against COSO ERM 2017 or peer practices"
+     ],
+     "guidance": "A GOOD answer shows the ERM capability is periodically evaluated (internally or by internal audit/external review), substantial changes trigger re-examination of whether ERM processes still fit, and there is a visible improvement trajectory with board awareness.",
+     "probes": [
+      "When did ERM last fail to anticipate a significant risk event, and what changed afterward?",
+      "Has anyone assessed ERM against COSO ERM 2017's five components?",
+      "What ERM capability are you actively building this year?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "coso-p4-q10",
+     "controlRef": "COSO ERM 2017 \u2014 Component 5: Information, Communication & Reporting (Risk Reporting)",
+     "question": "What risk information reaches senior management and the board \u2014 key risk indicators, risk profile versus appetite, emerging risks \u2014 how often, and is it timely and decision-useful rather than a compliance artifact?",
+     "whyItMatters": "Component 5 of ERM 2017 requires leveraging information systems and communicating risk data to those who need it. Board packs showing stale heat maps while key risk indicators flash red is the classic reporting failure preceding every 'we had no idea' postmortem.",
+     "interviewees": [
+      "Risk Manager",
+      "Board/Audit Committee",
+      "CFO",
+      "CEO"
+     ],
+     "evidence": [
+      "Board/committee risk reports (recent examples)",
+      "KRI dashboards with thresholds and status",
+      "Emerging risk identification process",
+      "Frequency and distribution of risk reporting"
+     ],
+     "guidance": "A GOOD answer shows regular board-level risk reporting that compares current profile to appetite, KRIs with thresholds that trigger action (with an example of one triggering), and a mechanism for emerging risks to enter reporting before they fully materialize.",
+     "probes": [
+      "Which KRI last breached its threshold, and what did the board do?",
+      "How quickly would a sudden risk escalation reach the board outside the meeting cycle?",
+      "What emerging risk is in your report this quarter that wasn't there a year ago?"
+     ],
+     "weight": 2
+    }
+   ]
+  },
+  {
+   "id": "phase-5",
+   "name": "Phase 5 \u2014 Deficiency Evaluation & Reporting",
+   "objective": "Evaluate identified control deficiencies for severity \u2014 distinguishing deficiencies, significant deficiencies, and material weaknesses \u2014 including aggregation and compensating controls; then conclude on overall internal control effectiveness and report to management, the audit committee, and external stakeholders as required.",
+   "questions": [
+    {
+     "id": "coso-p5-q01",
+     "controlRef": "COSO 2013 \u2014 Principle 17 / Deficiency Severity Evaluation (Deficiency vs Significant Deficiency vs Material Weakness)",
+     "question": "How does the entity classify identified control deficiencies by severity \u2014 distinguishing a control deficiency from a significant deficiency from a material weakness \u2014 and who makes that judgment using what criteria?",
+     "whyItMatters": "Severity classification drives everything downstream: material weaknesses require public disclosure under SOX 404 and preclude an unqualified ICFR opinion; significant deficiencies must be reported to the audit committee. Misclassification \u2014 especially understating severity \u2014 is itself a serious governance failure.",
+     "interviewees": [
+      "CFO",
+      "Controller",
+      "Internal Auditor",
+      "Board/Audit Committee"
+     ],
+     "evidence": [
+      "Written severity evaluation methodology (likelihood x magnitude)",
+      "Deficiency evaluations with documented rationale",
+      "Prudent-official considerations documented",
+      "External auditor concurrence or challenge records"
+     ],
+     "guidance": "A GOOD answer applies the standard framework: a material weakness is a reasonable possibility that a material misstatement will not be prevented or detected timely; a significant deficiency is less severe but important enough to merit audit committee attention. Judgments consider both likelihood and magnitude, are documented, and are stress-tested against the 'prudent official' standard.",
+     "probes": [
+      "Walk me through how last year's most serious finding was classified.",
+      "Has the external auditor ever proposed a more severe classification than management's?",
+      "Who has final say on severity \u2014 management, or the audit committee?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "coso-p5-q02",
+     "controlRef": "COSO 2013 \u2014 Deficiency Aggregation & Combination Analysis",
+     "question": "How are multiple deficiencies evaluated in combination \u2014 could individually immaterial deficiencies affecting the same account, process, or component aggregate into a material weakness?",
+     "whyItMatters": "COSO and PCAOB standards require evaluating deficiencies both individually and in combination. The classic trap: four 'minor' deficiencies all affecting revenue recognition that together leave a material amount effectively uncontrolled.",
+     "interviewees": [
+      "CFO",
+      "Controller",
+      "Internal Auditor"
+     ],
+     "evidence": [
+      "Aggregation analysis grouping deficiencies by account/assertion/component",
+      "Documentation of combination conclusions",
+      "External auditor aggregation challenge history"
+     ],
+     "guidance": "A GOOD answer shows a documented combination analysis: deficiencies grouped by affected account, disclosure, process, and COSO component; the aggregate exposure quantified; and the conclusion that no combination rises to material weakness explicitly supported \u2014 not simply assumed.",
+     "probes": [
+      "Which account or process has the most deficiencies clustered around it?",
+      "Show me the analysis concluding no aggregation issue exists.",
+      "What would change the conclusion if one more deficiency appeared in the same cluster?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "coso-p5-q03",
+     "controlRef": "COSO 2013 \u2014 Compensating Controls in Deficiency Evaluation",
+     "question": "When a control fails or is missing, how does management determine whether a compensating control reduces the deficiency's severity \u2014 and how is the precision and operating effectiveness of that compensating control itself evidenced?",
+     "whyItMatters": "Compensating controls are legitimately used to downgrade severity, but they are also the most abused escape hatch in deficiency evaluation. A vague 'management review' cannot compensate for a missing reconciliation unless it operates at a precision that would actually catch the error.",
+     "interviewees": [
+      "Controller",
+      "CFO",
+      "Internal Auditor"
+     ],
+     "evidence": [
+      "Compensating control analyses for each open deficiency",
+      "Evidence of the compensating control's operation and precision",
+      "Testing results for compensating controls",
+      "Rationale linking compensating control coverage to the deficiency's risk"
+     ],
+     "guidance": "A GOOD answer requires, for each claimed compensation: a specific identified control, evidence it operates at sufficient precision to detect the misstatement the failed control would miss, testing results, and a documented link showing it addresses the same risk and assertion.",
+     "probes": [
+      "For your largest open deficiency, exactly which control compensates and at what precision?",
+      "Has any compensating control claim been rejected by the external auditor?",
+      "Would the compensating control catch a deliberate misstatement, or only accidental errors?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "coso-p5-q04",
+     "controlRef": "COSO 2013 \u2014 Principle 17 / Reporting to Those Charged with Governance (SOX 302/404 Linkage)",
+     "question": "How are significant deficiencies and material weaknesses communicated to the audit committee and external auditor in writing and on a timely basis \u2014 and how do they feed management's Section 302/404 certifications and disclosures?",
+     "whyItMatters": "SOX 302 requires certifying officers to disclose significant deficiencies, material weaknesses, and fraud involving control-significant personnel to auditors and the audit committee. A material weakness identified but not reflected in the 404 assessment \u2014 or disclosed late \u2014 creates securities-law exposure beyond the control failure itself.",
+     "interviewees": [
+      "CFO",
+      "CEO",
+      "Board/Audit Committee",
+      "Internal Auditor"
+     ],
+     "evidence": [
+      "Written communications of deficiencies to the audit committee",
+      "Section 302/404 certification support packages",
+      "Disclosure committee minutes",
+      "Draft financial statement or ICFR disclosures for open weaknesses"
+     ],
+     "guidance": "A GOOD answer shows a disclosure committee or equivalent process that routes control findings into certification and disclosure decisions, written communication of significant deficiencies/material weaknesses to the audit committee before period end, and draft disclosure language prepared promptly when a material weakness exists.",
+     "probes": [
+      "When did the audit committee learn of the most recent significant deficiency \u2014 before or after the external auditor?",
+      "How does the disclosure committee decide whether a finding changes the 302 certification?",
+      "Is there a remediation plan disclosed for any open material weakness?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "coso-p5-q05",
+     "controlRef": "COSO 2013 \u2014 Principle 17 / Remediation Planning & Ownership",
+     "question": "For each deficiency, is there a remediation plan with a named owner, root-cause analysis, realistic timeline, and defined success criteria \u2014 and what elevates a stalled plan to leadership attention?",
+     "whyItMatters": "Deficiencies without owned, root-caused, time-bound plans become repeat findings and eventually severity escalations. Root cause matters: re-training one person does not fix a control that fails because of workload, system design, or incentive misalignment.",
+     "interviewees": [
+      "Controller",
+      "CFO",
+      "Internal Auditor",
+      "Risk Manager"
+     ],
+     "evidence": [
+      "Remediation plans per deficiency with owners and dates",
+      "Root-cause analysis documentation",
+      "Escalation triggers for overdue remediation",
+      "Status reporting to the audit committee"
+     ],
+     "guidance": "A GOOD answer shows every deficiency has a documented plan addressing root cause (not just symptom), a business owner rather than 'finance' generically, milestone tracking, and automatic escalation when plans slip \u2014 with the audit committee seeing the aging picture.",
+     "probes": [
+      "Pick an open deficiency \u2014 what is the root cause, and how does the plan address it?",
+      "Which remediation has slipped past its original date, and why?",
+      "Who verifies the fix worked before the item is closed?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "coso-p5-q06",
+     "controlRef": "COSO 2013 \u2014 Re-testing & Operating Effectiveness After Remediation",
+     "question": "After remediation, how long must a control operate \u2014 and what evidence is gathered \u2014 before it is considered effective, particularly for controls supporting a year-end ICFR assertion?",
+     "whyItMatters": "A remediated control must operate for a sufficient period with sufficient instances before anyone can conclude it works. Controls fixed in December offer almost no operating history for a year-end SOX assertion \u2014 the timing trap that forces adverse ICFR opinions despite remediation effort.",
+     "interviewees": [
+      "Controller",
+      "Internal Auditor",
+      "CFO"
+     ],
+     "evidence": [
+      "Re-testing protocols (minimum operating period, sample sizes)",
+      "Remediation validation test results",
+      "Timeline analysis of remediated controls versus assertion date",
+      "External auditor concurrence on sufficiency"
+     ],
+     "guidance": "A GOOD answer shows defined sufficiency criteria (e.g., quarterly controls need at least two operating instances; monthly controls several months), evidence retained from re-testing, and honest assessment of whether a late fix can support the year-end conclusion \u2014 with early external auditor alignment.",
+     "probes": [
+      "Which remediated control has the shortest operating history, and can it support the year-end assertion?",
+      "Who decides when re-testing evidence is sufficient?",
+      "Has the external auditor ever disagreed with a remediation-effectiveness conclusion?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "coso-p5-q07",
+     "controlRef": "COSO 2013 \u2014 Overall Conclusion on Internal Control Effectiveness (All Five Components)",
+     "question": "Bringing it together: does management conclude that all five components and all 17 Principles are present and functioning \u2014 and if any principle or component is deficient, how does that affect the overall conclusion on internal control effectiveness?",
+     "whyItMatters": "COSO 2013 is explicit: internal control is effective only when all five components and their relevant principles are present and functioning, and the components operate together. A major deficiency in any component means management cannot conclude internal control is effective overall \u2014 this is the audit's bottom line.",
+     "interviewees": [
+      "CFO",
+      "CEO",
+      "Internal Auditor",
+      "Board/Audit Committee"
+     ],
+     "evidence": [
+      "Management's overall assessment document mapping conclusions to all 17 Principles",
+      "Component-level evaluation summaries",
+      "Analysis of whether components operate together",
+      "Signed management assertion (if SOX-applicable)"
+     ],
+     "guidance": "A GOOD answer produces a documented conclusion that addresses each of the five components and 17 Principles individually (not a blanket statement), explains how deficiencies were weighed against the overall conclusion, and is consistent with what the assessment evidence actually showed across Phases 2\u20134.",
+     "probes": [
+      "Which principle is your weakest link, and does it threaten the overall conclusion?",
+      "Can management conclude ICFR is effective with the deficiencies identified this cycle?",
+      "Does the board agree with management's overall conclusion, and on what basis?"
+     ],
+     "weight": 3
+    }
+   ]
+  }
+ ]
 }

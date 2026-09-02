@@ -1,34 +1,1266 @@
 {
-  "id": "cobit",
-  "name": "COBIT 2019",
-  "shortName": "COBIT",
-  "version": "2019",
-  "category": "governance",
-  "description": "ISACA framework for governance and management of enterprise IT.",
-  "phases": [
+ "id": "cobit",
+ "name": "COBIT 2019",
+ "shortName": "COBIT 2019",
+ "version": "2019",
+ "category": "governance",
+ "description": "COBIT 2019 is ISACA's framework for governing and managing enterprise information and technology. It separates governance objectives (the EDM domain, owned by the board) from management objectives (the APO, BAI, DSS and MEA domains, owned by executive management) and links enterprise goals to I&T-related goals through the goals cascade. An audit against COBIT 2019 tests whether the governance system is designed for the enterprise's context, whether the 40 governance and management objectives are operating at the required capability level, and whether there is a credible improvement roadmap.",
+ "tagline": "ISACA's framework for the governance and management of enterprise information and technology (I&T).",
+ "auditFocus": [
+  "Confirm the distinction between governance (Evaluate, Direct, Monitor \u2014 board) and management (Align/Plan/Organise, Build/Acquire/Implement, Deliver/Service/Support, Monitor/Evaluate/Assess \u2014 executive management) is understood and operating in practice",
+  "Verify the governance system was designed using COBIT's design factors and that scope/priority focus areas are justified",
+  "Test that stakeholder needs translate through the goals cascade into enterprise goals, alignment goals and governance/management objective priorities",
+  "Assess capability levels (0\u20135) of in-scope processes using COBIT's performance management model, with evidence per capability level",
+  "Evaluate board-level direction and monitoring of benefits delivery, risk optimisation, resource optimisation and stakeholder engagement (EDM01\u2013EDM05)",
+  "Confirm findings are converted into a prioritised, owned and resourced improvement roadmap"
+ ],
+ "phases": [
+  {
+   "id": "phase-1",
+   "name": "Phase 1 \u2014 Planning & Governance System Design",
+   "objective": "Scope the engagement, understand enterprise context, and verify the governance system was designed using COBIT 2019 design factors and focus areas rather than applied generically.",
+   "questions": [
     {
-      "id": "cobit-p1",
-      "name": "EDM \u2014 Evaluate, Direct, Monitor",
-      "questions": [
-        {
-          "id": "cobit-q001",
-          "controlRef": "EDM01.01",
-          "question": "Are governance principles and structures for enterprise IT established?",
-          "whyItMatters": "This control establishes a foundational requirement; auditors verify both design and operating effectiveness.",
-          "interviewees": [
-            "CISO"
-          ],
-          "evidence": [
-            "EV-001 Policy document"
-          ],
-          "guidance": "Request the current approved policy, confirm management sign-off and review date, and test that it has been communicated to relevant staff.",
-          "probes": [
-            "When was this last reviewed and by whom?",
-            "How are exceptions handled?"
-          ],
-          "weight": 2
-        }
-      ]
+     "id": "cobit-p1-q01",
+     "controlRef": "COBIT 2019 Framework \u2014 Governance vs Management (EDM vs PBRM domains)",
+     "question": "How does your organisation distinguish between the governance of enterprise IT (board-level Evaluate, Direct, Monitor) and the management of IT (executive-level plan, build, run, monitor)? Who performs each role today?",
+     "whyItMatters": "COBIT's core principle is that governance and management are different disciplines with different structures and accountabilities. If the board is managing or management is self-governing, the whole governance system is mis-built.",
+     "interviewees": [
+      "Board",
+      "CEO",
+      "CIO",
+      "IT Governance Officer"
+     ],
+     "evidence": [
+      "Governance charter or terms of reference",
+      "Board and IT steering committee minutes",
+      "Organisation chart showing governance and management structures",
+      "Delegations of authority"
+     ],
+     "guidance": "A GOOD answer clearly separates: the board evaluates strategic options, directs through policies and risk appetite, and monitors performance (EDM); executive management plans, builds, runs and monitors I&T activities (APO/BAI/DSS/MEA). Named structures exist for both (e.g. board/audit committee vs IT steering committee/management committees) and do not overlap in membership in a way that destroys accountability.",
+     "probes": [
+      "When did the board last formally direct IT through a policy or risk appetite statement?",
+      "Does the CIO sit on the body that monitors the CIO's own performance?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "cobit-p1-q02",
+     "controlRef": "COBIT 2019 Design Guide \u2014 Design Factors 1\u20134 (Enterprise Strategy, Enterprise Goals, Risk Profile, I&T-Related Issues)",
+     "question": "Walk me through how your IT governance arrangements were designed. Which enterprise strategy archetype and enterprise goals did you use, and how did your risk profile and current I&T-related issues shape the priorities?",
+     "whyItMatters": "COBIT 2019 requires the governance system to be tailored using 11 design factors, not adopted 'out of the box'. Absent design-factor analysis, objective priorities are arbitrary and the audit cannot benchmark capability targets.",
+     "interviewees": [
+      "CIO",
+      "IT Governance Officer",
+      "CEO"
+     ],
+     "evidence": [
+      "Governance system design workshop outputs",
+      "Design factor analysis (strategy archetype, risk profile, I&T issues register)",
+      "Prioritised list of governance/management objectives",
+      "COBIT design toolkit output or equivalent"
+     ],
+     "guidance": "A GOOD answer references a documented design exercise: strategy archetype (e.g. Growth/Acquisition vs Innovation/Differentiation), a risk profile with categories of I&T risk, known pain points (I&T-related issues), and a resulting prioritisation of objectives with target capability levels. 'We adopted all 40 objectives equally' is a red flag.",
+     "probes": [
+      "Which objectives came out as highest priority from the design work, and why?",
+      "When was the design last revisited as strategy or risk profile changed?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "cobit-p1-q03",
+     "controlRef": "COBIT 2019 Design Guide \u2014 Design Factors 5\u201311 (Threat Landscape, Compliance, Role of IT, Sourcing Model, IT Implementation Methods, Technology Adoption Strategy, Enterprise Size)",
+     "question": "How did contextual factors \u2014 threat landscape, compliance obligations, the role IT plays in the business, your sourcing model and enterprise size \u2014 change which processes and practices you prioritised?",
+     "whyItMatters": "Design factors 5\u201311 materially alter focus areas: a heavily regulated, cloud-sourced enterprise should weight APO10, APO12, MEA03 and DSS05 differently from an in-house low-regulation firm. Testing this confirms tailoring is real, not cosmetic.",
+     "interviewees": [
+      "CIO",
+      "IT Governance Officer",
+      "Risk Manager"
+     ],
+     "evidence": [
+      "Documented design factor assessment",
+      "Compliance obligations register",
+      "Sourcing/outsourcing strategy",
+      "Mapping of design factors to focus-area objectives"
+     ],
+     "guidance": "A GOOD answer gives concrete examples: e.g. 'because we are mostly outsourced, APO10 Managed Vendors and APO09 Managed Service Agreements are capability-target 4'; 'because of our threat landscape, DSS05 and APO13 are priority'. Answers should trace factor \u2192 focus area \u2192 target capability.",
+     "probes": [
+      "Show me one objective you deprioritised because of these factors, and the rationale.",
+      "How does your cloud/outsourcing model change vendor and security management priorities?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "cobit-p1-q04",
+     "controlRef": "COBIT 2019 Framework \u2014 Goals Cascade (Stakeholder Needs \u2192 Enterprise Goals \u2192 Alignment Goals \u2192 Governance/Management Objectives)",
+     "question": "How do stakeholder needs get translated into IT priorities? Can you trace one current enterprise goal through the goals cascade to the alignment goals and the governance/management objectives you focus on?",
+     "whyItMatters": "The goals cascade is COBIT's mechanism for ensuring IT work supports business value. If management cannot trace goals to objectives, IT investment is disconnected from stakeholder value and audit findings about 'misaligned IT' are likely.",
+     "interviewees": [
+      "CEO",
+      "CIO",
+      "IT Governance Officer",
+      "Business Process Owners"
+     ],
+     "evidence": [
+      "Documented goals cascade or strategy map",
+      "Enterprise goals mapped to COBIT alignment goals (EG01\u2013EG13, AG01\u2013AG13)",
+      "Balanced scorecard or strategy documentation"
+     ],
+     "guidance": "A GOOD answer demonstrates a live trace: e.g. enterprise goal 'customer-oriented service culture' (EG02) \u2192 alignment goals such as AG01 (I&T compliance and support for business compliance) / AG07 (delivery of I&T services in line with business requirements) \u2192 objectives like APO02, APO08, DSS01\u2013DSS03. Use of the COBIT mapping tables (primary/secondary) is expected.",
+     "probes": [
+      "Which alignment goals carry the most weight in your scoring of IT performance?",
+      "How are stakeholder needs collected and refreshed \u2014 and by whom?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "cobit-p1-q05",
+     "controlRef": "EDM01 Ensured Governance Framework Setting and Maintenance",
+     "question": "Is there a formally approved governance framework for enterprise I&T, and when did the board last review and approve it? How are changes to the framework triggered?",
+     "whyItMatters": "EDM01 requires the board to set and maintain the governance framework. An unapproved or stale framework means policies, structures and processes lack authority and may not reflect current strategy or regulation.",
+     "interviewees": [
+      "Board",
+      "CEO",
+      "IT Governance Officer"
+     ],
+     "evidence": [
+      "Approved I&T governance framework document",
+      "Board approval minutes",
+      "Framework review schedule and change log",
+      "Gap analysis vs COBIT 2019"
+     ],
+     "guidance": "A GOOD answer shows board-level approval, a periodic review cycle (typically annual or on material change), named ownership (often a governance officer or company secretary), and a mechanism to refresh the framework when strategy, regulation or the operating model changes.",
+     "probes": [
+      "What triggered the last framework change?",
+      "Who can propose changes to the governance framework, and how are they approved?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "cobit-p1-q06",
+     "controlRef": "COBIT 2019 Framework \u2014 Principles for a Governance System (Principle 2: Governance System Tailored to Enterprise Needs / Focus Areas)",
+     "question": "Which COBIT focus areas apply to you \u2014 for example SME, cybersecurity, cloud, privacy, digital transformation, or DevOps \u2014 and how did they modify the governance components you put in place?",
+     "whyItMatters": "COBIT 2019 focus areas provide tailored guidance per topic. Confirming which apply prevents the audit from judging the enterprise against the wrong baseline and tests whether tailoring extended beyond objective selection.",
+     "interviewees": [
+      "CIO",
+      "IT Governance Officer",
+      "Risk Manager"
+     ],
+     "evidence": [
+      "Focus area applicability assessment",
+      "Tailored process descriptions or policies referencing focus areas",
+      "Cloud/cybersecurity/privacy governance artefacts"
+     ],
+     "guidance": "A GOOD answer names applicable focus areas with reasoning (e.g. 'we operate mostly SaaS, so the Cloud focus area shaped APO10 and DSS05 practices'), and shows modified components \u2014 policies, organisational structures, practices \u2014 rather than just a statement that focus areas were 'considered'.",
+     "probes": [
+      "Did any focus area add practices beyond the core COBIT publications?",
+      "How do DevOps/agile delivery methods interact with your BAI06 change management practices?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "cobit-p1-q07",
+     "controlRef": "COBIT 2019 Introduction \u2014 Components of a Governance System (Processes, Structures, Principles/Policies, Information, Culture/Behaviour, People/Skills, Services/Infrastructure)",
+     "question": "Governance is more than processes. Which of the seven COBIT components of a governance system \u2014 structures, principles/policies, information, culture and behaviour, people and skills, services and infrastructure \u2014 are weakest here, and how do you know?",
+     "whyItMatters": "COBIT requires all seven component types to work together. Audits that only test processes miss failures caused by culture, skills or information quality; this question directs audit effort to the real weak points.",
+     "interviewees": [
+      "IT Governance Officer",
+      "CIO",
+      "CEO"
+     ],
+     "evidence": [
+      "Component inventory or governance system documentation",
+      "Skills assessments",
+      "Culture/behaviour survey results",
+      "Reporting information quality reviews"
+     ],
+     "guidance": "A GOOD answer is self-aware and evidence-based: the interviewee can name component types without prompting, cite a recent assessment (e.g. skills gap analysis, reporting quality issues, committee effectiveness review), and connect weaknesses to improvement actions.",
+     "probes": [
+      "Give an example of a process that fails because of culture or skills rather than design.",
+      "What information does the board receive to monitor I&T, and is its quality assessed?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "cobit-p1-q08",
+     "controlRef": "APO01 Managed I&T Management Framework (APO01.01\u2013APO01.04)",
+     "question": "How were the scope and boundaries for this governance system set \u2014 which entities, business units, IT services and third-party arrangements are inside, and what is excluded and why?",
+     "whyItMatters": "Scoping errors invalidate the audit. Shared services, subsidiaries, shadow IT and outsourced arrangements are classic boundary disputes in COBIT implementations.",
+     "interviewees": [
+      "CIO",
+      "IT Governance Officer",
+      "Internal Auditor"
+     ],
+     "evidence": [
+      "Governance system scope statement",
+      "Entity/service inventory",
+      "Outsourcing contracts inventory",
+      "Previous audit scopes and exclusions"
+     ],
+     "guidance": "A GOOD answer provides a documented scope with explicit inclusions/exclusions and rationale, covers outsourced and shadow IT explicitly, and shows the scope was approved at an appropriate level. Exclusions driven by convenience rather than risk are a red flag.",
+     "probes": [
+      "Are there any IT services procured directly by business units outside IT's visibility?",
+      "How are joint ventures and newly acquired entities brought into scope?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "cobit-p1-q09",
+     "controlRef": "COBIT 2019 Design Guide \u2014 Design Workflow Steps 1\u20134 (Understand Enterprise Context & Strategy \u2192 Determine Initial Scope \u2192 Refine Scope \u2192 Conclude Design)",
+     "question": "Who was involved when the governance system was designed \u2014 were business, risk, audit and HR stakeholders in the room, or was it designed by IT alone?",
+     "whyItMatters": "The COBIT design workflow requires enterprise-wide input. IT-only design produces governance that the business ignores, and is a leading indicator of low stakeholder engagement maturity (EDM05).",
+     "interviewees": [
+      "IT Governance Officer",
+      "CEO",
+      "Business Process Owners",
+      "Risk Manager"
+     ],
+     "evidence": [
+      "Design workshop attendee lists and outputs",
+      "Sign-off records from business stakeholders",
+      "Communications about the governance design"
+     ],
+     "guidance": "A GOOD answer shows cross-functional participation: business process owners contributed goals and pain points, risk contributed the risk profile, audit provided independent input, and executive sponsorship is visible. Design done solely within the IT department is a finding.",
+     "probes": [
+      "How did business stakeholders validate the enterprise goals used in the cascade?",
+      "Was internal audit or the risk function asked to review the design?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "cobit-p1-q10",
+     "controlRef": "MEA04 Managed Assurance (assurance engagement planning and scoping)",
+     "question": "How is this assurance engagement itself planned and scoped \u2014 what assurance objectives, criteria and coverage were agreed, and does it fit within a broader assurance plan for I&T?",
+     "whyItMatters": "MEA04 expects assurance to be planned, risk-based and coordinated. An engagement agreed ad hoc, with unclear criteria, produces findings that cannot be enforced or tracked.",
+     "interviewees": [
+      "Internal Auditor",
+      "IT Governance Officer",
+      "Board"
+     ],
+     "evidence": [
+      "Engagement letter / terms of reference",
+      "I&T assurance plan",
+      "Agreed audit criteria (COBIT 2019 publications, target capability levels)",
+      "Coordination records with external audit"
+     ],
+     "guidance": "A GOOD answer shows the engagement references an approved assurance plan, uses COBIT 2019 (and named target capability levels) as the agreed criteria, defines in-scope objectives/entities, and identifies how results will be reported and to whom. Assurance independence is addressed.",
+     "probes": [
+      "How does this engagement avoid duplicating other assurance work (external audit, regulator reviews)?",
+      "What target capability levels were agreed as the benchmark, and by whom?"
+     ],
+     "weight": 2
     }
-  ]
+   ]
+  },
+  {
+   "id": "phase-2",
+   "name": "Phase 2 \u2014 Governance Objectives: EDM Domain (Evaluate, Direct, Monitor)",
+   "objective": "Test whether the board and executive governance structures actually evaluate stakeholder needs, direct through policies and risk appetite, and monitor performance, benefits, risk, resources and stakeholder engagement across EDM01\u2013EDM05.",
+   "questions": [
+    {
+     "id": "cobit-p2-q01",
+     "controlRef": "EDM01 Ensured Governance Framework Setting and Maintenance (EDM01.01 Evaluate the governance system)",
+     "question": "How does the board evaluate whether the current governance system for I&T is working \u2014 what does the board look at, and what has changed as a result of the last evaluation?",
+     "whyItMatters": "EDM01.01 requires continual evaluation of the governance system against strategy, regulation and good practice. A board that has never evaluated its I&T governance cannot demonstrate the Evaluate-Direct-Monitor loop.",
+     "interviewees": [
+      "Board",
+      "IT Governance Officer",
+      "CEO"
+     ],
+     "evidence": [
+      "Board evaluation reports on I&T governance",
+      "Board/committee effectiveness reviews",
+      "Benchmarking against COBIT or peer practice",
+      "Actions arising from evaluations"
+     ],
+     "guidance": "A GOOD answer cites a recent, documented evaluation with inputs (assurance results, incident history, strategy changes) and outputs (structural changes, new policies, revised committee terms of reference). Vague confidence without artefacts scores low.",
+     "probes": [
+      "When did the board last change a governance structure or policy based on an evaluation?",
+      "Does the board use independent assurance when evaluating I&T governance?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "cobit-p2-q02",
+     "controlRef": "EDM01 Ensured Governance Framework Setting and Maintenance (EDM01.02 Direct the governance system / EDM01.03 Monitor the governance system)",
+     "question": "Through what mechanisms does the board direct I&T governance \u2014 principles, policies, frameworks \u2014 and how does it monitor that management actually implements them?",
+     "whyItMatters": "Directing without monitoring is unenforced intention. EDM01 practices require both: issuing direction (policies, principles) and obtaining transparency that direction was followed.",
+     "interviewees": [
+      "Board",
+      "IT Governance Officer"
+     ],
+     "evidence": [
+      "Approved I&T principles and policy set",
+      "Policy compliance reporting to board/committee",
+      "Exception and waiver registers",
+      "Committee reporting packs"
+     ],
+     "guidance": "A GOOD answer names the policy hierarchy approved at board level, shows scheduled compliance reporting (with exceptions visible to the board), and demonstrates consequences when policies are breached. Monitoring that relies solely on management self-attestation is weaker.",
+     "probes": [
+      "Show a policy exception that reached the board and how it was resolved.",
+      "Which I&T policies has the board approved or re-approved in the last 24 months?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "cobit-p2-q03",
+     "controlRef": "EDM02 Ensured Benefits Delivery (EDM02.01 Evaluate value optimisation)",
+     "question": "How does the board evaluate whether I&T investments are delivering the promised business value \u2014 what value metrics and benefit realisation information reach the board, and what decisions have they driven?",
+     "whyItMatters": "EDM02 is the board's value-delivery objective. If benefit metrics never reach the board, value leakage (failed projects, unrealised benefits) continues unchecked \u2014 a primary COBIT audit concern.",
+     "interviewees": [
+      "Board",
+      "CEO",
+      "CIO",
+      "PMO Lead"
+     ],
+     "evidence": [
+      "Benefits realisation reports to board",
+      "Investment portfolio value metrics (ROI, NPV, benefit tracking)",
+      "Post-investment reviews",
+      "Board decisions cancelling or redirecting I&T investments"
+     ],
+     "guidance": "A GOOD answer shows a defined set of value metrics reported on a cycle, linkage to business cases, and at least one example where the board acted on the information (stopped, re-scoped or redirected an investment). Reporting activity metrics (uptime, ticket counts) as 'value' is a red flag.",
+     "probes": [
+      "Which I&T investment was last stopped or reshaped by the board, and based on what information?",
+      "How are benefits defined and owned before an investment is approved?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "cobit-p2-q04",
+     "controlRef": "EDM02 Ensured Benefits Delivery (EDM02.02 Direct value optimisation / EDM02.03 Monitor value optimisation)",
+     "question": "Who is accountable for realising benefits from each major I&T-enabled investment, and how does the board monitor benefit realisation after projects close?",
+     "whyItMatters": "COBIT assigns benefit accountability to the business, not IT. Post-closure monitoring is where benefits realisation typically collapses \u2014 business cases are never revisited.",
+     "interviewees": [
+      "Business Process Owners",
+      "PMO Lead",
+      "CEO",
+      "Board"
+     ],
+     "evidence": [
+      "Business cases with named benefit owners",
+      "Benefits realisation plans",
+      "Post-implementation / post-closure benefit reviews",
+      "Steering committee minutes tracking benefits"
+     ],
+     "guidance": "A GOOD answer names business-side benefit owners in business cases, shows benefit tracking continuing into operations (often 12\u201324 months post-delivery), and demonstrates board or steering-committee visibility. 'IT owns the benefits' is a governance finding.",
+     "probes": [
+      "Pick one completed project: what benefits were promised, and what was actually measured a year later?",
+      "What happens when benefits are not realised \u2014 is anyone held to account?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "cobit-p2-q05",
+     "controlRef": "EDM03 Ensured Risk Optimisation (EDM03.01 Evaluate risk management / EDM03.02 Direct risk management)",
+     "question": "Has the board approved an I&T risk appetite and tolerance statement, and how does it direct management to keep I&T risk within that appetite?",
+     "whyItMatters": "EDM03 requires the board to direct risk-taking within approved appetite. Without an approved I&T risk appetite, there is no benchmark against which risk decisions, incidents or findings can be judged.",
+     "interviewees": [
+      "Board",
+      "Risk Manager",
+      "CIO"
+     ],
+     "evidence": [
+      "Board-approved risk appetite statement covering I&T risk",
+      "Risk appetite metrics and tolerance thresholds",
+      "Risk committee minutes",
+      "Risk acceptance records exceeding appetite"
+     ],
+     "guidance": "A GOOD answer produces a board-approved appetite statement with measurable tolerances (e.g. maximum downtime, acceptable loss event frequency), shows integration with enterprise risk management, and shows direction flows (policies, limits) cascading to management. Appetite statements that exist but are never referenced are weak.",
+     "probes": [
+      "Give an example of an I&T decision changed because of risk appetite.",
+      "How often is the appetite statement reviewed, and what triggered the last change?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "cobit-p2-q06",
+     "controlRef": "EDM03 Ensured Risk Optimisation (EDM03.03 Monitor risk management)",
+     "question": "What I&T risk information does the board monitor, how current is it, and has the board ever challenged or overridden management's risk assessments?",
+     "whyItMatters": "Monitoring is only effective if information is timely and the board actively challenges. Passive receipt of stale risk reports is a common EDM03 failure.",
+     "interviewees": [
+      "Board",
+      "Risk Manager",
+      "Internal Auditor"
+     ],
+     "evidence": [
+      "Board risk dashboards/reports with dates",
+      "Key risk indicator (KRI) reporting",
+      "Minutes showing board challenge on I&T risk",
+      "Escalation records for out-of-appetite risks"
+     ],
+     "guidance": "A GOOD answer shows KRIs tied to appetite, current data (not quarter-old), evidence of challenge in minutes, and a defined escalation path when tolerances are breached. Independent validation (internal audit) of risk reporting strengthens the answer.",
+     "probes": [
+      "When did the board last reject or question a risk acceptance by management?",
+      "Which I&T KRIs are currently outside tolerance, and what is being done?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "cobit-p2-q07",
+     "controlRef": "EDM04 Ensured Resource Optimisation (EDM04.01\u2013EDM04.03)",
+     "question": "How does the board ensure I&T resources \u2014 people, budget, technology, information \u2014 are sufficient and optimally allocated across competing demands?",
+     "whyItMatters": "EDM04 holds the board accountable for resource optimisation. Chronic under-resourcing of mandated capabilities (security, continuity) or unmanaged resource conflicts directly undermine every management objective.",
+     "interviewees": [
+      "Board",
+      "CEO",
+      "CIO"
+     ],
+     "evidence": [
+      "Board-approved I&T budgets and resourcing plans",
+      "Resource capacity vs demand analyses",
+      "Skills/capability gap reporting",
+      "Decisions on resource trade-offs between initiatives"
+     ],
+     "guidance": "A GOOD answer shows the board evaluates resource adequacy (not just cost), receives capability and capacity information, and makes explicit trade-off decisions when demand exceeds supply. Resource decisions made purely as budget cuts without capability impact analysis are a concern.",
+     "probes": [
+      "Which I&T capabilities are knowingly under-resourced today, and did the board accept that risk?",
+      "How are build/run/resource trade-offs presented to the board?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "cobit-p2-q08",
+     "controlRef": "EDM05 Ensured Stakeholder Engagement (EDM05.01 Evaluate stakeholder engagement / EDM05.02 Direct stakeholder engagement)",
+     "question": "How are I&T stakeholders \u2014 business units, customers, regulators, shareholders \u2014 identified, and how does the board direct transparent communication about I&T performance and decisions?",
+     "whyItMatters": "EDM05 ensures stakeholder needs and views are captured and reporting is transparent. Poor stakeholder engagement shows up as shadow IT, business dissatisfaction and surprise at audit findings.",
+     "interviewees": [
+      "Board",
+      "CEO",
+      "IT Governance Officer",
+      "Business Process Owners"
+     ],
+     "evidence": [
+      "Stakeholder identification/analysis for I&T",
+      "Communication and reporting plans",
+      "Business satisfaction surveys",
+      "Published I&T performance reports"
+     ],
+     "guidance": "A GOOD answer shows deliberate stakeholder mapping, defined communication channels and formats, and two-way engagement (feedback mechanisms), with the board directing what transparency is required (e.g. mandated performance reporting to business stakeholders).",
+     "probes": [
+      "How do business units formally express I&T needs and dissatisfaction?",
+      "What I&T information is reported externally or to regulators, and who approves it?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "cobit-p2-q09",
+     "controlRef": "EDM05 Ensured Stakeholder Engagement (EDM05.03 Monitor stakeholder engagement)",
+     "question": "How does the board monitor whether stakeholder engagement and reporting are actually effective \u2014 and what has improved as a result?",
+     "whyItMatters": "Without monitoring, engagement mechanisms decay. This practice closes the EDM loop on stakeholder transparency and is often entirely absent.",
+     "interviewees": [
+      "Board",
+      "IT Governance Officer",
+      "Business Process Owners"
+     ],
+     "evidence": [
+      "Engagement effectiveness metrics",
+      "Trend results of satisfaction/engagement surveys",
+      "Actions taken from stakeholder feedback",
+      "Committee review of reporting quality"
+     ],
+     "guidance": "A GOOD answer cites measured engagement (survey trends, feedback volumes, uptake of reports) and at least one concrete improvement traced to stakeholder feedback. Business process owners should corroborate that their input changes IT priorities.",
+     "probes": [
+      "Ask a business process owner: when did your feedback last change an IT decision?",
+      "How does the board know its I&T reports are read and understood?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "cobit-p2-q10",
+     "controlRef": "EDM01\u2013EDM05 \u2014 Accountability & RACI at governance level (single accountability principle)",
+     "question": "For each of the five EDM objectives, is accountability clearly assigned at board/executive level, and is there a RACI or equivalent showing who is accountable vs responsible vs consulted vs informed across governance and management?",
+     "whyItMatters": "COBIT publishes RACI charts per objective with the board accountable for EDM and management practices assigned to specific roles. Diffuse accountability ('everyone is responsible') is the root cause of most governance failures found in audit.",
+     "interviewees": [
+      "Board",
+      "CEO",
+      "IT Governance Officer"
+     ],
+     "evidence": [
+      "RACI charts for governance/management objectives",
+      "Role descriptions for board, committees, CIO and IT governance roles",
+      "Committee terms of reference"
+     ],
+     "guidance": "A GOOD answer produces documented accountability assignment consistent with COBIT's principle of single accountability: the board (or a named board committee) accountable for EDM objectives; named executives accountable for management objectives. Interviewees name the same accountable person unprompted.",
+     "probes": [
+      "Who is accountable if benefits from a major programme fail to materialise \u2014 name the person.",
+      "Where does accountability for I&T risk sit: CIO, CRO, or the board?"
+     ],
+     "weight": 3
+    }
+   ]
+  },
+  {
+   "id": "phase-3",
+   "name": "Phase 3 \u2014 Management Objectives Part 1: APO & BAI Domains",
+   "objective": "Assess design and operation of priority Align/Plan/Organise (APO01\u2013APO14) and Build/Acquire/Implement (BAI01\u2013BAI11) management objectives \u2014 strategy, portfolio, budget, people, vendors, quality, risk, security, data, programmes, change and projects.",
+   "questions": [
+    {
+     "id": "cobit-p3-q01",
+     "controlRef": "APO01 Managed I&T Management Framework (APO01.05\u2013APO01.08)",
+     "question": "Is there a documented I&T management framework \u2014 processes, organisational structures, compliance procedures and information flows \u2014 and how is it kept consistent with the board-approved governance framework?",
+     "whyItMatters": "APO01 is the management-side counterpart to EDM01. If management's operating framework diverges from the board's governance framework, direction from EDM does not translate into execution.",
+     "interviewees": [
+      "CIO",
+      "IT Governance Officer",
+      "IT Manager"
+     ],
+     "evidence": [
+      "I&T management framework documentation",
+      "Process and procedure library",
+      "IT organisation structure and committee terms of reference",
+      "Mapping between governance framework and management processes"
+     ],
+     "guidance": "A GOOD answer shows a maintained management framework with defined processes (mapped to COBIT or equivalent), clear organisational structures, and a mechanism ensuring updates follow board-level governance changes. Frameworks that exist only on paper with unknown ownership score low.",
+     "probes": [
+      "When board policy changed last, which management processes were updated and when?",
+      "Who owns each APO/BAI/DSS/MEA process \u2014 is there a named process owner list?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "cobit-p3-q02",
+     "controlRef": "APO02 Managed Strategy (APO02.01\u2013APO02.06)",
+     "question": "How is the I&T strategy developed, aligned with enterprise strategy, and converted into tactical plans and a road map that people actually work to?",
+     "whyItMatters": "APO02 is the hinge between enterprise direction and IT execution. A strategy that is not converted into tactical plans, portfolios and budgets produces unfunded aspirations and audit findings about IT-business misalignment.",
+     "interviewees": [
+      "CIO",
+      "CEO",
+      "IT Governance Officer"
+     ],
+     "evidence": [
+      "Approved I&T strategic plan",
+      "Enterprise strategy showing I&T linkage",
+      "Tactical/operational plans and road maps",
+      "Strategy communication records"
+     ],
+     "guidance": "A GOOD answer shows a board-visible I&T strategy derived from enterprise strategy (goals cascade evidence), with a road map, funded initiatives, defined accountabilities and periodic review. Staff below the CIO can describe the strategy's main themes.",
+     "probes": [
+      "How does the I&T budget reflect strategy priorities \u2014 show the linkage.",
+      "When was the strategy last revised, and what triggered the revision?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "cobit-p3-q03",
+     "controlRef": "APO05 Managed Portfolio (APO05.01\u2013APO05.07)",
+     "question": "How are I&T investment programmes and projects evaluated, prioritised and balanced in a portfolio \u2014 and does the portfolio mix deliberately balance run/grow/transform and risk/return?",
+     "whyItMatters": "APO05 ensures investment discipline. Without portfolio management, pet projects crowd out value, risk concentrates unnoticed, and benefits claims cannot be compared consistently.",
+     "interviewees": [
+      "CIO",
+      "PMO Lead",
+      "CEO"
+     ],
+     "evidence": [
+      "Investment portfolio register",
+      "Prioritisation and scoring criteria",
+      "Portfolio review minutes",
+      "Run/grow/transform or equivalent categorisation"
+     ],
+     "guidance": "A GOOD answer shows a single portfolio view, documented evaluation criteria aligned to enterprise goals and risk appetite, regular rebalancing decisions, and evidence that investments were deferred or cancelled based on portfolio review.",
+     "probes": [
+      "Show the scoring criteria used to rank two competing investments.",
+      "What percentage of spend is run vs grow vs transform, and who agreed that mix?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "cobit-p3-q04",
+     "controlRef": "APO06 Managed Budget and Costs (APO06.01\u2013APO06.05)",
+     "question": "How transparent are I&T costs \u2014 can you show cost allocation to services and business units, and how are budget variances and the business value of spend reviewed?",
+     "whyItMatters": "APO06 requires cost transparency so value decisions are informed. Opaque IT costs prevent the board (EDM02/EDM04) from judging value and drive business-side shadow spending.",
+     "interviewees": [
+      "CIO",
+      "IT Manager",
+      "Business Process Owners"
+     ],
+     "evidence": [
+      "IT budget and cost model",
+      "Cost allocation/chargeback reports",
+      "Variance analysis",
+      "Cost-benefit reviews of major services"
+     ],
+     "guidance": "A GOOD answer demonstrates a cost model linking spend to services/consumers, regular variance review with actions, and business-unit visibility of what they consume. Business process owners confirm they understand what IT costs them.",
+     "probes": [
+      "Which services are most expensive per unit of business outcome, and how do you know?",
+      "How are unexpected cost overruns on projects handled against the portfolio?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "cobit-p3-q05",
+     "controlRef": "APO07 Managed Human Resources (APO07.01\u2013APO07.07)",
+     "question": "How do you ensure sufficient and competent I&T people \u2014 is there a skills inventory, succession planning for key roles, and are key-person dependencies identified and treated?",
+     "whyItMatters": "People and skills are a COBIT governance component. Key-person dependency and skills gaps are among the most common root causes behind failed audits, incidents and stalled change.",
+     "interviewees": [
+      "CIO",
+      "IT Manager",
+      "HR Manager"
+     ],
+     "evidence": [
+      "I&T skills inventory / competency matrix",
+      "Training and development plans",
+      "Succession plans for key I&T roles",
+      "Key-person risk assessments",
+      "Contractor reliance analysis"
+     ],
+     "guidance": "A GOOD answer shows a current skills inventory tied to the strategy's future needs, development plans, succession cover for critical roles, and treatment plans for identified key-person risks. Heavy unassessed contractor dependence is a finding to explore.",
+     "probes": [
+      "Which systems would be at risk if one named individual left tomorrow?",
+      "How do you verify claimed competencies \u2014 certifications, testing, performance review?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "cobit-p3-q06",
+     "controlRef": "APO09 Managed Service Agreements / APO10 Managed Vendors (APO09.01\u2013APO09.03, APO10.01\u2013APO10.05)",
+     "question": "How are third-party I&T services controlled \u2014 are SLAs/OLAs defined and monitored, and how do you select vendors, manage vendor performance and handle vendor risk including lock-in and exit?",
+     "whyItMatters": "With heavy outsourcing and cloud, vendor failure is enterprise failure. COBIT expects service agreements aligned to business requirements and active vendor performance and risk management \u2014 not contract signing followed by neglect.",
+     "interviewees": [
+      "IT Manager",
+      "Service Delivery Manager",
+      "Procurement/Vendor Manager",
+      "Risk Manager"
+     ],
+     "evidence": [
+      "SLA/OLA catalogue and performance reports",
+      "Vendor selection and due-diligence records",
+      "Vendor performance reviews and scorecards",
+      "Contract and exit/termination provisions",
+      "Vendor risk assessments"
+     ],
+     "guidance": "A GOOD answer shows SLAs derived from business requirements (not boilerplate), regular vendor reviews with consequences, documented due diligence including security/financial viability, and tested or at least documented exit strategies for critical vendors.",
+     "probes": [
+      "Which vendor failure would hurt most, and what is the exit plan?",
+      "Show a vendor underperformance case and what action was taken."
+     ],
+     "weight": 3
+    },
+    {
+     "id": "cobit-p3-q07",
+     "controlRef": "APO11 Managed Quality (APO11.01\u2013APO11.06)",
+     "question": "Is there a quality management system for I&T \u2014 quality standards, QA reviews, and a continual improvement approach \u2014 and can you show examples of quality problems found and fixed systematically?",
+     "whyItMatters": "APO11 embeds quality into delivery rather than relying on heroics. Absence of a QMS means defects, rework and inconsistent service recur without organisational learning.",
+     "interviewees": [
+      "IT Manager",
+      "Service Delivery Manager",
+      "PMO Lead"
+     ],
+     "evidence": [
+      "Quality management system documentation",
+      "QA review records and quality KPIs",
+      "Root cause and corrective action records",
+      "Continual improvement register"
+     ],
+     "guidance": "A GOOD answer shows defined quality standards for solutions and services, planned QA activities, quality metrics with trends, and a functioning corrective-action loop. 'Quality is everyone's job' with no artefacts is a weak answer.",
+     "probes": [
+      "Show the last three corrective actions from QA findings and their closure evidence.",
+      "How is quality measured for services delivered by third parties?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "cobit-p3-q08",
+     "controlRef": "APO12 Managed Risk (APO12.01\u2013APO12.06)",
+     "question": "Walk me through the I&T risk management process: how are I&T risks identified, analysed, responded to and reported \u2014 and how is it integrated with enterprise risk management?",
+     "whyItMatters": "APO12 operationalises the board's EDM03 direction. If I&T risk management is disconnected from ERM, I&T risk registers become paperwork and board risk reporting is unreliable.",
+     "interviewees": [
+      "Risk Manager",
+      "CIO",
+      "IT Manager"
+     ],
+     "evidence": [
+      "I&T risk register with ownership and treatment",
+      "Risk analysis methodology",
+      "Integration artefacts with ERM (shared taxonomy, reporting lines)",
+      "Risk treatment plans and acceptance records"
+     ],
+     "guidance": "A GOOD answer shows a repeatable method (identification, analysis, response, monitoring), risks with owners and treatments, a shared taxonomy/escalation path into ERM, and evidence that risk responses actually executed. Registers unchanged for a year are a red flag.",
+     "probes": [
+      "Show a risk that was accepted above appetite \u2014 who approved it?",
+      "How are emerging I&T risks (e.g. new technology adoption) captured?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "cobit-p3-q09",
+     "controlRef": "APO13 Managed Security (APO13.01\u2013APO13.03)",
+     "question": "Is there an approved information security strategy and management system for the enterprise \u2014 and how do you know the defined security controls are the right ones for your threat landscape?",
+     "whyItMatters": "APO13 defines and maintains the enterprise security system that DSS05 then operates. A security programme without a defined, risk-linked control baseline cannot demonstrate adequacy to the board or auditors.",
+     "interviewees": [
+      "CIO",
+      "IT Manager",
+      "Risk Manager"
+     ],
+     "evidence": [
+      "Information security strategy/policy",
+      "Security control baseline and rationale",
+      "Threat/risk assessment informing control selection",
+      "Security architecture documentation"
+     ],
+     "guidance": "A GOOD answer links control selection to documented threat and risk assessments (design factors in action), shows an approved security policy hierarchy, and references recognised control sets (e.g. mapped to COBIT focus-area guidance or other standards). Controls chosen by habit or vendor default score low.",
+     "probes": [
+      "When the threat landscape last shifted materially, which controls changed?",
+      "Who approves deviations from the security baseline?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "cobit-p3-q10",
+     "controlRef": "APO14 Managed Data (APO14.01\u2013APO14.08)",
+     "question": "How is enterprise data managed as an asset \u2014 data strategy, ownership/stewardship, quality management, metadata and historical data/retention rules?",
+     "whyItMatters": "APO14 treats data as an enterprise asset. Without ownership and quality management, decision-making, compliance (privacy, retention) and analytics all rest on unreliable data \u2014 a growing audit priority.",
+     "interviewees": [
+      "CIO",
+      "Business Process Owners",
+      "IT Manager"
+     ],
+     "evidence": [
+      "Data management strategy",
+      "Data ownership/stewardship assignments",
+      "Data quality rules and monitoring reports",
+      "Metadata/data dictionary",
+      "Retention and disposal schedules"
+     ],
+     "guidance": "A GOOD answer shows named business data owners/stewards, measured data quality with remediation, metadata management for critical data, and approved retention schedules actually executed. Data ownership defaulted entirely to IT is a governance concern.",
+     "probes": [
+      "Pick a critical data set: who is its business owner, and what is its measured quality?",
+      "How are retention and legal-hold requirements implemented in systems?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "cobit-p3-q11",
+     "controlRef": "BAI01 Managed Programs / BAI11 Managed Projects (BAI01.01\u2013BAI01.06, BAI11.01\u2013BAI11.06)",
+     "question": "How are programmes and projects governed \u2014 business case approval, stage gates, sponsorship, status reporting \u2014 and can you show a project that was stopped or redirected by governance rather than left to fail?",
+     "whyItMatters": "BAI01/BAI11 ensure investment execution is controlled. Programmes that cannot be stopped produce the classic value-destroying IT failure that COBIT governance exists to prevent.",
+     "interviewees": [
+      "PMO Lead",
+      "CIO",
+      "Business Process Owners"
+     ],
+     "evidence": [
+      "Programme/project management methodology",
+      "Stage-gate approval records",
+      "Project status reports and steering minutes",
+      "Business cases and benefit tracking",
+      "Examples of stopped/redirected projects"
+     ],
+     "guidance": "A GOOD answer shows a consistent method with enforced gates, active business sponsorship, honest status reporting (red means red), and at least one documented termination/redirect decision. Zombie projects surviving gate reviews indicate governance theatre.",
+     "probes": [
+      "What percentage of active projects are currently red status, and what is steering doing about them?",
+      "How are interdependencies between programmes managed?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "cobit-p3-q12",
+     "controlRef": "BAI05 Managed Organisational Change / BAI06 Managed IT Changes (BAI05.01\u2013BAI05.07, BAI06.01\u2013BAI06.04)",
+     "question": "When IT changes land, how is the business-side change managed \u2014 readiness assessment, stakeholder engagement, training \u2014 and separately, how are technical IT changes authorised, tested and emergency-handled?",
+     "whyItMatters": "COBIT separates organisational change enablement (BAI05) from technical change management (BAI06). Both fail frequently: technically sound systems that users reject, and uncontrolled technical changes that cause incidents.",
+     "interviewees": [
+      "PMO Lead",
+      "IT Manager",
+      "Business Process Owners",
+      "Service Delivery Manager"
+     ],
+     "evidence": [
+      "Organisational change plans, readiness assessments, training records",
+      "Change management policy and CAB minutes",
+      "Change records with authorisation and test evidence",
+      "Emergency change log",
+      "Change success/failure metrics"
+     ],
+     "guidance": "A GOOD answer distinguishes both disciplines: business readiness and adoption measured for major initiatives (BAI05), and for IT changes (BAI06) \u2014 categorisation, authorisation proportional to risk, testing/back-out evidence, emergency changes ratified after the fact, and low failed-change rates. Unauthorised changes found in sampling are a significant finding.",
+     "probes": [
+      "Show the emergency changes from the last quarter and their retrospective approval.",
+      "For the last major rollout, what adoption metrics were tracked and who owned them?"
+     ],
+     "weight": 3
+    }
+   ]
+  },
+  {
+   "id": "phase-4",
+   "name": "Phase 4 \u2014 Management Objectives Part 2: DSS & MEA Domains + Capability Assessment",
+   "objective": "Assess Deliver/Service/Support (DSS01\u2013DSS06) and Monitor/Evaluate/Assess (MEA01\u2013MEA04) objectives in operation, and perform the COBIT capability assessment (levels 0\u20135) for in-scope processes.",
+   "questions": [
+    {
+     "id": "cobit-p4-q01",
+     "controlRef": "DSS01 Managed Operations (DSS01.01\u2013DSS01.05)",
+     "question": "How are day-to-day IT operations controlled \u2014 operational procedures, workload/scheduling, monitoring of infrastructure, and protection of facilities and sensitive media?",
+     "whyItMatters": "DSS01 is where service reliability is won or lost daily. Undocumented operational procedures and unmonitored infrastructure convert small issues into business outages.",
+     "interviewees": [
+      "IT Manager",
+      "Service Delivery Manager"
+     ],
+     "evidence": [
+      "Operations runbooks/procedures",
+      "Job scheduling and monitoring records",
+      "Infrastructure monitoring dashboards and alert logs",
+      "Physical access and media handling records"
+     ],
+     "guidance": "A GOOD answer shows documented and followed operational procedures, proactive monitoring with alert handling evidence, controlled scheduling of batch/workload, and facility/media protection. Reliance on individuals' memory for routine operations indicates low capability.",
+     "probes": [
+      "Show the procedure and log for one critical overnight job and its last failure.",
+      "How are operational knowledge and runbooks kept current when staff change?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "cobit-p4-q02",
+     "controlRef": "DSS02 Managed Service Requests and Incidents (DSS02.01\u2013DSS02.07)",
+     "question": "Walk me through incident and service request handling \u2014 classification, prioritisation, escalation, SLA tracking \u2014 and what your incident trend data tells you.",
+     "whyItMatters": "DSS02 protects business operations from disruption. Poor incident management shows up as repeated outages, missed SLAs and business frustration; trend data reveals whether the process learns.",
+     "interviewees": [
+      "Service Delivery Manager",
+      "IT Manager",
+      "Business Process Owners"
+     ],
+     "evidence": [
+      "Incident/request records and categorisation",
+      "SLA compliance reports",
+      "Escalation records including major incidents",
+      "Incident trend and KPI analysis"
+     ],
+     "guidance": "A GOOD answer shows a single intake/classification scheme, prioritisation by business impact, defined escalation (including major incident procedure), measured SLA performance with actions on misses, and trend analysis feeding problem management (DSS03). Business owners corroborate responsiveness.",
+     "probes": [
+      "Describe the last major incident: timeline, communication, business impact, follow-up.",
+      "Which incident categories are rising, and what is being done?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "cobit-p4-q03",
+     "controlRef": "DSS03 Managed Problems (DSS03.01\u2013DSS03.05)",
+     "question": "Is there a working problem management process \u2014 are recurring incidents investigated to root cause, known errors recorded, and permanent fixes tracked to closure?",
+     "whyItMatters": "DSS03 breaks the incident-repeat cycle. Without it, the organisation pays repeatedly for the same failures and incident statistics never improve.",
+     "interviewees": [
+      "Service Delivery Manager",
+      "IT Manager"
+     ],
+     "evidence": [
+      "Problem records linked to recurring incidents",
+      "Root cause analyses",
+      "Known error database",
+      "Permanent fix/closure tracking and metrics"
+     ],
+     "guidance": "A GOOD answer shows proactive and reactive problem management: patterns identified from incident data, documented root cause analysis, known errors with workarounds, and fixes tracked through change management (BAI06). If problem records exist but never close, capability is low.",
+     "probes": [
+      "Show the three most recent root cause analyses and the fixes they produced.",
+      "How long do known errors stay open on average, and why?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "cobit-p4-q04",
+     "controlRef": "DSS04 Managed Continuity (DSS04.01\u2013DSS04.08)",
+     "question": "How is I&T continuity assured \u2014 business impact analysis, continuity plans aligned to business needs, tested recovery capabilities, and backup/restore verification?",
+     "whyItMatters": "DSS04 protects the enterprise from catastrophic disruption. Plans that are untested, or recovery capabilities never verified, give false assurance \u2014 one of the highest-impact audit findings possible.",
+     "interviewees": [
+      "IT Manager",
+      "Risk Manager",
+      "Service Delivery Manager",
+      "Business Process Owners"
+     ],
+     "evidence": [
+      "Business impact analysis",
+      "IT continuity/disaster recovery plans",
+      "Test plans, results and corrective actions",
+      "Backup logs and restore test evidence",
+      "Alignment of recovery objectives (RTO/RPO) to business requirements"
+     ],
+     "guidance": "A GOOD answer shows a current BIA driving recovery objectives, plans covering scenarios including third-party failure, evidence of tests (including full or partial failover) with lessons actioned, and routine restore verification. Untested plans or RTOs never agreed with the business are significant findings.",
+     "probes": [
+      "When was the last full recovery test, what failed, and what changed?",
+      "Are critical SaaS vendors' continuity arrangements verified, and how?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "cobit-p4-q05",
+     "controlRef": "DSS05 Managed Security Services (DSS05.01\u2013DSS05.07)",
+     "question": "How are security services operated day to day \u2014 network and endpoint protection, identity and access management, vulnerability management, and security monitoring/incident response?",
+     "whyItMatters": "DSS05 operates the security baseline APO13 defined. Operational lapses \u2014 unmanaged vulnerabilities, excessive privileges, blind spots in monitoring \u2014 are the direct precursors of breaches and regulatory findings.",
+     "interviewees": [
+      "IT Manager",
+      "Service Delivery Manager",
+      "Risk Manager"
+     ],
+     "evidence": [
+      "Security monitoring/SIEM outputs and alert handling records",
+      "Vulnerability scan reports and remediation tracking",
+      "Access review and provisioning/deprovisioning records",
+      "Security incident response records and playbooks"
+     ],
+     "guidance": "A GOOD answer shows layered controls operating with evidence: timely vulnerability remediation by severity, periodic access recertification, monitored logs with investigated alerts, and tested incident response. Sampling should verify records match claims.",
+     "probes": [
+      "Show the oldest unremediated critical vulnerability and the reason.",
+      "Walk through the last security incident from detection to closure."
+     ],
+     "weight": 3
+    },
+    {
+     "id": "cobit-p4-q06",
+     "controlRef": "DSS06 Managed Business Process Controls (DSS06.01\u2013DSS06.06)",
+     "question": "How are controls inside business processes and their supporting applications assured \u2014 automated vs manual controls, control ownership by the business, and end-to-end transaction integrity?",
+     "whyItMatters": "DSS06 anchors control responsibility in the business, not IT. Financial misstatement, fraud and compliance failures frequently originate in broken application-level and business process controls.",
+     "interviewees": [
+      "Business Process Owners",
+      "IT Manager",
+      "Internal Auditor"
+     ],
+     "evidence": [
+      "Business process control matrices",
+      "Application control configurations (validation, reconciliation, approval workflows)",
+      "Control operation and exception evidence",
+      "Control owner attestations"
+     ],
+     "guidance": "A GOOD answer shows documented end-to-end process controls with named business owners, preference for automated controls where feasible, regular operation evidence, and reconciliation of exceptions. Business owners who cannot describe their own process controls indicate a governance gap.",
+     "probes": [
+      "Pick one financially significant process: which controls prevent/detect error, and who tests them?",
+      "How are control changes in applications approved and documented?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "cobit-p4-q07",
+     "controlRef": "MEA01 Managed Performance and Conformance Monitoring (MEA01.01\u2013MEA01.04)",
+     "question": "What I&T performance measurement system exists \u2014 goals and metrics cascade, data collection, monitoring against targets \u2014 and do reported numbers actually trace to underlying records?",
+     "whyItMatters": "MEA01 produces the information the board relies on (EDM). If performance reporting is unaudited, manually massaged or disconnected from source data, every governance decision downstream is compromised.",
+     "interviewees": [
+      "IT Governance Officer",
+      "CIO",
+      "Service Delivery Manager",
+      "Internal Auditor"
+     ],
+     "evidence": [
+      "Performance measurement framework / KPI catalogue",
+      "Metric definitions with data sources",
+      "Dashboards and trend reports",
+      "Reconciliation of reported figures to source records"
+     ],
+     "guidance": "A GOOD answer shows defined metrics linked to alignment goals, automated data collection where possible, targets with variance analysis, and demonstrated traceability \u2014 the auditor can pick a reported number and reproduce it from source. Manual, unverifiable reporting scores low.",
+     "probes": [
+      "Pick one KPI the board sees: show me its source data and calculation.",
+      "What happens when a target is missed for consecutive periods?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "cobit-p4-q08",
+     "controlRef": "MEA02 Managed System of Internal Control (MEA02.01\u2013MEA02.08)",
+     "question": "How is the system of internal control over I&T monitored \u2014 control self-assessments, control testing, deficiency tracking \u2014 and how are control weaknesses escalated and remediated?",
+     "whyItMatters": "MEA02 ensures controls keep working between audits. Enterprises without internal control monitoring discover failures only via incidents or external findings \u2014 the most expensive way to learn.",
+     "interviewees": [
+      "Internal Auditor",
+      "IT Governance Officer",
+      "Risk Manager",
+      "IT Manager"
+     ],
+     "evidence": [
+      "Internal control framework over I&T",
+      "Control testing plans and results",
+      "Deficiency/issue registers with remediation status",
+      "Escalation records to governance bodies"
+     ],
+     "guidance": "A GOOD answer shows a defined control set with owners, scheduled testing or self-assessment with independent challenge, a live deficiency register with aged remediation, and escalation criteria to management/board. Long-aged open deficiencies without consequence are a finding.",
+     "probes": [
+      "Show the oldest open control deficiency and why it is still open.",
+      "Who can override an internal control, and how is that recorded?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "cobit-p4-q09",
+     "controlRef": "MEA03 Managed Compliance With External Requirements (MEA03.01\u2013MEA03.04)",
+     "question": "How do you identify all external I&T-related compliance obligations \u2014 laws, regulations, contracts \u2014 and how is compliance monitored and non-compliance handled?",
+     "whyItMatters": "MEA03 prevents regulatory surprise. Obligations scattered across legal, IT and business units with no consolidated register is the most common root cause of compliance breaches.",
+     "interviewees": [
+      "Risk Manager",
+      "IT Governance Officer",
+      "CIO",
+      "Internal Auditor"
+     ],
+     "evidence": [
+      "Compliance obligations register",
+      "Compliance monitoring plans and results",
+      "Non-compliance incident and remediation records",
+      "Regulator correspondence"
+     ],
+     "guidance": "A GOOD answer shows a consolidated, owned register of obligations mapped to controls and responsible parties, scheduled compliance assessments, and a defined process for reporting and remediating non-compliance. Obligations 'tracked by legal only' with no IT linkage is a gap.",
+     "probes": [
+      "How did the last new regulation affecting I&T get identified and implemented?",
+      "Show evidence of compliance status for two named obligations (e.g. privacy, sector rules)."
+     ],
+     "weight": 3
+    },
+    {
+     "id": "cobit-p4-q10",
+     "controlRef": "MEA04 Managed Assurance (MEA04.01\u2013MEA04.06)",
+     "question": "Is there a coordinated assurance plan for I&T \u2014 internal audit, control self-assessment, external reviews \u2014 and how do you ensure assurance providers are independent, competent and their findings actioned?",
+     "whyItMatters": "MEA04 is the enterprise's mechanism for obtaining confidence over I&T. Uncoordinated assurance leaves gaps and duplicates effort; unactioned findings waste the assurance investment and signal governance failure.",
+     "interviewees": [
+      "Internal Auditor",
+      "Board",
+      "IT Governance Officer"
+     ],
+     "evidence": [
+      "I&T assurance plan / audit universe",
+      "Assurance reports and findings registers",
+      "Finding remediation tracking",
+      "Independence and competency arrangements for assurance providers"
+     ],
+     "guidance": "A GOOD answer shows a risk-based assurance plan approved by the audit committee, coverage mapping across assurance providers, tracked remediation of findings to closure, and periodic reporting of assurance status to the board. Repeat findings across consecutive audits are a red flag.",
+     "probes": [
+      "Which I&T areas have had no assurance coverage in three years, and is that accepted?",
+      "Show findings from the last two assurance reviews and their current status."
+     ],
+     "weight": 3
+    },
+    {
+     "id": "cobit-p4-q11",
+     "controlRef": "COBIT Performance Management (CPM) \u2014 Capability Levels 0\u20135 rating method",
+     "question": "When you rate a process's capability, what evidence distinguishes each level \u2014 specifically, how do you decide between level 1 (process achieves its purpose through incomplete application of activities), level 2 (achieves purpose through basic yet complete application), and level 3 (achieves purpose in a much more organised way, with defined processes)?",
+     "whyItMatters": "The audit's core output is defensible capability ratings. COBIT's CPM rates processes 0\u20135 based on achievement of process capability attributes; ratings based on gut feel rather than evidence per attribute cannot survive challenge.",
+     "interviewees": [
+      "Internal Auditor",
+      "IT Governance Officer",
+      "CIO"
+     ],
+     "evidence": [
+      "Capability assessment workpapers",
+      "Evidence mapped to process practices and capability attributes",
+      "Rating justifications per process",
+      "Assessor competence records"
+     ],
+     "guidance": "A GOOD answer shows ratings built from practice-level evidence: level 1 = purpose achieved but activities incomplete/inconsistent; level 2 = purpose achieved consistently though basic (work products, performance managed); level 3 = defined, documented, tailored processes with defined roles and skills (organisational, not individual, capability). Ratings include evidence references, not just numbers.",
+     "probes": [
+      "Show the evidence file for one process rated level 3 \u2014 what makes it 3 rather than 2?",
+      "How do you handle disagreement between assessor and process owner on a rating?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "cobit-p4-q12",
+     "controlRef": "COBIT Performance Management (CPM) \u2014 Capability Levels 4\u20135 and target setting",
+     "question": "Do any processes legitimately rate at level 4 (measured, with quantitative performance and quality targets) or level 5 (continual improvement), and were target capability levels set from the design work rather than assumed to be 5 everywhere?",
+     "whyItMatters": "Levels 4\u20135 require quantitative management and continual improvement \u2014 expensive and unnecessary for many processes. Claiming high levels without quantitative evidence, or targeting 5 universally, signals an immature understanding of COBIT performance management.",
+     "interviewees": [
+      "IT Governance Officer",
+      "CIO",
+      "Internal Auditor"
+     ],
+     "evidence": [
+      "Target capability levels per process with rationale",
+      "Quantitative performance/quality metrics for any level-4 claims",
+      "Continual improvement evidence for level-5 claims",
+      "Gap analysis between current and target capability"
+     ],
+     "guidance": "A GOOD answer shows targets derived from the design factors and goals cascade (e.g. DSS05 target 4 due to threat landscape; BAI11 target 3 sufficient), honest current-state ratings, and any level 4/5 claims backed by real statistical measurement and improvement records. Universal 5s, or targets with no rationale, fail.",
+     "probes": [
+      "Which processes are deliberately left at target level 2, and why is that acceptable?",
+      "Show the quantitative evidence behind your highest-rated process."
+     ],
+     "weight": 3
+    }
+   ]
+  },
+  {
+   "id": "phase-5",
+   "name": "Phase 5 \u2014 Findings & Improvement Roadmap",
+   "objective": "Consolidate capability gaps and control findings into an agreed, prioritised and resourced improvement roadmap with ownership, target capability levels and follow-up assurance.",
+   "questions": [
+    {
+     "id": "cobit-p5-q01",
+     "controlRef": "MEA01.03 / MEA04 (reporting of performance, conformance and assurance results)",
+     "question": "How will the results of this assessment \u2014 current vs target capability per process and each audit finding \u2014 be reported, to whom, and in what format so that governance bodies can act on them?",
+     "whyItMatters": "COBIT expects monitoring and assurance results to feed governance decision-making. Findings reported only to IT management, without board/executive visibility, rarely get the authority and funding needed to fix.",
+     "interviewees": [
+      "Internal Auditor",
+      "IT Governance Officer",
+      "Board",
+      "CIO"
+     ],
+     "evidence": [
+      "Draft/final assessment report structure",
+      "Capability rating summary (current vs target)",
+      "Reporting and escalation protocol to governance bodies",
+      "Prior reports and resulting decisions"
+     ],
+     "guidance": "A GOOD answer defines audiences and formats: executive summary with capability heat map for the board/audit committee, detailed findings and practice-level evidence for management, and a documented route for disagreements on findings. Reports should state criteria, condition, cause and consequence per finding.",
+     "probes": [
+      "Who sees the capability heat map, and when?",
+      "How are contested findings resolved before the report is finalised?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "cobit-p5-q02",
+     "controlRef": "COBIT 2019 Implementation Guide \u2014 Implementation Phase 2 (Pain points and trigger events) / gap analysis",
+     "question": "How were capability gaps converted into prioritised findings \u2014 did prioritisation use risk, pain points and enterprise goals, or simply list every gap to target equally?",
+     "whyItMatters": "Not all gaps matter equally. COBIT's implementation approach starts from pain points and trigger events; unprioritised findings lists overwhelm management and guarantee nothing gets fixed.",
+     "interviewees": [
+      "IT Governance Officer",
+      "CIO",
+      "Risk Manager",
+      "Internal Auditor"
+     ],
+     "evidence": [
+      "Gap analysis with current vs target capability",
+      "Prioritisation rationale linking findings to risk and enterprise goals",
+      "Risk assessment of unremediated gaps"
+     ],
+     "guidance": "A GOOD answer shows each finding rated by impact and risk, linked to enterprise/alignment goals and pain points, with explicit reasoning for sequencing. Findings should distinguish quick wins from structural changes and note accepted gaps.",
+     "probes": [
+      "Which three gaps create the most enterprise risk if unaddressed for 12 months?",
+      "Were any gaps formally risk-accepted, and by whom?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "cobit-p5-q03",
+     "controlRef": "COBIT 2019 Implementation Guide \u2014 Implementation Phases 3\u20135 (Where do we want to be / What needs to be done / How do we get there)",
+     "question": "Is there an approved improvement roadmap \u2014 defined projects, owners, resources, timelines and target capability levels \u2014 to close the agreed gaps, and is it funded?",
+     "whyItMatters": "An assessment without a funded, owned roadmap produces repeat findings next cycle. The roadmap is the evidence that governance translates assurance into change.",
+     "interviewees": [
+      "CIO",
+      "IT Governance Officer",
+      "PMO Lead",
+      "CEO"
+     ],
+     "evidence": [
+      "Approved improvement roadmap",
+      "Project charters with owners and budgets",
+      "Funding approval records",
+      "Milestone plan with target capability levels per process"
+     ],
+     "guidance": "A GOOD answer shows a board- or executive-approved roadmap run as a governed programme (BAI01/BAI11 discipline applies to the improvement itself): named owners, funded initiatives, realistic sequencing, and measurable target states per process. 'We will address this next year' without artefacts is not a roadmap.",
+     "probes": [
+      "Who is the executive sponsor of the improvement programme?",
+      "What is the first milestone, its date, and its status?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "cobit-p5-q04",
+     "controlRef": "EDM02 Ensured Benefits Delivery / COBIT 2019 Implementation Guide \u2014 realising benefits from governance improvements",
+     "question": "How will the business benefit of each governance improvement be defined and measured \u2014 and who is accountable for realising those benefits after the improvement projects close?",
+     "whyItMatters": "Governance improvements consume real money and attention; COBIT applies the same benefits discipline to them as to any investment. Unmeasured improvement programmes lose sponsorship and stall.",
+     "interviewees": [
+      "CEO",
+      "CIO",
+      "PMO Lead",
+      "Business Process Owners"
+     ],
+     "evidence": [
+      "Benefit statements for improvement initiatives",
+      "Metrics baselined before improvement",
+      "Benefits tracking into operations",
+      "Named benefit owners"
+     ],
+     "guidance": "A GOOD answer defines measurable outcomes per improvement (e.g. reduced incident recurrence, faster change lead time, reduced audit findings), baselined before work starts, with business-side owners and post-closure tracking mirroring EDM02 expectations.",
+     "probes": [
+      "What measurable outcome will the top roadmap initiative deliver, and from what baseline?",
+      "When did a past governance improvement's benefits get reviewed after completion?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "cobit-p5-q05",
+     "controlRef": "COBIT 2019 Implementation Guide \u2014 Implementation Phases 6\u20137 (Did we get there / How do we keep the momentum going) + continual improvement life cycle",
+     "question": "How will you verify improvements actually achieved target capability, and how is continual improvement embedded so governance does not decay back once attention moves on?",
+     "whyItMatters": "Capability often regresses after the project spotlight moves. COBIT's continual improvement life cycle requires re-assessment, embedded practices and culture change \u2014 otherwise next year's audit re-finds this year's findings.",
+     "interviewees": [
+      "IT Governance Officer",
+      "CIO",
+      "Internal Auditor"
+     ],
+     "evidence": [
+      "Re-assessment plans and schedules",
+      "Post-implementation capability reviews",
+      "Embedded process documentation and training records",
+      "Continual improvement register or equivalent"
+     ],
+     "guidance": "A GOOD answer includes scheduled re-assessment (internal or independent) against target capability, practices institutionalised through documentation, training and performance management, and governance-body monitoring of sustainability. Culture and behaviour components are addressed, not just artefacts.",
+     "probes": [
+      "How will you know in 18 months whether capability was sustained?",
+      "Which past improvements have regressed, and what did you learn?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "cobit-p5-q06",
+     "controlRef": "BAI05 Managed Organisational Change / EDM05 Ensured Stakeholder Engagement (change and communication for the improvement programme)",
+     "question": "How will the people and communication side of the improvement roadmap be managed \u2014 stakeholder buy-in, resistance, training, and communication of changes to affected staff and business units?",
+     "whyItMatters": "Governance improvements fail through people, not paperwork. COBIT treats culture, behaviour and skills as governance components; improvement plans that ignore them deliver artefacts nobody uses.",
+     "interviewees": [
+      "PMO Lead",
+      "IT Governance Officer",
+      "Business Process Owners",
+      "IT Manager"
+     ],
+     "evidence": [
+      "Change management plan for the improvement programme",
+      "Stakeholder analysis and communication plan",
+      "Training plans and completion records",
+      "Adoption/usage measures for changed processes"
+     ],
+     "guidance": "A GOOD answer shows a structured change approach: impacted stakeholders identified, communication planned per audience, training funded, and adoption measured after rollout \u2014 with business process owners confirming they were engaged, not surprised.",
+     "probes": [
+      "Which stakeholder group is most likely to resist these changes, and what is the plan?",
+      "How will adoption of new/changed processes be measured?"
+     ],
+     "weight": 2
+    },
+    {
+     "id": "cobit-p5-q07",
+     "controlRef": "MEA04 Managed Assurance (follow-up on assurance findings) / MEA02.07\u2013MEA02.08 (remediation and reporting of control deficiencies)",
+     "question": "What follow-up mechanism tracks this audit's findings to closure \u2014 ownership, deadlines, status reporting to governance bodies, and validation that remediation actually worked before findings are closed?",
+     "whyItMatters": "Findings closed on paperwork rather than verified evidence create repeat findings and erode trust in assurance. COBIT expects assurance follow-up with board-level visibility of overdue items.",
+     "interviewees": [
+      "Internal Auditor",
+      "IT Governance Officer",
+      "Board"
+     ],
+     "evidence": [
+      "Findings/action tracking register",
+      "Remediation validation evidence (re-testing records)",
+      "Status reports to audit committee/board",
+      "Overdue finding escalation records"
+     ],
+     "guidance": "A GOOD answer shows every finding with a named owner and date, independent validation before closure (not self-certification), regular reporting of open/overdue items to the audit committee, and consequences for chronic slippage. Repeat findings from prior audits are specifically addressed.",
+     "probes": [
+      "How many prior-audit findings remain open today, and why?",
+      "Who validates a fix before a finding is marked closed?"
+     ],
+     "weight": 3
+    },
+    {
+     "id": "cobit-p5-q08",
+     "controlRef": "EDM01 Ensured Governance Framework Setting and Maintenance / COBIT 2019 Implementation Guide \u2014 continual improvement life cycle (ring-fencing governance as an ongoing programme)",
+     "question": "Finally: who owns the I&T governance system as an ongoing concern after this audit ends \u2014 how are design factors re-run, the framework maintained, and the next assessment scheduled as strategy and risk evolve?",
+     "whyItMatters": "Governance is a continuous system, not a project. The strongest single predictor of sustained capability is a named, resourced owner with a standing cycle for re-design, assessment and improvement.",
+     "interviewees": [
+      "Board",
+      "CEO",
+      "IT Governance Officer",
+      "CIO"
+     ],
+     "evidence": [
+      "Named governance system owner and mandate",
+      "Standing governance calendar (reviews, assessments, reporting)",
+      "Trigger list for re-running the design workflow",
+      "Multi-year assurance/assessment schedule"
+     ],
+     "guidance": "A GOOD answer names a role (e.g. IT governance officer, steering committee) with board mandate and budget, a calendar of framework reviews and capability assessments, defined triggers for revisiting the governance design (strategy shifts, M&A, regulation, major incidents), and the next assessment already scheduled.",
+     "probes": [
+      "What event would cause you to re-run the COBIT design workflow?",
+      "Is funding for governance maintenance in the run budget or dependent on annual approval?"
+     ],
+     "weight": 3
+    }
+   ]
+  }
+ ]
 }

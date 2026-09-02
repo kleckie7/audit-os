@@ -1,37 +1,1256 @@
 [
-  {
-    "term": "GRC",
-    "fullName": "Governance, Risk & Compliance",
-    "definition": "The integrated discipline of aligning IT and business objectives (governance), identifying and treating uncertainty (risk), and meeting legal, regulatory, and contractual obligations (compliance). In an audit context, GRC frameworks structure how controls are selected, tested, and reported.",
-    "category": "DISCIPLINE",
-    "frameworks": ["ISO 27001", "SOC 2", "COBIT 2019"]
-  },
-  {
-    "term": "ISO 27001",
-    "fullName": "ISO/IEC 27001 — Information Security Management",
-    "definition": "The international standard for establishing, operating, and certifying an Information Security Management System (ISMS). The 2022 revision organizes 93 Annex A controls into four themes: Organizational, People, Physical, and Technological.",
-    "category": "STANDARD",
-    "frameworks": ["ISO 27001"]
-  },
-  {
-    "term": "NIST CSF",
-    "fullName": "NIST Cybersecurity Framework 2.0",
-    "definition": "A voluntary framework from the US National Institute of Standards and Technology organized into six functions: Govern, Identify, Protect, Detect, Respond, Recover. Auditors use its categories and subcategories to benchmark an organization's cybersecurity posture.",
-    "category": "FRAMEWORK",
-    "frameworks": ["NIST CSF 2.0"]
-  },
-  {
-    "term": "MFA",
-    "fullName": "Multi-Factor Authentication",
-    "definition": "Authentication requiring two or more independent factors: knowledge (password), possession (token, device), or inherence (biometric). Auditors test MFA coverage on remote access, privileged accounts, and cloud consoles — gaps here are consistently high-severity findings.",
-    "category": "TECHNOLOGY",
-    "frameworks": ["ISO 27001", "NIST 800-53", "PCI DSS", "SOC 2"]
-  },
-  {
-    "term": "SoA",
-    "fullName": "Statement of Applicability",
-    "definition": "The ISO 27001 document that lists every Annex A control, states whether it applies to the organization, and justifies inclusions and exclusions. It is the anchor artifact of any ISO 27001 audit — certification bodies review it first.",
-    "category": "STANDARD",
-    "frameworks": ["ISO 27001"]
-  }
+ {
+  "term": "GRC",
+  "fullName": "Governance, Risk, and Compliance",
+  "definition": "GRC is the integrated discipline of governing an organization, managing its risks, and meeting its legal, regulatory and contractual obligations. Rather than treating these as separate silos, GRC aligns policies, controls, risk decisions and reporting under one operating model. In practice it shows up as shared risk registers, control libraries, and tooling that maps one control to many frameworks. An auditor cares because mature GRC means evidence, ownership and accountability are organized \u2014 making audits faster and findings more meaningful.",
+  "frameworks": [
+   "COSO",
+   "COBIT",
+   "ISO 27001",
+   "NIST CSF"
+  ],
+  "category": "FRAMEWORK"
+ },
+ {
+  "term": "ISMS",
+  "fullName": "Information Security Management System",
+  "definition": "An ISMS is the documented, risk-driven management system an organization uses to protect the confidentiality, integrity and availability of its information. It includes scope, policies, risk assessment and treatment, controls, monitoring, internal audit and management review, all operating as a continual-improvement cycle. Top management owns it; everyone in scope operates it. An auditor cares because the ISMS is the object of an ISO 27001 certification audit \u2014 its design, evidence and improvement loop are what get tested.",
+  "frameworks": [
+   "ISO 27001"
+  ],
+  "category": "FRAMEWORK"
+ },
+ {
+  "term": "AIMS",
+  "fullName": "Artificial Intelligence Management System",
+  "definition": "An AIMS is a management system for governing the development and use of AI, analogous to an ISMS but focused on AI-specific risks such as bias, transparency, data quality and unintended consequences. It defines roles, impact assessments, lifecycle controls and monitoring for AI systems. It is specified by ISO/IEC 42001. An auditor cares because organizations adopting AI increasingly need to demonstrate structured governance of models, data and accountability, and the AIMS is what gets audited.",
+  "frameworks": [
+   "ISO 42001"
+  ],
+  "category": "FRAMEWORK"
+ },
+ {
+  "term": "SoA",
+  "fullName": "Statement of Applicability",
+  "definition": "The SoA is the mandatory ISO 27001 document that lists all Annex A controls, states whether each is applicable, justifies inclusions and exclusions, and records implementation status. It links the risk assessment and risk treatment plan to the control set actually operated. Auditors review it in Stage 1 before any control testing begins. An outdated or unjustified SoA is one of the most common certification audit findings.",
+  "frameworks": [
+   "ISO 27001"
+  ],
+  "category": "CONCEPT"
+ },
+ {
+  "term": "NIST",
+  "fullName": "National Institute of Standards and Technology",
+  "definition": "NIST is the US federal agency that publishes widely adopted cybersecurity and risk publications, including the Cybersecurity Framework, SP 800-53 controls, SP 800-37 (RMF) and SP 800-30 (risk assessment). Though written for US federal systems, its publications are used globally as de facto security standards. An auditor cares because NIST references underpin many control mappings, assessment procedures and scoring methods used in engagements.",
+  "frameworks": [
+   "NIST CSF",
+   "NIST 800-53",
+   "FedRAMP",
+   "CMMC"
+  ],
+  "category": "REGULATION"
+ },
+ {
+  "term": "CSF",
+  "fullName": "NIST Cybersecurity Framework",
+  "definition": "The NIST CSF is a voluntary framework organizing cybersecurity outcomes into functions \u2014 Govern, Identify, Protect, Detect, Respond and Recover (CSF 2.0). Organizations build a Current Profile of where they are and a Target Profile of where they need to be, then manage the gap. It is outcome-based rather than prescriptive, so controls are selected from informative references. An auditor cares because CSF assessments measure program maturity and gaps rather than binary pass/fail compliance.",
+  "frameworks": [
+   "NIST CSF"
+  ],
+  "category": "FRAMEWORK"
+ },
+ {
+  "term": "RMF",
+  "fullName": "Risk Management Framework",
+  "definition": "The RMF is NIST SP 800-37's six-step lifecycle for US federal systems: categorize, select, implement, assess, authorize and monitor security controls. It ties control selection to the system's impact level and culminates in an authorization decision by a senior official. Continuous monitoring keeps the authorization current. An auditor cares because RMF defines the evidence chain \u2014 SSP, assessment results and POA&M \u2014 that must exist for any federal system.",
+  "frameworks": [
+   "NIST 800-53",
+   "FedRAMP"
+  ],
+  "category": "FRAMEWORK"
+ },
+ {
+  "term": "SSP",
+  "fullName": "System Security Plan",
+  "definition": "The SSP is the foundational document describing a system's boundary, environment, roles, and how each required security control is implemented. Under RMF, FedRAMP and CMMC ecosystems, it is the primary artifact assessors test against. Control narratives must reflect reality, not aspiration. An auditor cares because every assessment procedure starts from the SSP \u2014 discrepancies between the SSP and the actual environment become findings.",
+  "frameworks": [
+   "NIST 800-53",
+   "FedRAMP",
+   "CMMC"
+  ],
+  "category": "CONCEPT"
+ },
+ {
+  "term": "POA&M",
+  "fullName": "Plan of Action and Milestones",
+  "definition": "A POA&M is the formal register of known security weaknesses in a system, with planned remediation actions, resources, owners and completion dates. It is how federal and FedRAMP programs manage deficiencies that are not severe enough to block authorization but must be tracked to closure. Persistent or overdue POA&M items signal weak remediation discipline. An auditor cares because the POA&M shows honesty about gaps and the organization's actual remediation velocity.",
+  "frameworks": [
+   "NIST 800-53",
+   "FedRAMP",
+   "CMMC"
+  ],
+  "category": "CONCEPT"
+ },
+ {
+  "term": "ATO",
+  "fullName": "Authorization to Operate",
+  "definition": "An ATO is the formal decision by a senior authorizing official that a federal system may operate, based on an assessed and accepted level of risk. It follows RMF assessment and is time-bound, requiring continuous monitoring to remain valid. Losing or failing to obtain an ATO means a system legally should not run. An auditor cares because the ATO package (SSP, assessment report, POA&M) is the complete evidence set of the authorization decision.",
+  "frameworks": [
+   "FedRAMP",
+   "NIST 800-53"
+  ],
+  "category": "CONCEPT"
+ },
+ {
+  "term": "COSO",
+  "fullName": "Committee of Sponsoring Organizations of the Treadway Commission",
+  "definition": "COSO publishes the dominant internal control framework (COSO Internal Control \u2014 Integrated Framework) and ERM framework used for financial reporting and enterprise risk. Its 2013 update articulates 17 principles across five components, which the AICPA Trust Services Criteria map to directly. SOX 404 assessments almost universally use COSO as the benchmark. An auditor cares because COSO's principles \u2014 control environment, risk assessment, control activities, information/communication, monitoring \u2014 are the vocabulary of internal control evaluation.",
+  "frameworks": [
+   "COSO",
+   "SOC 2",
+   "SOX"
+  ],
+  "category": "FRAMEWORK"
+ },
+ {
+  "term": "ERM",
+  "fullName": "Enterprise Risk Management",
+  "definition": "ERM is the organization-wide discipline of identifying, assessing, responding to and monitoring risk across strategic, operational, financial and compliance domains. Frameworks like COSO ERM and ISO 31000 define its components and principles. It connects risk appetite set by the board to day-to-day risk decisions. An auditor cares because security and compliance risks should live inside the enterprise risk process, not beside it \u2014 fragmented risk management hides exposure.",
+  "frameworks": [
+   "COSO",
+   "ISO 27001",
+   "COBIT"
+  ],
+  "category": "FRAMEWORK"
+ },
+ {
+  "term": "COBIT",
+  "fullName": "Control Objectives for Information and Related Technologies",
+  "definition": "COBIT is ISACA's governance and management framework for enterprise IT, organizing IT-related work into governance (EDM) and management (APO, BAI, DSS, MEA) domains with defined processes, goals and practices. COBIT 2019 uses a focus-area and design-factor approach to tailor the framework. It bridges board-level governance and operational IT management. An auditor cares because COBIT provides the process maturity and accountability model used to audit IT governance end-to-end.",
+  "frameworks": [
+   "COBIT"
+  ],
+  "category": "FRAMEWORK"
+ },
+ {
+  "term": "EDM",
+  "fullName": "Evaluate, Direct and Monitor",
+  "definition": "EDM is COBIT's governance domain, containing the processes (EDM01\u2013EDM05) through which the board and executive leadership evaluate stakeholder needs, direct strategy and monitor performance of enterprise IT. It covers governance framework, benefits delivery, risk optimization, resource optimization and stakeholder engagement. It is where accountability for IT governance formally sits. An auditor cares because weaknesses in EDM processes explain downstream control failures \u2014 governance tone starts here.",
+  "frameworks": [
+   "COBIT"
+  ],
+  "category": "CONCEPT"
+ },
+ {
+  "term": "APO",
+  "fullName": "Align, Plan and Organize",
+  "definition": "APO is a COBIT management domain (APO01\u2013APO14) covering how IT strategy, architecture, portfolio, budgets, risk, quality and human resources are planned and organized. Processes like APO12 (managed risk) and APO13 (managed security) directly underpin security management. It translates governance direction into management structure. An auditor cares because APO processes reveal whether security and risk management are systematically planned or improvised.",
+  "frameworks": [
+   "COBIT"
+  ],
+  "category": "CONCEPT"
+ },
+ {
+  "term": "BAI",
+  "fullName": "Build, Acquire and Implement",
+  "definition": "BAI is a COBIT management domain (BAI01\u2013BAI11) covering how solutions are identified, developed or acquired, and implemented \u2014 including change management (BAI06), configuration management and knowledge management. It is where secure development and controlled change live in the COBIT model. Failures here produce unauthorized changes and insecure systems. An auditor cares because BAI06 change enablement and BAI03 solution build processes are prime sources of audit evidence and findings.",
+  "frameworks": [
+   "COBIT"
+  ],
+  "category": "CONCEPT"
+ },
+ {
+  "term": "DSS",
+  "fullName": "Deliver, Service and Support",
+  "definition": "DSS is a COBIT management domain (DSS01\u2013DSS06) covering day-to-day IT service delivery: operations, service requests and incidents, problems, continuity, security services and business process controls. It maps closely to IT service management practices like incident and problem management. It is where operational controls actually run daily. An auditor cares because DSS processes generate the tickets, logs and records used to test operating effectiveness.",
+  "frameworks": [
+   "COBIT",
+   "ITIL"
+  ],
+  "category": "CONCEPT"
+ },
+ {
+  "term": "MEA",
+  "fullName": "Monitor, Evaluate and Assess",
+  "definition": "MEA is a COBIT management domain (MEA01\u2013MEA04) covering performance monitoring, internal control evaluation, compliance with external requirements and assurance provision. It is the 'check' layer of the framework, including how the organization obtains assurance over its own controls. Internal audit and control self-assessment live here. An auditor cares because strong MEA processes mean the organization finds its own control failures \u2014 which directly affects audit reliance and findings.",
+  "frameworks": [
+   "COBIT"
+  ],
+  "category": "CONCEPT"
+ },
+ {
+  "term": "MITRE ATT&CK",
+  "fullName": "MITRE Adversarial Tactics, Techniques & Common Knowledge",
+  "definition": "MITRE ATT&CK is a publicly maintained knowledge base of real-world adversary behavior, organized by tactics (objectives like initial access or exfiltration) and techniques (the specific methods used). Security teams use it to map detections, plan threat hunting and structure adversary emulation. It has become the common language for describing how attacks actually unfold. An auditor cares because detection coverage mapped to ATT&CK shows whether monitoring addresses realistic threats, not just compliance checkboxes.",
+  "frameworks": [
+   "NIST CSF",
+   "NIST 800-53"
+  ],
+  "category": "FRAMEWORK"
+ },
+ {
+  "term": "TTP",
+  "fullName": "Tactics, Techniques and Procedures",
+  "definition": "TTPs describe how threat actors operate: their overall tactics, the techniques they use, and the specific procedures or tooling implementing them. TTPs are cataloged in frameworks like MITRE ATT&CK and drive threat intelligence and detection engineering. Changing TTPs explain why yesterday's controls stop detecting today's attacks. An auditor cares because security testing and monitoring should be benchmarked against the TTPs of actors likely to target the organization.",
+  "frameworks": [
+   "NIST CSF"
+  ],
+  "category": "TECHNOLOGY"
+ },
+ {
+  "term": "SOC (Security Operations Center)",
+  "fullName": "Security Operations Center",
+  "definition": "A Security Operations Center is the team \u2014 in-house or outsourced \u2014 that monitors, detects, investigates and responds to security events around the clock. It typically operates the SIEM, triages alerts, runs threat hunting and executes the front end of incident response. Effectiveness is measured by detection coverage, mean time to detect and respond. An auditor cares because SOC operations determine whether detective controls (like SOC 2's CC7.2 or PCI Req 10/11.5) actually operate, not just exist on paper.",
+  "frameworks": [
+   "SOC 2",
+   "PCI DSS",
+   "NIST CSF",
+   "ISO 27001"
+  ],
+  "category": "TECHNOLOGY"
+ },
+ {
+  "term": "SOC (System and Organization Controls)",
+  "fullName": "System and Organization Controls",
+  "definition": "System and Organization Controls are the AICPA family of attestation reports \u2014 SOC 1 (financial reporting controls), SOC 2 (Trust Services Criteria) and SOC 3 (public-facing version of SOC 2) \u2014 issued by CPA firms about service organizations. They let service providers demonstrate control assurance to many customers with one audit. Note the term has two unrelated meanings in the field: these reports, and the Security Operations Center. An auditor cares because relying on a vendor's SOC report (or issuing one) is central to third-party assurance and vendor risk programs.",
+  "frameworks": [
+   "SOC 2",
+   "COSO"
+  ],
+  "category": "CONCEPT"
+ },
+ {
+  "term": "SIEM",
+  "fullName": "Security Information and Event Management",
+  "definition": "A SIEM is a platform that aggregates logs and events from across the environment, normalizes them, correlates them against detection rules, and supports alerting, investigation and compliance reporting. It is the central nervous system of most SOC operations. Value depends entirely on log coverage and tuned detection content. An auditor cares because SIEM scope, alert handling records and retention are primary evidence for monitoring and logging controls.",
+  "frameworks": [
+   "PCI DSS",
+   "SOC 2",
+   "ISO 27001",
+   "NIST 800-53"
+  ],
+  "category": "TECHNOLOGY"
+ },
+ {
+  "term": "EDR",
+  "fullName": "Endpoint Detection and Response",
+  "definition": "EDR tools continuously record activity on endpoints (processes, files, network connections), detect malicious behavior, and let responders investigate and contain threats on individual machines. Unlike traditional antivirus, EDR emphasizes behavioral detection and response capability. Coverage percentage and alert triage discipline determine its value. An auditor cares because EDR deployment and alert handling evidence malware defense and detection controls (e.g. SOC 2 CC6.8, PCI Req 5).",
+  "frameworks": [
+   "SOC 2",
+   "PCI DSS",
+   "NIST 800-53"
+  ],
+  "category": "TECHNOLOGY"
+ },
+ {
+  "term": "XDR",
+  "fullName": "Extended Detection and Response",
+  "definition": "XDR extends EDR by correlating telemetry across endpoints, networks, email, identity and cloud workloads into unified detection and response. The goal is fewer silos and higher-fidelity alerts than separate point tools. It is often delivered as an evolution of a SIEM/EDR stack. An auditor cares because XDR changes where detection evidence lives \u2014 auditors must confirm which data sources are actually integrated and monitored.",
+  "frameworks": [
+   "NIST CSF"
+  ],
+  "category": "TECHNOLOGY"
+ },
+ {
+  "term": "DLP",
+  "fullName": "Data Loss Prevention",
+  "definition": "DLP technology detects and controls the movement of sensitive data \u2014 via email, web uploads, endpoints and cloud services \u2014 using content inspection, classification and policies. It can block, alert on, or log unauthorized transfers such as card numbers or personal data leaving the organization. Effective DLP depends on knowing what data matters and where it lives. An auditor cares because DLP is key evidence for confidentiality and data protection commitments (SOC 2 C1, PCI Req 4.2.2, GDPR safeguards).",
+  "frameworks": [
+   "SOC 2",
+   "PCI DSS",
+   "GDPR",
+   "ISO 27001"
+  ],
+  "category": "TECHNOLOGY"
+ },
+ {
+  "term": "IAM",
+  "fullName": "Identity and Access Management",
+  "definition": "IAM is the discipline and toolset for managing digital identities and their access: provisioning, authentication, authorization, deprovisioning and governance across systems. It spans HR-driven joiner/mover/leaver processes, directories, single sign-on and access certification. Nearly every security framework makes IAM foundational. An auditor cares because IAM failures \u2014 orphaned accounts, excessive privilege, missing reviews \u2014 are among the most common and consequential audit findings.",
+  "frameworks": [
+   "ISO 27001",
+   "SOC 2",
+   "PCI DSS",
+   "NIST 800-53"
+  ],
+  "category": "TECHNOLOGY"
+ },
+ {
+  "term": "PAM",
+  "fullName": "Privileged Access Management",
+  "definition": "PAM covers the controls around powerful accounts \u2014 administrators, service accounts, root \u2014 including vaulting credentials, session recording, just-in-time elevation and break-glass procedures. Privileged accounts can bypass most other controls, so they get dedicated treatment. Compromise of privileged credentials is a factor in most major breaches. An auditor cares because PAM maturity (vaulting, rotation, session logging) is direct evidence for access control and monitoring criteria.",
+  "frameworks": [
+   "ISO 27001",
+   "SOC 2",
+   "PCI DSS",
+   "NIST 800-53"
+  ],
+  "category": "TECHNOLOGY"
+ },
+ {
+  "term": "MFA",
+  "fullName": "Multi-Factor Authentication",
+  "definition": "MFA requires users to prove identity with two or more independent factors: something they know, have, or are. It is the single most effective control against credential theft and account takeover. Modern frameworks mandate it broadly \u2014 PCI DSS v4.0 requires it for all access into the cardholder data environment. An auditor cares because MFA scope and enforcement evidence (including bypass paths and exceptions) are now standard test items in nearly every security audit.",
+  "frameworks": [
+   "PCI DSS",
+   "SOC 2",
+   "ISO 27001",
+   "NIST 800-53"
+  ],
+  "category": "TECHNOLOGY"
+ },
+ {
+  "term": "RBAC",
+  "fullName": "Role-Based Access Control",
+  "definition": "RBAC grants access based on defined job roles rather than individual assignments, so permissions follow the function, not the person. Well-designed roles make access reviews, onboarding and segregation of duties manageable at scale. Poorly designed or proliferating roles recreate the chaos RBAC was meant to solve. An auditor cares because role definitions, role-to-permission mappings and evidence users hold only appropriate roles are core access control test material.",
+  "frameworks": [
+   "ISO 27001",
+   "SOC 2",
+   "PCI DSS"
+  ],
+  "category": "TECHNOLOGY"
+ },
+ {
+  "term": "ABAC",
+  "fullName": "Attribute-Based Access Control",
+  "definition": "ABAC makes access decisions from attributes of the user, resource, action and environment (department, clearance, device posture, time, location) evaluated against policies. It enables finer-grained and more dynamic control than static roles, at the cost of greater design and governance complexity. It underpins many Zero Trust implementations. An auditor cares because ABAC policies, attribute sources and decision logs must themselves be reviewed for correctness and completeness.",
+  "frameworks": [
+   "NIST 800-53"
+  ],
+  "category": "TECHNOLOGY"
+ },
+ {
+  "term": "SSO",
+  "fullName": "Single Sign-On",
+  "definition": "SSO lets users authenticate once to an identity provider and access multiple applications without separate logins, typically via SAML or OIDC. It centralizes authentication policy \u2014 MFA, session rules, lockout \u2014 in one enforceable place. It also creates a single point of compromise, so the IdP itself must be hardened. An auditor cares because SSO coverage determines where authentication controls are enforced, and applications outside SSO are classic audit findings.",
+  "frameworks": [
+   "SOC 2",
+   "ISO 27001",
+   "PCI DSS"
+  ],
+  "category": "TECHNOLOGY"
+ },
+ {
+  "term": "PKI",
+  "fullName": "Public Key Infrastructure",
+  "definition": "PKI is the system of certificate authorities, registration authorities, certificates and policies that binds public keys to identities, enabling encryption, digital signatures and TLS. It provides the trust fabric behind HTTPS, secure email and code signing. Weaknesses \u2014 expired certificates, rogue CAs, unmanaged private keys \u2014 break that trust silently. An auditor cares because certificate inventory, CA governance and key protection are testable controls underpinning encryption requirements.",
+  "frameworks": [
+   "PCI DSS",
+   "SOC 2",
+   "NIST 800-53"
+  ],
+  "category": "TECHNOLOGY"
+ },
+ {
+  "term": "TLS",
+  "fullName": "Transport Layer Security",
+  "definition": "TLS is the cryptographic protocol that encrypts and authenticates data in transit between systems, most visibly as HTTPS. Correct use means current protocol versions (1.2+), strong cipher suites and trusted, valid certificates. Downgrade paths to old versions or invalid certificates negate the protection. An auditor cares because TLS configuration scans and certificate inventories are standard evidence for transmission-security requirements like PCI Req 4 and SOC 2 CC6.7.",
+  "frameworks": [
+   "PCI DSS",
+   "SOC 2"
+  ],
+  "category": "TECHNOLOGY"
+ },
+ {
+  "term": "AES",
+  "fullName": "Advanced Encryption Standard",
+  "definition": "AES is the US federal standard symmetric encryption algorithm (FIPS 197), used with 128, 192 or 256-bit keys to protect stored data, backups, disks and traffic. It is the default 'strong cryptography' reference in most frameworks when implemented in validated modes and products. Security depends as much on key management as the algorithm. An auditor cares because 'encrypted with AES-256' claims must be verified \u2014 algorithm, key length, mode and where keys live are all checkable.",
+  "frameworks": [
+   "PCI DSS",
+   "NIST 800-53",
+   "SOC 2"
+  ],
+  "category": "TECHNOLOGY"
+ },
+ {
+  "term": "DPO",
+  "fullName": "Data Protection Officer",
+  "definition": "The DPO is the designated privacy role required by GDPR for public bodies and organizations doing large-scale monitoring or special-category processing. The DPO advises on compliance, monitors it, cooperates with regulators and acts as contact point \u2014 independently, reporting to top management. The role must not conflict with other duties like determining processing purposes. An auditor cares because the DPO's existence, independence, resourcing and involvement in decisions are auditable GDPR obligations.",
+  "frameworks": [
+   "GDPR"
+  ],
+  "category": "ROLE"
+ },
+ {
+  "term": "GDPR",
+  "fullName": "General Data Protection Regulation",
+  "definition": "GDPR is the EU's comprehensive data protection law governing personal data processing, with principles of lawfulness, purpose limitation and minimization, strong data subject rights, breach notification in 72 hours, and fines up to 4% of global turnover. It applies extraterritorially to organizations offering goods to or monitoring EU residents. Accountability \u2014 being able to demonstrate compliance \u2014 is a core obligation. An auditor cares because GDPR compliance requires auditable artifacts: RoPA, DPIAs, DPAs, consent records and breach logs.",
+  "frameworks": [
+   "GDPR"
+  ],
+  "category": "REGULATION"
+ },
+ {
+  "term": "HIPAA",
+  "fullName": "Health Insurance Portability and Accountability Act",
+  "definition": "HIPAA is the US law protecting health information, with the Privacy Rule governing PHI use and disclosure, the Security Rule requiring administrative, physical and technical safeguards for electronic PHI, and the Breach Notification Rule. It binds covered entities (providers, plans, clearinghouses) and business associates via agreements. Enforcement includes significant penalties and corrective action plans. An auditor cares because Security Rule risk analysis, safeguards and business associate agreements are all auditable obligations.",
+  "frameworks": [
+   "HIPAA"
+  ],
+  "category": "REGULATION"
+ },
+ {
+  "term": "PHI",
+  "fullName": "Protected Health Information",
+  "definition": "PHI is individually identifiable health information \u2014 relating to health status, care, or payment \u2014 created or held by HIPAA covered entities and business associates. Its use and disclosure are restricted, and electronic PHI (ePHI) must be protected under the Security Rule. De-identified data falls outside PHI if identifiers are removed per HIPAA methods. An auditor cares because locating everywhere PHI lives and flows is the scoping exercise on which an entire HIPAA compliance program rests.",
+  "frameworks": [
+   "HIPAA"
+  ],
+  "category": "REGULATION"
+ },
+ {
+  "term": "PCI DSS",
+  "fullName": "Payment Card Industry Data Security Standard",
+  "definition": "PCI DSS is the security standard mandated by the major card brands for any entity that stores, processes or transmits cardholder data, structured as twelve requirements from network security to incident response. Version 4.0 added stronger MFA, e-commerce skimming protections, targeted risk analyses and a Customized Approach. Compliance is validated annually via QSA assessment (ROC) or self-assessment (SAQ) depending on volume and channel. An auditor cares because PCI is prescriptive and testable \u2014 every requirement has defined testing procedures and evidence expectations.",
+  "frameworks": [
+   "PCI DSS"
+  ],
+  "category": "REGULATION"
+ },
+ {
+  "term": "CDE",
+  "fullName": "Cardholder Data Environment",
+  "definition": "The CDE is the set of people, processes, systems and networks that store, process or transmit cardholder data \u2014 plus anything connected to them that could impact their security. Defining it correctly is the foundation of PCI DSS scope. Segmentation can shrink the CDE but must be penetration-tested to count. An auditor cares because scoping errors are the most dangerous PCI failure: systems outside the declared CDE that actually touch card data are unprotected and unassessed.",
+  "frameworks": [
+   "PCI DSS"
+  ],
+  "category": "CONCEPT"
+ },
+ {
+  "term": "QSA",
+  "fullName": "Qualified Security Assessor",
+  "definition": "A QSA is an individual (working for a QSA company) certified by the PCI Security Standards Council to perform PCI DSS assessments and produce Reports on Compliance. QSAs follow the standard's testing procedures: observation, interview, document review and sampling. Their independence and competence directly shape assessment quality. An auditor-adjacent role \u2014 organizations engage QSAs, and their fieldwork approach determines what evidence must be produced.",
+  "frameworks": [
+   "PCI DSS"
+  ],
+  "category": "TECHNOLOGY"
+ },
+ {
+  "term": "ROC",
+  "fullName": "Report on Compliance",
+  "definition": "The ROC is the detailed document a QSA (or an internal team, where permitted) produces recording how each PCI DSS requirement was tested and whether it is in place. Together with the Attestation of Compliance it constitutes the formal validation submitted to acquirers or card brands. It includes scope, testing evidence and any compensating controls or customized implementations. An auditor cares because the ROC is the authoritative record of the assessment \u2014 its quality reflects the compliance program's reality.",
+  "frameworks": [
+   "PCI DSS"
+  ],
+  "category": "CONCEPT"
+ },
+ {
+  "term": "SAQ",
+  "fullName": "Self-Assessment Questionnaire",
+  "definition": "The SAQ is PCI DSS's self-validation instrument, with variants (A, A-EP, B, C, D and others) matched to acceptance channels and merchant type. Choosing the wrong variant \u2014 typically claiming SAQ A while scripts on your site affect the payment page \u2014 is a common and serious error. It requires the same honest evidence as an assessment, just without an independent QSA. An auditor cares because SAQ eligibility and answers should be challenged: self-attestation is only as good as the rigor behind it.",
+  "frameworks": [
+   "PCI DSS"
+  ],
+  "category": "CONCEPT"
+ },
+ {
+  "term": "ASV",
+  "fullName": "Approved Scanning Vendor",
+  "definition": "An ASV is a company certified by the PCI SSC to perform the quarterly external vulnerability scans required by PCI DSS Req 11.3.2. Passing scans of all internet-facing CDE components are a mandatory validation artifact. Failed scans must be remediated and rescanned to passing. An auditor cares because four quarters of passing ASV reports, correct scan scope, and remediation evidence for failures are directly testable compliance evidence.",
+  "frameworks": [
+   "PCI DSS"
+  ],
+  "category": "CONCEPT"
+ },
+ {
+  "term": "SOC 2",
+  "fullName": "SOC 2 Report (Trust Services Criteria)",
+  "definition": "A SOC 2 report is an AICPA attestation, issued by a CPA firm, describing a service organization's controls relevant to the Trust Services Criteria: Security (mandatory), Availability, Processing Integrity, Confidentiality and Privacy. Type I reports on design at a point in time; Type II on operating effectiveness over a period, usually 6\u201312 months. Customers use it in vendor due diligence in place of auditing each provider themselves. An auditor cares because SOC 2 is an attestation, not a certification \u2014 scope, carve-outs, CUECs, exceptions and the auditor's opinion must all be read to understand what assurance it actually gives.",
+  "frameworks": [
+   "SOC 2",
+   "COSO"
+  ],
+  "category": "FRAMEWORK"
+ },
+ {
+  "term": "TSC",
+  "fullName": "Trust Services Criteria",
+  "definition": "The TSC are the AICPA criteria against which SOC 2 engagements are performed: the Common Criteria (CC1\u2013CC9, aligned to COSO principles, covering security) plus Availability (A1), Processing Integrity (PI1), Confidentiality (C1) and Privacy (P1) categories. Each criterion has points of focus that guide control design and testing. Organizations choose controls meeting the criteria rather than following a fixed control list. An auditor cares because control-to-criteria mapping, and evidence against points of focus, is the structure of every SOC 2 examination.",
+  "frameworks": [
+   "SOC 2",
+   "COSO"
+  ],
+  "category": "FRAMEWORK"
+ },
+ {
+  "term": "CUEC",
+  "fullName": "Complementary User Entity Control",
+  "definition": "CUECs are controls that customers of a service organization must operate for the service organization's system to meet its Trust Services Criteria \u2014 for example, customers managing their own user access or enforcing MFA on their accounts. They are disclosed in the SOC 2 system description and assumed by the service auditor's opinion. If a customer doesn't operate them, the assurance chain breaks. An auditor cares because relying parties must verify CUECs are implemented, and report issuers must identify them honestly and completely.",
+  "frameworks": [
+   "SOC 2"
+  ],
+  "category": "CONCEPT"
+ },
+ {
+  "term": "CIA Triad",
+  "fullName": "Confidentiality, Integrity and Availability",
+  "definition": "The CIA Triad names the three core security objectives: keeping information secret from unauthorized parties, accurate and unaltered, and accessible when needed. Nearly every control, risk assessment and framework maps back to one or more of these objectives. Impact ratings in risk assessments (e.g. FIPS 199, RMF categorization) are scored per objective. An auditor cares because the triad structures scoping, risk rating and control evaluation across virtually every engagement.",
+  "frameworks": [
+   "ISO 27001",
+   "NIST 800-53",
+   "SOC 2"
+  ],
+  "category": "FRAMEWORK"
+ },
+ {
+  "term": "RTO",
+  "fullName": "Recovery Time Objective",
+  "definition": "RTO is the maximum tolerable time to restore a business process or system after disruption before the impact becomes unacceptable. It is set through business impact analysis and drives architecture, backup and DR investment decisions. An RTO is only meaningful if recovery has been tested against it. An auditor cares because auditors compare stated RTOs to tested recovery results \u2014 a 4-hour RTO never exercised is an assertion, not a capability.",
+  "frameworks": [
+   "ISO 27001",
+   "SOC 2",
+   "NIST 800-53"
+  ],
+  "category": "METRIC"
+ },
+ {
+  "term": "RPO",
+  "fullName": "Recovery Point Objective",
+  "definition": "RPO is the maximum tolerable data loss measured in time \u2014 how far back the last recoverable state may be. It dictates backup and replication frequency: an RPO of 15 minutes demands near-continuous replication. Like RTO, it must be derived from business impact and proven by restoration testing. An auditor cares because backup schedules and restore tests are checked against RPO commitments, and gaps between them are findings.",
+  "frameworks": [
+   "ISO 27001",
+   "SOC 2",
+   "NIST 800-53"
+  ],
+  "category": "METRIC"
+ },
+ {
+  "term": "BCP",
+  "fullName": "Business Continuity Plan",
+  "definition": "A BCP documents how the organization continues operating critical functions during and after a disruption \u2014 alternate sites, manual workarounds, communication trees, prioritized recovery. It is business-process oriented, broader than IT disaster recovery. Value depends on maintenance and exercises, not the document itself. An auditor cares because plans, exercise records and lessons-learned actions are the evidence that continuity commitments (e.g. SOC 2 A1, ISO 27001 A.5.29/A.5.30) actually work.",
+  "frameworks": [
+   "ISO 27001",
+   "SOC 2",
+   "COBIT"
+  ],
+  "category": "CONCEPT"
+ },
+ {
+  "term": "DRP",
+  "fullName": "Disaster Recovery Plan",
+  "definition": "A DRP is the IT-focused subset of continuity planning: how systems, data and infrastructure are restored after a disaster, with runbooks, dependencies, RTO/RPO targets and recovery roles. It complements the business-wide BCP. Untested DRPs routinely fail at first real use. An auditor cares because DR test results against declared RTO/RPO, runbook currency and failure follow-up are standard audit evidence.",
+  "frameworks": [
+   "ISO 27001",
+   "SOC 2",
+   "PCI DSS"
+  ],
+  "category": "CONCEPT"
+ },
+ {
+  "term": "BIA",
+  "fullName": "Business Impact Analysis",
+  "definition": "A BIA identifies critical business processes, quantifies the impact of their disruption over time, and derives recovery priorities, RTOs and RPOs. It is the analytical foundation for BCP and DRP design. Without it, continuity targets are guesses and resources are misallocated. An auditor cares because the BIA justifies continuity scope and targets \u2014 auditors trace from BIA outputs to plans and test results to check the chain is coherent.",
+  "frameworks": [
+   "ISO 27001",
+   "SOC 2",
+   "COBIT"
+  ],
+  "category": "CONCEPT"
+ },
+ {
+  "term": "RAID",
+  "fullName": "Redundant Array of Independent Disks",
+  "definition": "RAID combines multiple physical disks into logical units to improve availability, performance, or both (RAID 1 mirroring, RAID 5/6 parity, RAID 10). It protects against individual disk failure but is not a backup \u2014 it does nothing against deletion, corruption or site loss. In audit contexts, 'RAID' can also mean a Risks, Assumptions, Issues and Dependencies log in project governance. An auditor cares because infrastructure teams sometimes cite RAID as a data-protection control; auditors must distinguish redundancy from recoverability.",
+  "frameworks": [
+   "ISO 27001",
+   "SOC 2"
+  ],
+  "category": "REGULATION"
+ },
+ {
+  "term": "CVE",
+  "fullName": "Common Vulnerabilities and Exposures",
+  "definition": "A CVE is a unique identifier (e.g. CVE-2024-3094) assigned to a publicly known vulnerability, maintained under MITRE's CVE Program. Identifiers let scanners, advisories, patches and researchers refer to the same issue unambiguously. Vulnerability management workflows key on CVEs. An auditor cares because remediation SLAs, scan findings and patch evidence are tracked per CVE \u2014 they are the unit of accountability in vulnerability management audits.",
+  "frameworks": [
+   "NIST 800-53",
+   "PCI DSS",
+   "ISO 27001"
+  ],
+  "category": "TECHNOLOGY"
+ },
+ {
+  "term": "CVSS",
+  "fullName": "Common Vulnerability Scoring System",
+  "definition": "CVSS is the standard framework for rating vulnerability severity, producing a 0.0\u201310.0 score from exploitability and impact metrics, with temporal and environmental adjustments. Most organizations' remediation SLAs are keyed to CVSS bands (critical \u22659.0, high 7.0\u20138.9). Scores indicate severity, not risk \u2014 context still matters. An auditor cares because auditors test whether remediation performance met SLAs per severity band, making CVSS the yardstick of vulnerability management compliance.",
+  "frameworks": [
+   "PCI DSS",
+   "NIST 800-53",
+   "ISO 27001"
+  ],
+  "category": "TECHNOLOGY"
+ },
+ {
+  "term": "CWE",
+  "fullName": "Common Weakness Enumeration",
+  "definition": "CWE is a taxonomy of software weakness types (e.g. CWE-79 cross-site scripting, CWE-89 SQL injection) \u2014 the underlying flaw categories that, when present in code, may become exploitable vulnerabilities (CVEs). The annual CWE Top 25 highlights the most dangerous. It guides secure coding standards and SAST/DAST tooling coverage. An auditor cares because development standards and code-scanning evidence mapped to CWEs demonstrate systematic secure development rather than ad hoc bug fixing.",
+  "frameworks": [
+   "PCI DSS",
+   "ISO 27001",
+   "NIST 800-53"
+  ],
+  "category": "TECHNOLOGY"
+ },
+ {
+  "term": "SBOM",
+  "fullName": "Software Bill of Materials",
+  "definition": "An SBOM is a machine-readable inventory of the components, libraries and dependencies in a piece of software, typically in SPDX or CycloneDX format. It answers 'what's inside our software' \u2014 essential when a new vulnerability (like Log4Shell) appears in a ubiquitous component. US executive order and C-SCRM guidance increasingly require SBOMs from suppliers. An auditor cares because SBOMs are the evidence an organization can rapidly find and fix vulnerable third-party components.",
+  "frameworks": [
+   "NIST 800-53",
+   "ISO 27001"
+  ],
+  "category": "TECHNOLOGY"
+ },
+ {
+  "term": "C-SCRM",
+  "fullName": "Cybersecurity Supply Chain Risk Management",
+  "definition": "C-SCRM is the discipline of managing cyber risks entering through suppliers, software dependencies, hardware and service providers \u2014 from vendor compromise to malicious components. NIST SP 800-161 and the NIST CSF supply chain category define practices including supplier assessment, SBOM review and contract requirements. High-profile supply chain attacks made it a board-level topic. An auditor cares because supply chain risk programs, vendor tiering and requirement flow-down are now auditable elements of mature security governance.",
+  "frameworks": [
+   "NIST 800-53",
+   "NIST CSF",
+   "ISO 27001"
+  ],
+  "category": "CONCEPT"
+ },
+ {
+  "term": "TPRM",
+  "fullName": "Third-Party Risk Management",
+  "definition": "TPRM is the program for assessing, contracting, monitoring and offboarding vendors and partners whose access or services could affect your security, privacy or compliance posture. Typical mechanics include risk tiering, due diligence questionnaires, SOC report reviews, contract clauses and annual reassessment. Vendor incidents propagate \u2014 your controls end at your perimeter, theirs don't. An auditor cares because SOC 2 CC9.2, PCI Req 12.8 and ISO 27001 A.5.19-A.5.23 all make third-party management a directly testable control area.",
+  "frameworks": [
+   "SOC 2",
+   "PCI DSS",
+   "ISO 27001",
+   "COBIT"
+  ],
+  "category": "CONCEPT"
+ },
+ {
+  "term": "SLA",
+  "fullName": "Service Level Agreement",
+  "definition": "An SLA is the contractual (or internal) commitment defining service performance \u2014 availability percentages, response and resolution times, support hours \u2014 and remedies for breach. SLAs convert technical metrics into obligations customers can enforce. They also drive audit scope: availability SLAs pull SOC 2's A1 criteria into scope. An auditor cares because SLA attainment reporting, measurement methodology and breach handling are evidence of whether commitments are real and monitored.",
+  "frameworks": [
+   "SOC 2",
+   "ITIL",
+   "COBIT"
+  ],
+  "category": "METRIC"
+ },
+ {
+  "term": "KPI",
+  "fullName": "Key Performance Indicator",
+  "definition": "A KPI is a quantified measure of how well a process or control performs \u2014 patch SLA attainment, training completion, mean time to respond. KPIs turn security activity into something management can monitor and trend. Good KPIs have owners, targets and thresholds that trigger action. An auditor cares because KPI definitions, trends and breach-of-threshold responses evidence the monitoring criteria in frameworks like SOC 2 CC4 and COBIT MEA.",
+  "frameworks": [
+   "COBIT",
+   "SOC 2",
+   "ISO 27001"
+  ],
+  "category": "METRIC"
+ },
+ {
+  "term": "KRI",
+  "fullName": "Key Risk Indicator",
+  "definition": "A KRI is a forward-looking metric that signals rising risk before loss events occur \u2014 e.g. growth in overdue critical vulnerabilities, privileged account count, or third-party concentration. Where KPIs measure performance, KRIs measure exposure, and both belong on risk dashboards with thresholds tied to risk appetite. Breaching a KRI threshold should trigger defined action. An auditor cares because KRIs connect operational data to the risk process \u2014 their absence usually means risk reporting is anecdotal.",
+  "frameworks": [
+   "COSO",
+   "COBIT",
+   "ISO 27001"
+  ],
+  "category": "METRIC"
+ },
+ {
+  "term": "RACI",
+  "fullName": "Responsible, Accountable, Consulted, Informed",
+  "definition": "RACI is a responsibility-assignment matrix naming, for each activity, who does the work (Responsible), who owns the outcome (Accountable \u2014 exactly one), who is consulted, and who is informed. It converts vague 'the team owns it' statements into testable accountability. Missing or shared accountability is where controls fall through cracks. An auditor cares because control matrices and RACI charts are how control ownership is evidenced, and unclear ownership is itself a finding.",
+  "frameworks": [
+   "COBIT",
+   "ISO 27001",
+   "SOC 2"
+  ],
+  "category": "CONCEPT"
+ },
+ {
+  "term": "SoD",
+  "fullName": "Segregation of Duties",
+  "definition": "SoD ensures no single person can complete a sensitive end-to-end action alone \u2014 e.g. developing, approving and deploying code, or creating and paying a vendor. It limits fraud and error by forcing collusion for abuse. In small teams it is often achieved through compensating review controls. An auditor cares because SoD conflicts and their compensating controls are standard test items in SOC 2 (CC1.3, CC8.1), SOX and PCI assessments.",
+  "frameworks": [
+   "SOC 2",
+   "SOX",
+   "PCI DSS",
+   "COBIT"
+  ],
+  "category": "CONCEPT"
+ },
+ {
+  "term": "ITIL",
+  "fullName": "Information Technology Infrastructure Library",
+  "definition": "ITIL is the widely adopted framework of IT service management practices \u2014 incident, problem, change, service level and configuration management \u2014 now structured as the ITIL 4 service value system. It defines the operational processes whose records (tickets, changes, known errors) security audits constantly consume. It complements rather than replaces security frameworks. An auditor cares because ITIL-process discipline determines whether change, incident and problem records exist and are reliable enough to sample.",
+  "frameworks": [
+   "ITIL",
+   "COBIT",
+   "ISO 27001"
+  ],
+  "category": "FRAMEWORK"
+ },
+ {
+  "term": "CISO",
+  "fullName": "Chief Information Security Officer",
+  "definition": "The CISO is the executive accountable for the organization's information security program: strategy, risk, controls, incident response and compliance. Reporting line (CIO, CEO, board) and authority determine whether security can actually challenge the business. The role is the natural control owner for most security criteria. An auditor cares because the CISO's mandate, independence, resources and access to the board are strong predictors of whether the control environment is real.",
+  "frameworks": [
+   "ISO 27001",
+   "SOC 2",
+   "COBIT"
+  ],
+  "category": "ROLE"
+ },
+ {
+  "term": "CIO",
+  "fullName": "Chief Information Officer",
+  "definition": "The CIO is the executive responsible for IT strategy, operations and delivery \u2014 infrastructure, applications and service management. Many security controls are operated by CIO-owned teams even when security accountability sits with the CISO, making the CIO-CISO relationship critical. Where the CISO reports to the CIO, conflicts between delivery and security need governance. An auditor cares because understanding this reporting structure clarifies who can actually be held accountable for control operation.",
+  "frameworks": [
+   "COBIT",
+   "ISO 27001"
+  ],
+  "category": "ROLE"
+ },
+ {
+  "term": "IR",
+  "fullName": "Incident Response",
+  "definition": "Incident response is the organized capability to detect, triage, contain, eradicate and recover from security incidents, then learn from them. It follows a lifecycle (commonly NIST SP 800-61: preparation, detection/analysis, containment/eradication/recovery, post-incident activity). Effectiveness shows in speed, evidence handling and honest postmortems. An auditor cares because IR plans, tests and real incident walkthroughs are core evidence for criteria like SOC 2 CC7.3-7.5 and PCI Req 12.10.",
+  "frameworks": [
+   "NIST 800-53",
+   "SOC 2",
+   "PCI DSS",
+   "ISO 27001"
+  ],
+  "category": "CONCEPT"
+ },
+ {
+  "term": "IRP",
+  "fullName": "Incident Response Plan",
+  "definition": "The IRP is the documented plan defining incident types and severity levels, roles, escalation paths, communication (internal, customer, regulator), evidence preservation and recovery steps. It must be maintained and exercised \u2014 a plan untested for years fails at first contact. Tabletop exercises and post-incident reviews keep it real. An auditor cares because the IRP, its test records and its use in actual incidents are directly sampled artifacts in most security audits.",
+  "frameworks": [
+   "NIST 800-53",
+   "PCI DSS",
+   "SOC 2",
+   "ISO 27001"
+  ],
+  "category": "TECHNOLOGY"
+ },
+ {
+  "term": "CSIRT",
+  "fullName": "Computer Security Incident Response Team",
+  "definition": "A CSIRT is the designated team \u2014 dedicated or virtual \u2014 responsible for handling security incidents, often coordinating with SOC, legal, HR, communications and external forensics. Defined membership, on-call coverage and authority to act are what distinguish a real CSIRT from a mailing list. Larger ecosystems coordinate through national CERTs. An auditor cares because auditors test whether the CSIRT exists in practice: rosters, training, exercises and actual incident handling records.",
+  "frameworks": [
+   "NIST 800-53",
+   "ISO 27001",
+   "SOC 2"
+  ],
+  "category": "TECHNOLOGY"
+ },
+ {
+  "term": "IOC",
+  "fullName": "Indicator of Compromise",
+  "definition": "An IOC is a forensic artifact suggesting intrusion \u2014 malicious IPs, domains, file hashes, registry keys or unusual account behavior \u2014 used to detect and hunt threats. IOCs feed SIEM detections, threat intelligence platforms and incident scoping. They decay fast, so they complement rather than replace behavior-based detection of TTPs. An auditor cares because IOC handling shows whether threat intelligence is operationalized into detection, not just subscribed to.",
+  "frameworks": [
+   "NIST CSF",
+   "SOC 2"
+  ],
+  "category": "TECHNOLOGY"
+ },
+ {
+  "term": "TLP",
+  "fullName": "Traffic Light Protocol",
+  "definition": "TLP is the standard labeling scheme for how shared information may be redistributed: TLP:RED (named recipients only), TLP:AMBER (limited within organization and clients), TLP:AMBER+STRICT, TLP:GREEN (community), TLP:CLEAR (public). It enables sensitive threat intelligence and incident details to be shared without losing control of them. Mislabeling or mishandling TLP material breaches sharing-community trust. An auditor cares because information-sharing and handling procedures, including TLP, evidence mature incident and intelligence processes.",
+  "frameworks": [
+   "NIST CSF",
+   "ISO 27001"
+  ],
+  "category": "TECHNOLOGY"
+ },
+ {
+  "term": "OSINT",
+  "fullName": "Open-Source Intelligence",
+  "definition": "OSINT is intelligence gathered from publicly available sources \u2014 websites, social media, breach corpora, certificate transparency logs, search engines. Attackers use it for reconnaissance; defenders use it to find their own exposure, leaked credentials and brand abuse. It also feeds threat intelligence and due diligence. An auditor cares because an organization's own OSINT footprint (exposed services, leaked data, shadow domains) is objective evidence auditors and assessors can independently verify.",
+  "frameworks": [
+   "NIST CSF"
+  ],
+  "category": "METRIC"
+ },
+ {
+  "term": "HIDS",
+  "fullName": "Host-based Intrusion Detection System",
+  "definition": "A HIDS monitors activity on individual hosts \u2014 file changes, logons, process execution, log anomalies \u2014 to detect intrusions at the endpoint or server level. It complements network detection by seeing what happens inside machines, including encrypted sessions. Modern EDR has largely absorbed HIDS functions. An auditor cares because host-level detection coverage and alert handling are evidence for intrusion-detection requirements such as PCI Req 11.5.",
+  "frameworks": [
+   "PCI DSS",
+   "NIST 800-53"
+  ],
+  "category": "TECHNOLOGY"
+ },
+ {
+  "term": "NIDS",
+  "fullName": "Network-based Intrusion Detection System",
+  "definition": "A NIDS monitors network traffic at strategic points to detect known attack signatures and anomalous behavior, alerting (NIDS) or blocking (NIPS). Placement determines value \u2014 sensors must see traffic that matters, including east-west traffic in segmented environments. Encrypted traffic limits visibility without inspection points. An auditor cares because sensor placement, rule currency and alert-response records are testable evidence for network monitoring requirements.",
+  "frameworks": [
+   "PCI DSS",
+   "NIST 800-53"
+  ],
+  "category": "TECHNOLOGY"
+ },
+ {
+  "term": "WAF",
+  "fullName": "Web Application Firewall",
+  "definition": "A WAF filters HTTP/HTTPS traffic to web applications, blocking common attacks like SQL injection and cross-site scripting, and can provide virtual patching for known vulnerabilities. PCI DSS recognizes a WAF as an alternative (with code review) for protecting public-facing applications. It complements, never replaces, secure coding. An auditor cares because WAF deployment, ruleset management (not default-disabled rules) and alert handling are evidence for PCI Req 6.4 and application protection controls.",
+  "frameworks": [
+   "PCI DSS",
+   "SOC 2",
+   "ISO 27001"
+  ],
+  "category": "TECHNOLOGY"
+ },
+ {
+  "term": "VPN",
+  "fullName": "Virtual Private Network",
+  "definition": "A VPN creates an encrypted tunnel over untrusted networks so remote users or sites can reach internal resources securely. It has long been the default remote-access control, typically combined with MFA. Concentrating trust at the VPN perimeter is exactly what Zero Trust architectures move away from. An auditor cares because VPN gateway configuration, MFA integration, logging and patch status (VPN appliances are frequent attack targets) are standard audit evidence.",
+  "frameworks": [
+   "PCI DSS",
+   "SOC 2",
+   "NIST 800-53"
+  ],
+  "category": "TECHNOLOGY"
+ },
+ {
+  "term": "Zero Trust",
+  "fullName": "Zero Trust Architecture",
+  "definition": "Zero Trust is a security model that removes implicit trust based on network location: every access request is authenticated, authorized and continuously evaluated using identity, device posture and context ('never trust, always verify'). NIST SP 800-207 defines the reference architecture. It shifts protection from the perimeter to resources and data. An auditor cares because 'we do Zero Trust' claims require testable evidence \u2014 identity-aware access policies, device checks, micro-segmentation \u2014 not marketing slides.",
+  "frameworks": [
+   "NIST 800-53",
+   "NIST CSF"
+  ],
+  "category": "TECHNOLOGY"
+ },
+ {
+  "term": "SASE",
+  "fullName": "Secure Access Service Edge",
+  "definition": "SASE converges networking (SD-WAN) and security services (SWG, CASB, ZTNA, firewall-as-a-service) into a cloud-delivered platform that applies policy at the edge, close to users. It responds to workforces and applications leaving the traditional perimeter. Policy consistency becomes a single-platform governance question. An auditor cares because SASE centralizes enforcement \u2014 auditors must understand which controls moved into the platform and how its policies, logs and vendors are governed.",
+  "frameworks": [
+   "NIST CSF"
+  ],
+  "category": "TECHNOLOGY"
+ },
+ {
+  "term": "CASB",
+  "fullName": "Cloud Access Security Broker",
+  "definition": "A CASB sits between users and cloud services, enforcing security policy \u2014 visibility into cloud app usage (including shadow IT), DLP, access control and threat protection \u2014 via proxy or API integration. It addresses the governance gap created by SaaS adoption. Discovery of unsanctioned apps is often its first eye-opening output. An auditor cares because CASB reports evidence cloud usage governance, and sanctioned/unsanctioned app lists inform third-party risk assessment scope.",
+  "frameworks": [
+   "SOC 2",
+   "ISO 27001"
+  ],
+  "category": "TECHNOLOGY"
+ },
+ {
+  "term": "UEBA",
+  "fullName": "User and Entity Behavior Analytics",
+  "definition": "UEBA applies analytics and machine learning to baseline normal behavior of users and entities, flagging anomalies like impossible travel, unusual data volumes or off-hours access that rule-based detection misses. It is typically a SIEM or XDR capability rather than a standalone control. Tuning and analyst follow-up determine whether anomalies become findings or noise. An auditor cares because UEBA changes what 'monitoring' means \u2014 auditors should test whether anomaly alerts are actually triaged and escalated.",
+  "frameworks": [
+   "NIST CSF",
+   "SOC 2"
+  ],
+  "category": "TECHNOLOGY"
+ },
+ {
+  "term": "FIM",
+  "fullName": "File Integrity Monitoring",
+  "definition": "FIM detects unauthorized changes to critical files \u2014 system binaries, configuration files, payment page content \u2014 by comparing cryptographic baselines against current state and alerting on drift. PCI DSS requires change-detection mechanisms (Req 11.5.2) and tamper detection on payment pages (Req 11.6.1). Alerts only matter if someone responds. An auditor cares because FIM coverage, baselines, alert records and response evidence are directly testable PCI and integrity-control artifacts.",
+  "frameworks": [
+   "PCI DSS",
+   "NIST 800-53"
+  ],
+  "category": "TECHNOLOGY"
+ },
+ {
+  "term": "NDA",
+  "fullName": "Non-Disclosure Agreement",
+  "definition": "An NDA is a contract obligating parties to protect specified confidential information, defining permitted use, exclusions, duration and remedies. Employees, contractors and vendors handling sensitive data are typically bound before access is granted. It is a legal backstop, not a technical control. An auditor cares because signed confidentiality agreements are explicit evidence requirements (e.g. SOC 2 CC1, ISO 27001 A.6.2/A.6.4) for personnel and third parties.",
+  "frameworks": [
+   "ISO 27001",
+   "SOC 2"
+  ],
+  "category": "REGULATION"
+ },
+ {
+  "term": "DPA",
+  "fullName": "Data Processing Agreement",
+  "definition": "A DPA is the contract GDPR Article 28 requires between a data controller and a data processor, binding the processor on scope, confidentiality, security measures, sub-processor approval, breach notification, data subject rights assistance and deletion at end of service. Processing personal data through a vendor without one is itself a violation. Its clauses define what the processor may do. An auditor cares because DPAs are primary evidence of lawful vendor processing, and their terms set the controls the vendor must demonstrably operate.",
+  "frameworks": [
+   "GDPR"
+  ],
+  "category": "REGULATION"
+ },
+ {
+  "term": "DPIA",
+  "fullName": "Data Protection Impact Assessment",
+  "definition": "A DPIA is a structured assessment of how a planned processing activity affects personal data protection, required by GDPR Article 35 for high-risk processing such as large-scale monitoring, profiling or special-category data. It identifies risks and mitigations before processing starts, and may require prior regulator consultation. Skipping a required DPIA is a direct violation. An auditor cares because DPIA existence, quality, sign-off and follow-through evidence privacy-by-design in practice.",
+  "frameworks": [
+   "GDPR"
+  ],
+  "category": "REGULATION"
+ },
+ {
+  "term": "RoPA",
+  "fullName": "Record of Processing Activities",
+  "definition": "A RoPA is the documented inventory GDPR Article 30 requires: purposes, data categories, subjects, recipients, transfers, retention and security measures for each processing activity. It is the accountability baseline regulators ask for first. Keeping it current forces the organization to actually know its data. An auditor cares because the RoPA is the scoping artifact for privacy audits \u2014 processing found outside the RoPA indicates governance failure.",
+  "frameworks": [
+   "GDPR"
+  ],
+  "category": "METRIC"
+ },
+ {
+  "term": "ISO",
+  "fullName": "International Organization for Standardization",
+  "definition": "ISO is the global federation of national standards bodies that publishes international standards, including the ISO/IEC 27000 family for information security. Its management system standards share a common structure (clauses 4\u201310) enabling integrated audits. ISO standards are voluntary until contracts or regulators make them mandatory. An auditor cares because ISO management-system standards define the certification audit model \u2014 stages, nonconformities and surveillance \u2014 used across the industry.",
+  "frameworks": [
+   "ISO 27001",
+   "ISO 42001"
+  ],
+  "category": "REGULATION"
+ },
+ {
+  "term": "IEC",
+  "fullName": "International Electrotechnical Commission",
+  "definition": "The IEC is the international standards body for electrical, electronic and related technologies, and ISO's partner on joint information technology standards \u2014 hence the 'ISO/IEC' prefix on 27001, 27002 and 42001. Joint Technical Committee 1 develops these standards. Its role is standards authorship, not certification. An auditor cares mainly because the ISO/IEC label signals the standard's joint provenance and international consensus status.",
+  "frameworks": [
+   "ISO 27001",
+   "ISO 42001"
+  ],
+  "category": "FRAMEWORK"
+ },
+ {
+  "term": "AICPA",
+  "fullName": "American Institute of Certified Public Accountants",
+  "definition": "The AICPA is the US professional body for CPAs that sets attestation standards (AT-C sections) and publishes the Trust Services Criteria and SOC reporting framework. SOC 1, 2 and 3 reports are issued under its standards by licensed CPA firms. It also publishes the Description Criteria governing system descriptions. An auditor cares because SOC engagements are AICPA attestation engagements \u2014 independence, evidence sufficiency and report content all follow its rules.",
+  "frameworks": [
+   "SOC 2",
+   "COSO"
+  ],
+  "category": "FRAMEWORK"
+ },
+ {
+  "term": "ISACA",
+  "fullName": "ISACA (formerly Information Systems Audit and Control Association)",
+  "definition": "ISACA is the global professional association for IT governance, audit, risk and security, publisher of COBIT and issuer of the CISA, CISM, CRISC and CGEIT certifications. Its IT audit standards and guidelines shape how IS audits are planned, evidenced and reported. Many practicing auditors hold its certifications. An auditor cares because ISACA standards and COBIT provide the professional methodology and governance model behind IT audit work.",
+  "frameworks": [
+   "COBIT"
+  ],
+  "category": "TECHNOLOGY"
+ },
+ {
+  "term": "CMMC",
+  "fullName": "Cybersecurity Maturity Model Certification",
+  "definition": "CMMC is the US Department of Defense program requiring defense contractors to implement and certify cybersecurity practices, structured in levels aligned to NIST SP 800-171 (Level 2) and 800-172 (Level 3). Depending on level and contract, compliance is self-assessed or certified by an authorized C3PAO. It is contract-enforced: no certification, no DoD work involving covered information. An auditor cares because CMMC assessments are evidence-driven per control objective, and SSP/POA&M quality determines certification outcomes.",
+  "frameworks": [
+   "CMMC",
+   "NIST 800-53"
+  ],
+  "category": "REGULATION"
+ },
+ {
+  "term": "FedRAMP",
+  "fullName": "Federal Risk and Authorization Management Program",
+  "definition": "FedRAMP is the US government program standardizing security assessment, authorization and continuous monitoring for cloud services used by federal agencies, built on NIST 800-53 baselines (Low, Moderate, High). Cloud providers undergo assessment by accredited third parties (3PAOs) to achieve authorization, reuseable across agencies. Continuous monitoring obligations continue after authorization. An auditor cares because FedRAMP packages (SSP, assessment reports, POA&M, monthly continuous monitoring) are among the most rigorous security evidence sets in existence.",
+  "frameworks": [
+   "FedRAMP",
+   "NIST 800-53"
+  ],
+  "category": "TECHNOLOGY"
+ },
+ {
+  "term": "SOX",
+  "fullName": "Sarbanes-Oxley Act",
+  "definition": "SOX is the US law (2002) imposing internal control requirements on public companies, most famously Section 404 requiring management and external auditors to assess internal control over financial reporting (ICFR) annually. IT general controls (access, change management, operations) underpin ICFR because financial data lives in IT systems. Deficiencies are classified as control deficiencies, significant deficiencies or material weaknesses, the latter requiring disclosure. An auditor cares because SOX audits established the vocabulary of control deficiency evaluation used across assurance work.",
+  "frameworks": [
+   "SOX",
+   "COSO",
+   "COBIT"
+  ],
+  "category": "REGULATION"
+ },
+ {
+  "term": "GLBA",
+  "fullName": "Gramm-Leach-Bliley Act",
+  "definition": "GLBA is the US law requiring financial institutions to protect consumers' nonpublic personal information, through the Safeguards Rule (a written information security program with defined elements) and the Privacy Rule (notices and opt-out rights). The FTC's updated Safeguards Rule specifies concrete controls including MFA, encryption, risk assessment and a qualified individual in charge. Nonbank financial services are in scope, which surprises many fintechs. An auditor cares because the Safeguards Rule is explicitly auditable \u2014 written program, risk assessment, and named accountability are all inspectable.",
+  "frameworks": [
+   "GLBA"
+  ],
+  "category": "REGULATION"
+ },
+ {
+  "term": "CCPA",
+  "fullName": "California Consumer Privacy Act (as amended by CPRA)",
+  "definition": "CCPA/CPRA is California's comprehensive consumer privacy law granting rights to know, delete, correct and opt out of sale or sharing of personal information, enforced by the California Privacy Protection Agency and the Attorney General. It applies to for-profit businesses meeting thresholds that handle California residents' data. Contracts with service providers and data inventory underpin compliance. An auditor cares because consumer-rights request handling, notice accuracy and vendor contracts are concrete, testable obligations under the law.",
+  "frameworks": [
+   "CCPA"
+  ],
+  "category": "REGULATION"
+ },
+ {
+  "term": "Walkthrough",
+  "fullName": "Walkthrough (audit procedure)",
+  "definition": "A walkthrough is an audit procedure tracing a single transaction or control execution end-to-end \u2014 from initiation through processing to records \u2014 while interviewing the people who perform it. It validates the auditor's understanding of control design and identifies where evidence will come from before sample testing begins. It usually combines inquiry, observation and inspection. An auditor cares because walkthroughs expose the difference between documented process and actual practice early, shaping the entire test plan.",
+  "frameworks": [
+   "SOC 2",
+   "SOX",
+   "PCI DSS",
+   "ISO 27001"
+  ],
+  "category": "CONCEPT"
+ },
+ {
+  "term": "Sampling",
+  "fullName": "Audit Sampling",
+  "definition": "Sampling is selecting a subset of items (changes, users, tickets) from a population to test a control's operating effectiveness, with sample size reflecting control frequency and risk. Conclusions about the whole population rest on the sample, so population completeness is critical \u2014 testing a curated list proves nothing. Attribute sampling asks pass/fail per item; deviations raise rates and may expand testing. An auditor cares because population completeness checks, selection method and deviation handling determine whether sampling results support any conclusion at all.",
+  "frameworks": [
+   "SOC 2",
+   "PCI DSS",
+   "SOX",
+   "ISO 27001"
+  ],
+  "category": "CONCEPT"
+ },
+ {
+  "term": "Evidence",
+  "fullName": "Audit Evidence",
+  "definition": "Audit evidence is the information \u2014 documents, configurations, logs, screenshots, interviews, observations \u2014 an auditor uses to support conclusions about controls. Quality dimensions are relevance, reliability (system-generated beats self-reported) and sufficiency. Evidence produced by the entity and used in controls (IPE) needs its own completeness and accuracy testing. An auditor cares because every finding and every clean conclusion must trace to evidence; 'trust me' is not an audit procedure.",
+  "frameworks": [
+   "SOC 2",
+   "PCI DSS",
+   "ISO 27001",
+   "SOX"
+  ],
+  "category": "CONCEPT"
+ },
+ {
+  "term": "Finding",
+  "fullName": "Audit Finding",
+  "definition": "A finding is a documented audit conclusion where evidence shows a requirement or control failed, stated with criteria (what should be), condition (what is), cause and effect. Good findings are specific, evidence-backed and rate severity so management can prioritize. They drive corrective action plans and, in attestation reports, exceptions. An auditor cares because finding quality determines remediation quality \u2014 vague findings produce cosmetic fixes and recurrence next audit.",
+  "frameworks": [
+   "SOC 2",
+   "ISO 27001",
+   "PCI DSS",
+   "SOX"
+  ],
+  "category": "CONCEPT"
+ },
+ {
+  "term": "Observation",
+  "fullName": "Audit Observation",
+  "definition": "An observation is an audit communication about a weakness or improvement opportunity that does not (yet) meet the threshold of a formal finding or nonconformity \u2014 sometimes called an opportunity for improvement. It flags emerging risk without triggering formal corrective action requirements. Patterns of repeated observations often precede future findings. An auditor cares because observations are leading indicators: management that ignores them invites harder findings next cycle.",
+  "frameworks": [
+   "ISO 27001",
+   "SOC 2"
+  ],
+  "category": "CONCEPT"
+ },
+ {
+  "term": "Nonconformity",
+  "fullName": "Nonconformity (NC)",
+  "definition": "A nonconformity is the formal certification-audit term for failure to meet a requirement of the standard \u2014 graded as major (systemic or significant failure, can block certification) or minor (isolated lapse). Major NCs must be corrected before certification; minors require accepted corrective action plans verified at surveillance. Recurrence of a minor can escalate to major. An auditor cares because NC grading drives certification outcomes, and root-cause corrective action \u2014 not quick fixes \u2014 is what surveillance audits verify.",
+  "frameworks": [
+   "ISO 27001",
+   "ISO 42001"
+  ],
+  "category": "STANDARD"
+ },
+ {
+  "term": "Material Weakness",
+  "fullName": "Material Weakness",
+  "definition": "A material weakness is a control deficiency (or combination) severe enough that there is a reasonable possibility a material misstatement of financial statements would not be prevented or detected timely \u2014 the most serious classification in SOX/ICFR reporting. It requires public disclosure and usually means the ICFR opinion is adverse. Remediation takes sustained, evidenced effort over periods. An auditor cares because the deficiency classification decision (deficiency vs significant deficiency vs material weakness) is among the highest-stakes judgments in assurance work.",
+  "frameworks": [
+   "SOX",
+   "COSO"
+  ],
+  "category": "CONCEPT"
+ },
+ {
+  "term": "Significant Deficiency",
+  "fullName": "Significant Deficiency",
+  "definition": "A significant deficiency is a control deficiency less severe than a material weakness but important enough to merit attention by those charged with governance. Under SOX it must be communicated in writing to the audit committee. It signals a meaningful gap in ICFR without triggering the disclosure consequences of a material weakness. An auditor cares because the severity judgment \u2014 considering likelihood, magnitude and compensating controls \u2014 must be documented and defensible.",
+  "frameworks": [
+   "SOX",
+   "COSO"
+  ],
+  "category": "CONCEPT"
+ },
+ {
+  "term": "Compensating Control",
+  "fullName": "Compensating Control",
+  "definition": "A compensating control is an alternative measure that mitigates a risk when the primary control cannot be implemented as designed \u2014 for example, enhanced review where segregation of duties is impossible in a small team. It must genuinely meet the requirement's intent, not merely exist. PCI DSS constrains them formally (must be above and beyond other requirements, on the official worksheet). An auditor cares because compensating controls are frequently asserted but rarely tested \u2014 auditors verify they actually operate and actually compensate.",
+  "frameworks": [
+   "PCI DSS",
+   "SOC 2",
+   "SOX",
+   "ISO 27001"
+  ],
+  "category": "CONCEPT"
+ },
+ {
+  "term": "Control Owner",
+  "fullName": "Control Owner",
+  "definition": "The control owner is the named individual accountable for a control's design, operation, evidence and remediation when it fails. Ownership converts 'the control' into someone's job, with defined frequency and outputs. Controls without owners drift until an audit finds them dead. An auditor cares because auditors interview owners, test their evidence, and assess whether they understand the control \u2014 an owner who cannot explain their control is a finding in waiting.",
+  "frameworks": [
+   "SOC 2",
+   "ISO 27001",
+   "COBIT",
+   "SOX"
+  ],
+  "category": "ROLE"
+ },
+ {
+  "term": "Inherent Risk",
+  "fullName": "Inherent Risk",
+  "definition": "Inherent risk is the level of risk before any controls are applied \u2014 the raw exposure arising from the business, technology and threat environment. It is assessed to decide how much control effort a risk deserves. Rating it credibly (not defaulting to 'medium') anchors the whole risk assessment. An auditor cares because inherent risk ratings justify control intensity and audit focus, and understated inherent risk leads to under-controlled environments.",
+  "frameworks": [
+   "COSO",
+   "ISO 27001",
+   "NIST 800-53",
+   "COBIT"
+  ],
+  "category": "CONCEPT"
+ },
+ {
+  "term": "Residual Risk",
+  "fullName": "Residual Risk",
+  "definition": "Residual risk is what remains after controls are applied \u2014 the exposure the organization actually lives with. It must be compared to risk appetite, with acceptance formally owned by someone with authority to accept it. Controls that don't reduce residual risk below appetite need treatment, not acceptance by default. An auditor cares because residual risk sign-offs reveal whether risk acceptance is a governance act or an administrative afterthought.",
+  "frameworks": [
+   "COSO",
+   "ISO 27001",
+   "NIST 800-53"
+  ],
+  "category": "CONCEPT"
+ },
+ {
+  "term": "Risk Appetite",
+  "fullName": "Risk Appetite",
+  "definition": "Risk appetite is the amount and type of risk an organization is willing to take in pursuit of its objectives, set by leadership or the board. It provides the benchmark against which residual risk and treatment decisions are judged. Unarticulated appetite means every acceptance decision is improvised. An auditor cares because accepted risks above appetite, or acceptance by people without authority, are governance findings \u2014 appetite statements make that test possible.",
+  "frameworks": [
+   "COSO",
+   "ISO 27001",
+   "COBIT"
+  ],
+  "category": "CONCEPT"
+ },
+ {
+  "term": "Risk Tolerance",
+  "fullName": "Risk Tolerance",
+  "definition": "Risk tolerance is the acceptable variation around specific objectives or risk levels \u2014 the operational boundary derived from broader risk appetite, often expressed per category (e.g. zero tolerance for regulatory breach, limited tolerance for downtime). It translates appetite into thresholds KRIs and metrics can be checked against. Breaching tolerance should trigger defined escalation. An auditor cares because tolerances turn risk governance into testable thresholds; without them, monitoring data never forces a decision.",
+  "frameworks": [
+   "COSO",
+   "ISO 27001",
+   "COBIT"
+  ],
+  "category": "CONCEPT"
+ },
+ {
+  "term": "AOC",
+  "fullName": "Attestation of Compliance",
+  "definition": "The AOC is the summary attestation form accompanying a PCI DSS ROC or SAQ, signed by an officer of the assessed entity (and the QSA for ROCs), declaring compliance status. It is the document organizations hand to acquirers, partners and customers as proof of PCI compliance. Customers of service providers collect AOCs annually as vendor due diligence. An auditor cares because the AOC is the signed accountability artifact \u2014 its signatory should be able to show what evidence supported the signature.",
+  "frameworks": [
+   "PCI DSS"
+  ],
+  "category": "CONCEPT"
+ },
+ {
+  "term": "Vulnerability Assessment",
+  "fullName": "Vulnerability Assessment",
+  "definition": "A vulnerability assessment systematically identifies, classifies and prioritizes security weaknesses in systems, typically via authenticated scanning and configuration review. It produces findings; it does not exploit them \u2014 that distinction separates it from penetration testing. Value comes from coverage and remediation discipline, not scan volume. An auditor cares because scan cadence, coverage reconciliation, SLA-based remediation and rescan evidence are core testable artifacts (e.g. PCI Req 11.3, SOC 2 CC7.1).",
+  "frameworks": [
+   "PCI DSS",
+   "SOC 2",
+   "NIST 800-53",
+   "ISO 27001"
+  ],
+  "category": "CONCEPT"
+ },
+ {
+  "term": "Penetration Test",
+  "fullName": "Penetration Test (Pentest)",
+  "definition": "A penetration test is authorized, controlled exploitation of systems by skilled testers to prove whether vulnerabilities can actually be chained into compromise \u2014 internal, external, application, segmentation or social engineering in scope. It tests effectiveness, not just existence, of defenses. Scope, methodology and retesting of fixes determine its value. An auditor cares because pentest reports, remediation tracking and retest evidence are required artifacts (PCI Req 11.4) and strong maturity signals elsewhere.",
+  "frameworks": [
+   "PCI DSS",
+   "SOC 2",
+   "ISO 27001",
+   "NIST 800-53"
+  ],
+  "category": "CONCEPT"
+ },
+ {
+  "term": "Control Deficiency",
+  "fullName": "Control Deficiency",
+  "definition": "A control deficiency exists when a control's design, implementation or operation does not allow management or staff to prevent or detect and correct misstatements or failures timely \u2014 design deficiencies (missing or poorly designed control) versus operating deficiencies (good control, badly executed). Severity is then classified: deficiency, significant deficiency, or material weakness. Evaluation considers likelihood and magnitude plus compensating controls. An auditor cares because this classification ladder is the standard machinery for turning test deviations into report conclusions.",
+  "frameworks": [
+   "SOX",
+   "COSO",
+   "SOC 2"
+  ],
+  "category": "CONCEPT"
+ },
+ {
+  "term": "Subservice Organization",
+  "fullName": "Subservice Organization",
+  "definition": "A subservice organization is a third party whose services are part of a service organization's system \u2014 cloud hosting, managed services, payment processing \u2014 and whose controls therefore affect the SOC report. Under the carve-out method their controls are excluded from the report but disclosed (relying on their own SOC report); under the inclusive method they are tested within the engagement. Complementary subservice organization controls (CSOCs) state what the service organization must do. An auditor cares because vendor dependencies define where the opinion's assurance stops, and unreviewed subservice SOC reports are a common gap.",
+  "frameworks": [
+   "SOC 2"
+  ],
+  "category": "CONCEPT"
+ },
+ {
+  "term": "Type I vs Type II Report",
+  "fullName": "SOC Report Types (Type I / Type II)",
+  "definition": "A Type I SOC report opines on whether controls were suitably designed (and the description fairly presented) at a point in time; a Type II additionally opines on operating effectiveness over a defined period, usually 6\u201312 months, via sample testing. Type II is what sophisticated customers demand because it proves controls ran, not just existed. Evidence must cover the entire period \u2014 controls switched on mid-period create gaps. An auditor cares because the type, period coverage and any exceptions determine how much reliance report users can actually place on it.",
+  "frameworks": [
+   "SOC 2"
+  ],
+  "category": "CONCEPT"
+ },
+ {
+  "term": "Least Privilege",
+  "fullName": "Principle of Least Privilege",
+  "definition": "Least privilege means users, services and processes receive only the minimum access needed for their function \u2014 nothing more, and only for as long as needed. It limits blast radius when credentials are compromised and reduces insider risk. It is implemented through role design, just-in-time elevation and regular access reviews. An auditor cares because access reviews, privilege inventories and permission evidence against job roles are how least privilege is tested across SOC 2 (CC6.3), PCI (Req 7) and ISO 27001.",
+  "frameworks": [
+   "SOC 2",
+   "PCI DSS",
+   "ISO 27001",
+   "NIST 800-53"
+  ],
+  "category": "CONCEPT"
+ },
+ {
+  "term": "Change Management",
+  "fullName": "Change Management / Change Enablement",
+  "definition": "Change management is the controlled process by which modifications to systems are requested, risk-assessed, tested, approved, implemented and reviewed, with emergency changes handled through expedited but still documented paths. It protects production stability and integrity, and enforces segregation between those who build and those who approve. Its records are among the most sampled evidence in any audit. An auditor cares because unauthorized or undocumented changes (SOC 2 CC8.1, PCI Req 6.5, COBIT BAI06) are a perennial top finding.",
+  "frameworks": [
+   "SOC 2",
+   "PCI DSS",
+   "ISO 27001",
+   "COBIT",
+   "ITIL"
+  ],
+  "category": "CONCEPT"
+ },
+ {
+  "term": "Qualified Opinion",
+  "fullName": "Qualified Opinion (attestation)",
+  "definition": "A qualified opinion is the service auditor's conclusion that controls were suitably designed and operating effectively except for specific, described matters \u2014 material exceptions that prevent a clean (unqualified) opinion but are not pervasive enough to be adverse. It sits between unqualified, adverse and disclaimer outcomes. Customers read qualifications closely to judge whether the exception matters to them. An auditor cares because the exceptions, their pervasiveness and management's responses in a qualified report are exactly where assurance judgment shows.",
+  "frameworks": [
+   "SOC 2"
+  ],
+  "category": "CONCEPT"
+ },
+ {
+  "term": "Bridge Letter",
+  "fullName": "Bridge Letter (Gap Letter)",
+  "definition": "A bridge letter is a service organization's own signed assertion covering the gap between the end of its SOC report period and a customer's need date, attesting that no material changes to controls occurred. It is management's representation, not an auditor product, and typically covers only a few months. Customers rely on it to extend report usefulness between audit periods. An auditor cares because bridge letters shift assurance onto management's word \u2014 auditors and vendor-risk teams should verify the underlying control continuity they claim.",
+  "frameworks": [
+   "SOC 2"
+  ],
+  "category": "CONCEPT"
+ }
 ]
