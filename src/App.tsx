@@ -7,6 +7,8 @@ import Interviews from '@/pages/Interviews'
 import Findings from '@/pages/Findings'
 import Reports from '@/pages/Reports'
 import Glossary from '@/pages/Glossary'
+import Login from "./pages/Login"
+import NotFound from "./pages/NotFound"
 
 export default function App() {
   return (
@@ -20,6 +22,8 @@ export default function App() {
         <Route path="reports" element={<Reports />} />
         <Route path="glossary" element={<Glossary />} />
       </Route>
+      <Route path="/login" element={<Login />} />
+      <Route path="*" element={<NotFound />} />
     </Routes>
   )
 }
