@@ -1,0 +1,16 @@
+<svg width="320" height="240" viewBox="0 0 320 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <g stroke="#5F6C76" stroke-width="1.5" stroke-linecap="square" fill="none">
+    <!-- three horizontal text lines -->
+    <line x1="60" y1="80" x2="220" y2="80"/>
+    <line x1="60" y1="136" x2="190" y2="136"/>
+    <!-- magnifying glass -->
+    <circle cx="212" cy="120" r="42"/>
+    <line x1="242" y1="150" x2="272" y2="180"/>
+  </g>
+  <!-- single amber accent line (middle text line) -->
+  <line x1="60" y1="108" x2="260" y2="108" stroke="#FBBF24" stroke-width="1.5" stroke-linecap="square"/>
+  <!-- small tick -->
+  <g stroke="#5F6C76" stroke-width="1.5" opacity="0.5">
+    <path d="M48 170 H58 M53 165 V175"/>
+  </g>
+</svg>
