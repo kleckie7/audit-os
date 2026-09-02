@@ -4,6 +4,17 @@ A cinematic, fully interactive web app for running professional GRC audits end-t
 
 **532 real audit questions · 9 frameworks · 121-term hover glossary · interview scripts per stakeholder role · PDF/CSV/JSON report export**
 
+## Screenshots
+
+### Risk Command Centre Dashboard
+![AuditOS dashboard — cinematic AEGIS-style command centre with posture gauge and framework grid](docs/screenshots/dashboard.png)
+
+### Guided Audit Workflow
+![Guided audit — question-by-question walkthrough with evidence checklist, role chips and keyboard-first answer dock](docs/screenshots/guided-audit.png)
+
+### Field Guide — Interactive Engagement Playbook
+![Field Guide — 7-chapter interactive playbook with scroll-spy chapters and document request checklist](docs/screenshots/field-guide.png)
+
 ## Frameworks Covered
 
 | Framework | Questions | Coverage |
