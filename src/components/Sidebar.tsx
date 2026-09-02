@@ -54,7 +54,7 @@ export default function Sidebar({
         clsx(
           'group relative flex items-center gap-2.5 rounded-md px-2.5 py-2 text-[13px] transition-colors duration-[120ms]',
           isActive
-            ? 'bg-accent-dim font-medium text-[var(--accent)]'
+            ? 'bg-accent-dim font-medium text-[var(--accent)] shadow-[inset_0_0_0_1px_rgba(200,243,29,0.18),0_0_16px_-6px_rgba(200,243,29,0.4)]'
             : 'text-text-secondary hover:bg-bg-raised hover:text-text-primary',
         )
       }

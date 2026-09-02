@@ -980,7 +980,7 @@ function WorkflowShell({ framework }: { framework: Framework }) {
                   answer?.status
                     ? 'bg-[var(--accent)] text-[#06251B] hover:bg-[var(--accent-strong)]'
                     : 'cursor-not-allowed border border-border text-text-muted',
-                  savedPulse && 'shadow-[0_0_0_1px_var(--accent),0_0_16px_rgba(52,211,153,0.35)]',
+                  savedPulse && 'shadow-[0_0_0_1px_var(--accent),0_0_16px_rgba(200,243,29,0.35)]',
                 )}
               >
                 {savedPulse ? (
@@ -1252,8 +1252,8 @@ function WorkflowShell({ framework }: { framework: Framework }) {
                     <motion.span
                       aria-hidden
                       className="absolute inset-0 m-auto size-24 rounded-full"
-                      initial={{ boxShadow: '0 0 0 0 rgba(52,211,153,0.45)' }}
-                      animate={{ boxShadow: '0 0 0 20px rgba(52,211,153,0)' }}
+                      initial={{ boxShadow: '0 0 0 0 rgba(200,243,29,0.45)' }}
+                      animate={{ boxShadow: '0 0 0 20px rgba(200,243,29,0)' }}
                       transition={{ duration: 1, ease: 'easeOut' }}
                     />
                   )}

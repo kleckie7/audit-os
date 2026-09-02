@@ -4,20 +4,22 @@
 
 @layer base {
   :root {
-    /* AuditOS design tokens */
-    --bg-base: #0A0D10;
-    --bg-surface: #10151A;
-    --bg-raised: #161C22;
-    --bg-overlay: #1C242C;
-    --border: #222B33;
-    --border-strong: #2E3942;
-    --text-primary: #E9EEF2;
-    --text-secondary: #9BA7B1;
-    --text-muted: #5F6C76;
-    --accent: #34D399;
-    --accent-strong: #10B981;
-    --accent-dim: rgba(52, 211, 153, 0.12);
-    --status-compliant: #34D399;
+    /* AuditOS design tokens — AEGIS ONE palette (deep navy-teal + luminous lime) */
+    --bg-base: #061316;
+    --bg-surface: #0A1B20;
+    --bg-raised: #10262C;
+    --bg-overlay: #143037;
+    --border: #1B3A42;
+    --border-strong: #245058;
+    --text-primary: #EDF4F1;
+    --text-secondary: #93ABA8;
+    --text-muted: #5E7A78;
+    --accent: #C8F31D;
+    --accent-strong: #A8D615;
+    --accent-dim: rgba(200, 243, 29, 0.12);
+    --accent-glow: rgba(200, 243, 29, 0.35);
+    --teal-series: #5BA8A0;
+    --status-compliant: #C8F31D;
     --status-partial: #FBBF24;
     --status-noncompliant: #F87171;
     --status-na: #64748B;
@@ -26,36 +28,40 @@
     --severity-high: #F97316;
     --severity-medium: #FBBF24;
     --severity-low: #64748B;
+    /* Editorial contrast band (Aegis metadata strips) */
+    --cream: #F5F2EC;
+    --cream-ink: #14211F;
+    --cream-muted: #6B7370;
 
     /* shadcn hsl bridge (dark workstation theme) */
-    --background: 210 18% 5%;
-    --foreground: 204 20% 93%;
-    --card: 207 21% 8%;
-    --card-foreground: 204 20% 93%;
-    --popover: 206 21% 14%;
-    --popover-foreground: 204 20% 93%;
-    --primary: 158 64% 52%;
-    --primary-foreground: 210 18% 5%;
-    --secondary: 207 20% 11%;
-    --secondary-foreground: 204 20% 93%;
-    --muted: 207 20% 11%;
-    --muted-foreground: 205 10% 42%;
-    --accent-hsl: 158 64% 52%;
-    --accent-foreground: 210 18% 5%;
+    --background: 191 57% 5%;
+    --foreground: 154 24% 94%;
+    --card: 194 52% 8%;
+    --card-foreground: 154 24% 94%;
+    --popover: 193 47% 12%;
+    --popover-foreground: 154 24% 94%;
+    --primary: 72 90% 53%;
+    --primary-foreground: 191 57% 5%;
+    --secondary: 193 47% 12%;
+    --secondary-foreground: 154 24% 94%;
+    --muted: 193 47% 12%;
+    --muted-foreground: 176 13% 42%;
+    --accent-hsl: 72 90% 53%;
+    --accent-foreground: 191 57% 5%;
     --destructive: 0 84% 66%;
-    --destructive-foreground: 204 20% 93%;
-    --border-hsl: 205 20% 17%;
-    --input: 205 20% 17%;
-    --ring: 158 64% 52%;
+    --destructive-foreground: 154 24% 94%;
+    --border-hsl: 192 42% 18%;
+    --input: 192 42% 18%;
+    --ring: 72 90% 53%;
     --radius: 0.5rem;
-    --sidebar-background: 207 21% 8%;
-    --sidebar-foreground: 206 13% 65%;
-    --sidebar-primary: 158 64% 52%;
-    --sidebar-primary-foreground: 210 18% 5%;
-    --sidebar-accent: 207 20% 11%;
-    --sidebar-accent-foreground: 204 20% 93%;
-    --sidebar-border: 205 20% 17%;
-    --sidebar-ring: 158 64% 52%;
+    --sidebar-background: 194 52% 8%;
+    --sidebar-foreground: 173 12% 62%;
+    --sidebar-primary: 72 90% 53%;
+    --sidebar-primary-foreground: 191 57% 5%;
+    --sidebar-accent: 193 47% 12%;
+    --sidebar-accent-foreground: 154 24% 94%;
+    --sidebar-border: 192 42% 18%;
+    --sidebar-ring: 72 90% 53%;
   }
 }
 
@@ -75,10 +81,10 @@
     -webkit-font-smoothing: antialiased;
   }
   ::selection {
-    background: rgba(52, 211, 153, 0.25);
+    background: rgba(200, 243, 29, 0.25);
   }
   :focus-visible {
-    outline: 2px solid rgba(52, 211, 153, 0.4);
+    outline: 2px solid rgba(200, 243, 29, 0.45);
     outline-offset: 2px;
   }
   /* Slim custom scrollbars for nested panels */
@@ -137,5 +143,40 @@
   @keyframes shimmer {
     0% { background-position: 200% 0; }
     100% { background-position: -200% 0; }
+  }
+
+  /* AEGIS ONE — cinematic dashboard helpers */
+  .glow-lime {
+    box-shadow: 0 0 24px rgba(200, 243, 29, 0.14), 0 0 64px rgba(200, 243, 29, 0.06);
+  }
+  .text-glow-lime {
+    text-shadow: 0 0 24px rgba(200, 243, 29, 0.4);
+  }
+  .hero-radial {
+    background:
+      radial-gradient(52% 60% at 72% 18%, rgba(200, 243, 29, 0.1), transparent 70%),
+      radial-gradient(40% 50% at 18% 85%, rgba(91, 168, 160, 0.08), transparent 70%);
+  }
+  .marquee-track {
+    animation: marquee 46s linear infinite;
+    will-change: transform;
+  }
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+  .drift-slow {
+    animation: drift 36s ease-in-out infinite alternate;
+    will-change: transform;
+  }
+  @keyframes drift {
+    from { transform: translate3d(0, 0, 0) scale(1.02); }
+    to { transform: translate3d(-2.5%, -3%, 0) scale(1.06); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .marquee-track,
+    .drift-slow {
+      animation: none;
+    }
   }
 }

@@ -1,5 +1,5 @@
 <svg width="480" height="360" viewBox="0 0 480 360" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <g stroke="#5F6C76" stroke-width="1.5" stroke-linecap="square" fill="none">
+  <g stroke="#5E7A78" stroke-width="1.5" stroke-linecap="square" fill="none">
     <!-- clipboard body -->
     <rect x="160" y="70" width="160" height="220" rx="6"/>
     <!-- clip at top -->
@@ -13,9 +13,9 @@
     <path d="M196 198 L222 226 L288 176"/>
   </g>
   <!-- single emerald accent line -->
-  <line x1="184" y1="112" x2="296" y2="112" stroke="#34D399" stroke-width="1.5" stroke-linecap="square"/>
+  <line x1="184" y1="112" x2="296" y2="112" stroke="#C8F31D" stroke-width="1.5" stroke-linecap="square"/>
   <!-- calibration corner ticks -->
-  <g stroke="#5F6C76" stroke-width="1.5" opacity="0.5">
+  <g stroke="#5E7A78" stroke-width="1.5" opacity="0.5">
     <path d="M150 60 H162 M156 54 V66"/>
     <path d="M318 300 H330 M324 294 V306"/>
   </g>

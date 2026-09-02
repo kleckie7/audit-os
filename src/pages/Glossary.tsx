@@ -14,17 +14,17 @@ import './glossary.css'
 // ---------------------------------------------------------------------------
 
 const CATEGORY_TINTS: Record<string, string> = {
-  FRAMEWORK: '#34D399',
+  FRAMEWORK: '#C8F31D',
   STANDARD: '#D4A937',
   REGULATION: '#F87171',
   ROLE: '#FBBF24',
   TECHNOLOGY: '#2DD4BF',
   METRIC: '#64748B',
-  CONCEPT: '#9BA7B1',
+  CONCEPT: '#93ABA8',
 }
 
 function tintFor(category: string): string {
-  return CATEGORY_TINTS[category] ?? '#9BA7B1'
+  return CATEGORY_TINTS[category] ?? '#93ABA8'
 }
 
 function termAnchor(term: string): string {

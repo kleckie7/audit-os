@@ -517,7 +517,7 @@ function FrameworkCard({
             className={clsx(
               'rounded-md px-3 py-2 text-center text-[13px] font-medium transition-all duration-[120ms] active:scale-[0.97]',
               pct > 0
-                ? 'bg-[var(--accent)] text-[#0A0D10] hover:bg-[var(--accent-strong)]'
+                ? 'bg-[var(--accent)] text-[#061316] hover:bg-[var(--accent-strong)]'
                 : 'border border-[var(--accent)] text-[var(--accent)] hover:bg-accent-dim',
             )}
           >
@@ -971,7 +971,7 @@ export default function Frameworks() {
       {/* sticky toolbar */}
       <div className="sticky top-0 z-30 -mx-6 mt-6 border-y border-border bg-bg-base/90 px-6 py-3 backdrop-blur-[8px] [@media(min-width:1600px)]:-mx-8 [@media(min-width:1600px)]:px-8">
         <div className="flex flex-wrap items-center gap-3">
-          <div className="flex w-72 items-center gap-2 rounded-md border border-border bg-bg-base px-3 py-1.5 transition-all duration-[120ms] focus-within:border-[var(--accent)] focus-within:shadow-[0_0_0_2px_rgba(52,211,153,0.4)]">
+          <div className="flex w-72 items-center gap-2 rounded-md border border-border bg-bg-base px-3 py-1.5 transition-all duration-[120ms] focus-within:border-[var(--accent)] focus-within:shadow-[0_0_0_2px_rgba(200,243,29,0.4)]">
             <Search className="size-3.5 shrink-0 text-text-muted" />
             <input
               value={query}

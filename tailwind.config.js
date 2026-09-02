@@ -25,6 +25,10 @@ module.exports = {
         'severity-high': 'var(--severity-high)',
         'severity-medium': 'var(--severity-medium)',
         'severity-low': 'var(--severity-low)',
+        'teal-series': 'var(--teal-series)',
+        cream: 'var(--cream)',
+        'cream-ink': 'var(--cream-ink)',
+        'cream-muted': 'var(--cream-muted)',
         // shadcn bridge
         border: 'var(--border)',
         input: 'hsl(var(--input))',
@@ -85,6 +89,8 @@ module.exports = {
       boxShadow: {
         xs: '0 1px 2px 0 rgb(0 0 0 / 0.05)',
         popover: '0 12px 32px rgba(0,0,0,0.5)',
+        'glow-lime': '0 0 24px rgba(200,243,29,0.14), 0 0 64px rgba(200,243,29,0.06)',
+        'glow-lime-sm': '0 0 12px rgba(200,243,29,0.22)',
       },
       transitionTimingFunction: {
         'out-expo': 'cubic-bezier(0.22, 1, 0.36, 1)',

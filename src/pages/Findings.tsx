@@ -291,7 +291,7 @@ function FrameworkScoresPanel({ rows }: { rows: ScoreRow[] }) {
               style={{
                 color: r.delta >= 0 ? 'var(--accent)' : 'var(--status-noncompliant)',
                 backgroundColor:
-                  r.delta >= 0 ? 'rgba(52,211,153,0.12)' : 'rgba(248,113,113,0.12)',
+                  r.delta >= 0 ? 'rgba(200,243,29,0.12)' : 'rgba(248,113,113,0.12)',
               }}
             >
               {r.delta >= 0 ? `+${r.delta}%` : `${r.delta}%`}
@@ -569,7 +569,7 @@ function Register({
           checked={rows.length > 0 && rows.every((r) => selected.has(r.f.id))}
           onChange={onToggleAll}
           aria-label="Select all"
-          className="size-3.5 accent-[#34D399]"
+          className="size-3.5 accent-[#C8F31D]"
         />
         <SortHeader label="ID" k="id" sortKey={sortKey} dir={dir} onSort={onSort} />
         <SortHeader label="Finding" sortKey={sortKey} dir={dir} onSort={onSort} />
@@ -601,7 +601,7 @@ function Register({
                 onChange={() => onToggleSelect(r.f.id)}
                 onClick={(e) => e.stopPropagation()}
                 aria-label={`Select ${r.f.id}`}
-                className="size-3.5 accent-[#34D399]"
+                className="size-3.5 accent-[#C8F31D]"
               />
               <span className="font-mono text-[12px] tabular text-text-primary transition-colors duration-[120ms] hover:text-[var(--accent)]">
                 {r.f.id}
@@ -913,7 +913,7 @@ function FindingDrawer({
                   type="checkbox"
                   checked={rem.inReport}
                   onChange={(e) => onPatch({ inReport: e.target.checked })}
-                  className="size-3.5 accent-[#34D399]"
+                  className="size-3.5 accent-[#C8F31D]"
                 />
                 <span className="text-[12px] text-text-secondary">Include in report</span>
               </label>
@@ -1179,7 +1179,7 @@ function AgingTrends({ rows, nowIso }: { rows: RegRow[]; nowIso: string }) {
               <YAxis allowDecimals={false} tick={axisTick} axisLine={false} tickLine={false} width={28} />
               <Tooltip content={<ChartTooltip />} cursor={{ stroke: 'rgba(34,43,51,0.8)' }} />
               <Line type="monotone" dataKey="opened" name="Opened" stroke="#F87171" strokeWidth={2} dot={false} isAnimationActive animationDuration={900} />
-              <Line type="monotone" dataKey="closed" name="Closed" stroke="#34D399" strokeWidth={2} dot={false} isAnimationActive animationDuration={900} />
+              <Line type="monotone" dataKey="closed" name="Closed" stroke="#C8F31D" strokeWidth={2} dot={false} isAnimationActive animationDuration={900} />
             </LineChart>
           </ResponsiveContainer>
         </div>
@@ -1571,7 +1571,7 @@ export default function Findings() {
                             type="checkbox"
                             checked={fwSel.has(fw.id)}
                             onChange={() => setFwSel(toggleSet(fwSel, fw.id))}
-                            className="size-3.5 accent-[#34D399]"
+                            className="size-3.5 accent-[#C8F31D]"
                           />
                           {fw.shortName}
                         </label>

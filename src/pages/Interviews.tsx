@@ -470,7 +470,7 @@ function ScriptDrawer({
                             type="checkbox"
                             checked={!off}
                             onChange={() => onToggleExclude(s.question.id)}
-                            className="mt-0.5 size-3.5 shrink-0 accent-[#34D399]"
+                            className="mt-0.5 size-3.5 shrink-0 accent-[#C8F31D]"
                           />
                           <span className="min-w-0">
                             <span className="font-mono text-[11px] tabular tracking-[0.02em] text-text-muted">

@@ -1762,7 +1762,7 @@ export default function Reports() {
             <button
               type="button"
               onClick={() => setMenuOpen((o) => !o)}
-              className="flex items-center gap-2 rounded-md bg-[var(--accent)] px-4 py-2 text-[13px] font-semibold text-[#0A0D10] transition-colors duration-[120ms] hover:bg-[var(--accent-strong)] active:scale-[0.97]"
+              className="flex items-center gap-2 rounded-md bg-[var(--accent)] px-4 py-2 text-[13px] font-semibold text-[#061316] transition-colors duration-[120ms] hover:bg-[var(--accent-strong)] active:scale-[0.97]"
             >
               <FileDown className="size-4" />
               Export
@@ -2029,7 +2029,7 @@ export default function Reports() {
                   className="group flex w-16 flex-col items-center gap-1"
                   title={`Page ${i + 1} — ${s.label}`}
                 >
-                  <span className="flex aspect-[210/297] w-14 items-center justify-center rounded-[2px] border border-border-strong bg-[#161C22] font-mono text-[10px] text-text-muted shadow-[0_4px_12px_rgba(0,0,0,0.4)] transition-colors duration-[140ms] group-hover:border-[var(--accent)] group-hover:text-text-primary">
+                  <span className="flex aspect-[210/297] w-14 items-center justify-center rounded-[2px] border border-border-strong bg-[#10262C] font-mono text-[10px] text-text-muted shadow-[0_4px_12px_rgba(0,0,0,0.4)] transition-colors duration-[140ms] group-hover:border-[var(--accent)] group-hover:text-text-primary">
                     {i + 1}
                   </span>
                   <span className="w-full truncate text-center font-mono text-[8px] tracking-[0.06em] text-text-muted">

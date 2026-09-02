@@ -98,7 +98,7 @@ export default function EvidenceChecklist({
                     exit={{ scale: 0.4, opacity: 0 }}
                     transition={{ duration: 0.16, ease: 'easeOut' }}
                   >
-                    <Check className="size-3 text-[#06251B]" strokeWidth={3} />
+                    <Check className="size-3 text-[#061316]" strokeWidth={3} />
                   </motion.span>
                 )}
               </AnimatePresence>
