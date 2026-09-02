@@ -1,0 +1,47 @@
+/* Glossary page — TermTip attention cue + demo strip niceties. */
+
+@keyframes termtip-cue {
+  0%,
+  100% {
+    text-decoration-style: dotted;
+    text-decoration-color: var(--text-secondary);
+    color: inherit;
+  }
+  50% {
+    text-decoration-style: solid;
+    text-decoration-color: var(--accent);
+    color: var(--accent);
+  }
+}
+
+/* One-time teaching pulse: underline flickers dotted → solid twice. */
+.term-cue {
+  animation: termtip-cue 600ms ease-in-out 2;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .term-cue {
+    animation: none;
+  }
+}
+
+/* Deep-link / see-also flash: accent inner ring fades out. */
+@keyframes termcard-flash {
+  0% {
+    box-shadow: inset 0 0 0 2px var(--accent);
+  }
+  100% {
+    box-shadow: inset 0 0 0 2px transparent;
+  }
+}
+
+.termcard-flash {
+  animation: termcard-flash 1200ms ease-out 2;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .termcard-flash {
+    animation-duration: 1ms;
+    animation-iteration-count: 1;
+  }
+}
